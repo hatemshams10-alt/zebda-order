@@ -78,7 +78,7 @@
           Admin Sign-In
         </h1>
         <p class="text-xs text-[#1E1916]/75 mt-1">
-          Enter your admin passcode to view synced orders, generated receipts, customer flavor ideas, and issue logs.
+          Enter your admin passcode to view synced orders, generated receipts, uploaded screenshots, flavor ideas, and issue logs.
         </p>
       </div>
 
@@ -114,7 +114,7 @@
     <div class="flex flex-wrap items-end justify-between gap-4 bg-[#EFE9DA] border border-[#1E1916]/15 rounded-2xl p-6">
       <div>
         <span class="text-xs uppercase tracking-[0.2em] text-[#1E4620] font-bold block">
-          Synced From Customer Menu • Local Browser Log
+          Synced From Customer Menu • Local Browser Log + n8n Audit
         </span>
         <h1 class="font-serif text-3xl sm:text-4xl font-bold text-[#1E1916]">
           Orders, Receipts &amp; Flavor Ideas
@@ -127,6 +127,13 @@
           class="px-3.5 py-2 rounded-xl bg-[#1E4620] text-[#F7F3EA] text-xs font-bold cursor-pointer"
         >
           Refresh Log
+        </button>
+        <button
+          type="button"
+          onclick="triggerN8nAudit(false)"
+          class="px-3.5 py-2 rounded-xl bg-[#C59B43] text-[#1E1916] text-xs font-bold cursor-pointer"
+        >
+          Send to n8n Audit
         </button>
         <button
           type="button"
@@ -154,15 +161,15 @@
       </div>
     </div>
 
-    <!-- Item Sales & Stock Tally (جرد الأصناف) -->
+    <!-- Item Sales Tally & Out-of-Stock Toggle (جرد الأصناف وحالة التوفر) -->
     <section class="bg-[#EFE9DA] border-2 border-[#C59B43]/70 rounded-2xl p-6 space-y-4">
       <div class="flex flex-wrap items-center justify-between gap-3 border-b border-[#1E1916]/12 pb-3">
         <div>
           <span class="text-[11px] uppercase tracking-widest font-bold text-[#7A1C1C] block arabic-text">
-            جرد الأصناف والمبيعات • Item Tally
+            جرد الأصناف والتحكم في التوفر • Item Tally &amp; Stock Toggle
           </span>
           <h2 class="font-serif text-2xl sm:text-3xl font-bold text-[#1E1916]">
-            Units Sold Per Flavor &amp; Bundle
+            Units Sold &amp; Stock Availability
           </h2>
         </div>
 
@@ -187,10 +194,71 @@
       </div>
     </section>
 
+    <!-- n8n Audit & Review Connector (مراجعة البيانات عبر n8n) -->
+    <section class="bg-[#1E1916] text-[#F7F3EA] border-2 border-[#C59B43] rounded-2xl p-6 space-y-4">
+      <div class="flex flex-wrap items-center justify-between gap-3 border-b border-[#C59B43]/30 pb-3">
+        <div>
+          <span class="text-[11px] uppercase tracking-widest font-bold text-[#E8C97B] block arabic-text">
+            ربط n8n للمراجعة • n8n Audit &amp; Verification Sync
+          </span>
+          <h2 class="font-serif text-2xl sm:text-3xl font-bold text-[#F7F3EA]">
+            n8n Reviewer Webhook
+          </h2>
+        </div>
+        <button
+          type="button"
+          onclick="triggerN8nAudit(false)"
+          class="px-4 py-2 rounded-xl bg-[#C59B43] text-[#1E1916] text-xs font-bold hover:brightness-105 cursor-pointer"
+        >
+          Run n8n Review Now
+        </button>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
+        <div class="md:col-span-2">
+          <label for="n8n-webhook-url" class="block font-bold text-[#E8C97B] mb-1">
+            n8n Webhook URL
+          </label>
+          <input
+            id="n8n-webhook-url"
+            type="url"
+            oninput="saveN8nConfig()"
+            placeholder="https://your-n8n-instance/webhook/zebda-audit"
+            class="w-full rounded-xl bg-[#262523] border border-[#C59B43]/40 px-3.5 py-2.5 text-[#F7F3EA] placeholder:text-[#F7F3EA]/40"
+          />
+        </div>
+        <div>
+          <label for="n8n-secret-token" class="block font-bold text-[#E8C97B] mb-1">
+            Optional X-Audit-Key Header
+          </label>
+          <input
+            id="n8n-secret-token"
+            type="text"
+            oninput="saveN8nConfig()"
+            placeholder="Optional token..."
+            class="w-full rounded-xl bg-[#262523] border border-[#C59B43]/40 px-3.5 py-2.5 text-[#F7F3EA] placeholder:text-[#F7F3EA]/40"
+          />
+        </div>
+      </div>
+
+      <div class="flex flex-wrap items-center justify-between gap-3 text-xs">
+        <label class="inline-flex items-center gap-2 font-semibold text-[#F7F3EA]/90 cursor-pointer">
+          <input id="n8n-auto-sync" type="checkbox" onchange="saveN8nConfig()" />
+          <span>Auto-send snapshot to n8n when refreshing logs</span>
+        </label>
+        <span id="n8n-status-text" class="font-bold text-[#E8C97B]">Ready</span>
+      </div>
+
+      <div id="n8n-audit-result" class="rounded-xl bg-[#262523] border border-[#C59B43]/35 p-4 text-xs text-[#F7F3EA]/90 space-y-1">
+        <span class="font-bold text-[#E8C97B] block">Last n8n Audit Response:</span>
+        <p id="n8n-audit-body" class="text-[#F7F3EA]/75">No n8n audit run yet.</p>
+      </div>
+    </section>
+
     <!-- Orders & Receipts -->
     <section class="space-y-4">
       <h2 class="font-serif text-2xl sm:text-3xl font-bold text-[#1E1916]">
-        Orders &amp; Receipts
+        Orders, Receipts &amp; Uploaded Screenshots
       </h2>
       <div id="orders-container" class="space-y-4"></div>
     </section>
@@ -233,14 +301,141 @@
           orders: Array.isArray(parsed.orders) ? parsed.orders : [],
           flavorIdeas: Array.isArray(parsed.flavorIdeas) ? parsed.flavorIdeas : [],
           issues: Array.isArray(parsed.issues) ? parsed.issues : [],
+          outOfStock:
+            parsed.outOfStock && typeof parsed.outOfStock === 'object'
+              ? parsed.outOfStock
+              : {},
+          n8nConfig:
+            parsed.n8nConfig && typeof parsed.n8nConfig === 'object'
+              ? parsed.n8nConfig
+              : {},
+          n8nLastAudit: parsed.n8nLastAudit || null,
         };
       } catch (e) {
-        return { orders: [], flavorIdeas: [], issues: [] };
+        return {
+          orders: [],
+          flavorIdeas: [],
+          issues: [],
+          outOfStock: {},
+          n8nConfig: {},
+          n8nLastAudit: null,
+        };
       }
     }
 
     function writeStore(data) {
       localStorage.setItem(ADMIN_STORE_KEY, JSON.stringify(data));
+    }
+
+    function loadN8nUi() {
+      const store = readStore();
+      const cfg = store.n8nConfig || {};
+      const urlEl = document.getElementById('n8n-webhook-url');
+      const tokEl = document.getElementById('n8n-secret-token');
+      const autoEl = document.getElementById('n8n-auto-sync');
+      const bodyEl = document.getElementById('n8n-audit-body');
+      if (urlEl) urlEl.value = cfg.url || '';
+      if (tokEl) tokEl.value = cfg.token || '';
+      if (autoEl) autoEl.checked = Boolean(cfg.autoSync);
+      if (bodyEl && store.n8nLastAudit) {
+        bodyEl.textContent =
+          '[' +
+          (store.n8nLastAudit.checkedAt || '') +
+          '] ' +
+          (store.n8nLastAudit.summary || '');
+      }
+    }
+
+    function saveN8nConfig() {
+      const store = readStore();
+      store.n8nConfig = {
+        url: (document.getElementById('n8n-webhook-url')?.value || '').trim(),
+        token: (document.getElementById('n8n-secret-token')?.value || '').trim(),
+        autoSync: Boolean(document.getElementById('n8n-auto-sync')?.checked),
+      };
+      writeStore(store);
+    }
+
+    async function triggerN8nAudit(silent) {
+      saveN8nConfig();
+      const store = readStore();
+      const url = store.n8nConfig?.url || '';
+      const token = store.n8nConfig?.token || '';
+      const statusEl = document.getElementById('n8n-status-text');
+      const bodyEl = document.getElementById('n8n-audit-body');
+
+      if (!url) {
+        if (statusEl) statusEl.textContent = 'Enter your n8n Webhook URL first';
+        return;
+      }
+
+      if (statusEl) statusEl.textContent = 'Sending snapshot to n8n...';
+
+      const payload = {
+        source: 'zebda-and-co-admin',
+        auditedAt: new Date().toISOString(),
+        summary: {
+          ordersCount: store.orders.length,
+          ideasCount: store.flavorIdeas.length,
+          issuesCount: store.issues.length,
+          outOfStock: store.outOfStock || {},
+        },
+        orders: store.orders.map((o) => ({
+          orderRef: o.orderRef,
+          customerName: o.customerName,
+          city: o.city,
+          grandTotal: o.grandTotal,
+          status: o.status,
+          hasScreenshot: Boolean(o.paymentScreenshotDataUrl),
+          freeSampleUnlocked: Boolean(o.freeSampleUnlocked),
+          selectedFreeSample: o.selectedFreeSample || '',
+        })),
+        issues: store.issues,
+      };
+
+      try {
+        const headers = { 'Content-Type': 'application/json' };
+        if (token) headers['X-Audit-Key'] = token;
+
+        const res = await fetch(url, {
+          method: 'POST',
+          headers,
+          body: JSON.stringify(payload),
+        });
+
+        let responseSummary = 'HTTP ' + res.status + ' — Sent ' + store.orders.length + ' orders to n8n.';
+        try {
+          const text = await res.text();
+          if (text) {
+            responseSummary = responseSummary + ' Response: ' + text.slice(0, 240);
+          }
+        } catch (e) {}
+
+        const updated = readStore();
+        updated.n8nLastAudit = {
+          checkedAt: new Date().toLocaleString(),
+          summary: responseSummary,
+        };
+        writeStore(updated);
+
+        if (statusEl) statusEl.textContent = 'Synced with n8n (' + new Date().toLocaleTimeString() + ')';
+        if (bodyEl) bodyEl.textContent = responseSummary;
+      } catch (err) {
+        if (!silent && statusEl) {
+          statusEl.textContent = 'n8n request failed (check URL / CORS / n8n Webhook active state)';
+        }
+        if (!silent && bodyEl) {
+          bodyEl.textContent = String(err && err.message ? err.message : err);
+        }
+      }
+    }
+
+    function toggleOutOfStock(itemKey) {
+      const store = readStore();
+      store.outOfStock = store.outOfStock || {};
+      store.outOfStock[itemKey] = !Boolean(store.outOfStock[itemKey]);
+      writeStore(store);
+      renderItemSalesTally();
     }
 
     function unlockAdmin() {
@@ -267,6 +462,7 @@
       document.getElementById('auth-gate').classList.add('hidden');
       document.getElementById('admin-dashboard').classList.remove('hidden');
       document.getElementById('lock-btn').classList.remove('hidden');
+      loadN8nUi();
       renderAllAdminSections();
     }
 
@@ -290,8 +486,26 @@
       link.click();
     }
 
+    function downloadSavedScreenshot(orderRef) {
+      const store = readStore();
+      const target = store.orders.find((o) => o.orderRef === orderRef);
+      if (!target || !target.paymentScreenshotDataUrl) return;
+      const link = document.createElement('a');
+      link.download = 'zebda-instapay-screenshot-' + orderRef + '.png';
+      link.href = target.paymentScreenshotDataUrl;
+      link.click();
+    }
+
     function clearAllAdminData() {
-      localStorage.removeItem(ADMIN_STORE_KEY);
+      const current = readStore();
+      writeStore({
+        orders: [],
+        flavorIdeas: [],
+        issues: [],
+        outOfStock: current.outOfStock || {},
+        n8nConfig: current.n8nConfig || {},
+        n8nLastAudit: current.n8nLastAudit || null,
+      });
       renderAllAdminSections();
     }
 
@@ -325,6 +539,7 @@
       const store = readStore();
       const scopeEl = document.getElementById('tally-scope-select');
       const scope = scopeEl ? scopeEl.value : 'all';
+      const oosMap = store.outOfStock || {};
 
       const filteredOrders =
         scope === 'active'
@@ -348,16 +563,29 @@
       gridEl.innerHTML = TALLY_ITEMS.map((item) => {
         const qty = totals[item.key] || 0;
         const revenue = qty * item.price;
+        const isOos = Boolean(oosMap[item.key]);
         return (
-          '<div class="bg-[#F7F3EA] border border-[#1E1916]/15 rounded-xl p-4 flex flex-col justify-between gap-2">' +
+          '<div class="bg-[#F7F3EA] border ' +
+          (isOos ? 'border-[#7A1C1C]' : 'border-[#1E1916]/15') +
+          ' rounded-xl p-4 flex flex-col justify-between gap-3">' +
           '<div>' +
-          '<span class="arabic-text text-xs font-bold text-[#7A1C1C] block">' +
+          '<div class="flex items-center justify-between gap-1">' +
+          '<span class="arabic-text text-xs font-bold text-[#7A1C1C]">' +
           escapeHtml(item.ar) +
           '</span>' +
-          '<h3 class="font-serif text-lg font-bold text-[#1E1916] leading-snug mt-0.5">' +
+          '<span class="px-2 py-0.5 rounded-full text-[10px] font-bold ' +
+          (isOos
+            ? 'bg-[#7A1C1C] text-[#F7F3EA]'
+            : 'bg-[#1E4620]/15 text-[#1E4620]') +
+          '">' +
+          (isOos ? 'OUT OF STOCK' : 'IN STOCK') +
+          '</span>' +
+          '</div>' +
+          '<h3 class="font-serif text-lg font-bold text-[#1E1916] leading-snug mt-1">' +
           escapeHtml(item.name) +
           '</h3>' +
           '</div>' +
+          '<div class="space-y-2.5">' +
           '<div class="pt-2 border-t border-[#1E1916]/10 flex items-baseline justify-between">' +
           '<span class="text-2xl font-bold text-[#1E4620]">' +
           qty +
@@ -365,6 +593,16 @@
           '<span class="text-xs font-bold text-[#1E1916]/75">' +
           revenue +
           ' EGP</span>' +
+          '</div>' +
+          '<button type="button" onclick="toggleOutOfStock(\'' +
+          item.key +
+          '\')" class="w-full py-2 px-3 rounded-xl text-xs font-bold transition cursor-pointer ' +
+          (isOos
+            ? 'bg-[#1E4620] text-[#F7F3EA] hover:opacity-95'
+            : 'bg-[#7A1C1C] text-[#F7F3EA] hover:opacity-95') +
+          '">' +
+          (isOos ? 'Mark In Stock' : 'Mark Out of Stock') +
+          '</button>' +
           '</div>' +
           '</div>'
         );
@@ -389,16 +627,41 @@
 
       renderItemSalesTally();
 
+      if (store.n8nConfig?.autoSync && store.n8nConfig?.url) {
+        triggerN8nAudit(true);
+      }
+
       const ordersEl = document.getElementById('orders-container');
       if (store.orders.length === 0) {
         ordersEl.innerHTML =
-          '<div class="bg-[#EFE9DA] border border-[#1E1916]/15 rounded-2xl p-6 text-sm text-[#1E1916]/70">No synced orders yet. Complete an order on <strong>index.html</strong> to see it and its receipt here.</div>';
+          '<div class="bg-[#EFE9DA] border border-[#1E1916]/15 rounded-2xl p-6 text-sm text-[#1E1916]/70">No synced orders yet. Complete an order on <strong>index.html</strong> to see it, its receipt, and uploaded screenshot here.</div>';
       } else {
         ordersEl.innerHTML = store.orders
           .map((o) => {
             const itemsHtml = (o.receiptItems || [])
               .map((i) => '<li>' + escapeHtml(i.label) + ' — <strong>' + escapeHtml(i.amount) + '</strong></li>')
               .join('');
+
+            const screenshotBoxHtml = o.paymentScreenshotDataUrl
+              ? '<div class="rounded-xl bg-[#F7F3EA] border border-[#C59B43] p-3 space-y-2">' +
+                '<div class="flex items-center justify-between gap-2">' +
+                '<span class="text-[11px] font-bold uppercase tracking-wider text-[#1E4620]">Receipt &amp; Screenshot Box</span>' +
+                '<button type="button" onclick="downloadSavedScreenshot(\'' +
+                escapeHtml(o.orderRef) +
+                '\')" class="px-2.5 py-1 rounded-lg bg-[#1E4620] text-[#F7F3EA] text-[11px] font-bold cursor-pointer">Save Screenshot</button>' +
+                '</div>' +
+                '<img src="' +
+                o.paymentScreenshotDataUrl +
+                '" alt="Customer InstaPay transfer screenshot" class="w-full max-h-48 object-contain rounded-lg border border-[#1E1916]/15 bg-white" />' +
+                '<p class="text-[11px] text-[#1E1916]/75 truncate">' +
+                escapeHtml(o.paymentScreenshotName || 'Uploaded Screenshot') +
+                '</p>' +
+                '</div>'
+              : '<div class="rounded-xl bg-[#F7F3EA] border border-[#1E1916]/15 p-3 space-y-1">' +
+                '<span class="text-[11px] font-bold uppercase tracking-wider text-[#7A1C1C] block">Receipt &amp; Screenshot Box</span>' +
+                '<p class="text-xs text-[#1E1916]/70">No screenshot uploaded on site yet (check WhatsApp if sent there).</p>' +
+                '</div>';
+
             return (
               '<article class="bg-[#EFE9DA] border border-[#1E1916]/20 rounded-2xl p-5 space-y-4">' +
               '<div class="flex flex-wrap items-start justify-between gap-3 border-b border-[#1E1916]/12 pb-3">' +
@@ -419,7 +682,7 @@
               escapeHtml(o.addressDetail || '') +
               '</p>' +
               '</div>' +
-              '<div class="flex items-center gap-2">' +
+              '<div class="flex flex-wrap items-center gap-2">' +
               '<select onchange="updateOrderStatus(\'' +
               escapeHtml(o.orderRef) +
               '\', this.value)" class="rounded-xl bg-[#F7F3EA] border border-[#1E1916]/25 px-3 py-1.5 text-xs font-bold">' +
@@ -440,7 +703,7 @@
                 : '') +
               '</div>' +
               '</div>' +
-              '<div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">' +
+              '<div class="grid grid-cols-1 lg:grid-cols-3 gap-4 text-xs">' +
               '<div class="bg-[#F7F3EA] rounded-xl p-3.5 border border-[#1E1916]/12 space-y-1">' +
               '<p class="font-bold uppercase tracking-wider text-[#7A1C1C]">Items &amp; Sample</p>' +
               '<ul class="list-disc list-inside space-y-0.5">' +
@@ -466,6 +729,7 @@
                   '" target="_blank" rel="noopener noreferrer" class="underline text-[#1E4620] font-bold">Open Google Maps</a></p>'
                 : '<p><strong>Map Pin:</strong> None</p>') +
               '</div>' +
+              screenshotBoxHtml +
               '</div>' +
               '</article>'
             );
