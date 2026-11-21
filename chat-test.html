@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Zebda &amp; Co. Chat Test</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background: #f5f2eb;
+      margin: 0;
+      padding: 24px;
+    }
+    .box {
+      max-width: 440px;
+      margin: 0 auto;
+      background: #ffffff;
+      border: 1px solid #ddd;
+      border-radius: 12px;
+      padding: 16px;
+    }
+    h2 {
+      margin: 0 0 12px;
+      font-size: 18px;
+    }
+    #log {
+      height: 260px;
+      overflow-y: auto;
+      background: #f7f7f7;
+      border: 1px solid #e5e5e5;
+      border-radius: 8px;
+      padding: 10px;
+      margin-bottom: 12px;
+      font-size: 14px;
+    }
+    .msg {
+      margin-bottom: 10px;
+      line-height: 1.4;
+    }
+    form {
+      display: flex;
+      gap: 8px;
+    }
+    input {
+      flex: 1;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 14px;
+    }
+    button {
+      padding: 10px 16px;
+      border: 0;
+      border-radius: 8px;
+      background: #111;
+      color: #fff;
+      cursor: pointer;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h2>Zebda &amp; Co. Order Chat Test</h2>
+    <div id="log">
+      <div class="msg" style="color:#666;">Send a message to test your AI assistant.</div>
+    </div>
+    <form id="chat-form">
+      <input id="chat-input" type="text" placeholder="Type your message..." required />
+      <button type="submit">Send</button>
+    </form>
+  </div>
+
+  <script>
+    const WEBHOOK_URL = "https://zebdaaco.app.n8n.cloud/webhook-test/whatsapp-ai-test";
+
+    const form = document.getElementById("chat-form");
+    const input = document.getElementById("chat-input");
+    const log = document.getElementById("log");
+
+    function addMsg(sender, text) {
+      const div = document.createElement("div");
+      div.className = "msg";
+      div.innerHTML = `<strong>${sender}:</strong> <span>${text}</span>`;
+      log.appendChild(div);
+      log.scrollTop = log.scrollHeight;
+    }
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const message = input.value.trim();
+      if (!message) return;
+
+      addMsg("Customer", message);
+      input.value = "";
+      input.disabled = true;
+
+      try {
+        const res = await fetch(WEBHOOK_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ message })
+        });
+        const raw = await res.text();
+        let reply = raw;
+        try {
+          const data = JSON.parse(raw);
+          reply = data.reply || data.output || data.text || raw;
+        } catch (_) {}
+
+        addMsg("Assistant", reply);
+      } catch (err) {
+        addMsg("Error", err.message || "Request failed");
+      } finally {
+        input.disabled = false;
+        input.focus();
+      }
+    });
+  </script>
+</body>
+</html>
