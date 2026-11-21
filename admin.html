@@ -154,6 +154,39 @@
       </div>
     </div>
 
+    <!-- Item Sales & Stock Tally (جرد الأصناف) -->
+    <section class="bg-[#EFE9DA] border-2 border-[#C59B43]/70 rounded-2xl p-6 space-y-4">
+      <div class="flex flex-wrap items-center justify-between gap-3 border-b border-[#1E1916]/12 pb-3">
+        <div>
+          <span class="text-[11px] uppercase tracking-widest font-bold text-[#7A1C1C] block arabic-text">
+            جرد الأصناف والمبيعات • Item Tally
+          </span>
+          <h2 class="font-serif text-2xl sm:text-3xl font-bold text-[#1E1916]">
+            Units Sold Per Flavor &amp; Bundle
+          </h2>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <label for="tally-scope-select" class="text-xs font-bold text-[#1E1916]/80">Count:</label>
+          <select
+            id="tally-scope-select"
+            onchange="renderItemSalesTally()"
+            class="rounded-xl bg-[#F7F3EA] border border-[#1E1916]/25 px-3 py-1.5 text-xs font-bold text-[#1E1916]"
+          >
+            <option value="all">All Synced Orders</option>
+            <option value="active">Verified &amp; Delivered Only (Excl. On Hold)</option>
+          </select>
+        </div>
+      </div>
+
+      <div id="item-tally-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3.5"></div>
+
+      <div class="pt-2 flex flex-wrap items-center justify-between gap-2 text-xs font-semibold text-[#1E1916]/80 border-t border-[#1E1916]/10">
+        <span id="tally-total-units">Total Tins &amp; Boxes: 0</span>
+        <span id="tally-free-samples">Free Samples Given: None</span>
+      </div>
+    </section>
+
     <!-- Orders & Receipts -->
     <section class="space-y-4">
       <h2 class="font-serif text-2xl sm:text-3xl font-bold text-[#1E1916]">
@@ -183,6 +216,14 @@
     const ADMIN_PASSCODE = 'ZEBDA2026';
     const ADMIN_STORE_KEY = 'zebda_and_co_admin_sync_v1';
     const AUTH_SESSION_KEY = 'zebda_admin_unlocked_v1';
+
+    const TALLY_ITEMS = [
+      { key: 'garlic', name: 'Roasted Garlic & Herb', ar: 'ثوم محمص وأعشاب', price: 145 },
+      { key: 'chili', name: 'Hot Honey & Chili Crunch', ar: 'عسل حار وفلفل مقرمش', price: 155 },
+      { key: 'tomato', name: 'Sundried Tomato, Basil & Parmesan', ar: 'طماطم وريحان وبارميزان', price: 165 },
+      { key: 'truffle', name: 'Black Truffle & Sea Salt', ar: 'كمأة سوداء وملح بحري', price: 185 },
+      { key: 'quartet', name: '4-Flavor Quartet Box', ar: 'بوكس التذوق (4 نكهات)', price: 560 },
+    ];
 
     function readStore() {
       try {
@@ -262,11 +303,91 @@
         .replace(/"/g, '&quot;');
     }
 
+    function extractOrderCounts(order) {
+      const counts = { garlic: 0, chili: 0, tomato: 0, truffle: 0, quartet: 0 };
+      const rows = Array.isArray(order.receiptItems) ? order.receiptItems : [];
+
+      rows.forEach((row) => {
+        const label = String(row.label || '');
+        const match = label.match(/×\s*(\d+)\s*$/);
+        const qty = match ? Number(match[1]) : 1;
+        if (label.includes('Roasted Garlic')) counts.garlic += qty;
+        else if (label.includes('Hot Honey')) counts.chili += qty;
+        else if (label.includes('Sundried Tomato')) counts.tomato += qty;
+        else if (label.includes('Black Truffle')) counts.truffle += qty;
+        else if (label.includes('Quartet Box')) counts.quartet += qty;
+      });
+
+      return counts;
+    }
+
+    function renderItemSalesTally() {
+      const store = readStore();
+      const scopeEl = document.getElementById('tally-scope-select');
+      const scope = scopeEl ? scopeEl.value : 'all';
+
+      const filteredOrders =
+        scope === 'active'
+          ? store.orders.filter((o) => o.status !== 'Pending / On Hold')
+          : store.orders;
+
+      const totals = { garlic: 0, chili: 0, tomato: 0, truffle: 0, quartet: 0 };
+      const freeSampleMap = {};
+
+      filteredOrders.forEach((o) => {
+        const c = extractOrderCounts(o);
+        Object.keys(totals).forEach((k) => {
+          totals[k] += c[k] || 0;
+        });
+        if (o.freeSampleUnlocked && o.selectedFreeSample) {
+          freeSampleMap[o.selectedFreeSample] = (freeSampleMap[o.selectedFreeSample] || 0) + 1;
+        }
+      });
+
+      const gridEl = document.getElementById('item-tally-grid');
+      gridEl.innerHTML = TALLY_ITEMS.map((item) => {
+        const qty = totals[item.key] || 0;
+        const revenue = qty * item.price;
+        return (
+          '<div class="bg-[#F7F3EA] border border-[#1E1916]/15 rounded-xl p-4 flex flex-col justify-between gap-2">' +
+          '<div>' +
+          '<span class="arabic-text text-xs font-bold text-[#7A1C1C] block">' +
+          escapeHtml(item.ar) +
+          '</span>' +
+          '<h3 class="font-serif text-lg font-bold text-[#1E1916] leading-snug mt-0.5">' +
+          escapeHtml(item.name) +
+          '</h3>' +
+          '</div>' +
+          '<div class="pt-2 border-t border-[#1E1916]/10 flex items-baseline justify-between">' +
+          '<span class="text-2xl font-bold text-[#1E4620]">' +
+          qty +
+          ' <span class="text-xs font-semibold text-[#1E1916]/70">sold</span></span>' +
+          '<span class="text-xs font-bold text-[#1E1916]/75">' +
+          revenue +
+          ' EGP</span>' +
+          '</div>' +
+          '</div>'
+        );
+      }).join('');
+
+      const grandUnits = Object.values(totals).reduce((sum, n) => sum + n, 0);
+      document.getElementById('tally-total-units').textContent =
+        'Total Tins & Boxes Sold (' + filteredOrders.length + ' orders): ' + grandUnits;
+
+      const sampleEntries = Object.entries(freeSampleMap);
+      document.getElementById('tally-free-samples').textContent =
+        sampleEntries.length > 0
+          ? 'Free Samples: ' + sampleEntries.map(([name, cnt]) => name + ' (' + cnt + ')').join(', ')
+          : 'Free Samples Given: None';
+    }
+
     function renderAllAdminSections() {
       const store = readStore();
       document.getElementById('stat-orders-count').textContent = store.orders.length;
       document.getElementById('stat-ideas-count').textContent = store.flavorIdeas.length;
       document.getElementById('stat-issues-count').textContent = store.issues.length;
+
+      renderItemSalesTally();
 
       const ordersEl = document.getElementById('orders-container');
       if (store.orders.length === 0) {
