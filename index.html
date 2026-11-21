@@ -63,7 +63,7 @@
     }
   </style>
 </head>
-<body class="min-h-screen pb-28 antialiased selection:bg-[#C59B43]/30 selection:text-[#1E1916]">
+<body class="min-h-screen pb-32 antialiased selection:bg-[#C59B43]/30 selection:text-[#1E1916]">
   <!-- Top Cold-Chain & 2-Day Advance Notice Bar -->
   <div class="w-full bg-[#1E1916] text-[#F7F3EA] border-b border-[#C59B43]/50">
     <div class="max-w-5xl mx-auto px-4 sm:px-6 py-2.5 flex flex-wrap items-center justify-between gap-2 text-xs sm:text-sm">
@@ -71,10 +71,16 @@
         <span class="inline-block w-2 h-2 rounded-full bg-[#C59B43]"></span>
         <span>50/50 Commercial &amp; Baladi Butter • Chilled 0–4°C</span>
       </div>
-      <div class="flex items-center gap-2 font-semibold text-[#F7F3EA]">
+      <div class="flex items-center gap-3 font-semibold text-[#F7F3EA]">
         <span>2-Day Advance Order</span>
         <span class="text-[#C59B43]">•</span>
         <span class="arabic-text">الطلب قبل الموعد بيومين على الأقل</span>
+        <a
+          href="admin.html"
+          class="px-2.5 py-0.5 rounded-full bg-[#262523] border border-[#C59B43]/50 text-[#E8C97B] text-[11px] hover:bg-[#33312e] transition"
+        >
+          Admin Portal
+        </a>
       </div>
     </div>
   </div>
@@ -506,7 +512,7 @@
         </article>
       </div>
 
-      <!-- Two Blurred "In Development" Experimental Flavors -->
+      <!-- Two Blurred "In Development" Flavors Styled Like Flavor Cards -->
       <div class="mt-7">
         <div class="flex flex-wrap items-center justify-between gap-2 mb-3.5">
           <div>
@@ -518,76 +524,108 @@
             </h3>
           </div>
           <span class="px-3 py-1 rounded-full text-xs font-bold bg-[#EFE9DA] border border-[#C59B43] text-[#1E1916]">
-            Blurred Preview • Details Not Released Yet
+            Blurred Preview • Not Finalized Yet
           </span>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-          <!-- Blurred Experimental Flavor A -->
-          <div class="relative rounded-2xl border border-[#1E1916]/20 bg-[#EFE9DA] overflow-hidden min-h-[168px]">
-            <div class="p-5 blur-sm select-none pointer-events-none opacity-65">
-              <span class="text-xs uppercase tracking-widest font-bold text-[#1E4620]">
-                Experimental Batch #05
-              </span>
-              <h4 class="font-serif text-2xl font-bold text-[#1E1916] mt-1">
-                Smoked Butter &amp; Kitchen Secret Blend
-              </h4>
-              <p class="text-sm text-[#1E1916]/80 mt-2">
-                Currently being tested in small batches with our 50/50 butter base before final release.
-              </p>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <!-- Blurred Experimental Card 1 -->
+          <article class="relative bg-[#EFE9DA]/70 rounded-2xl border border-[#1E1916]/15 overflow-hidden flex flex-col">
+            <div class="blur-sm select-none pointer-events-none opacity-65 flex-1 flex flex-col">
+              <div class="bg-[#1E4620] text-[#F7F3EA] px-5 py-4 flex items-center justify-between gap-3">
+                <div>
+                  <span class="text-[11px] uppercase tracking-[0.18em] text-[#E8C97B] font-semibold block">
+                    05 • R&amp;D Test Batch
+                  </span>
+                  <h4 class="font-serif text-2xl font-bold leading-tight mt-0.5">
+                    Experimental Flavor #1
+                  </h4>
+                </div>
+                <span class="text-sm font-bold text-[#E8C97B]">TBD</span>
+              </div>
+              <div class="p-5 flex-1 bg-[#F7F3EA]/85">
+                <p class="text-sm text-[#1E1916]/80 leading-relaxed mb-4">
+                  Early kitchen trial batch blending 50/50 butter with a secret concept currently in progress.
+                </p>
+                <div class="flex flex-wrap gap-1.5">
+                  <span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-[#1E4620]/12 text-[#1E4620]">
+                    Testing Batch
+                  </span>
+                  <span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-[#1E4620]/12 text-[#1E4620]">
+                    Secret Concept
+                  </span>
+                </div>
+              </div>
             </div>
-            <div class="absolute inset-0 bg-[#1E1916]/45 backdrop-blur-[2px] flex flex-col items-center justify-center p-5 text-center text-[#F7F3EA]">
-              <span class="px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider bg-[#C59B43] text-[#1E1916] mb-2">
-                In Development
-              </span>
-              <p class="font-serif text-xl font-bold">
-                Experimental Flavor #1 (Under Testing)
-              </p>
-              <p class="text-xs text-[#F7F3EA]/80 mt-1 max-w-xs">
-                Still in development — recipe &amp; launch details coming soon.
-              </p>
-              <button
-                type="button"
-                onclick="openHelpModal()"
-                class="mt-3 px-3.5 py-1.5 rounded-lg bg-[#F7F3EA] text-[#1E1916] text-xs font-bold hover:bg-white transition cursor-pointer"
-              >
-                Suggest / Vote on Flavor
-              </button>
-            </div>
-          </div>
 
-          <!-- Blurred Experimental Flavor B -->
-          <div class="relative rounded-2xl border border-[#1E1916]/20 bg-[#EFE9DA] overflow-hidden min-h-[168px]">
-            <div class="p-5 blur-sm select-none pointer-events-none opacity-65">
-              <span class="text-xs uppercase tracking-widest font-bold text-[#7A1C1C]">
-                Experimental Batch #06
-              </span>
-              <h4 class="font-serif text-2xl font-bold text-[#1E1916] mt-1">
-                Sweet &amp; Savory Chef Reserve
-              </h4>
-              <p class="text-sm text-[#1E1916]/80 mt-2">
-                In early kitchen trials to see how it pairs with warm bread, pastries, and mains.
-              </p>
-            </div>
             <div class="absolute inset-0 bg-[#1E1916]/45 backdrop-blur-[2px] flex flex-col items-center justify-center p-5 text-center text-[#F7F3EA]">
               <span class="px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider bg-[#C59B43] text-[#1E1916] mb-2">
                 In Development
               </span>
               <p class="font-serif text-xl font-bold">
-                Experimental Flavor #2 (Under Testing)
+                Experimental Flavor #1
               </p>
-              <p class="text-xs text-[#F7F3EA]/80 mt-1 max-w-xs">
-                Still in development — nothing finalized yet.
+              <p class="text-xs text-[#F7F3EA]/85 mt-1 max-w-xs">
+                Still under development — write your own flavor idea to suggest what comes next.
               </p>
               <button
                 type="button"
-                onclick="openHelpModal()"
-                class="mt-3 px-3.5 py-1.5 rounded-lg bg-[#F7F3EA] text-[#1E1916] text-xs font-bold hover:bg-white transition cursor-pointer"
+                onclick="openFlavorIdeaModal('Experimental Flavor #1')"
+                class="mt-3 px-4 py-2 rounded-xl bg-[#F7F3EA] text-[#1E1916] text-xs font-bold hover:bg-white transition cursor-pointer"
               >
-                Suggest / Vote on Flavor
+                Write Your Flavor Idea
               </button>
             </div>
-          </div>
+          </article>
+
+          <!-- Blurred Experimental Card 2 -->
+          <article class="relative bg-[#EFE9DA]/70 rounded-2xl border border-[#1E1916]/15 overflow-hidden flex flex-col">
+            <div class="blur-sm select-none pointer-events-none opacity-65 flex-1 flex flex-col">
+              <div class="bg-[#262523] text-[#F7F3EA] px-5 py-4 flex items-center justify-between gap-3">
+                <div>
+                  <span class="text-[11px] uppercase tracking-[0.18em] text-[#E8C97B] font-semibold block">
+                    06 • R&amp;D Test Batch
+                  </span>
+                  <h4 class="font-serif text-2xl font-bold leading-tight mt-0.5">
+                    Experimental Flavor #2
+                  </h4>
+                </div>
+                <span class="text-sm font-bold text-[#E8C97B]">TBD</span>
+              </div>
+              <div class="p-5 flex-1 bg-[#F7F3EA]/85">
+                <p class="text-sm text-[#1E1916]/80 leading-relaxed mb-4">
+                  Second experimental batch in the works with nothing finalized yet.
+                </p>
+                <div class="flex flex-wrap gap-1.5">
+                  <span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-[#262523]/12 text-[#262523]">
+                    Testing Batch
+                  </span>
+                  <span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-[#262523]/12 text-[#262523]">
+                    Coming Soon
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <div class="absolute inset-0 bg-[#1E1916]/45 backdrop-blur-[2px] flex flex-col items-center justify-center p-5 text-center text-[#F7F3EA]">
+              <span class="px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider bg-[#C59B43] text-[#1E1916] mb-2">
+                In Development
+              </span>
+              <p class="font-serif text-xl font-bold">
+                Experimental Flavor #2
+              </p>
+              <p class="text-xs text-[#F7F3EA]/85 mt-1 max-w-xs">
+                Still under development — tell us what flavor you want us to test.
+              </p>
+              <button
+                type="button"
+                onclick="openFlavorIdeaModal('Experimental Flavor #2')"
+                class="mt-3 px-4 py-2 rounded-xl bg-[#F7F3EA] text-[#1E1916] text-xs font-bold hover:bg-white transition cursor-pointer"
+              >
+                Write Your Flavor Idea
+              </button>
+            </div>
+          </article>
         </div>
       </div>
 
@@ -692,10 +730,10 @@
       aria-label="Location selector, free sample, payment method, and WhatsApp order builder"
       class="bg-[#EFE9DA] border border-[#1E1916]/20 rounded-2xl p-6 sm:p-8 mb-8"
     >
-      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-4 mb-6 border-b border-[#1E1916]/12">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 mb-6 border-b border-[#1E1916]/12">
         <div>
           <span class="text-xs uppercase tracking-[0.2em] text-[#1E4620] font-bold block">
-            Direct WhatsApp Order • +20 10 41870087
+            Direct WhatsApp Order + Syncs to Admin Log • +20 10 41870087
           </span>
           <h2 class="font-serif text-3xl font-bold text-[#1E1916]">
             Delivery Location, Free Sample &amp; Order Summary
@@ -704,13 +742,22 @@
             Orders must be placed at least 2 days in advance • يجب الطلب قبل الموعد بيومين على الأقل
           </p>
         </div>
-        <div class="text-left sm:text-right">
-          <span class="text-xs uppercase tracking-wider font-semibold text-[#1E1916]/65 block">
-            Total Order (Items + Delivery)
-          </span>
-          <span id="panel-total" class="font-serif text-3xl font-bold text-[#1E4620]">
-            40 EGP
-          </span>
+        <div class="flex flex-wrap items-center gap-3">
+          <button
+            type="button"
+            onclick="applyQuickSampleOrder()"
+            class="px-3 py-2 rounded-xl bg-[#F7F3EA] border border-[#C59B43] text-xs font-bold text-[#1E1916] hover:bg-white transition cursor-pointer"
+          >
+            Quick-Fill 500+ EGP Sample Test
+          </button>
+          <div class="text-left sm:text-right">
+            <span class="text-xs uppercase tracking-wider font-semibold text-[#1E1916]/65 block">
+              Total Order (Items + Delivery)
+            </span>
+            <span id="panel-total" class="font-serif text-3xl font-bold text-[#1E4620]">
+              40 EGP
+            </span>
+          </div>
         </div>
       </div>
 
@@ -925,7 +972,7 @@
                 Your Order Summary
               </h3>
               <span id="order-ref-tag" class="px-2.5 py-1 rounded-lg bg-[#EFE9DA] border border-[#C59B43]/50 text-[11px] font-bold text-[#1E1916]">
-                Ref: ZBC-2111-1734
+                Ref: ZBC-2111-1744
               </span>
             </div>
 
@@ -934,7 +981,7 @@
             </div>
 
             <div id="summary-free-sample-row" class="hidden mb-3 px-3 py-2 rounded-xl bg-[#1E4620]/10 border border-[#1E4620]/30 text-xs font-bold text-[#1E4620]">
-              Free Sample (>500 EGP Items): <span id="summary-free-sample-flavor">Roasted Garlic &amp; Herb</span> — FREE (0 EGP)
+              Free Sample (&gt;500 EGP Items): <span id="summary-free-sample-flavor">Roasted Garlic &amp; Herb</span> — FREE (0 EGP)
             </div>
 
             <div class="space-y-1.5 pt-3 border-t border-[#1E1916]/12 text-sm">
@@ -954,6 +1001,10 @@
                 <span>Transfer Now via InstaPay (+20 10 41870087)</span>
                 <span id="summary-instapay-now">40 EGP</span>
               </div>
+            </div>
+
+            <div id="admin-sync-notice" class="hidden mt-3 px-3 py-2 rounded-xl bg-[#1E4620]/10 border border-[#1E4620]/35 text-[11px] font-bold text-[#1E4620]">
+              Saved to Admin Portal log automatically so you can review orders &amp; receipts there anytime.
             </div>
 
             <!-- Missing Required Details Notice -->
@@ -1011,8 +1062,113 @@
     </section>
   </main>
 
+  <!-- Dedicated Flavor Idea Modal (Separate From Problem / Issue Modal) -->
+  <div
+    id="flavor-idea-modal"
+    class="fixed inset-0 z-50 hidden bg-[#1E1916]/75 backdrop-blur-[1px] items-center justify-center p-4 overflow-y-auto"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="flavor-idea-modal-title"
+  >
+    <div class="bg-[#F7F3EA] text-[#1E1916] border-2 border-[#C59B43] rounded-2xl max-w-md w-full p-6 shadow-2xl space-y-4 my-auto">
+      <div class="flex items-start justify-between gap-3 border-b border-[#1E1916]/15 pb-3">
+        <div>
+          <span class="text-[11px] uppercase tracking-widest font-bold text-[#1E4620] block">
+            Zebda &amp; Co. Flavor Lab
+          </span>
+          <h3 id="flavor-idea-modal-title" class="font-serif text-2xl font-bold">
+            Suggest a Flavor Idea
+          </h3>
+        </div>
+        <button
+          type="button"
+          onclick="closeFlavorIdeaModal()"
+          aria-label="Close flavor idea modal"
+          class="px-2.5 py-1 rounded-lg bg-[#EFE9DA] text-xs font-bold hover:bg-[#e3dccb] cursor-pointer"
+        >
+          Close
+        </button>
+      </div>
+
+      <p id="flavor-slot-context" class="text-xs text-[#1E1916]/80 font-medium">
+        These two flavors are still in development. Write any flavor combination you would love to taste:
+      </p>
+
+      <div>
+        <label for="flavor-idea-input" class="block text-xs font-bold uppercase tracking-wider text-[#1E1916]/80 mb-1">
+          Your Chosen Flavor Idea *
+        </label>
+        <input
+          id="flavor-idea-input"
+          type="text"
+          oninput="updateFlavorIdeaSend()"
+          placeholder="Example: Caramelized onion & thyme, or cinnamon honey..."
+          class="w-full rounded-xl bg-white border border-[#1E1916]/25 px-3.5 py-2.5 text-xs sm:text-sm text-[#1E1916]"
+        />
+      </div>
+
+      <div>
+        <label for="flavor-idea-name" class="block text-xs font-bold uppercase tracking-wider text-[#1E1916]/80 mb-1">
+          Your Name (Optional)
+        </label>
+        <input
+          id="flavor-idea-name"
+          type="text"
+          oninput="updateFlavorIdeaSend()"
+          placeholder="Your name..."
+          class="w-full rounded-xl bg-white border border-[#1E1916]/25 px-3.5 py-2 text-xs sm:text-sm text-[#1E1916]"
+        />
+      </div>
+
+      <p id="flavor-idea-hint" class="text-[11px] font-bold text-[#7A1C1C]">
+        Type a flavor idea (at least 3 characters) to unlock sending on WhatsApp &amp; saving to Admin.
+      </p>
+
+      <div class="space-y-2">
+        <a
+          id="send-flavor-idea-btn"
+          href="#"
+          target="_blank"
+          rel="noopener noreferrer"
+          onclick="logFlavorIdeaToAdmin()"
+          class="hidden w-full py-3 px-4 rounded-xl bg-[#1E4620] text-[#F7F3EA] font-bold text-xs text-center hover:opacity-95 transition"
+        >
+          Send Flavor Idea on WhatsApp (+20 10 41870087)
+        </a>
+        <button
+          id="copy-flavor-idea-btn"
+          type="button"
+          onclick="copyFlavorIdeaText()"
+          class="hidden w-full py-2 px-4 rounded-xl bg-[#EFE9DA] text-[#1E1916] border border-[#1E1916]/25 font-bold text-xs hover:bg-[#e3dccb] transition cursor-pointer"
+        >
+          Save Idea &amp; Copy Text
+        </button>
+      </div>
+    </div>
+  </div>
+
   <!-- Hidden Canvas Used to Generate Branded Receipt Image -->
   <canvas id="receipt-canvas" width="900" height="1300" class="hidden"></canvas>
+
+  <!-- Above-Keyboard Quick-Close Bar (Appears Automatically When Typing in Any Field) -->
+  <div
+    id="keyboard-helper-bar"
+    class="hidden fixed inset-x-0 bottom-[62px] z-40 px-4 pointer-events-none"
+  >
+    <div class="max-w-5xl mx-auto flex justify-end">
+      <div class="pointer-events-auto inline-flex items-center gap-2 rounded-full bg-[#1E1916] text-[#F7F3EA] border border-[#C59B43] px-3.5 py-1.5 shadow-xl text-xs">
+        <span class="text-[#E8C97B] font-semibold hidden sm:inline">Typing in field</span>
+        <button
+          type="button"
+          onmousedown="event.preventDefault()"
+          onclick="dismissActiveKeyboard()"
+          class="px-3 py-1 rounded-full bg-[#C59B43] text-[#1E1916] font-bold hover:brightness-105 cursor-pointer"
+        >
+          Done / Close Keyboard
+        </button>
+      </div>
+    </div>
+  </div>
 
   <!-- Sticky Bottom Summary Bar -->
   <div class="fixed bottom-0 inset-x-0 z-30 bg-[#1E1916] text-[#F7F3EA] border-t border-[#C59B43]/50 shadow-lg">
@@ -1086,7 +1242,7 @@
       <!-- Section 1: Main Problem Type -->
       <div id="help-section-1" class="space-y-3">
         <p class="text-sm font-bold text-[#1E1916]">
-          Section 1 — What is the main problem, flavor idea, or type of issue?
+          Section 1 — What is the main problem or type of issue?
         </p>
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-bold">
           <button
@@ -1130,8 +1286,8 @@
             onclick="selectMainCategory('items')"
             class="p-3 rounded-xl bg-[#EFE9DA] border border-[#1E1916]/20 text-left hover:border-[#1E4620] cursor-pointer"
           >
-            Flavors, Quartet Box &amp; R&amp;D
-            <span class="block text-[11px] font-normal text-[#1E1916]/70 mt-0.5">Wrong flavor, 560 EGP box, or new flavor ideas</span>
+            Flavors &amp; Quartet Box
+            <span class="block text-[11px] font-normal text-[#1E1916]/70 mt-0.5">Wrong flavor, missing tin, or 560 EGP box</span>
           </button>
 
           <button
@@ -1160,7 +1316,7 @@
 
         <div>
           <label for="specific-problem-select" class="block text-xs font-bold uppercase tracking-wider text-[#1E1916]/80 mb-1">
-            Section 2 — Pick the exact topic:
+            Section 2 — Pick the exact problem:
           </label>
           <select
             id="specific-problem-select"
@@ -1177,27 +1333,27 @@
             onclick="markHelpSolved()"
             class="flex-1 py-2.5 px-3 rounded-xl bg-[#1E4620] text-[#F7F3EA] text-xs font-bold cursor-pointer"
           >
-            Got It — No Need to Contact
+            Problem Fixed — No Need to Contact
           </button>
           <button
             type="button"
             onclick="showEscalationBox()"
             class="flex-1 py-2.5 px-3 rounded-xl bg-[#7A1C1C] text-[#F7F3EA] text-xs font-bold cursor-pointer"
           >
-            Send Message to You Now
+            Not Fixed / Send to You Now
           </button>
         </div>
 
         <div id="escalation-details-box" class="hidden space-y-3 pt-2 border-t border-[#1E1916]/15">
           <div>
             <label for="custom-problem-input" class="block text-xs font-bold text-[#7A1C1C] mb-1">
-              Describe the problem or flavor idea clearly:
+              Describe the problem clearly so we can fix it &amp; improve:
             </label>
             <textarea
               id="custom-problem-input"
               rows="3"
               oninput="updateEscalationLink()"
-              placeholder="Example: The butter tin arrived warm / packaging was dented / idea for a new flavor..."
+              placeholder="Example: The butter tin arrived warm / packaging was dented / another issue..."
               class="w-full rounded-xl bg-[#EFE9DA] border border-[#1E1916]/25 p-2.5 text-xs text-[#1E1916]"
             ></textarea>
           </div>
@@ -1288,7 +1444,7 @@
           </label>
 
           <p id="escalation-status-hint" class="text-[11px] font-bold text-[#7A1C1C]">
-            Enter at least 10 characters and check the confirmation box to unlock instant WhatsApp send.
+            Enter at least 10 characters describing the issue and check the confirmation box to unlock instant WhatsApp send.
           </p>
 
           <div class="space-y-2">
@@ -1297,9 +1453,10 @@
               href="#"
               target="_blank"
               rel="noopener noreferrer"
+              onclick="logIssueToAdmin()"
               class="hidden w-full py-3 px-4 rounded-xl bg-[#1E1916] text-[#E8C97B] border border-[#C59B43] font-bold text-xs text-center hover:brightness-105 transition"
             >
-              Send Immediately to +20 10 41870087
+              Send This Problem Immediately to +20 10 41870087
             </a>
 
             <button
@@ -1308,7 +1465,7 @@
               onclick="copyIssueSummary()"
               class="hidden w-full py-2 px-4 rounded-xl bg-[#EFE9DA] text-[#1E1916] border border-[#1E1916]/25 font-bold text-xs hover:bg-[#e3dccb] transition cursor-pointer"
             >
-              Copy Message Text
+              Save Issue &amp; Copy Text
             </button>
           </div>
         </div>
@@ -1316,7 +1473,7 @@
 
       <!-- Solved State -->
       <div id="help-solved-state" class="hidden space-y-3 text-center py-2">
-        <p class="text-base font-bold text-[#1E4620]">Awesome — all set!</p>
+        <p class="text-base font-bold text-[#1E4620]">Awesome — problem resolved without needing support!</p>
         <p class="text-xs text-[#1E1916]/80">
           Whenever you're ready, place your order at least 2 days ahead.
         </p>
@@ -1335,6 +1492,7 @@
     const INSTAPAY_NUMBER_DISPLAY = '+20 10 41870087';
     const WHATSAPP_PHONE_DIGITS = '201041870087';
     const FREE_SAMPLE_ITEMS_THRESHOLD = 500;
+    const ADMIN_STORE_KEY = 'zebda_and_co_admin_sync_v1';
 
     const FLAVORS = {
       garlic: { name: 'Roasted Garlic & Herb', price: 145 },
@@ -1411,7 +1569,7 @@
           },
           {
             title: 'Delivery is late or address / compound needs update',
-            tip: '<strong>Delivery Timing / Address:</strong> If your delivery window passed or your compound/street needs correction, click <em>Send Message to You Now</em> below.',
+            tip: '<strong>Delivery Timing / Address:</strong> If your delivery window passed or your compound/street needs correction, click <em>Not Fixed / Send to You Now</em> below.',
           },
           {
             title: 'Delivery zone fee question',
@@ -1438,16 +1596,16 @@
         ],
       },
       items: {
-        label: 'Flavors, Quartet Box & R&D',
+        label: 'Flavors & Quartet Box',
         forceEscalation: false,
         problems: [
           {
-            title: 'What are the two blurred In-Development flavors?',
-            tip: '<strong>R&amp;D Batches:</strong> Those two flavors are still in early testing and not finalized yet. Click <em>Send Message to You Now</em> to vote or suggest a flavor.',
-          },
-          {
             title: 'What is inside the 4-Flavor Quartet Box (560 EGP)?',
             tip: '<strong>Quartet Box (560 EGP):</strong> Includes one tin each of Roasted Garlic &amp; Herb, Hot Honey &amp; Chili Crunch, Sundried Tomato/Basil/Parmesan, and Black Truffle &amp; Sea Salt.',
+          },
+          {
+            title: 'Missing tin or wrong flavor received',
+            tip: '<strong>Item Mismatch:</strong> Click <em>Not Fixed / Send to You Now</em> below and list which flavor tin was missing or incorrect.',
           },
         ],
       },
@@ -1456,8 +1614,8 @@
         forceEscalation: true,
         problems: [
           {
-            title: 'Other — I will write my own problem or idea',
-            tip: '<strong>Custom Note:</strong> Type whatever problem or idea you have below and send it straight to <strong>+20 10 41870087</strong>.',
+            title: 'Other — I will write my own problem',
+            tip: '<strong>Custom Issue:</strong> Type whatever problem you experienced below and send it straight to <strong>+20 10 41870087</strong>.',
           },
         ],
       },
@@ -1481,6 +1639,8 @@
       quartetQty: 0,
       paymentMethod: 'instapay',
       activeCategoryKey: 'quality',
+      activeFlavorSlot: 'Experimental Flavor #1',
+      latestFlavorIdeaText: '',
       photoMeta: null,
       latestIssueMessage: '',
       latestOrderMessage: '',
@@ -1488,7 +1648,212 @@
       currentOrderData: null,
       mapsLink: '',
       orderRef: generateOrderRef(),
+      activeInputEl: null,
     };
+
+    function readAdminStore() {
+      try {
+        const raw = localStorage.getItem(ADMIN_STORE_KEY);
+        const parsed = raw ? JSON.parse(raw) : {};
+        return {
+          orders: Array.isArray(parsed.orders) ? parsed.orders : [],
+          flavorIdeas: Array.isArray(parsed.flavorIdeas) ? parsed.flavorIdeas : [],
+          issues: Array.isArray(parsed.issues) ? parsed.issues : [],
+        };
+      } catch (e) {
+        return { orders: [], flavorIdeas: [], issues: [] };
+      }
+    }
+
+    function writeAdminStore(data) {
+      try {
+        localStorage.setItem(ADMIN_STORE_KEY, JSON.stringify(data));
+      } catch (e) {}
+    }
+
+    function syncOrderToAdminStore(orderData, receiptImageDataUrl) {
+      if (!orderData || !state.orderReady) return;
+      const store = readAdminStore();
+      const existingIdx = store.orders.findIndex((o) => o.orderRef === orderData.orderRef);
+      const record = {
+        ...orderData,
+        status: existingIdx >= 0 ? store.orders[existingIdx].status : 'Pending / On Hold',
+        receiptImageDataUrl: receiptImageDataUrl || (existingIdx >= 0 ? store.orders[existingIdx].receiptImageDataUrl : ''),
+        orderText: state.latestOrderMessage,
+        createdAt: existingIdx >= 0 ? store.orders[existingIdx].createdAt : new Date().toLocaleString(),
+        updatedAt: new Date().toLocaleString(),
+      };
+      if (existingIdx >= 0) {
+        store.orders[existingIdx] = record;
+      } else {
+        store.orders.unshift(record);
+      }
+      writeAdminStore(store);
+      const notice = document.getElementById('admin-sync-notice');
+      if (notice) notice.classList.remove('hidden');
+    }
+
+    function logFlavorIdeaToAdmin() {
+      const idea = document.getElementById('flavor-idea-input').value.trim();
+      const name = document.getElementById('flavor-idea-name').value.trim();
+      if (idea.length < 3) return;
+      const store = readAdminStore();
+      store.flavorIdeas.unshift({
+        id: 'IDEA-' + Date.now(),
+        slot: state.activeFlavorSlot,
+        idea,
+        customerName: name || 'Anonymous Friend/Customer',
+        createdAt: new Date().toLocaleString(),
+      });
+      writeAdminStore(store);
+    }
+
+    function logIssueToAdmin() {
+      if (!state.latestIssueMessage) return;
+      const cat = PROBLEM_CATEGORIES[state.activeCategoryKey];
+      const selectEl = document.getElementById('specific-problem-select');
+      const idx = Number(selectEl ? selectEl.value : 0);
+      const specificTitle =
+        cat && cat.problems[idx] ? cat.problems[idx].title : 'General Issue';
+      const customText = document.getElementById('custom-problem-input').value.trim();
+      const store = readAdminStore();
+      store.issues.unshift({
+        id: 'ISS-' + Date.now(),
+        orderRef: state.orderRef,
+        category: cat ? cat.label : state.activeCategoryKey,
+        specificProblem: specificTitle,
+        details: customText,
+        photoName: state.photoMeta ? state.photoMeta.name : 'None',
+        createdAt: new Date().toLocaleString(),
+      });
+      writeAdminStore(store);
+    }
+
+    /* Mobile / Desktop Above-Keyboard Helper Bar */
+    function isTextEntryElement(el) {
+      if (!el || !el.tagName) return false;
+      const tag = el.tagName.toUpperCase();
+      if (tag === 'TEXTAREA') return true;
+      if (tag === 'INPUT') {
+        const type = (el.type || 'text').toLowerCase();
+        return ['text', 'email', 'url', 'tel', 'search', 'number', 'password'].includes(type);
+      }
+      return false;
+    }
+
+    function showKeyboardBar(el) {
+      state.activeInputEl = el;
+      const bar = document.getElementById('keyboard-helper-bar');
+      if (bar) bar.classList.remove('hidden');
+    }
+
+    function hideKeyboardBar() {
+      const bar = document.getElementById('keyboard-helper-bar');
+      if (bar) bar.classList.add('hidden');
+    }
+
+    function dismissActiveKeyboard() {
+      if (state.activeInputEl && typeof state.activeInputEl.blur === 'function') {
+        state.activeInputEl.blur();
+      }
+      if (document.activeElement && typeof document.activeElement.blur === 'function') {
+        document.activeElement.blur();
+      }
+      state.activeInputEl = null;
+      hideKeyboardBar();
+    }
+
+    document.addEventListener('focusin', (e) => {
+      if (isTextEntryElement(e.target)) {
+        showKeyboardBar(e.target);
+      }
+    });
+
+    document.addEventListener('focusout', () => {
+      setTimeout(() => {
+        if (!isTextEntryElement(document.activeElement)) {
+          hideKeyboardBar();
+        }
+      }, 80);
+    });
+
+    function openFlavorIdeaModal(slotLabel) {
+      state.activeFlavorSlot = slotLabel || 'In-Development Flavor';
+      const ctx = document.getElementById('flavor-slot-context');
+      const input = document.getElementById('flavor-idea-input');
+      const modal = document.getElementById('flavor-idea-modal');
+      if (ctx) {
+        ctx.textContent =
+          'Suggestion for ' +
+          state.activeFlavorSlot +
+          ' (still in development): write any flavor you want us to test.';
+      }
+      if (input) input.value = '';
+      updateFlavorIdeaSend();
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      if (input) input.focus();
+    }
+
+    function closeFlavorIdeaModal() {
+      const modal = document.getElementById('flavor-idea-modal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+      hideKeyboardBar();
+    }
+
+    function updateFlavorIdeaSend() {
+      const idea = document.getElementById('flavor-idea-input').value.trim();
+      const name = document.getElementById('flavor-idea-name').value.trim();
+      const sendBtn = document.getElementById('send-flavor-idea-btn');
+      const copyBtn = document.getElementById('copy-flavor-idea-btn');
+      const hint = document.getElementById('flavor-idea-hint');
+
+      if (idea.length >= 3) {
+        const msg = [
+          'Zebda & Co. (زبدة وشركاه) — New Flavor Idea',
+          '--------------------------------------------',
+          'Slot: ' + state.activeFlavorSlot + ' (In Development)',
+          'Suggested Flavor: ' + idea,
+          name ? 'From: ' + name : '',
+        ]
+          .filter(Boolean)
+          .join('\n');
+
+        state.latestFlavorIdeaText = msg;
+        sendBtn.href = 'https://wa.me/' + WHATSAPP_PHONE_DIGITS + '?text=' + encodeURIComponent(msg);
+        sendBtn.classList.remove('hidden');
+        copyBtn.classList.remove('hidden');
+        hint.classList.add('hidden');
+      } else {
+        state.latestFlavorIdeaText = '';
+        sendBtn.classList.add('hidden');
+        copyBtn.classList.add('hidden');
+        hint.classList.remove('hidden');
+      }
+    }
+
+    function copyFlavorIdeaText() {
+      logFlavorIdeaToAdmin();
+      if (!state.latestFlavorIdeaText) return;
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(state.latestFlavorIdeaText).then(() => {
+          const btn = document.getElementById('copy-flavor-idea-btn');
+          if (btn) btn.textContent = 'Saved to Admin & Copied!';
+        });
+      }
+    }
+
+    function applyQuickSampleOrder() {
+      state.qtys = { garlic: 1, chili: 1, tomato: 0, truffle: 1 };
+      state.quartetQty = 0;
+      Object.keys(state.qtys).forEach((k) => {
+        const el = document.getElementById('qty-' + k);
+        if (el) el.textContent = state.qtys[k];
+      });
+      syncQuartetUI();
+      updateOrderUI();
+    }
 
     function handleMapsLinkInput() {
       const input = document.getElementById('maps-link-input');
@@ -1661,7 +2026,6 @@
         receiptItems.push({ label: '4-Flavor Quartet Box × ' + state.quartetQty, amount: qTotal + ' EGP' });
       }
 
-      // Free sample unlocked strictly when items subtotal > 500 EGP (excluding delivery)
       const freeSampleUnlocked = itemsTotal > FREE_SAMPLE_ITEMS_THRESHOLD;
       const sampleBadge = document.getElementById('sample-status-badge');
       const sampleProgressText = document.getElementById('sample-progress-text');
@@ -1784,6 +2148,11 @@
 
       state.orderReady = missing.length === 0;
 
+      if (state.orderReady) {
+        const receiptDataUrl = renderReceiptCanvas(state.currentOrderData);
+        syncOrderToAdminStore(state.currentOrderData, receiptDataUrl);
+      }
+
       const alertBox = document.getElementById('missing-fields-alert');
       const alertList = document.getElementById('missing-fields-list');
       const waBtn = document.getElementById('whatsapp-order-btn');
@@ -1822,6 +2191,10 @@
     }
 
     function copyOrderSummaryText() {
+      if (state.orderReady) {
+        const receiptDataUrl = renderReceiptCanvas(state.currentOrderData);
+        syncOrderToAdminStore(state.currentOrderData, receiptDataUrl);
+      }
       if (!state.latestOrderMessage) return;
       if (navigator.clipboard && navigator.clipboard.writeText) {
         navigator.clipboard.writeText(state.latestOrderMessage).then(() => {
@@ -1846,13 +2219,12 @@
         }
         return false;
       }
+      const receiptDataUrl = renderReceiptCanvas(state.currentOrderData);
+      syncOrderToAdminStore(state.currentOrderData, receiptDataUrl);
       return true;
     }
 
-    function downloadOrderReceiptImage() {
-      const data = state.currentOrderData;
-      if (!data) return;
-
+    function renderReceiptCanvas(data) {
       const canvas = document.getElementById('receipt-canvas');
       const ctx = canvas.getContext('2d');
       const W = canvas.width;
@@ -2011,9 +2383,19 @@
         1144
       );
 
+      return canvas.toDataURL('image/png');
+    }
+
+    function downloadOrderReceiptImage() {
+      const data = state.currentOrderData;
+      if (!data) return;
+      const dataUrl = renderReceiptCanvas(data);
+      if (state.orderReady) {
+        syncOrderToAdminStore(data, dataUrl);
+      }
       const link = document.createElement('a');
       link.download = 'zebda-and-co-receipt-' + data.orderRef + '.png';
-      link.href = canvas.toDataURL('image/png');
+      link.href = dataUrl;
       link.click();
     }
 
@@ -2028,6 +2410,7 @@
       const modal = document.getElementById('help-modal');
       modal.classList.add('hidden');
       modal.classList.remove('flex');
+      hideKeyboardBar();
     }
 
     function clearAttachedPhoto() {
@@ -2195,11 +2578,12 @@
     }
 
     function copyIssueSummary() {
+      logIssueToAdmin();
       if (!state.latestIssueMessage) return;
       if (navigator.clipboard && navigator.clipboard.writeText) {
         navigator.clipboard.writeText(state.latestIssueMessage).then(() => {
           const btn = document.getElementById('copy-issue-text-btn');
-          if (btn) btn.textContent = 'Copied Message Text!';
+          if (btn) btn.textContent = 'Saved to Admin & Copied!';
         });
       }
     }
