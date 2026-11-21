@@ -753,7 +753,7 @@
               onclick="openHelpModal()"
               class="w-full py-2.5 px-4 rounded-xl bg-[#EFE9DA] border border-[#1E1916]/25 text-[#1E1916] font-bold text-xs hover:bg-[#e5decb] transition cursor-pointer"
             >
-              Need Help or Have an Issue? (Self-Check First)
+              Contact / Report an Issue or Feedback
             </button>
           </div>
         </div>
@@ -772,34 +772,43 @@
           Total: <span id="sticky-total">40 EGP</span>
         </div>
       </div>
-      <a
-        id="sticky-whatsapp-btn"
-        href="#"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="py-2.5 px-4 sm:px-5 rounded-xl bg-[#C59B43] text-[#1E1916] font-bold text-xs sm:text-sm hover:brightness-105 transition shrink-0"
-      >
-        Order on WhatsApp
-      </a>
+      <div class="flex items-center gap-2 shrink-0">
+        <button
+          type="button"
+          onclick="openHelpModal()"
+          class="py-2.5 px-3 rounded-xl bg-[#262523] text-[#F7F3EA] border border-[#C59B43]/40 font-bold text-xs hover:bg-[#33312e] transition cursor-pointer"
+        >
+          Help
+        </button>
+        <a
+          id="sticky-whatsapp-btn"
+          href="#"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="py-2.5 px-4 sm:px-5 rounded-xl bg-[#C59B43] text-[#1E1916] font-bold text-xs sm:text-sm hover:brightness-105 transition"
+        >
+          Order on WhatsApp
+        </a>
+      </div>
     </div>
   </div>
 
-  <!-- Multi-Step Help & Escalation Modal -->
+  <!-- Multi-Section Help, Issue Diagnostic & Escalation Modal -->
   <div
     id="help-modal"
-    class="fixed inset-0 z-50 hidden bg-[#1E1916]/75 backdrop-blur-[1px] items-center justify-center p-4"
+    class="fixed inset-0 z-50 hidden bg-[#1E1916]/75 backdrop-blur-[1px] items-center justify-center p-4 overflow-y-auto"
     role="dialog"
     aria-modal="true"
     aria-labelledby="help-modal-title"
   >
-    <div class="bg-[#F7F3EA] text-[#1E1916] border-2 border-[#C59B43] rounded-2xl max-w-lg w-full p-6 shadow-2xl space-y-4">
+    <div class="bg-[#F7F3EA] text-[#1E1916] border-2 border-[#C59B43] rounded-2xl max-w-xl w-full p-6 shadow-2xl space-y-4 my-auto">
       <div class="flex items-start justify-between gap-3 border-b border-[#1E1916]/15 pb-3">
         <div>
           <span class="text-[11px] uppercase tracking-widest font-bold text-[#7A1C1C] block">
-            Zebda &amp; Co. Resolution Center
+            Zebda &amp; Co. Problem Diagnostic &amp; Support
           </span>
           <h3 id="help-modal-title" class="font-serif text-2xl font-bold">
-            Troubleshooting &amp; Support
+            Contact &amp; Issue Finder
           </h3>
         </div>
         <button
@@ -812,116 +821,151 @@
         </button>
       </div>
 
-      <!-- Step 1: Choose Issue Category -->
-      <div id="help-step-1" class="space-y-3">
-        <p class="text-sm font-semibold">Step 1 of 3 — What is your question or problem about?</p>
-        <div class="grid grid-cols-1 gap-2 text-xs font-bold">
+      <!-- Section 1: Main Problem Type -->
+      <div id="help-section-1" class="space-y-3">
+        <p class="text-sm font-bold text-[#1E1916]">
+          Section 1 — What is the main problem or type of issue?
+        </p>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-bold">
           <button
             type="button"
-            onclick="selectHelpTopic('timing')"
+            onclick="selectMainCategory('quality')"
             class="p-3 rounded-xl bg-[#EFE9DA] border border-[#1E1916]/20 text-left hover:border-[#1E4620] cursor-pointer"
           >
-            1. Delivery date, 2-day advance order notice, or 0–4°C cold-chain
+            Food &amp; Butter Quality
+            <span class="block text-[11px] font-normal text-[#1E1916]/70 mt-0.5">Taste, warmth, texture, or freshness</span>
           </button>
+
           <button
             type="button"
-            onclick="selectHelpTopic('instapay')"
+            onclick="selectMainCategory('packaging')"
             class="p-3 rounded-xl bg-[#EFE9DA] border border-[#1E1916]/20 text-left hover:border-[#1E4620] cursor-pointer"
           >
-            2. InstaPay transfer (+20 10 41870087), 50% deposit, or screenshot hold
+            Packaging &amp; Tin Condition
+            <span class="block text-[11px] font-normal text-[#1E1916]/70 mt-0.5">Damaged tin, seal, or packing quality</span>
           </button>
+
           <button
             type="button"
-            onclick="selectHelpTopic('flavors')"
+            onclick="selectMainCategory('delivery')"
             class="p-3 rounded-xl bg-[#EFE9DA] border border-[#1E1916]/20 text-left hover:border-[#1E4620] cursor-pointer"
           >
-            3. Flavors, Quartet Box (560 EGP), or butter blend details
+            Delivery &amp; Timing
+            <span class="block text-[11px] font-normal text-[#1E1916]/70 mt-0.5">2-day lead time, late arrival, or zone</span>
+          </button>
+
+          <button
+            type="button"
+            onclick="selectMainCategory('payment')"
+            class="p-3 rounded-xl bg-[#EFE9DA] border border-[#1E1916]/20 text-left hover:border-[#1E4620] cursor-pointer"
+          >
+            InstaPay &amp; Order Hold
+            <span class="block text-[11px] font-normal text-[#1E1916]/70 mt-0.5">+20 10 41870087, 50% deposit, or receipt</span>
+          </button>
+
+          <button
+            type="button"
+            onclick="selectMainCategory('items')"
+            class="p-3 rounded-xl bg-[#EFE9DA] border border-[#1E1916]/20 text-left hover:border-[#1E4620] cursor-pointer"
+          >
+            Flavors &amp; Quartet Box
+            <span class="block text-[11px] font-normal text-[#1E1916]/70 mt-0.5">Wrong flavor, missing tin, or 560 EGP box</span>
+          </button>
+
+          <button
+            type="button"
+            onclick="selectMainCategory('other')"
+            class="p-3 rounded-xl bg-[#7A1C1C] text-[#F7F3EA] border border-[#7A1C1C] text-left hover:opacity-95 cursor-pointer"
+          >
+            Other Problem (Write Yours)
+            <span class="block text-[11px] font-normal text-[#F5D692] mt-0.5">Anything else — type it &amp; send directly</span>
           </button>
         </div>
       </div>
 
-      <!-- Step 2: Self-Service Check -->
-      <div id="help-step-2" class="hidden space-y-3">
-        <p class="text-xs uppercase tracking-wider font-bold text-[#1E4620]">Step 2 of 3 — Self-Check Answer</p>
-        <div id="help-answer-box" class="p-3.5 rounded-xl bg-[#EFE9DA] border border-[#1E1916]/15 text-sm leading-relaxed"></div>
-        <p class="text-xs font-bold text-[#1E1916]/80">Did this answer solve your issue?</p>
-        <div class="flex flex-wrap gap-2">
+      <!-- Section 2: Specific Problem + Self-Check / Instant Escalation -->
+      <div id="help-section-2" class="hidden space-y-3">
+        <div class="flex items-center justify-between gap-2">
+          <span id="selected-category-badge" class="px-2.5 py-1 rounded-full text-xs font-bold bg-[#1E4620] text-[#F7F3EA]"></span>
+          <button
+            type="button"
+            onclick="resetHelpModal()"
+            class="text-xs underline font-semibold text-[#1E1916]/75 cursor-pointer"
+          >
+            Change main problem
+          </button>
+        </div>
+
+        <div>
+          <label for="specific-problem-select" class="block text-xs font-bold uppercase tracking-wider text-[#1E1916]/80 mb-1">
+            Section 2 — Pick the exact problem:
+          </label>
+          <select
+            id="specific-problem-select"
+            onchange="handleSpecificProblemChange()"
+            class="w-full rounded-xl bg-[#EFE9DA] border border-[#1E1916]/25 px-3.5 py-2.5 text-xs sm:text-sm font-semibold text-[#1E1916]"
+          ></select>
+        </div>
+
+        <div id="self-check-tip-box" class="p-3.5 rounded-xl bg-[#EFE9DA] border border-[#1E1916]/15 text-xs sm:text-sm leading-relaxed"></div>
+
+        <!-- Optional Self-Fix Path for Routine Questions -->
+        <div id="routine-fix-controls" class="flex flex-wrap gap-2">
           <button
             type="button"
             onclick="markHelpSolved()"
             class="flex-1 py-2.5 px-3 rounded-xl bg-[#1E4620] text-[#F7F3EA] text-xs font-bold cursor-pointer"
           >
-            Yes, solved — no need to message
+            Problem Fixed — No Need to Contact
           </button>
           <button
             type="button"
-            onclick="goToHelpStep3()"
+            onclick="showEscalationBox()"
             class="flex-1 py-2.5 px-3 rounded-xl bg-[#7A1C1C] text-[#F7F3EA] text-xs font-bold cursor-pointer"
           >
-            No, it's still an issue
+            Not Fixed / Send to You Now
           </button>
         </div>
-        <button
-          type="button"
-          onclick="resetHelpModal()"
-          class="text-xs underline text-[#1E1916]/70 cursor-pointer"
-        >
-          Back to topics
-        </button>
-      </div>
 
-      <!-- Step 3: Friction Gate Before Unlocking WhatsApp Escalation -->
-      <div id="help-step-3" class="hidden space-y-3">
-        <p class="text-xs uppercase tracking-wider font-bold text-[#7A1C1C]">
-          Step 3 of 3 — Mandatory Check Before Contacting
-        </p>
-        <p class="text-xs text-[#1E1916]/80">
-          To keep support fast for major issues, please confirm both items below and describe the problem before the direct WhatsApp link unlocks:
-        </p>
-
-        <label class="flex items-start gap-2 text-xs font-semibold cursor-pointer">
-          <input id="gate-check-1" type="checkbox" onchange="evaluateEscalationGate()" class="mt-0.5" />
-          <span>I already reviewed the 2-day advance rule, 0–4°C chilling, and InstaPay transfer rules (+20 10 41870087).</span>
-        </label>
-
-        <label class="flex items-start gap-2 text-xs font-semibold cursor-pointer">
-          <input id="gate-check-2" type="checkbox" onchange="evaluateEscalationGate()" class="mt-0.5" />
-          <span>This is a genuine or major issue that cannot be resolved from the steps above.</span>
-        </label>
-
-        <div>
-          <label for="help-issue-desc" class="block text-xs font-bold mb-1">
-            Describe the issue clearly (minimum 15 characters):
+        <!-- Escalation & Custom "Other" Problem Box -->
+        <div id="escalation-details-box" class="hidden space-y-2.5 pt-2 border-t border-[#1E1916]/15">
+          <label for="custom-problem-input" class="block text-xs font-bold text-[#7A1C1C]">
+            Describe the problem clearly so we can fix it &amp; improve:
           </label>
           <textarea
-            id="help-issue-desc"
+            id="custom-problem-input"
             rows="3"
-            oninput="evaluateEscalationGate()"
-            placeholder="Explain what happened, your order/email, and what needs resolution..."
+            oninput="updateEscalationLink()"
+            placeholder="Example: The butter tin arrived warm / packaging was dented / another issue..."
             class="w-full rounded-xl bg-[#EFE9DA] border border-[#1E1916]/25 p-2.5 text-xs text-[#1E1916]"
           ></textarea>
-        </div>
 
-        <div id="escalation-locked-msg" class="text-[11px] font-bold text-[#7A1C1C]">
-          Direct WhatsApp contact is locked until both boxes are checked and a clear issue description is entered.
-        </div>
+          <label id="gate-confirm-label" class="flex items-start gap-2 text-xs font-semibold cursor-pointer">
+            <input id="gate-confirm-checkbox" type="checkbox" onchange="updateEscalationLink()" class="mt-0.5" />
+            <span>I confirmed this isn't already solved by the info above and want to send this to Zebda &amp; Co.</span>
+          </label>
 
-        <a
-          id="escalation-whatsapp-btn"
-          href="#"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="hidden w-full py-3 px-4 rounded-xl bg-[#1E1916] text-[#E8C97B] border border-[#C59B43] font-bold text-xs text-center"
-        >
-          Unlock &amp; Message on WhatsApp (+20 10 41870087)
-        </a>
+          <p id="escalation-status-hint" class="text-[11px] font-bold text-[#7A1C1C]">
+            Enter at least 10 characters describing the issue and check the confirmation box to unlock instant WhatsApp send.
+          </p>
+
+          <a
+            id="instant-send-whatsapp-btn"
+            href="#"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="hidden w-full py-3 px-4 rounded-xl bg-[#1E1916] text-[#E8C97B] border border-[#C59B43] font-bold text-xs text-center hover:brightness-105 transition"
+          >
+            Send This Problem Immediately to +20 10 41870087
+          </a>
+        </div>
       </div>
 
       <!-- Solved State -->
       <div id="help-solved-state" class="hidden space-y-3 text-center py-2">
-        <p class="text-base font-bold text-[#1E4620]">Great — your issue is resolved!</p>
+        <p class="text-base font-bold text-[#1E4620]">Awesome — problem resolved without needing support!</p>
         <p class="text-xs text-[#1E1916]/80">
-          You don't need to send a support message. Whenever you're ready, place your order at least 2 days ahead.
+          Whenever you're ready, place your order at least 2 days ahead.
         </p>
         <button
           type="button"
@@ -970,11 +1014,106 @@
       ],
     };
 
+    const PROBLEM_CATEGORIES = {
+      quality: {
+        label: 'Food & Butter Quality',
+        forceEscalation: true,
+        problems: [
+          {
+            title: 'Food / butter came bad, off-smelling, or spoiled',
+            tip: '<strong>Quality Alert:</strong> Keep chilled at 0–4°C and report details below so we can immediately log this batch quality issue and make it right.',
+          },
+          {
+            title: 'Butter arrived warm or melted',
+            tip: '<strong>Cold-Chain Check:</strong> Butters are chilled at 0–4°C before dispatch. Describe how warm it arrived below so we can improve cold-pack protection.',
+          },
+          {
+            title: 'Flavor, salt, spice, or texture wasn’t what I expected',
+            tip: '<strong>Taste Feedback:</strong> Our blends mix 50/50 commercial &amp; baladi butter. Share your exact notes below so we can tune our recipe.',
+          },
+        ],
+      },
+      packaging: {
+        label: 'Packaging & Tin Condition',
+        forceEscalation: true,
+        problems: [
+          {
+            title: 'Packaging was bad, messy, or poorly wrapped',
+            tip: '<strong>Packaging Feedback:</strong> We want every order to arrive clean and well-protected. Tell us what looked wrong with the packaging below.',
+          },
+          {
+            title: 'Tin was dented, opened, or unsealed on arrival',
+            tip: '<strong>Seal / Tin Issue:</strong> Note the flavor tin affected and what happened in the box below so we can inspect our packing workflow.',
+          },
+        ],
+      },
+      delivery: {
+        label: 'Delivery & Timing',
+        forceEscalation: false,
+        problems: [
+          {
+            title: 'I need delivery sooner than 2 days',
+            tip: '<strong>2-Day Advance Notice:</strong> Every batch is whipped and chilled fresh to order, so we require at least <strong>2 days advance notice</strong>.',
+          },
+          {
+            title: 'Delivery is late or address / compound needs update',
+            tip: '<strong>Delivery Timing / Address:</strong> If your delivery window passed or your compound/street needs correction, click <em>Not Fixed / Send to You Now</em> below.',
+          },
+          {
+            title: 'Delivery zone fee question',
+            tip: '<strong>Delivery Zones:</strong> Heliopolis &amp; Nozha (40 EGP), Nasr City (45 EGP), Maadi/Zamalek/West-Central (60 EGP), New Cairo (75–85 EGP), Sheikh Zayed (90–105 EGP).',
+          },
+        ],
+      },
+      payment: {
+        label: 'InstaPay & Order Hold',
+        forceEscalation: false,
+        problems: [
+          {
+            title: 'Why is my order on hold or taking time to verify?',
+            tip: '<strong>Hold &amp; Verification Rule:</strong> Orders stay on hold until the InstaPay transfer screenshot to <strong>+20 10 41870087</strong> is checked. Transfers outside ±1 hour of order time go for manual check.',
+          },
+          {
+            title: 'How does the 50% InstaPay deposit + COD work?',
+            tip: '<strong>50% Deposit Option:</strong> Choose <em>COD + 50% Deposit</em> to transfer 50% now via InstaPay (<strong>+20 10 41870087</strong>) and pay the remaining 50% upon delivery.',
+          },
+          {
+            title: 'Transferred wrong amount or need receipt / email fix',
+            tip: '<strong>Payment / Receipt Issue:</strong> Click <em>Not Fixed / Send to You Now</em> below with your email and transfer details so we can check it.',
+          },
+        ],
+      },
+      items: {
+        label: 'Flavors & Quartet Box',
+        forceEscalation: false,
+        problems: [
+          {
+            title: 'What is inside the 4-Flavor Quartet Box (560 EGP)?',
+            tip: '<strong>Quartet Box (560 EGP):</strong> Includes one tin each of Roasted Garlic &amp; Herb, Hot Honey &amp; Chili Crunch, Sundried Tomato/Basil/Parmesan, and Black Truffle &amp; Sea Salt.',
+          },
+          {
+            title: 'Missing tin or wrong flavor received',
+            tip: '<strong>Item Mismatch:</strong> Click <em>Not Fixed / Send to You Now</em> below and list which flavor tin was missing or incorrect.',
+          },
+        ],
+      },
+      other: {
+        label: 'Other Problem',
+        forceEscalation: true,
+        problems: [
+          {
+            title: 'Other — I will write my own problem',
+            tip: '<strong>Custom Issue:</strong> Type whatever problem you experienced below and send it straight to <strong>+20 10 41870087</strong>.',
+          },
+        ],
+      },
+    };
+
     const state = {
       qtys: { garlic: 0, chili: 0, tomato: 0, truffle: 0 },
       quartetQty: 0,
       paymentMethod: 'instapay',
-      helpTopic: 'timing',
+      activeCategoryKey: 'quality',
     };
 
     function changeQty(key, delta) {
@@ -1145,70 +1284,102 @@
     }
 
     function resetHelpModal() {
-      document.getElementById('help-step-1').classList.remove('hidden');
-      document.getElementById('help-step-2').classList.add('hidden');
-      document.getElementById('help-step-3').classList.add('hidden');
+      document.getElementById('help-section-1').classList.remove('hidden');
+      document.getElementById('help-section-2').classList.add('hidden');
       document.getElementById('help-solved-state').classList.add('hidden');
-      document.getElementById('gate-check-1').checked = false;
-      document.getElementById('gate-check-2').checked = false;
-      document.getElementById('help-issue-desc').value = '';
-      evaluateEscalationGate();
+      document.getElementById('escalation-details-box').classList.add('hidden');
+      document.getElementById('custom-problem-input').value = '';
+      document.getElementById('gate-confirm-checkbox').checked = false;
+      updateEscalationLink();
     }
 
-    function selectHelpTopic(topic) {
-      state.helpTopic = topic;
-      const box = document.getElementById('help-answer-box');
-      if (topic === 'timing') {
-        box.innerHTML =
-          '<strong>2-Day Advance Rule &amp; 0–4°C Storage:</strong> Every batch is whipped and chilled at 0–4°C so please order at least <strong>2 days ahead</strong> of your requested delivery day.';
-      } else if (topic === 'instapay') {
-        box.innerHTML =
-          '<strong>InstaPay &amp; Screenshot Hold:</strong> Transfer the required amount (full order or 50% deposit for COD) to <strong>' +
-          INSTAPAY_NUMBER_DISPLAY +
-          '</strong> and send the transfer screenshot. Orders remain on hold until verified (transfers outside ±1 hour of order time go for manual check).';
+    function selectMainCategory(categoryKey) {
+      state.activeCategoryKey = categoryKey;
+      const cat = PROBLEM_CATEGORIES[categoryKey];
+      if (!cat) return;
+
+      document.getElementById('help-section-1').classList.add('hidden');
+      document.getElementById('help-section-2').classList.remove('hidden');
+      document.getElementById('selected-category-badge').textContent = 'Main Type: ' + cat.label;
+
+      const selectEl = document.getElementById('specific-problem-select');
+      selectEl.innerHTML = '';
+      cat.problems.forEach((p, idx) => {
+        const opt = document.createElement('option');
+        opt.value = idx;
+        opt.textContent = p.title;
+        selectEl.appendChild(opt);
+      });
+
+      document.getElementById('custom-problem-input').value = '';
+      document.getElementById('gate-confirm-checkbox').checked = false;
+
+      if (cat.forceEscalation) {
+        document.getElementById('routine-fix-controls').classList.add('hidden');
+        document.getElementById('escalation-details-box').classList.remove('hidden');
       } else {
-        box.innerHTML =
-          '<strong>Flavors &amp; Quartet Box:</strong> Made with a 50/50 commercial &amp; baladi butter blend. The 4-Flavor Quartet Box (560 EGP) includes one tin of each signature flavor.';
+        document.getElementById('routine-fix-controls').classList.remove('hidden');
+        document.getElementById('escalation-details-box').classList.add('hidden');
       }
-      document.getElementById('help-step-1').classList.add('hidden');
-      document.getElementById('help-step-2').classList.remove('hidden');
+
+      handleSpecificProblemChange();
+    }
+
+    function handleSpecificProblemChange() {
+      const cat = PROBLEM_CATEGORIES[state.activeCategoryKey];
+      const selectEl = document.getElementById('specific-problem-select');
+      const idx = Number(selectEl.value || 0);
+      const item = cat && cat.problems[idx] ? cat.problems[idx] : null;
+      if (item) {
+        document.getElementById('self-check-tip-box').innerHTML = item.tip;
+      }
+      updateEscalationLink();
+    }
+
+    function showEscalationBox() {
+      document.getElementById('escalation-details-box').classList.remove('hidden');
+      document.getElementById('custom-problem-input').focus();
+      updateEscalationLink();
     }
 
     function markHelpSolved() {
-      document.getElementById('help-step-2').classList.add('hidden');
+      document.getElementById('help-section-2').classList.add('hidden');
       document.getElementById('help-solved-state').classList.remove('hidden');
     }
 
-    function goToHelpStep3() {
-      document.getElementById('help-step-2').classList.add('hidden');
-      document.getElementById('help-step-3').classList.remove('hidden');
-      evaluateEscalationGate();
-    }
+    function updateEscalationLink() {
+      const cat = PROBLEM_CATEGORIES[state.activeCategoryKey];
+      const selectEl = document.getElementById('specific-problem-select');
+      const idx = Number(selectEl.value || 0);
+      const specificTitle =
+        cat && cat.problems[idx] ? cat.problems[idx].title : 'General Issue';
+      const customText = document.getElementById('custom-problem-input').value.trim();
+      const checked = document.getElementById('gate-confirm-checkbox').checked;
+      const btn = document.getElementById('instant-send-whatsapp-btn');
+      const hint = document.getElementById('escalation-status-hint');
 
-    function evaluateEscalationGate() {
-      const c1 = document.getElementById('gate-check-1').checked;
-      const c2 = document.getElementById('gate-check-2').checked;
-      const desc = document.getElementById('help-issue-desc').value.trim();
-      const btn = document.getElementById('escalation-whatsapp-btn');
-      const msg = document.getElementById('escalation-locked-msg');
-
-      const unlocked = c1 && c2 && desc.length >= 15;
-      if (unlocked) {
-        const email = document.getElementById('customer-email').value.trim();
-        const text = [
-          'Zebda & Co. — Escalated Support Issue',
-          'Topic: ' + state.helpTopic,
-          email ? 'Email: ' + email : '',
-          'Issue: ' + desc,
+      const ready = checked && customText.length >= 10;
+      if (ready) {
+        const customerEmail = document.getElementById('customer-email').value.trim();
+        const customerName = document.getElementById('customer-name').value.trim();
+        const msg = [
+          'Zebda & Co. (زبدة وشركاه) — Problem / Feedback Alert',
+          '--------------------------------------------------',
+          'Main Type: ' + (cat ? cat.label : state.activeCategoryKey),
+          'Specific Problem: ' + specificTitle,
+          'Details / Other Problem: ' + customText,
+          customerEmail ? 'Customer Email: ' + customerEmail : '',
+          customerName ? 'Customer Name: ' + customerName : '',
         ]
           .filter(Boolean)
           .join('\n');
-        btn.href = 'https://wa.me/' + WHATSAPP_PHONE_DIGITS + '?text=' + encodeURIComponent(text);
+
+        btn.href = 'https://wa.me/' + WHATSAPP_PHONE_DIGITS + '?text=' + encodeURIComponent(msg);
         btn.classList.remove('hidden');
-        msg.classList.add('hidden');
+        hint.classList.add('hidden');
       } else {
         btn.classList.add('hidden');
-        msg.classList.remove('hidden');
+        hint.classList.remove('hidden');
       }
     }
 
