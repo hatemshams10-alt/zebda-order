@@ -883,7 +883,7 @@
         </div>
       </div>
 
-      <!-- Section 2: Specific Problem + Self-Check / Instant Escalation -->
+      <!-- Section 2: Specific Problem + Self-Check / Photo / Instant Escalation -->
       <div id="help-section-2" class="hidden space-y-3">
         <div class="flex items-center justify-between gap-2">
           <span id="selected-category-badge" class="px-2.5 py-1 rounded-full text-xs font-bold bg-[#1E4620] text-[#F7F3EA]"></span>
@@ -927,18 +927,101 @@
           </button>
         </div>
 
-        <!-- Escalation & Custom "Other" Problem Box -->
-        <div id="escalation-details-box" class="hidden space-y-2.5 pt-2 border-t border-[#1E1916]/15">
-          <label for="custom-problem-input" class="block text-xs font-bold text-[#7A1C1C]">
-            Describe the problem clearly so we can fix it &amp; improve:
-          </label>
-          <textarea
-            id="custom-problem-input"
-            rows="3"
-            oninput="updateEscalationLink()"
-            placeholder="Example: The butter tin arrived warm / packaging was dented / another issue..."
-            class="w-full rounded-xl bg-[#EFE9DA] border border-[#1E1916]/25 p-2.5 text-xs text-[#1E1916]"
-          ></textarea>
+        <!-- Escalation, 3-Choice Photo Selector & Custom "Other" Problem Box -->
+        <div id="escalation-details-box" class="hidden space-y-3 pt-2 border-t border-[#1E1916]/15">
+          <div>
+            <label for="custom-problem-input" class="block text-xs font-bold text-[#7A1C1C] mb-1">
+              Describe the problem clearly so we can fix it &amp; improve:
+            </label>
+            <textarea
+              id="custom-problem-input"
+              rows="3"
+              oninput="updateEscalationLink()"
+              placeholder="Example: The butter tin arrived warm / packaging was dented / another issue..."
+              class="w-full rounded-xl bg-[#EFE9DA] border border-[#1E1916]/25 p-2.5 text-xs text-[#1E1916]"
+            ></textarea>
+          </div>
+
+          <!-- 3-Way Photo Choice (Works on iPhone & Samsung) -->
+          <div class="rounded-xl bg-[#EFE9DA] border border-[#1E1916]/20 p-3 space-y-2.5">
+            <div class="flex items-center justify-between gap-2">
+              <span class="text-xs font-bold text-[#1E1916]">
+                Attach Photo (Optional — iPhone &amp; Samsung)
+              </span>
+              <button
+                type="button"
+                onclick="clearAttachedPhoto()"
+                class="text-[11px] font-bold underline text-[#7A1C1C] cursor-pointer"
+              >
+                Clear Photo
+              </button>
+            </div>
+
+            <p class="text-[11px] text-[#1E1916]/75 leading-snug">
+              Choose one of the 3 options below (on <strong>iPhone</strong> or <strong>Samsung</strong>): snap a picture right now, pick from your photo library/gallery, or browse files.
+            </p>
+
+            <!-- Hidden file inputs for each of the 3 choices -->
+            <input
+              id="photo-input-camera"
+              type="file"
+              accept="image/*"
+              capture="environment"
+              onchange="handlePhotoSelected(this, 'Take Photo Now (Camera)')"
+              class="hidden"
+            />
+            <input
+              id="photo-input-gallery"
+              type="file"
+              accept="image/*"
+              onchange="handlePhotoSelected(this, 'Attach / Choose Photo (Gallery)')"
+              class="hidden"
+            />
+            <input
+              id="photo-input-file"
+              type="file"
+              accept="image/*,.pdf"
+              onchange="handlePhotoSelected(this, 'Browse & Attach File')"
+              class="hidden"
+            />
+
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs font-bold">
+              <button
+                type="button"
+                onclick="triggerPhotoChoice('photo-input-camera')"
+                class="py-2 px-2.5 rounded-xl bg-[#1E1916] text-[#E8C97B] hover:opacity-95 transition cursor-pointer text-center"
+              >
+                1. Take Photo Now
+              </button>
+              <button
+                type="button"
+                onclick="triggerPhotoChoice('photo-input-gallery')"
+                class="py-2 px-2.5 rounded-xl bg-[#1E4620] text-[#F7F3EA] hover:opacity-95 transition cursor-pointer text-center"
+              >
+                2. Attach Photo
+              </button>
+              <button
+                type="button"
+                onclick="triggerPhotoChoice('photo-input-file')"
+                class="py-2 px-2.5 rounded-xl bg-[#F7F3EA] text-[#1E1916] border border-[#1E1916]/25 hover:bg-white transition cursor-pointer text-center"
+              >
+                3. Browse File
+              </button>
+            </div>
+
+            <div id="photo-preview-container" class="hidden pt-2 border-t border-[#1E1916]/12 space-y-2">
+              <div class="text-[11px] font-bold text-[#1E4620]" id="photo-selected-label"></div>
+              <img
+                id="photo-preview-img"
+                src=""
+                alt="Selected problem photo preview"
+                class="max-h-40 rounded-lg border border-[#1E1916]/20 object-contain bg-[#F7F3EA]"
+              />
+              <p class="text-[11px] text-[#7A1C1C] font-semibold">
+                Reminder: When WhatsApp opens, tap the <strong>+ / Attach / Photo</strong> icon in chat to send this image along with the pre-filled message.
+              </p>
+            </div>
+          </div>
 
           <label id="gate-confirm-label" class="flex items-start gap-2 text-xs font-semibold cursor-pointer">
             <input id="gate-confirm-checkbox" type="checkbox" onchange="updateEscalationLink()" class="mt-0.5" />
@@ -949,15 +1032,26 @@
             Enter at least 10 characters describing the issue and check the confirmation box to unlock instant WhatsApp send.
           </p>
 
-          <a
-            id="instant-send-whatsapp-btn"
-            href="#"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="hidden w-full py-3 px-4 rounded-xl bg-[#1E1916] text-[#E8C97B] border border-[#C59B43] font-bold text-xs text-center hover:brightness-105 transition"
-          >
-            Send This Problem Immediately to +20 10 41870087
-          </a>
+          <div class="space-y-2">
+            <a
+              id="instant-send-whatsapp-btn"
+              href="#"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="hidden w-full py-3 px-4 rounded-xl bg-[#1E1916] text-[#E8C97B] border border-[#C59B43] font-bold text-xs text-center hover:brightness-105 transition"
+            >
+              Send This Problem Immediately to +20 10 41870087
+            </a>
+
+            <button
+              id="copy-issue-text-btn"
+              type="button"
+              onclick="copyIssueSummary()"
+              class="hidden w-full py-2 px-4 rounded-xl bg-[#EFE9DA] text-[#1E1916] border border-[#1E1916]/25 font-bold text-xs hover:bg-[#e3dccb] transition cursor-pointer"
+            >
+              Copy Issue Summary Text
+            </button>
+          </div>
         </div>
       </div>
 
@@ -1114,6 +1208,8 @@
       quartetQty: 0,
       paymentMethod: 'instapay',
       activeCategoryKey: 'quality',
+      photoMeta: null,
+      latestIssueMessage: '',
     };
 
     function changeQty(key, delta) {
@@ -1283,6 +1379,58 @@
       modal.classList.remove('flex');
     }
 
+    function clearAttachedPhoto() {
+      state.photoMeta = null;
+      ['photo-input-camera', 'photo-input-gallery', 'photo-input-file'].forEach((id) => {
+        const el = document.getElementById(id);
+        if (el) el.value = '';
+      });
+      const container = document.getElementById('photo-preview-container');
+      const img = document.getElementById('photo-preview-img');
+      if (container) container.classList.add('hidden');
+      if (img) img.src = '';
+      updateEscalationLink();
+    }
+
+    function triggerPhotoChoice(inputId) {
+      const input = document.getElementById(inputId);
+      if (input) input.click();
+    }
+
+    function handlePhotoSelected(inputEl, methodLabel) {
+      const file = inputEl && inputEl.files && inputEl.files[0];
+      if (!file) return;
+
+      state.photoMeta = {
+        name: file.name,
+        method: methodLabel,
+      };
+
+      const container = document.getElementById('photo-preview-container');
+      const labelEl = document.getElementById('photo-selected-label');
+      const imgEl = document.getElementById('photo-preview-img');
+
+      if (labelEl) {
+        labelEl.textContent = methodLabel + ' — ' + file.name;
+      }
+
+      if (file.type && file.type.startsWith('image/')) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          if (imgEl && e.target && e.target.result) {
+            imgEl.src = e.target.result;
+            imgEl.classList.remove('hidden');
+          }
+        };
+        reader.readAsDataURL(file);
+      } else if (imgEl) {
+        imgEl.classList.add('hidden');
+      }
+
+      if (container) container.classList.remove('hidden');
+      updateEscalationLink();
+    }
+
     function resetHelpModal() {
       document.getElementById('help-section-1').classList.remove('hidden');
       document.getElementById('help-section-2').classList.add('hidden');
@@ -1290,6 +1438,7 @@
       document.getElementById('escalation-details-box').classList.add('hidden');
       document.getElementById('custom-problem-input').value = '';
       document.getElementById('gate-confirm-checkbox').checked = false;
+      clearAttachedPhoto();
       updateEscalationLink();
     }
 
@@ -1313,6 +1462,7 @@
 
       document.getElementById('custom-problem-input').value = '';
       document.getElementById('gate-confirm-checkbox').checked = false;
+      clearAttachedPhoto();
 
       if (cat.forceEscalation) {
         document.getElementById('routine-fix-controls').classList.add('hidden');
@@ -1356,30 +1506,50 @@
       const customText = document.getElementById('custom-problem-input').value.trim();
       const checked = document.getElementById('gate-confirm-checkbox').checked;
       const btn = document.getElementById('instant-send-whatsapp-btn');
+      const copyBtn = document.getElementById('copy-issue-text-btn');
       const hint = document.getElementById('escalation-status-hint');
 
       const ready = checked && customText.length >= 10;
       if (ready) {
         const customerEmail = document.getElementById('customer-email').value.trim();
         const customerName = document.getElementById('customer-name').value.trim();
+        const photoLine = state.photoMeta
+          ? 'Photo Selected: ' + state.photoMeta.name + ' (' + state.photoMeta.method + ' — attach in chat)'
+          : 'Photo Selected: None';
+
         const msg = [
           'Zebda & Co. (زبدة وشركاه) — Problem / Feedback Alert',
           '--------------------------------------------------',
           'Main Type: ' + (cat ? cat.label : state.activeCategoryKey),
           'Specific Problem: ' + specificTitle,
           'Details / Other Problem: ' + customText,
+          photoLine,
           customerEmail ? 'Customer Email: ' + customerEmail : '',
           customerName ? 'Customer Name: ' + customerName : '',
         ]
           .filter(Boolean)
           .join('\n');
 
+        state.latestIssueMessage = msg;
         btn.href = 'https://wa.me/' + WHATSAPP_PHONE_DIGITS + '?text=' + encodeURIComponent(msg);
         btn.classList.remove('hidden');
+        copyBtn.classList.remove('hidden');
         hint.classList.add('hidden');
       } else {
+        state.latestIssueMessage = '';
         btn.classList.add('hidden');
+        copyBtn.classList.add('hidden');
         hint.classList.remove('hidden');
+      }
+    }
+
+    function copyIssueSummary() {
+      if (!state.latestIssueMessage) return;
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(state.latestIssueMessage).then(() => {
+          const btn = document.getElementById('copy-issue-text-btn');
+          if (btn) btn.textContent = 'Copied Issue Summary!';
+        });
       }
     }
 
