@@ -24,7 +24,7 @@
       font-size: 18px;
     }
     #log {
-      height: 260px;
+      height: 280px;
       overflow-y: auto;
       background: #f7f7f7;
       border: 1px solid #e5e5e5;
@@ -35,7 +35,8 @@
     }
     .msg {
       margin-bottom: 10px;
-      line-height: 1.4;
+      line-height: 1.45;
+      white-space: pre-line;
     }
     form {
       display: flex;
@@ -63,7 +64,7 @@
   <div class="box">
     <h2>Zebda &amp; Co. Order Chat Test</h2>
     <div id="log">
-      <div class="msg" style="color:#666;">Send a message to test your AI assistant.</div>
+      <div class="msg"><strong>Assistant:</strong> أهلاً بك في Zebda &amp; Co.! تحب لغة التواصل تبقى إيه (عربي ولا English)؟<br/>Welcome to Zebda &amp; Co.! What language would you prefer to chat in (Arabic or English)?</div>
     </div>
     <form id="chat-form">
       <input id="chat-input" type="text" placeholder="Type your message..." required />
