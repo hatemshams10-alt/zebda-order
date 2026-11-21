@@ -41,7 +41,6 @@
   </script>
 
   <style>
-    /* Warm modern heritage linen styling */
     body {
       background-color: #F7F3EA;
       color: #1E1916;
@@ -586,11 +585,11 @@
       </div>
 
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <!-- Left Column: Cascading Area -> Sub-Area + Address + Payment Selector -->
+        <!-- Left Column: Cascading Area -> Sub-Area + Required Details + Payment Selector -->
         <div class="space-y-4">
           <div>
             <label for="city-select" class="block text-xs font-bold uppercase tracking-wider text-[#1E1916]/80 mb-1.5">
-              1. Area / Zone
+              1. Area / Zone <span class="text-[#7A1C1C]">*</span>
             </label>
             <select
               id="city-select"
@@ -608,7 +607,7 @@
           <div>
             <div class="flex items-center justify-between gap-2 mb-1.5">
               <label for="subarea-select" class="block text-xs font-bold uppercase tracking-wider text-[#1E1916]/80">
-                2. Sub-Area / Compound
+                2. Sub-Area / Compound <span class="text-[#7A1C1C]">*</span>
               </label>
               <span id="selected-delivery-badge" class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-[#1E4620] text-[#F7F3EA]">
                 Delivery: 40 EGP
@@ -622,35 +621,50 @@
           </div>
 
           <div>
-            <label for="address-detail" class="block text-xs font-bold uppercase tracking-wider text-[#1E1916]/80 mb-1.5">
-              3. Compound, Street, Building &amp; Delivery Day (2+ Days Ahead)
+            <label for="customer-name" class="block text-xs font-bold uppercase tracking-wider text-[#1E1916]/80 mb-1.5">
+              3. Your Full Name <span class="text-[#7A1C1C]">* (Required)</span>
             </label>
             <input
-              id="address-detail"
+              id="customer-name"
               type="text"
-              placeholder="e.g., Golden Square / Lotus / Bldg 12, for Saturday (2+ days ahead)..."
+              placeholder="Enter your name..."
               oninput="updateOrderUI()"
               class="w-full rounded-xl bg-[#F7F3EA] border border-[#1E1916]/20 px-4 py-2.5 text-sm text-[#1E1916] placeholder:text-[#1E1916]/45 focus:outline-none focus:border-[#1E4620]"
             />
           </div>
 
           <div>
-            <label for="customer-name" class="block text-xs font-bold uppercase tracking-wider text-[#1E1916]/80 mb-1.5">
-              4. Your Name &amp; Notes (Optional)
+            <label for="address-detail" class="block text-xs font-bold uppercase tracking-wider text-[#1E1916]/80 mb-1.5">
+              4. Full Location / Address &amp; Delivery Day <span class="text-[#7A1C1C]">* (Required)</span>
             </label>
             <input
-              id="customer-name"
+              id="address-detail"
               type="text"
-              placeholder="Your name or note for Zebda & Co."
+              placeholder="Compound / Street / Building / Floor + Delivery Day (2+ days ahead)..."
               oninput="updateOrderUI()"
               class="w-full rounded-xl bg-[#F7F3EA] border border-[#1E1916]/20 px-4 py-2.5 text-sm text-[#1E1916] placeholder:text-[#1E1916]/45 focus:outline-none focus:border-[#1E4620]"
             />
           </div>
 
+          <div>
+            <label for="delivery-date-input" class="block text-xs font-bold uppercase tracking-wider text-[#1E1916]/80 mb-1.5">
+              5. Preferred Delivery Date (2+ Days Ahead)
+            </label>
+            <input
+              id="delivery-date-input"
+              type="date"
+              onchange="updateOrderUI()"
+              class="w-full rounded-xl bg-[#F7F3EA] border border-[#1E1916]/20 px-4 py-2.5 text-sm text-[#1E1916] focus:outline-none focus:border-[#1E4620]"
+            />
+            <p id="lead-time-warning" class="hidden text-[11px] font-bold text-[#7A1C1C] mt-1">
+              Heads up: Selected date is less than 2 days from today. Orders require at least 2 days advance notice.
+            </p>
+          </div>
+
           <!-- Payment Method Selector: InstaPay (Full) vs COD (50% InstaPay Deposit) -->
           <div class="pt-2">
             <span class="block text-xs font-bold uppercase tracking-wider text-[#1E1916]/80 mb-2">
-              5. Payment Method (InstaPay: +20 10 41870087)
+              6. Payment Method (InstaPay: +20 10 41870087)
             </span>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 mb-3">
@@ -679,7 +693,7 @@
 
             <div class="mb-3">
               <label for="customer-email" class="block text-xs font-bold uppercase tracking-wider text-[#1E1916]/80 mb-1.5">
-                6. Your Email (For Order Receipt After Payment Check)
+                7. Your Email <span class="text-[#7A1C1C]">* (Required for Receipt)</span>
               </label>
               <input
                 id="customer-email"
@@ -700,13 +714,13 @@
                 <span id="cod-remaining-due">0 EGP</span>
               </div>
               <p class="text-[11px] text-[#7A1C1C] font-semibold pt-1">
-                Order stays on hold until your transfer screenshot is sent &amp; verified.
+                Order stays on hold until your transfer screenshot to +20 10 41870087 is sent &amp; verified.
               </p>
             </div>
           </div>
         </div>
 
-        <!-- Right Column: Live Order Summary + WhatsApp CTA + Help Trigger -->
+        <!-- Right Column: Live Order Summary + Locked/Unlocked WhatsApp CTA + Receipt Download + Help Trigger -->
         <div class="bg-[#F7F3EA] rounded-2xl border border-[#1E1916]/15 p-5 flex flex-col justify-between">
           <div>
             <h3 class="font-serif text-2xl font-bold text-[#1E1916] pb-3 mb-4 border-b border-[#1E1916]/12">
@@ -735,6 +749,15 @@
                 <span id="summary-instapay-now">40 EGP</span>
               </div>
             </div>
+
+            <!-- Missing Required Details Notice -->
+            <div
+              id="missing-fields-alert"
+              class="mt-4 rounded-xl bg-[#7A1C1C]/10 border border-[#7A1C1C]/40 p-3 text-xs text-[#7A1C1C] font-semibold"
+            >
+              <span class="font-bold block mb-1">Complete these before sending on WhatsApp:</span>
+              <ul id="missing-fields-list" class="list-disc list-inside space-y-0.5 text-[11px]"></ul>
+            </div>
           </div>
 
           <div class="mt-6 space-y-2.5">
@@ -743,10 +766,20 @@
               href="#"
               target="_blank"
               rel="noopener noreferrer"
-              class="w-full py-3.5 px-5 rounded-xl bg-[#1E4620] text-[#F7F3EA] font-bold text-sm text-center flex items-center justify-center gap-2 hover:opacity-95 transition shadow"
+              aria-disabled="true"
+              onclick="return handleWhatsAppOrderClick(event)"
+              class="w-full py-3.5 px-5 rounded-xl bg-[#1E1916]/35 text-[#F7F3EA]/80 font-bold text-sm text-center flex items-center justify-center gap-2 cursor-not-allowed transition shadow"
             >
-              <span>Send Order on WhatsApp (+20 10 41870087)</span>
+              <span>Complete Details to Unlock WhatsApp</span>
             </a>
+
+            <button
+              type="button"
+              onclick="downloadOrderReceiptImage()"
+              class="w-full py-3 px-4 rounded-xl bg-[#C59B43] text-[#1E1916] font-bold text-xs sm:text-sm hover:brightness-105 active:scale-[0.99] transition cursor-pointer shadow-sm"
+            >
+              Download Receipt Image (Zebda &amp; Co. Style)
+            </button>
 
             <button
               type="button"
@@ -760,6 +793,9 @@
       </div>
     </section>
   </main>
+
+  <!-- Hidden Canvas Used to Generate Branded Receipt Image -->
+  <canvas id="receipt-canvas" width="900" height="1260" class="hidden"></canvas>
 
   <!-- Sticky Bottom Summary Bar -->
   <div class="fixed bottom-0 inset-x-0 z-30 bg-[#1E1916] text-[#F7F3EA] border-t border-[#C59B43]/50 shadow-lg">
@@ -775,6 +811,13 @@
       <div class="flex items-center gap-2 shrink-0">
         <button
           type="button"
+          onclick="downloadOrderReceiptImage()"
+          class="py-2.5 px-3 rounded-xl bg-[#EFE9DA] text-[#1E1916] font-bold text-xs hover:bg-white transition cursor-pointer"
+        >
+          Receipt
+        </button>
+        <button
+          type="button"
           onclick="openHelpModal()"
           class="py-2.5 px-3 rounded-xl bg-[#262523] text-[#F7F3EA] border border-[#C59B43]/40 font-bold text-xs hover:bg-[#33312e] transition cursor-pointer"
         >
@@ -785,7 +828,9 @@
           href="#"
           target="_blank"
           rel="noopener noreferrer"
-          class="py-2.5 px-4 sm:px-5 rounded-xl bg-[#C59B43] text-[#1E1916] font-bold text-xs sm:text-sm hover:brightness-105 transition"
+          aria-disabled="true"
+          onclick="return handleWhatsAppOrderClick(event)"
+          class="py-2.5 px-4 sm:px-5 rounded-xl bg-[#C59B43]/40 text-[#F7F3EA]/75 font-bold text-xs sm:text-sm cursor-not-allowed transition"
         >
           Order on WhatsApp
         </a>
@@ -909,7 +954,6 @@
 
         <div id="self-check-tip-box" class="p-3.5 rounded-xl bg-[#EFE9DA] border border-[#1E1916]/15 text-xs sm:text-sm leading-relaxed"></div>
 
-        <!-- Optional Self-Fix Path for Routine Questions -->
         <div id="routine-fix-controls" class="flex flex-wrap gap-2">
           <button
             type="button"
@@ -927,7 +971,6 @@
           </button>
         </div>
 
-        <!-- Escalation, 3-Choice Photo Selector & Custom "Other" Problem Box -->
         <div id="escalation-details-box" class="hidden space-y-3 pt-2 border-t border-[#1E1916]/15">
           <div>
             <label for="custom-problem-input" class="block text-xs font-bold text-[#7A1C1C] mb-1">
@@ -961,7 +1004,6 @@
               Choose one of the 3 options below (on <strong>iPhone</strong> or <strong>Samsung</strong>): snap a picture right now, pick from your photo library/gallery, or browse files.
             </p>
 
-            <!-- Hidden file inputs for each of the 3 choices -->
             <input
               id="photo-input-camera"
               type="file"
@@ -1210,6 +1252,8 @@
       activeCategoryKey: 'quality',
       photoMeta: null,
       latestIssueMessage: '',
+      orderReady: false,
+      currentOrderData: null,
     };
 
     function changeQty(key, delta) {
@@ -1279,19 +1323,45 @@
       updateOrderUI();
     }
 
+    function isValidEmail(email) {
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    }
+
+    function checkDeliveryDateLeadTime(dateStr) {
+      const warnEl = document.getElementById('lead-time-warning');
+      if (!warnEl) return;
+      if (!dateStr) {
+        warnEl.classList.add('hidden');
+        return;
+      }
+      const chosen = new Date(dateStr + 'T00:00:00');
+      const now = new Date();
+      const todayMidnight = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+      const diffDays = (chosen - todayMidnight) / (1000 * 60 * 60 * 24);
+      if (diffDays < 2) {
+        warnEl.classList.remove('hidden');
+      } else {
+        warnEl.classList.add('hidden');
+      }
+    }
+
     function updateOrderUI() {
       const city = document.getElementById('city-select').value;
       const subSelect = document.getElementById('subarea-select');
       const selectedOption = subSelect.options[subSelect.selectedIndex];
       const deliveryFee = selectedOption ? Number(selectedOption.value) : 40;
       const subareaLabel = selectedOption ? selectedOption.dataset.label : city;
-      const addressDetail = document.getElementById('address-detail').value.trim();
       const customerName = document.getElementById('customer-name').value.trim();
+      const addressDetail = document.getElementById('address-detail').value.trim();
+      const deliveryDate = document.getElementById('delivery-date-input').value;
       const customerEmail = document.getElementById('customer-email').value.trim();
+
+      checkDeliveryDateLeadTime(deliveryDate);
 
       let itemsTotal = 0;
       let totalCount = 0;
       const lines = [];
+      const receiptItems = [];
 
       Object.keys(FLAVORS).forEach((key) => {
         const qty = state.qtys[key] || 0;
@@ -1300,6 +1370,7 @@
           itemsTotal += lineTotal;
           totalCount += qty;
           lines.push('• ' + FLAVORS[key].name + ' × ' + qty + ' = ' + lineTotal + ' EGP');
+          receiptItems.push({ label: FLAVORS[key].name + ' × ' + qty, amount: lineTotal + ' EGP' });
         }
       });
 
@@ -1308,6 +1379,7 @@
         itemsTotal += qTotal;
         totalCount += state.quartetQty;
         lines.push('• 4-Flavor Quartet Box × ' + state.quartetQty + ' = ' + qTotal + ' EGP');
+        receiptItems.push({ label: '4-Flavor Quartet Box × ' + state.quartetQty, amount: qTotal + ' EGP' });
       }
 
       const grandTotal = itemsTotal + deliveryFee;
@@ -1315,6 +1387,22 @@
         state.paymentMethod === 'cod' ? Math.ceil(grandTotal * 0.5) : grandTotal;
       const codRemaining =
         state.paymentMethod === 'cod' ? Math.max(0, grandTotal - instaPayDueNow) : 0;
+
+      state.currentOrderData = {
+        city,
+        subareaLabel,
+        customerName,
+        addressDetail,
+        deliveryDate,
+        customerEmail,
+        receiptItems,
+        itemsTotal,
+        deliveryFee,
+        grandTotal,
+        instaPayDueNow,
+        codRemaining,
+        paymentMethod: state.paymentMethod,
+      };
 
       const itemsListEl = document.getElementById('order-items-list');
       if (lines.length === 0) {
@@ -1339,31 +1427,254 @@
       document.getElementById('sticky-instapay').textContent = instaPayDueNow + ' EGP';
       document.getElementById('sticky-total').textContent = grandTotal + ' EGP';
 
-      const paymentText =
-        state.paymentMethod === 'cod'
-          ? 'COD (50% InstaPay Deposit Now: ' + instaPayDueNow + ' EGP | Remaining on Delivery: ' + codRemaining + ' EGP)'
-          : '100% InstaPay Now: ' + instaPayDueNow + ' EGP';
+      // Strict required fields validation before WhatsApp button unlocks
+      const missing = [];
+      if (totalCount === 0) missing.push('Select at least 1 butter tin or Quartet Box');
+      if (!customerName) missing.push('Enter your full name');
+      if (!addressDetail) missing.push('Enter your full address / location & delivery day');
+      if (!customerEmail || !isValidEmail(customerEmail)) missing.push('Enter a valid email address');
 
-      const waMessage = [
-        'Zebda & Co. (زبدة وشركاه) — New Order',
-        '------------------------------',
-        lines.length > 0 ? lines.join('\n') : '• (No items selected yet)',
-        'Subtotal: ' + itemsTotal + ' EGP',
-        'Delivery (' + subareaLabel + '): ' + deliveryFee + ' EGP',
-        'Total Order: ' + grandTotal + ' EGP',
-        'Payment: ' + paymentText,
-        'InstaPay Number: ' + INSTAPAY_NUMBER_DISPLAY,
-        'Customer Email: ' + (customerEmail || 'Not provided'),
-        customerName ? 'Name / Notes: ' + customerName : '',
-        addressDetail ? 'Address & Delivery Day: ' + addressDetail : '',
-        'Note: Order stays on hold until transfer screenshot to ' + INSTAPAY_NUMBER_DISPLAY + ' is sent & verified.',
-      ]
-        .filter(Boolean)
-        .join('\n');
+      state.orderReady = missing.length === 0;
 
-      const waUrl = 'https://wa.me/' + WHATSAPP_PHONE_DIGITS + '?text=' + encodeURIComponent(waMessage);
-      document.getElementById('whatsapp-order-btn').href = waUrl;
-      document.getElementById('sticky-whatsapp-btn').href = waUrl;
+      const alertBox = document.getElementById('missing-fields-alert');
+      const alertList = document.getElementById('missing-fields-list');
+      const waBtn = document.getElementById('whatsapp-order-btn');
+      const stickyWaBtn = document.getElementById('sticky-whatsapp-btn');
+
+      if (!state.orderReady) {
+        alertBox.classList.remove('hidden');
+        alertList.innerHTML = missing.map((m) => '<li>' + m + '</li>').join('');
+
+        waBtn.href = '#';
+        waBtn.setAttribute('aria-disabled', 'true');
+        waBtn.className =
+          'w-full py-3.5 px-5 rounded-xl bg-[#1E1916]/35 text-[#F7F3EA]/80 font-bold text-sm text-center flex items-center justify-center gap-2 cursor-not-allowed transition shadow';
+        waBtn.innerHTML = '<span>Fill All Required Details to Send on WhatsApp</span>';
+
+        stickyWaBtn.href = '#';
+        stickyWaBtn.setAttribute('aria-disabled', 'true');
+        stickyWaBtn.className =
+          'py-2.5 px-4 sm:px-5 rounded-xl bg-[#C59B43]/40 text-[#F7F3EA]/75 font-bold text-xs sm:text-sm cursor-not-allowed transition';
+      } else {
+        alertBox.classList.add('hidden');
+
+        const paymentText =
+          state.paymentMethod === 'cod'
+            ? 'COD (50% InstaPay Deposit Now: ' + instaPayDueNow + ' EGP | Remaining on Delivery: ' + codRemaining + ' EGP)'
+            : '100% InstaPay Now: ' + instaPayDueNow + ' EGP';
+
+        const waMessage = [
+          'Zebda & Co. (زبدة وشركاه) — New Order',
+          '------------------------------',
+          lines.join('\n'),
+          'Subtotal: ' + itemsTotal + ' EGP',
+          'Delivery (' + subareaLabel + '): ' + deliveryFee + ' EGP',
+          'Total Order: ' + grandTotal + ' EGP',
+          'Payment: ' + paymentText,
+          'InstaPay Number: ' + INSTAPAY_NUMBER_DISPLAY,
+          'Customer Name: ' + customerName,
+          'Customer Email: ' + customerEmail,
+          'Location & Delivery Day: ' + addressDetail,
+          deliveryDate ? 'Preferred Date: ' + deliveryDate : '',
+          'Note: Order stays on hold until transfer screenshot to ' + INSTAPAY_NUMBER_DISPLAY + ' is sent & verified.',
+        ]
+          .filter(Boolean)
+          .join('\n');
+
+        const waUrl = 'https://wa.me/' + WHATSAPP_PHONE_DIGITS + '?text=' + encodeURIComponent(waMessage);
+
+        waBtn.href = waUrl;
+        waBtn.setAttribute('aria-disabled', 'false');
+        waBtn.className =
+          'w-full py-3.5 px-5 rounded-xl bg-[#1E4620] text-[#F7F3EA] font-bold text-sm text-center flex items-center justify-center gap-2 hover:opacity-95 transition shadow cursor-pointer';
+        waBtn.innerHTML = '<span>Send Order on WhatsApp (+20 10 41870087)</span>';
+
+        stickyWaBtn.href = waUrl;
+        stickyWaBtn.setAttribute('aria-disabled', 'false');
+        stickyWaBtn.className =
+          'py-2.5 px-4 sm:px-5 rounded-xl bg-[#C59B43] text-[#1E1916] font-bold text-xs sm:text-sm hover:brightness-105 transition cursor-pointer';
+      }
+    }
+
+    function handleWhatsAppOrderClick(event) {
+      if (!state.orderReady) {
+        event.preventDefault();
+        const alertBox = document.getElementById('missing-fields-alert');
+        if (alertBox) {
+          alertBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+        return false;
+      }
+      return true;
+    }
+
+    // Draw & Download Branded PNG Receipt Matching Zebda & Co. Webpage Palette
+    function downloadOrderReceiptImage() {
+      const data = state.currentOrderData;
+      if (!data) return;
+
+      const canvas = document.getElementById('receipt-canvas');
+      const ctx = canvas.getContext('2d');
+      const W = canvas.width;
+      const H = canvas.height;
+
+      // Background Linen (#F7F3EA)
+      ctx.fillStyle = '#F7F3EA';
+      ctx.fillRect(0, 0, W, H);
+
+      // Outer Brass Border
+      ctx.strokeStyle = '#C59B43';
+      ctx.lineWidth = 6;
+      ctx.strokeRect(24, 24, W - 48, H - 48);
+
+      // Top Dark Espresso Header (#1E1916)
+      ctx.fillStyle = '#1E1916';
+      ctx.fillRect(36, 36, W - 72, 175);
+
+      // Brass Accent Stripe
+      ctx.fillStyle = '#C59B43';
+      ctx.fillRect(36, 205, W - 72, 6);
+
+      // Brand Title
+      ctx.fillStyle = '#E8C97B';
+      ctx.font = 'bold 16px "Plus Jakarta Sans", sans-serif';
+      ctx.fillText('ORDER RECEIPT • 50/50 BALADI & COMMERCIAL BUTTER • 0–4°C', 68, 78);
+
+      ctx.fillStyle = '#F7F3EA';
+      ctx.font = 'bold 46px "Cormorant Garamond", Georgia, serif';
+      ctx.fillText('ZEBDA & CO.', 68, 134);
+
+      ctx.fillStyle = '#E8C97B';
+      ctx.font = 'bold 28px "Cairo", sans-serif';
+      ctx.fillText('زبدة وشركاه', 360, 134);
+
+      ctx.fillStyle = '#F7F3EA';
+      ctx.font = '600 16px "Plus Jakarta Sans", sans-serif';
+      ctx.fillText('InstaPay: ' + INSTAPAY_NUMBER_DISPLAY + '  •  2-Day Advance Notice', 68, 176);
+
+      // Customer & Location Card (#EFE9DA)
+      ctx.fillStyle = '#EFE9DA';
+      ctx.fillRect(54, 236, W - 108, 225);
+      ctx.strokeStyle = 'rgba(30, 25, 22, 0.2)';
+      ctx.lineWidth = 2;
+      ctx.strokeRect(54, 236, W - 108, 225);
+
+      ctx.fillStyle = '#1E4620';
+      ctx.font = 'bold 18px "Plus Jakarta Sans", sans-serif';
+      ctx.fillText('CUSTOMER & DELIVERY DETAILS', 78, 272);
+
+      ctx.fillStyle = '#1E1916';
+      ctx.font = '600 19px "Plus Jakarta Sans", sans-serif';
+      ctx.fillText('Name: ' + (data.customerName || 'Not entered yet'), 78, 308);
+      ctx.fillText('Email: ' + (data.customerEmail || 'Not entered yet'), 78, 340);
+      ctx.fillText('Zone: ' + data.city, 78, 372);
+      ctx.fillText('Location: ' + (data.addressDetail || 'Not entered yet'), 78, 404);
+      ctx.fillText(
+        'Delivery Date: ' + (data.deliveryDate || 'Confirm 2+ days ahead'),
+        78,
+        436
+      );
+
+      // Items Section (#EFE9DA)
+      ctx.fillStyle = '#EFE9DA';
+      ctx.fillRect(54, 484, W - 108, 355);
+      ctx.strokeRect(54, 484, W - 108, 355);
+
+      ctx.fillStyle = '#7A1C1C';
+      ctx.font = 'bold 18px "Plus Jakarta Sans", sans-serif';
+      ctx.fillText('ORDER ITEMS & SUMMARY', 78, 520);
+
+      let y = 560;
+      ctx.fillStyle = '#1E1916';
+      ctx.font = '600 20px "Plus Jakarta Sans", sans-serif';
+
+      if (data.receiptItems.length === 0) {
+        ctx.fillStyle = '#555555';
+        ctx.fillText('No items selected yet', 78, y);
+        y += 38;
+      } else {
+        data.receiptItems.slice(0, 6).forEach((item) => {
+          ctx.fillStyle = '#1E1916';
+          ctx.fillText(item.label, 78, y);
+          ctx.textAlign = 'right';
+          ctx.fillText(item.amount, W - 78, y);
+          ctx.textAlign = 'left';
+          y += 34;
+        });
+      }
+
+      // Divider line
+      ctx.strokeStyle = 'rgba(30, 25, 22, 0.25)';
+      ctx.beginPath();
+      ctx.moveTo(78, 705);
+      ctx.lineTo(W - 78, 705);
+      ctx.stroke();
+
+      ctx.font = '600 19px "Plus Jakarta Sans", sans-serif';
+      ctx.fillText('Items Subtotal', 78, 738);
+      ctx.textAlign = 'right';
+      ctx.fillText(data.itemsTotal + ' EGP', W - 78, 738);
+      ctx.textAlign = 'left';
+
+      ctx.fillText('Delivery (' + data.city + ')', 78, 770);
+      ctx.textAlign = 'right';
+      ctx.fillText(data.deliveryFee + ' EGP', W - 78, 770);
+      ctx.textAlign = 'left';
+
+      ctx.fillStyle = '#1E4620';
+      ctx.font = 'bold 24px "Plus Jakarta Sans", sans-serif';
+      ctx.fillText('TOTAL ORDER', 78, 814);
+      ctx.textAlign = 'right';
+      ctx.fillText(data.grandTotal + ' EGP', W - 78, 814);
+      ctx.textAlign = 'left';
+
+      // Payment & Hold Box (#1E4620 / #7A1C1C)
+      ctx.fillStyle = '#1E4620';
+      ctx.fillRect(54, 862, W - 108, 175);
+
+      ctx.fillStyle = '#E8C97B';
+      ctx.font = 'bold 20px "Plus Jakarta Sans", sans-serif';
+      ctx.fillText(
+        data.paymentMethod === 'cod' ? 'PAYMENT: COD + 50% INSTAPAY DEPOSIT' : 'PAYMENT: 100% INSTAPAY',
+        78,
+        902
+      );
+
+      ctx.fillStyle = '#F7F3EA';
+      ctx.font = 'bold 24px "Plus Jakarta Sans", sans-serif';
+      ctx.fillText('InstaPay Due Now: ' + data.instaPayDueNow + ' EGP', 78, 940);
+
+      ctx.font = '600 18px "Plus Jakarta Sans", sans-serif';
+      ctx.fillText(
+        'Remaining on Delivery (COD): ' + data.codRemaining + ' EGP  |  To: ' + INSTAPAY_NUMBER_DISPLAY,
+        78,
+        976
+      );
+
+      ctx.fillStyle = '#F5D692';
+      ctx.font = 'bold 16px "Plus Jakarta Sans", sans-serif';
+      ctx.fillText('STATUS: ON HOLD UNTIL TRANSFER SCREENSHOT IS VERIFIED', 78, 1014);
+
+      // Footer Note
+      ctx.fillStyle = '#1E1916';
+      ctx.font = '600 16px "Plus Jakarta Sans", sans-serif';
+      ctx.fillText(
+        'Thank you for supporting Zebda & Co. (زبدة وشركاه) • Keep chilled at 0–4°C',
+        68,
+        1090
+      );
+      ctx.fillStyle = '#7A1C1C';
+      ctx.font = 'bold 15px "Plus Jakarta Sans", sans-serif';
+      ctx.fillText(
+        'Send your order on WhatsApp and attach your InstaPay screenshot to ' + INSTAPAY_NUMBER_DISPLAY,
+        68,
+        1122
+      );
+
+      const link = document.createElement('a');
+      link.download = 'zebda-and-co-order-receipt.png';
+      link.href = canvas.toDataURL('image/png');
+      link.click();
     }
 
     function openHelpModal() {
