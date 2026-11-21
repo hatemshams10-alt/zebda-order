@@ -3,174 +3,804 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ZEBDA &amp; CO. — Confirmed Orders Admin Portal</title>
+  <title>ZEBDA &amp; CO. — Admin Orders, Receipts &amp; Flavor Ideas</title>
+
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
-    href="https://fonts.googleapis.com/css2?family=Cairo:wght@500;600;700&family=Cormorant+Garamond:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;700&family=Cormorant+Garamond:wght@700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
     rel="stylesheet"
   />
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            serif: ['"Cormorant Garamond"', 'Georgia', 'serif'],
+            sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+            arabic: ['Cairo', 'sans-serif'],
+          },
+        },
+      },
+    };
+  </script>
+
   <style>
     body {
       background-color: #F7F3EA;
       color: #1E1916;
       font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
     }
-    .arabic-text { font-family: 'Cairo', sans-serif; }
+    .arabic-text {
+      font-family: 'Cairo', sans-serif;
+    }
   </style>
 </head>
-<body class="min-h-screen p-4 sm:p-8">
-  <div class="max-w-5xl mx-auto">
-    <header class="bg-[#EFE9DA] border border-[#1E1916]/15 rounded-2xl p-6 mb-6 flex flex-wrap items-center justify-between gap-4">
+<body class="min-h-screen antialiased pb-16">
+  <!-- Top Bar -->
+  <div class="w-full bg-[#1E1916] text-[#F7F3EA] border-b border-[#C59B43]/50">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-3 flex flex-wrap items-center justify-between gap-3">
+      <div class="flex items-center gap-3">
+        <span class="font-serif text-2xl font-bold text-[#F7F3EA]">ZEBDA &amp; CO.</span>
+        <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#C59B43] text-[#1E1916] uppercase">
+          Owner Admin Portal
+        </span>
+      </div>
+      <div class="flex items-center gap-2">
+        <a
+          href="index.html"
+          class="px-3 py-1.5 rounded-xl bg-[#262523] border border-[#C59B43]/40 text-xs font-bold text-[#E8C97B] hover:bg-[#33312e]"
+        >
+          Customer Menu
+        </a>
+        <button
+          id="lock-btn"
+          type="button"
+          onclick="lockAdmin()"
+          class="hidden px-3 py-1.5 rounded-xl bg-[#7A1C1C] text-xs font-bold text-[#F7F3EA] cursor-pointer"
+        >
+          Lock
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Passcode Gate -->
+  <section id="auth-gate" class="max-w-md mx-auto px-4 pt-16">
+    <div class="bg-[#EFE9DA] border-2 border-[#C59B43] rounded-2xl p-6 sm:p-8 shadow-lg space-y-4">
       <div>
-        <span class="text-xs uppercase tracking-[0.2em] text-[#7A1C1C] font-bold block">Zebda &amp; Co. Operations</span>
-        <h1 class="font-serif text-3xl font-bold text-[#1E1916]">Confirmed Orders Portal</h1>
+        <span class="text-[11px] uppercase tracking-widest font-bold text-[#7A1C1C] block">
+          Restricted Access
+        </span>
+        <h1 class="font-serif text-3xl font-bold text-[#1E1916]">
+          Admin Sign-In
+        </h1>
         <p class="text-xs text-[#1E1916]/75 mt-1">
-          Receives confirmed orders from the website &amp; chat widget, supports manual entry, status updates, and CSV export.
+          Enter your admin passcode to view synced orders, generated receipts, uploaded screenshots, flavor ideas, and issue logs.
         </p>
       </div>
-      <div class="flex flex-wrap gap-2">
-        <a href="index.html" class="px-3.5 py-2 rounded-xl bg-[#F7F3EA] border border-[#1E1916]/20 text-xs font-bold hover:bg-white">
-          Back to Menu
-        </a>
-        <button type="button" onclick="renderOrders()" class="px-3.5 py-2 rounded-xl bg-[#1E1916] text-[#F7F3EA] text-xs font-bold cursor-pointer">
-          Refresh
-        </button>
-        <button type="button" onclick="addManualOrder()" class="px-3.5 py-2 rounded-xl bg-[#1E4620] text-[#F7F3EA] text-xs font-bold cursor-pointer">
-          + Add Manual Order
-        </button>
-        <button type="button" onclick="exportOrdersCsv()" class="px-3.5 py-2 rounded-xl bg-[#C59B43] text-[#1E1916] text-xs font-bold cursor-pointer">
-          Export CSV
-        </button>
-        <button type="button" onclick="clearAllOrders()" class="px-3.5 py-2 rounded-xl bg-[#7A1C1C] text-[#F7F3EA] text-xs font-bold cursor-pointer">
-          Clear All
-        </button>
-      </div>
-    </header>
 
-    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
-      <div class="bg-[#EFE9DA] border border-[#1E1916]/15 rounded-2xl p-4">
-        <span class="text-xs uppercase tracking-wider text-[#1E1916]/65 font-bold block">Total Confirmed Orders</span>
-        <span id="stat-total" class="text-2xl font-bold text-[#1E1916]">0</span>
+      <div>
+        <label for="admin-passcode" class="block text-xs font-bold uppercase tracking-wider text-[#1E1916]/80 mb-1">
+          Passcode
+        </label>
+        <input
+          id="admin-passcode"
+          type="password"
+          onkeydown="if(event.key==='Enter') unlockAdmin()"
+          placeholder="Enter passcode..."
+          class="w-full rounded-xl bg-[#F7F3EA] border border-[#1E1916]/25 px-4 py-2.5 text-sm font-semibold text-[#1E1916]"
+        />
       </div>
-      <div class="bg-[#EFE9DA] border border-[#1E1916]/15 rounded-2xl p-4">
-        <span class="text-xs uppercase tracking-wider text-[#1E1916]/65 font-bold block">Active / Preparing</span>
-        <span id="stat-active" class="text-2xl font-bold text-[#1E4620]">0</span>
+
+      <p id="auth-error" class="hidden text-xs font-bold text-[#7A1C1C]">
+        Incorrect passcode. Try again.
+      </p>
+
+      <button
+        type="button"
+        onclick="unlockAdmin()"
+        class="w-full py-3 px-4 rounded-xl bg-[#1E4620] text-[#F7F3EA] font-bold text-sm hover:opacity-95 transition cursor-pointer"
+      >
+        Unlock Admin Dashboard
+      </button>
+    </div>
+  </section>
+
+  <!-- Main Admin Dashboard -->
+  <main id="admin-dashboard" class="hidden max-w-6xl mx-auto px-4 sm:px-6 pt-8 space-y-8">
+    <div class="flex flex-wrap items-end justify-between gap-4 bg-[#EFE9DA] border border-[#1E1916]/15 rounded-2xl p-6">
+      <div>
+        <span class="text-xs uppercase tracking-[0.2em] text-[#1E4620] font-bold block">
+          Synced From Customer Menu • Local Browser Log + n8n Audit
+        </span>
+        <h1 class="font-serif text-3xl sm:text-4xl font-bold text-[#1E1916]">
+          Orders, Receipts &amp; Flavor Ideas
+        </h1>
       </div>
-      <div class="bg-[#EFE9DA] border border-[#1E1916]/15 rounded-2xl p-4">
-        <span class="text-xs uppercase tracking-wider text-[#1E1916]/65 font-bold block">Last Refreshed</span>
-        <span id="stat-time" class="text-sm font-bold text-[#1E1916]">—</span>
+      <div class="flex flex-wrap gap-2">
+        <button
+          type="button"
+          onclick="renderAllAdminSections()"
+          class="px-3.5 py-2 rounded-xl bg-[#1E4620] text-[#F7F3EA] text-xs font-bold cursor-pointer"
+        >
+          Refresh Log
+        </button>
+        <button
+          type="button"
+          onclick="triggerN8nAudit(false)"
+          class="px-3.5 py-2 rounded-xl bg-[#C59B43] text-[#1E1916] text-xs font-bold cursor-pointer"
+        >
+          Send to n8n Audit
+        </button>
+        <button
+          type="button"
+          onclick="clearAllAdminData()"
+          class="px-3.5 py-2 rounded-xl bg-[#7A1C1C] text-[#F7F3EA] text-xs font-bold cursor-pointer"
+        >
+          Clear Log
+        </button>
       </div>
     </div>
 
-    <div id="orders-container" class="space-y-4"></div>
-  </div>
+    <!-- KPI Cards -->
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+      <div class="bg-[#EFE9DA] border border-[#1E1916]/15 rounded-2xl p-5">
+        <span class="text-xs uppercase tracking-wider font-bold text-[#1E1916]/65 block">Synced Orders</span>
+        <span id="stat-orders-count" class="font-serif text-3xl font-bold text-[#1E4620] mt-1 block">0</span>
+      </div>
+      <div class="bg-[#EFE9DA] border border-[#1E1916]/15 rounded-2xl p-5">
+        <span class="text-xs uppercase tracking-wider font-bold text-[#1E1916]/65 block">Customer Flavor Ideas</span>
+        <span id="stat-ideas-count" class="font-serif text-3xl font-bold text-[#7A1C1C] mt-1 block">0</span>
+      </div>
+      <div class="bg-[#EFE9DA] border border-[#1E1916]/15 rounded-2xl p-5">
+        <span class="text-xs uppercase tracking-wider font-bold text-[#1E1916]/65 block">Logged Issues</span>
+        <span id="stat-issues-count" class="font-serif text-3xl font-bold text-[#1E1916] mt-1 block">0</span>
+      </div>
+    </div>
+
+    <!-- Item Sales Tally & Out-of-Stock Toggle (جرد الأصناف وحالة التوفر) -->
+    <section class="bg-[#EFE9DA] border-2 border-[#C59B43]/70 rounded-2xl p-6 space-y-4">
+      <div class="flex flex-wrap items-center justify-between gap-3 border-b border-[#1E1916]/12 pb-3">
+        <div>
+          <span class="text-[11px] uppercase tracking-widest font-bold text-[#7A1C1C] block arabic-text">
+            جرد الأصناف والتحكم في التوفر • Item Tally &amp; Stock Toggle
+          </span>
+          <h2 class="font-serif text-2xl sm:text-3xl font-bold text-[#1E1916]">
+            Units Sold &amp; Stock Availability
+          </h2>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <label for="tally-scope-select" class="text-xs font-bold text-[#1E1916]/80">Count:</label>
+          <select
+            id="tally-scope-select"
+            onchange="renderItemSalesTally()"
+            class="rounded-xl bg-[#F7F3EA] border border-[#1E1916]/25 px-3 py-1.5 text-xs font-bold text-[#1E1916]"
+          >
+            <option value="all">All Synced Orders</option>
+            <option value="active">Verified &amp; Delivered Only (Excl. On Hold)</option>
+          </select>
+        </div>
+      </div>
+
+      <div id="item-tally-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3.5"></div>
+
+      <div class="pt-2 flex flex-wrap items-center justify-between gap-2 text-xs font-semibold text-[#1E1916]/80 border-t border-[#1E1916]/10">
+        <span id="tally-total-units">Total Tins &amp; Boxes: 0</span>
+        <span id="tally-free-samples">Free Samples Given: None</span>
+      </div>
+    </section>
+
+    <!-- n8n Audit & Review Connector (مراجعة البيانات عبر n8n) -->
+    <section class="bg-[#1E1916] text-[#F7F3EA] border-2 border-[#C59B43] rounded-2xl p-6 space-y-4">
+      <div class="flex flex-wrap items-center justify-between gap-3 border-b border-[#C59B43]/30 pb-3">
+        <div>
+          <span class="text-[11px] uppercase tracking-widest font-bold text-[#E8C97B] block arabic-text">
+            ربط n8n للمراجعة • n8n Audit &amp; Verification Sync
+          </span>
+          <h2 class="font-serif text-2xl sm:text-3xl font-bold text-[#F7F3EA]">
+            n8n Reviewer Webhook
+          </h2>
+        </div>
+        <button
+          type="button"
+          onclick="triggerN8nAudit(false)"
+          class="px-4 py-2 rounded-xl bg-[#C59B43] text-[#1E1916] text-xs font-bold hover:brightness-105 cursor-pointer"
+        >
+          Run n8n Review Now
+        </button>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
+        <div class="md:col-span-2">
+          <label for="n8n-webhook-url" class="block font-bold text-[#E8C97B] mb-1">
+            n8n Webhook URL
+          </label>
+          <input
+            id="n8n-webhook-url"
+            type="url"
+            oninput="saveN8nConfig()"
+            placeholder="https://your-n8n-instance/webhook/zebda-audit"
+            class="w-full rounded-xl bg-[#262523] border border-[#C59B43]/40 px-3.5 py-2.5 text-[#F7F3EA] placeholder:text-[#F7F3EA]/40"
+          />
+        </div>
+        <div>
+          <label for="n8n-secret-token" class="block font-bold text-[#E8C97B] mb-1">
+            Optional X-Audit-Key Header
+          </label>
+          <input
+            id="n8n-secret-token"
+            type="text"
+            oninput="saveN8nConfig()"
+            placeholder="Optional token..."
+            class="w-full rounded-xl bg-[#262523] border border-[#C59B43]/40 px-3.5 py-2.5 text-[#F7F3EA] placeholder:text-[#F7F3EA]/40"
+          />
+        </div>
+      </div>
+
+      <div class="flex flex-wrap items-center justify-between gap-3 text-xs">
+        <label class="inline-flex items-center gap-2 font-semibold text-[#F7F3EA]/90 cursor-pointer">
+          <input id="n8n-auto-sync" type="checkbox" onchange="saveN8nConfig()" />
+          <span>Auto-send snapshot to n8n when refreshing logs</span>
+        </label>
+        <span id="n8n-status-text" class="font-bold text-[#E8C97B]">Ready</span>
+      </div>
+
+      <div id="n8n-audit-result" class="rounded-xl bg-[#262523] border border-[#C59B43]/35 p-4 text-xs text-[#F7F3EA]/90 space-y-1">
+        <span class="font-bold text-[#E8C97B] block">Last n8n Audit Response:</span>
+        <p id="n8n-audit-body" class="text-[#F7F3EA]/75">No n8n audit run yet.</p>
+      </div>
+    </section>
+
+    <!-- Orders & Receipts -->
+    <section class="space-y-4">
+      <h2 class="font-serif text-2xl sm:text-3xl font-bold text-[#1E1916]">
+        Orders, Receipts &amp; Uploaded Screenshots
+      </h2>
+      <div id="orders-container" class="space-y-4"></div>
+    </section>
+
+    <!-- Customer Flavor Ideas -->
+    <section class="space-y-4">
+      <h2 class="font-serif text-2xl sm:text-3xl font-bold text-[#1E1916]">
+        Customer Flavor Ideas (From Blurred R&amp;D Cards)
+      </h2>
+      <div id="ideas-container" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+    </section>
+
+    <!-- Reported Issues / Feedback -->
+    <section class="space-y-4">
+      <h2 class="font-serif text-2xl sm:text-3xl font-bold text-[#1E1916]">
+        Reported Issues &amp; Feedback
+      </h2>
+      <div id="issues-container" class="space-y-3"></div>
+    </section>
+  </main>
 
   <script>
-    const ORDERS_STORAGE_KEY = "zebda_confirmed_orders_v1";
+    const ADMIN_PASSCODE = 'ZEBDA2026';
+    const ADMIN_STORE_KEY = 'zebda_and_co_admin_sync_v1';
+    const AUTH_SESSION_KEY = 'zebda_admin_unlocked_v1';
 
-    function loadOrders() {
+    const TALLY_ITEMS = [
+      { key: 'garlic', name: 'Roasted Garlic & Herb', ar: 'ثوم محمص وأعشاب', price: 145 },
+      { key: 'chili', name: 'Hot Honey & Chili Crunch', ar: 'عسل حار وفلفل مقرمش', price: 155 },
+      { key: 'tomato', name: 'Sundried Tomato, Basil & Parmesan', ar: 'طماطم وريحان وبارميزان', price: 165 },
+      { key: 'truffle', name: 'Black Truffle & Sea Salt', ar: 'كمأة سوداء وملح بحري', price: 185 },
+      { key: 'quartet', name: '4-Flavor Quartet Box', ar: 'بوكس التذوق (4 نكهات)', price: 560 },
+    ];
+
+    function readStore() {
       try {
-        return JSON.parse(localStorage.getItem(ORDERS_STORAGE_KEY) || "[]");
-      } catch (_) {
-        return [];
+        const raw = localStorage.getItem(ADMIN_STORE_KEY);
+        const parsed = raw ? JSON.parse(raw) : {};
+        return {
+          orders: Array.isArray(parsed.orders) ? parsed.orders : [],
+          flavorIdeas: Array.isArray(parsed.flavorIdeas) ? parsed.flavorIdeas : [],
+          issues: Array.isArray(parsed.issues) ? parsed.issues : [],
+          outOfStock:
+            parsed.outOfStock && typeof parsed.outOfStock === 'object'
+              ? parsed.outOfStock
+              : {},
+          n8nConfig:
+            parsed.n8nConfig && typeof parsed.n8nConfig === 'object'
+              ? parsed.n8nConfig
+              : {},
+          n8nLastAudit: parsed.n8nLastAudit || null,
+        };
+      } catch (e) {
+        return {
+          orders: [],
+          flavorIdeas: [],
+          issues: [],
+          outOfStock: {},
+          n8nConfig: {},
+          n8nLastAudit: null,
+        };
       }
     }
 
-    function saveOrders(list) {
-      localStorage.setItem(ORDERS_STORAGE_KEY, JSON.stringify(list));
-      renderOrders();
+    function writeStore(data) {
+      localStorage.setItem(ADMIN_STORE_KEY, JSON.stringify(data));
     }
 
-    function renderOrders() {
-      const orders = loadOrders();
-      const container = document.getElementById("orders-container");
-      document.getElementById("stat-total").textContent = String(orders.length);
-      document.getElementById("stat-active").textContent = String(orders.filter((o) => o.status !== "Delivered").length);
-      document.getElementById("stat-time").textContent = new Date().toLocaleTimeString();
+    function loadN8nUi() {
+      const store = readStore();
+      const cfg = store.n8nConfig || {};
+      const urlEl = document.getElementById('n8n-webhook-url');
+      const tokEl = document.getElementById('n8n-secret-token');
+      const autoEl = document.getElementById('n8n-auto-sync');
+      const bodyEl = document.getElementById('n8n-audit-body');
+      if (urlEl) urlEl.value = cfg.url || '';
+      if (tokEl) tokEl.value = cfg.token || '';
+      if (autoEl) autoEl.checked = Boolean(cfg.autoSync);
+      if (bodyEl && store.n8nLastAudit) {
+        bodyEl.textContent =
+          '[' +
+          (store.n8nLastAudit.checkedAt || '') +
+          '] ' +
+          (store.n8nLastAudit.summary || '');
+      }
+    }
 
-      if (orders.length === 0) {
-        container.innerHTML =
-          '<div class="bg-[#EFE9DA] border border-dashed border-[#1E1916]/25 rounded-2xl p-10 text-center text-sm text-[#1E1916]/70">No confirmed orders yet. Orders confirmed on the website or chat will appear here automatically.</div>';
+    function saveN8nConfig() {
+      const store = readStore();
+      store.n8nConfig = {
+        url: (document.getElementById('n8n-webhook-url')?.value || '').trim(),
+        token: (document.getElementById('n8n-secret-token')?.value || '').trim(),
+        autoSync: Boolean(document.getElementById('n8n-auto-sync')?.checked),
+      };
+      writeStore(store);
+    }
+
+    async function triggerN8nAudit(silent) {
+      saveN8nConfig();
+      const store = readStore();
+      const url = store.n8nConfig?.url || '';
+      const token = store.n8nConfig?.token || '';
+      const statusEl = document.getElementById('n8n-status-text');
+      const bodyEl = document.getElementById('n8n-audit-body');
+
+      if (!url) {
+        if (statusEl) statusEl.textContent = 'Enter your n8n Webhook URL first';
         return;
       }
 
-      container.innerHTML = "";
-      orders.forEach((order, index) => {
-        const card = document.createElement("article");
-        card.className = "bg-[#EFE9DA] border border-[#1E1916]/15 rounded-2xl p-5";
-        card.innerHTML = `
-          <div class="flex flex-wrap items-center justify-between gap-2 pb-3 mb-3 border-b border-[#1E1916]/12">
-            <div>
-              <span class="font-bold text-sm text-[#1E1916]">${order.id || "ORD"}</span>
-              <span class="text-xs text-[#1E1916]/65 ml-2">${order.createdAt || ""}</span>
-            </div>
-            <div class="flex items-center gap-2">
-              <span class="px-2.5 py-1 rounded-full text-xs font-bold bg-[#1E4620] text-[#F7F3EA]">${order.status || "Confirmed"}</span>
-              <button type="button" data-toggle="${index}" class="px-2.5 py-1 rounded-lg bg-[#F7F3EA] border border-[#1E1916]/20 text-xs font-bold cursor-pointer">
-                Mark Delivered
-              </button>
-              <button type="button" data-del="${index}" class="px-2.5 py-1 rounded-lg bg-[#7A1C1C] text-[#F7F3EA] text-xs font-bold cursor-pointer">
-                Delete
-              </button>
-            </div>
-          </div>
-          <pre class="whitespace-pre-wrap text-xs sm:text-sm bg-[#F7F3EA] border border-[#1E1916]/12 rounded-xl p-3.5 text-[#1E1916]"></pre>
-        `;
-        card.querySelector("pre").textContent = order.summary || "";
-        card.querySelector(`[data-toggle="${index}"]`).addEventListener("click", () => {
-          const list = loadOrders();
-          list[index].status = list[index].status === "Delivered" ? "Confirmed" : "Delivered";
-          saveOrders(list);
+      if (statusEl) statusEl.textContent = 'Sending snapshot to n8n...';
+
+      const payload = {
+        source: 'zebda-and-co-admin',
+        auditedAt: new Date().toISOString(),
+        summary: {
+          ordersCount: store.orders.length,
+          ideasCount: store.flavorIdeas.length,
+          issuesCount: store.issues.length,
+          outOfStock: store.outOfStock || {},
+        },
+        orders: store.orders.map((o) => ({
+          orderRef: o.orderRef,
+          customerName: o.customerName,
+          city: o.city,
+          grandTotal: o.grandTotal,
+          status: o.status,
+          hasScreenshot: Boolean(o.paymentScreenshotDataUrl),
+          freeSampleUnlocked: Boolean(o.freeSampleUnlocked),
+          selectedFreeSample: o.selectedFreeSample || '',
+        })),
+        issues: store.issues,
+      };
+
+      try {
+        const headers = { 'Content-Type': 'application/json' };
+        if (token) headers['X-Audit-Key'] = token;
+
+        const res = await fetch(url, {
+          method: 'POST',
+          headers,
+          body: JSON.stringify(payload),
         });
-        card.querySelector(`[data-del="${index}"]`).addEventListener("click", () => {
-          const list = loadOrders();
-          list.splice(index, 1);
-          saveOrders(list);
-        });
-        container.appendChild(card);
-      });
-    }
 
-    function addManualOrder() {
-      const summary = prompt("Enter confirmed order summary:");
-      if (!summary || !summary.trim()) return;
-      const list = loadOrders();
-      list.unshift({
-        id: "ORD-" + Date.now().toString().slice(-6),
-        createdAt: new Date().toLocaleString("en-EG"),
-        summary: summary.trim(),
-        status: "Confirmed",
-      });
-      saveOrders(list);
-    }
+        let responseSummary = 'HTTP ' + res.status + ' — Sent ' + store.orders.length + ' orders to n8n.';
+        try {
+          const text = await res.text();
+          if (text) {
+            responseSummary = responseSummary + ' Response: ' + text.slice(0, 240);
+          }
+        } catch (e) {}
 
-    function exportOrdersCsv() {
-      const orders = loadOrders();
-      if (!orders.length) return;
-      const rows = [["Order ID", "Created At", "Status", "Summary"]];
-      orders.forEach((o) => {
-        rows.push([o.id || "", o.createdAt || "", o.status || "", String(o.summary || "").replace(/"/g, '""')]);
-      });
-      const csv = rows.map((r) => r.map((c) => `"${c}"`).join(",")).join("
-");
-      const blob = new Blob(["﻿" + csv], { type: "text/csv;charset=utf-8;" });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = "zebda-confirmed-orders.csv";
-      a.click();
-      URL.revokeObjectURL(url);
-    }
+        const updated = readStore();
+        updated.n8nLastAudit = {
+          checkedAt: new Date().toLocaleString(),
+          summary: responseSummary,
+        };
+        writeStore(updated);
 
-    function clearAllOrders() {
-      if (confirm("Clear all confirmed orders from this browser?")) {
-        saveOrders([]);
+        if (statusEl) statusEl.textContent = 'Synced with n8n (' + new Date().toLocaleTimeString() + ')';
+        if (bodyEl) bodyEl.textContent = responseSummary;
+      } catch (err) {
+        if (!silent && statusEl) {
+          statusEl.textContent = 'n8n request failed (check URL / CORS / n8n Webhook active state)';
+        }
+        if (!silent && bodyEl) {
+          bodyEl.textContent = String(err && err.message ? err.message : err);
+        }
       }
     }
 
-    renderOrders();
+    function toggleOutOfStock(itemKey) {
+      const store = readStore();
+      store.outOfStock = store.outOfStock || {};
+      store.outOfStock[itemKey] = !Boolean(store.outOfStock[itemKey]);
+      writeStore(store);
+      renderItemSalesTally();
+    }
+
+    function unlockAdmin() {
+      const input = document.getElementById('admin-passcode');
+      const err = document.getElementById('auth-error');
+      if (input && input.value.trim() === ADMIN_PASSCODE) {
+        sessionStorage.setItem(AUTH_SESSION_KEY, '1');
+        err.classList.add('hidden');
+        showDashboard();
+      } else {
+        err.classList.remove('hidden');
+      }
+    }
+
+    function lockAdmin() {
+      sessionStorage.removeItem(AUTH_SESSION_KEY);
+      document.getElementById('admin-dashboard').classList.add('hidden');
+      document.getElementById('lock-btn').classList.add('hidden');
+      document.getElementById('auth-gate').classList.remove('hidden');
+      document.getElementById('admin-passcode').value = '';
+    }
+
+    function showDashboard() {
+      document.getElementById('auth-gate').classList.add('hidden');
+      document.getElementById('admin-dashboard').classList.remove('hidden');
+      document.getElementById('lock-btn').classList.remove('hidden');
+      loadN8nUi();
+      renderAllAdminSections();
+    }
+
+    function updateOrderStatus(orderRef, newStatus) {
+      const store = readStore();
+      const target = store.orders.find((o) => o.orderRef === orderRef);
+      if (target) {
+        target.status = newStatus;
+        writeStore(store);
+        renderAllAdminSections();
+      }
+    }
+
+    function downloadSavedReceipt(orderRef) {
+      const store = readStore();
+      const target = store.orders.find((o) => o.orderRef === orderRef);
+      if (!target || !target.receiptImageDataUrl) return;
+      const link = document.createElement('a');
+      link.download = 'zebda-and-co-receipt-' + orderRef + '.png';
+      link.href = target.receiptImageDataUrl;
+      link.click();
+    }
+
+    function downloadSavedScreenshot(orderRef) {
+      const store = readStore();
+      const target = store.orders.find((o) => o.orderRef === orderRef);
+      if (!target || !target.paymentScreenshotDataUrl) return;
+      const link = document.createElement('a');
+      link.download = 'zebda-instapay-screenshot-' + orderRef + '.png';
+      link.href = target.paymentScreenshotDataUrl;
+      link.click();
+    }
+
+    function clearAllAdminData() {
+      const current = readStore();
+      writeStore({
+        orders: [],
+        flavorIdeas: [],
+        issues: [],
+        outOfStock: current.outOfStock || {},
+        n8nConfig: current.n8nConfig || {},
+        n8nLastAudit: current.n8nLastAudit || null,
+      });
+      renderAllAdminSections();
+    }
+
+    function escapeHtml(str) {
+      return String(str || '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    }
+
+    function extractOrderCounts(order) {
+      const counts = { garlic: 0, chili: 0, tomato: 0, truffle: 0, quartet: 0 };
+      const rows = Array.isArray(order.receiptItems) ? order.receiptItems : [];
+
+      rows.forEach((row) => {
+        const label = String(row.label || '');
+        const match = label.match(/×\s*(\d+)\s*$/);
+        const qty = match ? Number(match[1]) : 1;
+        if (label.includes('Roasted Garlic')) counts.garlic += qty;
+        else if (label.includes('Hot Honey')) counts.chili += qty;
+        else if (label.includes('Sundried Tomato')) counts.tomato += qty;
+        else if (label.includes('Black Truffle')) counts.truffle += qty;
+        else if (label.includes('Quartet Box')) counts.quartet += qty;
+      });
+
+      return counts;
+    }
+
+    function renderItemSalesTally() {
+      const store = readStore();
+      const scopeEl = document.getElementById('tally-scope-select');
+      const scope = scopeEl ? scopeEl.value : 'all';
+      const oosMap = store.outOfStock || {};
+
+      const filteredOrders =
+        scope === 'active'
+          ? store.orders.filter((o) => o.status !== 'Pending / On Hold')
+          : store.orders;
+
+      const totals = { garlic: 0, chili: 0, tomato: 0, truffle: 0, quartet: 0 };
+      const freeSampleMap = {};
+
+      filteredOrders.forEach((o) => {
+        const c = extractOrderCounts(o);
+        Object.keys(totals).forEach((k) => {
+          totals[k] += c[k] || 0;
+        });
+        if (o.freeSampleUnlocked && o.selectedFreeSample) {
+          freeSampleMap[o.selectedFreeSample] = (freeSampleMap[o.selectedFreeSample] || 0) + 1;
+        }
+      });
+
+      const gridEl = document.getElementById('item-tally-grid');
+      gridEl.innerHTML = TALLY_ITEMS.map((item) => {
+        const qty = totals[item.key] || 0;
+        const revenue = qty * item.price;
+        const isOos = Boolean(oosMap[item.key]);
+        return (
+          '<div class="bg-[#F7F3EA] border ' +
+          (isOos ? 'border-[#7A1C1C]' : 'border-[#1E1916]/15') +
+          ' rounded-xl p-4 flex flex-col justify-between gap-3">' +
+          '<div>' +
+          '<div class="flex items-center justify-between gap-1">' +
+          '<span class="arabic-text text-xs font-bold text-[#7A1C1C]">' +
+          escapeHtml(item.ar) +
+          '</span>' +
+          '<span class="px-2 py-0.5 rounded-full text-[10px] font-bold ' +
+          (isOos
+            ? 'bg-[#7A1C1C] text-[#F7F3EA]'
+            : 'bg-[#1E4620]/15 text-[#1E4620]') +
+          '">' +
+          (isOos ? 'OUT OF STOCK' : 'IN STOCK') +
+          '</span>' +
+          '</div>' +
+          '<h3 class="font-serif text-lg font-bold text-[#1E1916] leading-snug mt-1">' +
+          escapeHtml(item.name) +
+          '</h3>' +
+          '</div>' +
+          '<div class="space-y-2.5">' +
+          '<div class="pt-2 border-t border-[#1E1916]/10 flex items-baseline justify-between">' +
+          '<span class="text-2xl font-bold text-[#1E4620]">' +
+          qty +
+          ' <span class="text-xs font-semibold text-[#1E1916]/70">sold</span></span>' +
+          '<span class="text-xs font-bold text-[#1E1916]/75">' +
+          revenue +
+          ' EGP</span>' +
+          '</div>' +
+          '<button type="button" onclick="toggleOutOfStock(\'' +
+          item.key +
+          '\')" class="w-full py-2 px-3 rounded-xl text-xs font-bold transition cursor-pointer ' +
+          (isOos
+            ? 'bg-[#1E4620] text-[#F7F3EA] hover:opacity-95'
+            : 'bg-[#7A1C1C] text-[#F7F3EA] hover:opacity-95') +
+          '">' +
+          (isOos ? 'Mark In Stock' : 'Mark Out of Stock') +
+          '</button>' +
+          '</div>' +
+          '</div>'
+        );
+      }).join('');
+
+      const grandUnits = Object.values(totals).reduce((sum, n) => sum + n, 0);
+      document.getElementById('tally-total-units').textContent =
+        'Total Tins & Boxes Sold (' + filteredOrders.length + ' orders): ' + grandUnits;
+
+      const sampleEntries = Object.entries(freeSampleMap);
+      document.getElementById('tally-free-samples').textContent =
+        sampleEntries.length > 0
+          ? 'Free Samples: ' + sampleEntries.map(([name, cnt]) => name + ' (' + cnt + ')').join(', ')
+          : 'Free Samples Given: None';
+    }
+
+    function renderAllAdminSections() {
+      const store = readStore();
+      document.getElementById('stat-orders-count').textContent = store.orders.length;
+      document.getElementById('stat-ideas-count').textContent = store.flavorIdeas.length;
+      document.getElementById('stat-issues-count').textContent = store.issues.length;
+
+      renderItemSalesTally();
+
+      if (store.n8nConfig?.autoSync && store.n8nConfig?.url) {
+        triggerN8nAudit(true);
+      }
+
+      const ordersEl = document.getElementById('orders-container');
+      if (store.orders.length === 0) {
+        ordersEl.innerHTML =
+          '<div class="bg-[#EFE9DA] border border-[#1E1916]/15 rounded-2xl p-6 text-sm text-[#1E1916]/70">No synced orders yet. Complete an order on <strong>index.html</strong> to see it, its receipt, and uploaded screenshot here.</div>';
+      } else {
+        ordersEl.innerHTML = store.orders
+          .map((o) => {
+            const itemsHtml = (o.receiptItems || [])
+              .map((i) => '<li>' + escapeHtml(i.label) + ' — <strong>' + escapeHtml(i.amount) + '</strong></li>')
+              .join('');
+
+            const screenshotBoxHtml = o.paymentScreenshotDataUrl
+              ? '<div class="rounded-xl bg-[#F7F3EA] border border-[#C59B43] p-3 space-y-2">' +
+                '<div class="flex items-center justify-between gap-2">' +
+                '<span class="text-[11px] font-bold uppercase tracking-wider text-[#1E4620]">Receipt &amp; Screenshot Box</span>' +
+                '<button type="button" onclick="downloadSavedScreenshot(\'' +
+                escapeHtml(o.orderRef) +
+                '\')" class="px-2.5 py-1 rounded-lg bg-[#1E4620] text-[#F7F3EA] text-[11px] font-bold cursor-pointer">Save Screenshot</button>' +
+                '</div>' +
+                '<img src="' +
+                o.paymentScreenshotDataUrl +
+                '" alt="Customer InstaPay transfer screenshot" class="w-full max-h-48 object-contain rounded-lg border border-[#1E1916]/15 bg-white" />' +
+                '<p class="text-[11px] text-[#1E1916]/75 truncate">' +
+                escapeHtml(o.paymentScreenshotName || 'Uploaded Screenshot') +
+                '</p>' +
+                '</div>'
+              : '<div class="rounded-xl bg-[#F7F3EA] border border-[#1E1916]/15 p-3 space-y-1">' +
+                '<span class="text-[11px] font-bold uppercase tracking-wider text-[#7A1C1C] block">Receipt &amp; Screenshot Box</span>' +
+                '<p class="text-xs text-[#1E1916]/70">No screenshot uploaded on site yet (check WhatsApp if sent there).</p>' +
+                '</div>';
+
+            return (
+              '<article class="bg-[#EFE9DA] border border-[#1E1916]/20 rounded-2xl p-5 space-y-4">' +
+              '<div class="flex flex-wrap items-start justify-between gap-3 border-b border-[#1E1916]/12 pb-3">' +
+              '<div>' +
+              '<span class="text-xs font-bold uppercase tracking-wider text-[#1E4620]">' +
+              escapeHtml(o.orderRef) +
+              ' • ' +
+              escapeHtml(o.createdAt || '') +
+              '</span>' +
+              '<h3 class="font-serif text-2xl font-bold text-[#1E1916]">' +
+              escapeHtml(o.customerName || 'Customer') +
+              ' — ' +
+              escapeHtml(o.grandTotal) +
+              ' EGP</h3>' +
+              '<p class="text-xs text-[#1E1916]/75">' +
+              escapeHtml(o.city) +
+              ' • ' +
+              escapeHtml(o.addressDetail || '') +
+              '</p>' +
+              '</div>' +
+              '<div class="flex flex-wrap items-center gap-2">' +
+              '<select onchange="updateOrderStatus(\'' +
+              escapeHtml(o.orderRef) +
+              '\', this.value)" class="rounded-xl bg-[#F7F3EA] border border-[#1E1916]/25 px-3 py-1.5 text-xs font-bold">' +
+              '<option value="Pending / On Hold"' +
+              (o.status === 'Pending / On Hold' ? ' selected' : '') +
+              '>Pending / On Hold</option>' +
+              '<option value="Verified & Whipping"' +
+              (o.status === 'Verified & Whipping' ? ' selected' : '') +
+              '>Verified &amp; Whipping</option>' +
+              '<option value="Delivered"' +
+              (o.status === 'Delivered' ? ' selected' : '') +
+              '>Delivered</option>' +
+              '</select>' +
+              (o.receiptImageDataUrl
+                ? '<button type="button" onclick="downloadSavedReceipt(\'' +
+                  escapeHtml(o.orderRef) +
+                  '\')" class="px-3 py-1.5 rounded-xl bg-[#C59B43] text-[#1E1916] text-xs font-bold cursor-pointer">Download Receipt</button>'
+                : '') +
+              '</div>' +
+              '</div>' +
+              '<div class="grid grid-cols-1 lg:grid-cols-3 gap-4 text-xs">' +
+              '<div class="bg-[#F7F3EA] rounded-xl p-3.5 border border-[#1E1916]/12 space-y-1">' +
+              '<p class="font-bold uppercase tracking-wider text-[#7A1C1C]">Items &amp; Sample</p>' +
+              '<ul class="list-disc list-inside space-y-0.5">' +
+              itemsHtml +
+              '</ul>' +
+              (o.freeSampleUnlocked
+                ? '<p class="font-bold text-[#1E4620] pt-1">FREE Sample: ' + escapeHtml(o.selectedFreeSample) + '</p>'
+                : '') +
+              '</div>' +
+              '<div class="bg-[#F7F3EA] rounded-xl p-3.5 border border-[#1E1916]/12 space-y-1">' +
+              '<p class="font-bold uppercase tracking-wider text-[#1E4620]">Payment &amp; Map</p>' +
+              '<p><strong>InstaPay Now:</strong> ' +
+              escapeHtml(o.instaPayDueNow) +
+              ' EGP | <strong>COD Remaining:</strong> ' +
+              escapeHtml(o.codRemaining) +
+              ' EGP</p>' +
+              '<p><strong>Email:</strong> ' +
+              escapeHtml(o.customerEmail || '') +
+              '</p>' +
+              (o.mapsLink
+                ? '<p><strong>Map Pin:</strong> <a href="' +
+                  escapeHtml(o.mapsLink) +
+                  '" target="_blank" rel="noopener noreferrer" class="underline text-[#1E4620] font-bold">Open Google Maps</a></p>'
+                : '<p><strong>Map Pin:</strong> None</p>') +
+              '</div>' +
+              screenshotBoxHtml +
+              '</div>' +
+              '</article>'
+            );
+          })
+          .join('');
+      }
+
+      const ideasEl = document.getElementById('ideas-container');
+      if (store.flavorIdeas.length === 0) {
+        ideasEl.innerHTML =
+          '<div class="bg-[#EFE9DA] border border-[#1E1916]/15 rounded-2xl p-5 text-xs text-[#1E1916]/70">No flavor ideas submitted yet.</div>';
+      } else {
+        ideasEl.innerHTML = store.flavorIdeas
+          .map(
+            (item) =>
+              '<div class="bg-[#EFE9DA] border border-[#C59B43]/60 rounded-2xl p-4 space-y-1">' +
+              '<div class="flex items-center justify-between text-[11px] font-bold text-[#1E4620]">' +
+              '<span>' +
+              escapeHtml(item.slot) +
+              '</span>' +
+              '<span>' +
+              escapeHtml(item.createdAt) +
+              '</span>' +
+              '</div>' +
+              '<p class="font-serif text-xl font-bold text-[#1E1916]">' +
+              escapeHtml(item.idea) +
+              '</p>' +
+              '<p class="text-xs text-[#1E1916]/75">From: ' +
+              escapeHtml(item.customerName) +
+              '</p>' +
+              '</div>'
+          )
+          .join('');
+      }
+
+      const issuesEl = document.getElementById('issues-container');
+      if (store.issues.length === 0) {
+        issuesEl.innerHTML =
+          '<div class="bg-[#EFE9DA] border border-[#1E1916]/15 rounded-2xl p-5 text-xs text-[#1E1916]/70">No issues logged yet.</div>';
+      } else {
+        issuesEl.innerHTML = store.issues
+          .map(
+            (iss) =>
+              '<div class="bg-[#EFE9DA] border border-[#7A1C1C]/35 rounded-2xl p-4 text-xs space-y-1">' +
+              '<div class="flex items-center justify-between font-bold text-[#7A1C1C]">' +
+              '<span>' +
+              escapeHtml(iss.category) +
+              ' — ' +
+              escapeHtml(iss.specificProblem) +
+              '</span>' +
+              '<span>' +
+              escapeHtml(iss.createdAt) +
+              '</span>' +
+              '</div>' +
+              '<p class="text-[#1E1916]">' +
+              escapeHtml(iss.details) +
+              '</p>' +
+              '<p class="text-[11px] text-[#1E1916]/70">Photo: ' +
+              escapeHtml(iss.photoName || 'None') +
+              '</p>' +
+              '</div>'
+          )
+          .join('');
+      }
+    }
+
+    if (sessionStorage.getItem(AUTH_SESSION_KEY) === '1') {
+      showDashboard();
+    }
   </script>
 </body>
 </html>
+
+
