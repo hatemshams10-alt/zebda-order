@@ -181,7 +181,7 @@
           </span>
         </div>
         <p class="text-sm sm:text-[15px] text-[#1E1916]/85 leading-relaxed">
-          Thank you for tasting and sharing <strong class="text-[#1E1916]">Zebda &amp; Co.</strong>. Each batch blends <strong class="text-[#1E1916]">commercial unsalted butter with farmer&rsquo;s baladi butter</strong> and is stored at <strong class="text-[#1E1916]">0–4°C</strong>. Please place orders <strong class="text-[#7A1C1C]">at least 2 days ahead</strong>, pay via InstaPay (<strong class="text-[#1E1916]">01208958884</strong>), or choose COD with a <strong class="text-[#1E1916]">50% InstaPay deposit</strong>.
+          Thank you for tasting and sharing <strong class="text-[#1E1916]">Zebda &amp; Co.</strong>. Each batch blends <strong class="text-[#1E1916]">commercial unsalted butter with farmer&rsquo;s baladi butter</strong> and is stored at <strong class="text-[#1E1916]">0–4°C</strong>. Please place orders <strong class="text-[#7A1C1C]">at least 2 days ahead</strong>, pay via InstaPay (<strong class="text-[#1E1916]">+20 10 41870087</strong>), or choose COD with a <strong class="text-[#1E1916]">50% InstaPay deposit</strong>.
         </p>
       </div>
     </header>
@@ -566,7 +566,7 @@
       <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-4 mb-6 border-b border-[#1E1916]/12">
         <div>
           <span class="text-xs uppercase tracking-[0.2em] text-[#1E4620] font-bold block">
-            Direct WhatsApp Order • 01208958884
+            Direct WhatsApp Order • +20 10 41870087
           </span>
           <h2 class="font-serif text-3xl font-bold text-[#1E1916]">
             Delivery Location, Payment &amp; Order Summary
@@ -650,7 +650,7 @@
           <!-- Payment Method Selector: InstaPay (Full) vs COD (50% InstaPay Deposit) -->
           <div class="pt-2">
             <span class="block text-xs font-bold uppercase tracking-wider text-[#1E1916]/80 mb-2">
-              5. Payment Method (InstaPay: 01208958884)
+              5. Payment Method (InstaPay: +20 10 41870087)
             </span>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 mb-3">
@@ -660,189 +660,283 @@
                 onclick="setPaymentMethod('instapay')"
                 class="p-3 rounded-xl text-left border-2 transition cursor-pointer bg-[#1E4620] text-[#F7F3EA] border-[#1E4620]"
               >
-                <span class="block text-xs font-bold uppercase tracking-wider text-[#E8C97B]">Full Payment</span>
-                <span class="block text-sm font-bold mt-0.5">InstaPay (100% Now)</span>
+                <span class="block text-xs font-bold uppercase tracking-wider text-[#E8C97B]">Option A</span>
+                <span class="block text-sm font-bold mt-0.5">100% InstaPay</span>
+                <span class="block text-[11px] opacity-85 mt-0.5">Pay full total now via InstaPay</span>
               </button>
 
               <button
                 id="pay-btn-cod"
                 type="button"
                 onclick="setPaymentMethod('cod')"
-                class="p-3 rounded-xl text-left border-2 transition cursor-pointer bg-[#F7F3EA] text-[#1E1916] border-[#1E1916]/20 hover:border-[#7A1C1C]"
+                class="p-3 rounded-xl text-left border-2 transition cursor-pointer bg-[#F7F3EA] text-[#1E1916] border-[#1E1916]/20 hover:border-[#1E1916]/45"
               >
-                <span class="block text-xs font-bold uppercase tracking-wider text-[#7A1C1C]">50% InstaPay Deposit</span>
-                <span class="block text-sm font-bold mt-0.5">COD (50% Deposit Now)</span>
+                <span class="block text-xs font-bold uppercase tracking-wider text-[#7A1C1C]">Option B</span>
+                <span class="block text-sm font-bold mt-0.5">COD + 50% Deposit</span>
+                <span class="block text-[11px] opacity-80 mt-0.5">50% InstaPay now, 50% on delivery</span>
               </button>
             </div>
 
-            <div class="bg-[#F7F3EA] rounded-xl border border-[#C59B43]/50 p-3.5 text-xs sm:text-sm space-y-2">
-              <div class="flex flex-wrap items-center justify-between gap-2">
-                <div>
-                  <span class="font-bold text-[#1E1916]">InstaPay Number:</span>
-                  <span class="font-mono font-bold text-[#1E4620] ml-1">01208958884</span>
-                </div>
-                <button
-                  type="button"
-                  onclick="copyInstaPayNumber()"
-                  class="px-3 py-1 rounded-lg text-xs font-bold bg-[#C59B43] text-[#1E1916] hover:brightness-105 transition cursor-pointer"
-                >
-                  Copy 01208958884
-                </button>
+            <div class="mb-3">
+              <label for="customer-email" class="block text-xs font-bold uppercase tracking-wider text-[#1E1916]/80 mb-1.5">
+                6. Your Email (For Order Receipt After Payment Check)
+              </label>
+              <input
+                id="customer-email"
+                type="email"
+                placeholder="you@example.com"
+                oninput="updateOrderUI()"
+                class="w-full rounded-xl bg-[#F7F3EA] border border-[#1E1916]/20 px-4 py-2.5 text-sm text-[#1E1916] placeholder:text-[#1E1916]/45 focus:outline-none focus:border-[#1E4620]"
+              />
+            </div>
+
+            <div id="payment-breakdown-box" class="rounded-xl bg-[#F7F3EA] border border-[#C59B43]/50 p-3.5 text-xs space-y-1.5">
+              <div class="flex items-center justify-between font-bold text-[#1E1916]">
+                <span>InstaPay Transfer Due Now (+20 10 41870087):</span>
+                <span id="instapay-due-now" class="text-sm text-[#1E4620]">40 EGP</span>
               </div>
-              <p id="payment-policy-note" class="text-xs text-[#1E1916]/80 leading-relaxed">
-                Pay 100% of the order + delivery total via InstaPay to <strong>01208958884</strong> and send your transfer confirmation on WhatsApp.
+              <div class="flex items-center justify-between font-semibold text-[#1E1916]/75">
+                <span>Remaining Balance on Delivery (COD):</span>
+                <span id="cod-remaining-due">0 EGP</span>
+              </div>
+              <p class="text-[11px] text-[#7A1C1C] font-semibold pt-1">
+                Order stays on hold until your transfer screenshot is sent &amp; verified.
               </p>
             </div>
           </div>
         </div>
 
-        <!-- Right Column: Live Order Summary + WhatsApp Message Preview & Direct Send -->
-        <div class="flex flex-col justify-between bg-[#F7F3EA] rounded-2xl border border-[#1E1916]/15 p-4 sm:p-5">
+        <!-- Right Column: Live Order Summary + WhatsApp CTA + Help Trigger -->
+        <div class="bg-[#F7F3EA] rounded-2xl border border-[#1E1916]/15 p-5 flex flex-col justify-between">
           <div>
-            <!-- Live Summary Box -->
-            <div class="rounded-xl bg-[#EFE9DA] border border-[#1E1916]/12 p-3.5 mb-4 space-y-1.5 text-xs sm:text-sm">
-              <div class="flex items-center justify-between text-[#1E1916]/85">
-                <span>Items Subtotal:</span>
-                <span id="breakdown-items" class="font-semibold">0 EGP</span>
-              </div>
-              <div class="flex items-center justify-between text-[#1E1916]/85">
-                <span id="breakdown-delivery-label">Delivery (Korba):</span>
-                <span id="breakdown-delivery" class="font-semibold">40 EGP</span>
-              </div>
-              <div class="flex items-center justify-between pt-1.5 border-t border-[#1E1916]/12 font-bold text-[#1E1916] text-sm sm:text-base">
-                <span>Total Order:</span>
-                <span id="breakdown-total" class="text-[#1E4620]">40 EGP</span>
-              </div>
-              <div id="breakdown-payment-lines" class="pt-1.5 border-t border-[#1E1916]/12 space-y-1 text-xs">
-                <div class="flex items-center justify-between font-bold text-[#1E4620]">
-                  <span>Due via InstaPay (100%):</span>
-                  <span id="breakdown-instapay-due">40 EGP</span>
-                </div>
-              </div>
+            <h3 class="font-serif text-2xl font-bold text-[#1E1916] pb-3 mb-4 border-b border-[#1E1916]/12">
+              Your Order Summary
+            </h3>
+
+            <div id="order-items-list" class="space-y-2 text-sm text-[#1E1916]/85 mb-4">
+              <p class="text-xs italic text-[#1E1916]/60">No butter tins or Quartet Boxes selected yet.</p>
             </div>
 
-            <div class="flex items-center justify-between gap-2 mb-2">
-              <span class="text-xs font-bold uppercase tracking-wider text-[#1E1916]/75">
-                WhatsApp Order Summary (01208958884)
-              </span>
-              <button
-                type="button"
-                onclick="resetOrder()"
-                class="text-xs font-semibold text-[#7A1C1C] hover:underline cursor-pointer"
-              >
-                Reset Order
-              </button>
+            <div class="space-y-1.5 pt-3 border-t border-[#1E1916]/12 text-sm">
+              <div class="flex justify-between">
+                <span class="text-[#1E1916]/75">Items Subtotal</span>
+                <span id="summary-items-total" class="font-semibold">0 EGP</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-[#1E1916]/75">Delivery (<span id="summary-location-label">Heliopolis &amp; Nozha</span>)</span>
+                <span id="summary-delivery-fee" class="font-semibold">40 EGP</span>
+              </div>
+              <div class="flex justify-between text-base font-bold text-[#1E1916] pt-2 border-t border-[#1E1916]/12">
+                <span>Order Total</span>
+                <span id="summary-grand-total" class="text-[#1E4620]">40 EGP</span>
+              </div>
+              <div class="flex justify-between text-xs font-bold text-[#7A1C1C] pt-1">
+                <span>Transfer Now via InstaPay (+20 10 41870087)</span>
+                <span id="summary-instapay-now">40 EGP</span>
+              </div>
             </div>
-            <pre
-              id="wa-message-preview"
-              class="w-full min-h-[210px] whitespace-pre-wrap break-words rounded-xl bg-white border border-[#1E1916]/12 p-3.5 text-xs sm:text-sm text-[#1E1916] leading-relaxed font-sans"
-            ></pre>
           </div>
 
-          <div class="mt-4 flex flex-col sm:flex-row gap-3">
-            <button
-              type="button"
-              onclick="copyWhatsAppMessage()"
-              class="flex-1 py-3 px-4 rounded-xl text-sm font-bold bg-[#EFE9DA] hover:bg-[#e5dcc6] text-[#1E1916] border border-[#1E1916]/20 transition cursor-pointer"
-            >
-              Copy Summary
-            </button>
-
+          <div class="mt-6 space-y-2.5">
             <a
-              id="wa-send-link"
-              href="https://wa.me/201208958884?text="
+              id="whatsapp-order-btn"
+              href="#"
               target="_blank"
               rel="noopener noreferrer"
-              onclick="handleWhatsAppSend(event)"
-              class="flex-1 py-3 px-4 rounded-xl text-sm font-bold bg-[#1E4620] hover:bg-[#163418] text-[#F7F3EA] text-center transition"
+              class="w-full py-3.5 px-5 rounded-xl bg-[#1E4620] text-[#F7F3EA] font-bold text-sm text-center flex items-center justify-center gap-2 hover:opacity-95 transition shadow"
             >
-              Order on WhatsApp
+              <span>Send Order on WhatsApp (+20 10 41870087)</span>
             </a>
+
+            <button
+              type="button"
+              onclick="openHelpModal()"
+              class="w-full py-2.5 px-4 rounded-xl bg-[#EFE9DA] border border-[#1E1916]/25 text-[#1E1916] font-bold text-xs hover:bg-[#e5decb] transition cursor-pointer"
+            >
+              Need Help or Have an Issue? (Self-Check First)
+            </button>
           </div>
-
-          <p id="status-message" class="mt-2.5 text-xs font-semibold text-[#1E4620] min-h-[18px]"></p>
         </div>
-      </div>
-    </section>
-
-    <!-- Collapsible Location Delivery Price Table -->
-    <section
-      aria-label="Location delivery pricing table"
-      class="bg-[#EFE9DA] border border-[#1E1916]/15 rounded-2xl p-5 sm:p-6"
-    >
-      <div class="flex flex-wrap items-center justify-between gap-3">
-        <div>
-          <span class="text-xs uppercase tracking-[0.18em] text-[#7A1C1C] font-bold block">
-            Delivery Rates By Zone &amp; Sub-Area
-          </span>
-          <h3 class="font-serif text-2xl font-bold text-[#1E1916]">
-            All Locations &amp; Delivery Pricing
-          </h3>
-        </div>
-        <button
-          id="toggle-rates-btn"
-          type="button"
-          onclick="toggleRatesTable()"
-          aria-expanded="true"
-          class="px-3.5 py-2 rounded-xl text-xs sm:text-sm font-bold bg-[#F7F3EA] hover:bg-white text-[#1E1916] border border-[#1E1916]/20 transition cursor-pointer"
-        >
-          Collapse Table
-        </button>
-      </div>
-
-      <div id="rates-table-container" class="mt-4 overflow-x-auto bg-[#F7F3EA] rounded-xl border border-[#1E1916]/12">
-        <table class="w-full text-left border-collapse text-xs sm:text-sm">
-          <thead>
-            <tr class="bg-[#1E1916] text-[#F7F3EA] text-xs uppercase tracking-wider">
-              <th class="py-3 px-4">Area</th>
-              <th class="py-3 px-4">Sub-Area / Compound</th>
-              <th class="py-3 px-4 text-right">Delivery Fee</th>
-            </tr>
-          </thead>
-          <tbody id="rates-table-body" class="divide-y divide-[#1E1916]/10"></tbody>
-        </table>
       </div>
     </section>
   </main>
 
   <!-- Sticky Bottom Summary Bar -->
-  <div
-    aria-label="Order summary and WhatsApp checkout bar"
-    class="fixed bottom-0 inset-x-0 z-30 bg-[#1E1916]/95 backdrop-blur border-t border-[#C59B43]/50 text-[#F7F3EA]"
-  >
-    <div class="max-w-5xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between gap-4">
-      <div class="min-w-0">
-        <div class="flex items-center gap-2 text-xs text-[#E8C97B] font-semibold">
-          <span id="bar-count">0 items</span>
-          <span>•</span>
-          <span id="bar-location" class="truncate">Heliopolis &amp; Nozha — Korba</span>
-          <span class="hidden sm:inline">•</span>
-          <span id="bar-due-now" class="hidden sm:inline text-[#F5D692]">InstaPay Due: 40 EGP</span>
+  <div class="fixed bottom-0 inset-x-0 z-30 bg-[#1E1916] text-[#F7F3EA] border-t border-[#C59B43]/50 shadow-lg">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between gap-3">
+      <div>
+        <div class="text-xs text-[#E8C97B] font-semibold">
+          <span id="sticky-qty-count">0 items</span> • InstaPay Now: <span id="sticky-instapay">40 EGP</span>
         </div>
-        <div class="flex items-baseline gap-2">
-          <span class="text-xs uppercase tracking-wider text-[#F7F3EA]/70">Total:</span>
-          <span id="bar-total" class="font-serif text-2xl font-bold text-[#F7F3EA]">
-            40 EGP
-          </span>
+        <div class="text-sm font-bold">
+          Total: <span id="sticky-total">40 EGP</span>
         </div>
       </div>
-
       <a
-        id="bar-wa-link"
-        href="https://wa.me/201208958884?text="
+        id="sticky-whatsapp-btn"
+        href="#"
         target="_blank"
         rel="noopener noreferrer"
-        onclick="handleWhatsAppSend(event)"
-        class="shrink-0 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-[#C59B43] text-[#1E1916] hover:brightness-105 transition"
+        class="py-2.5 px-4 sm:px-5 rounded-xl bg-[#C59B43] text-[#1E1916] font-bold text-xs sm:text-sm hover:brightness-105 transition shrink-0"
       >
         Order on WhatsApp
       </a>
     </div>
   </div>
 
+  <!-- Multi-Step Help & Escalation Modal -->
+  <div
+    id="help-modal"
+    class="fixed inset-0 z-50 hidden bg-[#1E1916]/75 backdrop-blur-[1px] items-center justify-center p-4"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="help-modal-title"
+  >
+    <div class="bg-[#F7F3EA] text-[#1E1916] border-2 border-[#C59B43] rounded-2xl max-w-lg w-full p-6 shadow-2xl space-y-4">
+      <div class="flex items-start justify-between gap-3 border-b border-[#1E1916]/15 pb-3">
+        <div>
+          <span class="text-[11px] uppercase tracking-widest font-bold text-[#7A1C1C] block">
+            Zebda &amp; Co. Resolution Center
+          </span>
+          <h3 id="help-modal-title" class="font-serif text-2xl font-bold">
+            Troubleshooting &amp; Support
+          </h3>
+        </div>
+        <button
+          type="button"
+          onclick="closeHelpModal()"
+          aria-label="Close help window"
+          class="px-2.5 py-1 rounded-lg bg-[#EFE9DA] text-xs font-bold hover:bg-[#e3dccb] cursor-pointer"
+        >
+          Close
+        </button>
+      </div>
+
+      <!-- Step 1: Choose Issue Category -->
+      <div id="help-step-1" class="space-y-3">
+        <p class="text-sm font-semibold">Step 1 of 3 — What is your question or problem about?</p>
+        <div class="grid grid-cols-1 gap-2 text-xs font-bold">
+          <button
+            type="button"
+            onclick="selectHelpTopic('timing')"
+            class="p-3 rounded-xl bg-[#EFE9DA] border border-[#1E1916]/20 text-left hover:border-[#1E4620] cursor-pointer"
+          >
+            1. Delivery date, 2-day advance order notice, or 0–4°C cold-chain
+          </button>
+          <button
+            type="button"
+            onclick="selectHelpTopic('instapay')"
+            class="p-3 rounded-xl bg-[#EFE9DA] border border-[#1E1916]/20 text-left hover:border-[#1E4620] cursor-pointer"
+          >
+            2. InstaPay transfer (+20 10 41870087), 50% deposit, or screenshot hold
+          </button>
+          <button
+            type="button"
+            onclick="selectHelpTopic('flavors')"
+            class="p-3 rounded-xl bg-[#EFE9DA] border border-[#1E1916]/20 text-left hover:border-[#1E4620] cursor-pointer"
+          >
+            3. Flavors, Quartet Box (560 EGP), or butter blend details
+          </button>
+        </div>
+      </div>
+
+      <!-- Step 2: Self-Service Check -->
+      <div id="help-step-2" class="hidden space-y-3">
+        <p class="text-xs uppercase tracking-wider font-bold text-[#1E4620]">Step 2 of 3 — Self-Check Answer</p>
+        <div id="help-answer-box" class="p-3.5 rounded-xl bg-[#EFE9DA] border border-[#1E1916]/15 text-sm leading-relaxed"></div>
+        <p class="text-xs font-bold text-[#1E1916]/80">Did this answer solve your issue?</p>
+        <div class="flex flex-wrap gap-2">
+          <button
+            type="button"
+            onclick="markHelpSolved()"
+            class="flex-1 py-2.5 px-3 rounded-xl bg-[#1E4620] text-[#F7F3EA] text-xs font-bold cursor-pointer"
+          >
+            Yes, solved — no need to message
+          </button>
+          <button
+            type="button"
+            onclick="goToHelpStep3()"
+            class="flex-1 py-2.5 px-3 rounded-xl bg-[#7A1C1C] text-[#F7F3EA] text-xs font-bold cursor-pointer"
+          >
+            No, it's still an issue
+          </button>
+        </div>
+        <button
+          type="button"
+          onclick="resetHelpModal()"
+          class="text-xs underline text-[#1E1916]/70 cursor-pointer"
+        >
+          Back to topics
+        </button>
+      </div>
+
+      <!-- Step 3: Friction Gate Before Unlocking WhatsApp Escalation -->
+      <div id="help-step-3" class="hidden space-y-3">
+        <p class="text-xs uppercase tracking-wider font-bold text-[#7A1C1C]">
+          Step 3 of 3 — Mandatory Check Before Contacting
+        </p>
+        <p class="text-xs text-[#1E1916]/80">
+          To keep support fast for major issues, please confirm both items below and describe the problem before the direct WhatsApp link unlocks:
+        </p>
+
+        <label class="flex items-start gap-2 text-xs font-semibold cursor-pointer">
+          <input id="gate-check-1" type="checkbox" onchange="evaluateEscalationGate()" class="mt-0.5" />
+          <span>I already reviewed the 2-day advance rule, 0–4°C chilling, and InstaPay transfer rules (+20 10 41870087).</span>
+        </label>
+
+        <label class="flex items-start gap-2 text-xs font-semibold cursor-pointer">
+          <input id="gate-check-2" type="checkbox" onchange="evaluateEscalationGate()" class="mt-0.5" />
+          <span>This is a genuine or major issue that cannot be resolved from the steps above.</span>
+        </label>
+
+        <div>
+          <label for="help-issue-desc" class="block text-xs font-bold mb-1">
+            Describe the issue clearly (minimum 15 characters):
+          </label>
+          <textarea
+            id="help-issue-desc"
+            rows="3"
+            oninput="evaluateEscalationGate()"
+            placeholder="Explain what happened, your order/email, and what needs resolution..."
+            class="w-full rounded-xl bg-[#EFE9DA] border border-[#1E1916]/25 p-2.5 text-xs text-[#1E1916]"
+          ></textarea>
+        </div>
+
+        <div id="escalation-locked-msg" class="text-[11px] font-bold text-[#7A1C1C]">
+          Direct WhatsApp contact is locked until both boxes are checked and a clear issue description is entered.
+        </div>
+
+        <a
+          id="escalation-whatsapp-btn"
+          href="#"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="hidden w-full py-3 px-4 rounded-xl bg-[#1E1916] text-[#E8C97B] border border-[#C59B43] font-bold text-xs text-center"
+        >
+          Unlock &amp; Message on WhatsApp (+20 10 41870087)
+        </a>
+      </div>
+
+      <!-- Solved State -->
+      <div id="help-solved-state" class="hidden space-y-3 text-center py-2">
+        <p class="text-base font-bold text-[#1E4620]">Great — your issue is resolved!</p>
+        <p class="text-xs text-[#1E1916]/80">
+          You don't need to send a support message. Whenever you're ready, place your order at least 2 days ahead.
+        </p>
+        <button
+          type="button"
+          onclick="closeHelpModal()"
+          class="py-2.5 px-5 rounded-xl bg-[#1E4620] text-[#F7F3EA] text-xs font-bold cursor-pointer"
+        >
+          Back to Menu
+        </button>
+      </div>
+    </div>
+  </div>
+
   <script>
-    const WHATSAPP_PHONE = '201208958884';
-    const INSTAPAY_NUMBER = '01208958884';
+    const INSTAPAY_NUMBER_DISPLAY = '+20 10 41870087';
+    const WHATSAPP_PHONE_DIGITS = '201041870087';
 
     const FLAVORS = {
       garlic: { name: 'Roasted Garlic & Herb', price: 145 },
@@ -850,426 +944,275 @@
       tomato: { name: 'Sundried Tomato, Basil & Parmesan', price: 165 },
       truffle: { name: 'Black Truffle & Sea Salt', price: 185 },
     };
+    const QUARTET_PRICE = 560;
 
-    const QUARTET_BOX = {
-      name: '4-Flavor Quartet Tasting Box',
-      price: 560,
-    };
-
-    // Sub-area delivery pricing (in EGP) organized by Area
-    const LOCATIONS = {
+    const SUBAREAS_BY_CITY = {
       'Heliopolis & Nozha': [
-        { name: 'Korba', fee: 40 },
-        { name: 'Ard El Golf', fee: 40 },
-        { name: 'Sheraton', fee: 40 },
-        { name: 'Almaza', fee: 40 },
-        { name: 'Roxy', fee: 40 },
-        { name: 'El Nozha', fee: 40 },
+        { label: 'Heliopolis / Korba / Roxy / Almaza (40 EGP)', fee: 40 },
+        { label: 'El-Nozha / Sheraton (40 EGP)', fee: 40 },
       ],
       'Nasr City': [
-        { name: 'Abbas El Akkad', fee: 45 },
-        { name: 'Makram Ebeid', fee: 45 },
-        { name: '1st / 6th / 7th / 8th Districts', fee: 45 },
-        { name: 'Embassies District', fee: 45 },
-        { name: 'Zahraa Nasr City', fee: 45 },
+        { label: 'Nasr City — All Districts (45 EGP)', fee: 45 },
       ],
       'Maadi, Zamalek & West/Central Cairo': [
-        { name: 'Maadi / Degla / Sarayat', fee: 60 },
-        { name: 'Zahraa Maadi', fee: 60 },
-        { name: 'Zamalek', fee: 60 },
-        { name: 'Dokki', fee: 60 },
-        { name: 'Mohandessin', fee: 60 },
+        { label: 'Maadi / Degla / Zahraa El Maadi (60 EGP)', fee: 60 },
+        { label: 'Zamalek / Garden City / Downtown (60 EGP)', fee: 60 },
+        { label: 'Dokki / Mohandessin (60 EGP)', fee: 60 },
       ],
       'New Cairo': [
-        { name: '1st Settlement', fee: 65 },
-        { name: '3rd Settlement', fee: 70 },
-        { name: '5th Settlement', fee: 70 },
-        { name: 'Golden Square', fee: 75 },
-        { name: 'Lotus (North / South / New Lotus)', fee: 75 },
-        { name: 'Al Narges', fee: 70 },
-        { name: 'Al Banafseg', fee: 70 },
-        { name: 'Al Yasmeen', fee: 70 },
-        { name: 'Rehab City', fee: 65 },
-        { name: 'Madinaty', fee: 85 },
-        { name: 'Investors (Southern / Northern)', fee: 75 },
+        { label: 'Fifth Settlement / Tagamoa Compounds (75 EGP)', fee: 75 },
+        { label: 'Rehab / Madinaty (85 EGP)', fee: 85 },
+        { label: 'Shorouk / Mostakbal City (85 EGP)', fee: 85 },
       ],
       'Sheikh Zayed': [
-        { name: 'Districts 1–20', fee: 85 },
-        { name: 'Beverly Hills / Al Karma / Westown', fee: 90 },
-        { name: 'Palm Hills Zayed', fee: 95 },
-        { name: 'Z West / Zed Zayed', fee: 85 },
-        { name: 'Zayed Dunes / Americana', fee: 85 },
-        { name: 'New Zayed / Badya', fee: 105 },
+        { label: 'Sheikh Zayed / Central Compounds (90 EGP)', fee: 90 },
+        { label: '6th of October / Outer Compounds (105 EGP)', fee: 105 },
       ],
     };
 
     const state = {
-      quantities: {
-        garlic: 0,
-        chili: 0,
-        tomato: 0,
-        truffle: 0,
-      },
+      qtys: { garlic: 0, chili: 0, tomato: 0, truffle: 0 },
       quartetQty: 0,
-      paymentMethod: 'instapay', // 'instapay' | 'cod'
-      ratesExpanded: true,
+      paymentMethod: 'instapay',
+      helpTopic: 'timing',
     };
 
-    function renderRatesTable() {
-      const tbody = document.getElementById('rates-table-body');
-      if (!tbody) return;
-      tbody.innerHTML = '';
-
-      Object.keys(LOCATIONS).forEach((area) => {
-        const subareas = LOCATIONS[area];
-        subareas.forEach((sub, idx) => {
-          const tr = document.createElement('tr');
-          tr.className = 'hover:bg-[#EFE9DA]/60';
-
-          const tdArea = document.createElement('td');
-          tdArea.className = 'py-2.5 px-4 font-semibold text-[#1E1916]';
-          tdArea.textContent = idx === 0 ? area : '';
-
-          const tdSub = document.createElement('td');
-          tdSub.className = 'py-2.5 px-4 text-[#1E1916]/85';
-          tdSub.textContent = sub.name;
-
-          const tdFee = document.createElement('td');
-          tdFee.className = 'py-2.5 px-4 text-right font-bold text-[#1E4620]';
-          tdFee.textContent = `${sub.fee} EGP`;
-
-          tr.appendChild(tdArea);
-          tr.appendChild(tdSub);
-          tr.appendChild(tdFee);
-          tbody.appendChild(tr);
-        });
-      });
-    }
-
-    function toggleRatesTable() {
-      state.ratesExpanded = !state.ratesExpanded;
-      const container = document.getElementById('rates-table-container');
-      const btn = document.getElementById('toggle-rates-btn');
-      if (container) {
-        container.classList.toggle('hidden', !state.ratesExpanded);
-      }
-      if (btn) {
-        btn.textContent = state.ratesExpanded ? 'Collapse Table' : 'Expand Table';
-        btn.setAttribute('aria-expanded', String(state.ratesExpanded));
-      }
-    }
-
-    function populateSubAreas() {
-      const citySelect = document.getElementById('city-select');
-      const subareaSelect = document.getElementById('subarea-select');
-      const selectedCity = citySelect.value;
-      const options = LOCATIONS[selectedCity] || [];
-
-      subareaSelect.innerHTML = '';
-      options.forEach((item) => {
-        const opt = document.createElement('option');
-        opt.value = item.name;
-        opt.textContent = `${item.name} (${item.fee} EGP delivery)`;
-        opt.dataset.fee = String(item.fee);
-        subareaSelect.appendChild(opt);
-      });
-    }
-
-    function getSelectedDeliveryFee() {
-      const subareaSelect = document.getElementById('subarea-select');
-      const selectedOption = subareaSelect.options[subareaSelect.selectedIndex];
-      if (!selectedOption) return 0;
-      const fee = Number(selectedOption.dataset.fee);
-      return Number.isFinite(fee) ? fee : 0;
-    }
-
-    function handleCityChange() {
-      populateSubAreas();
-      updateOrderUI();
-    }
-
     function changeQty(key, delta) {
-      if (!FLAVORS[key]) return;
-      state.quantities[key] = Math.max(0, state.quantities[key] + delta);
-      updateOrderUI();
-    }
-
-    function toggleQuartet() {
-      state.quartetQty = state.quartetQty > 0 ? 0 : 1;
+      state.qtys[key] = Math.max(0, (state.qtys[key] || 0) + delta);
+      const el = document.getElementById('qty-' + key);
+      if (el) el.textContent = state.qtys[key];
       updateOrderUI();
     }
 
     function changeQuartetQty(delta) {
       state.quartetQty = Math.max(0, state.quartetQty + delta);
+      syncQuartetUI();
       updateOrderUI();
+    }
+
+    function toggleQuartet() {
+      state.quartetQty = state.quartetQty > 0 ? 0 : 1;
+      syncQuartetUI();
+      updateOrderUI();
+    }
+
+    function syncQuartetUI() {
+      const qtyEl = document.getElementById('qty-quartet');
+      const btnEl = document.getElementById('quartet-toggle-btn');
+      if (qtyEl) qtyEl.textContent = state.quartetQty;
+      if (btnEl) {
+        if (state.quartetQty > 0) {
+          btnEl.textContent = 'Added (' + state.quartetQty + ' Box) — Tap to Clear';
+        } else {
+          btnEl.textContent = '+ Add Quartet Box (560 EGP)';
+        }
+      }
     }
 
     function setPaymentMethod(method) {
-      state.paymentMethod = method === 'cod' ? 'cod' : 'instapay';
+      state.paymentMethod = method;
+      const instaBtn = document.getElementById('pay-btn-instapay');
+      const codBtn = document.getElementById('pay-btn-cod');
+
+      if (method === 'instapay') {
+        instaBtn.className =
+          'p-3 rounded-xl text-left border-2 transition cursor-pointer bg-[#1E4620] text-[#F7F3EA] border-[#1E4620]';
+        codBtn.className =
+          'p-3 rounded-xl text-left border-2 transition cursor-pointer bg-[#F7F3EA] text-[#1E1916] border-[#1E1916]/20 hover:border-[#1E1916]/45';
+      } else {
+        codBtn.className =
+          'p-3 rounded-xl text-left border-2 transition cursor-pointer bg-[#7A1C1C] text-[#F7F3EA] border-[#7A1C1C]';
+        instaBtn.className =
+          'p-3 rounded-xl text-left border-2 transition cursor-pointer bg-[#F7F3EA] text-[#1E1916] border-[#1E1916]/20 hover:border-[#1E1916]/45';
+      }
       updateOrderUI();
     }
 
-    function resetOrder() {
-      state.quantities.garlic = 0;
-      state.quantities.chili = 0;
-      state.quantities.tomato = 0;
-      state.quantities.truffle = 0;
-      state.quartetQty = 0;
-      state.paymentMethod = 'instapay';
-      document.getElementById('address-detail').value = '';
-      document.getElementById('customer-name').value = '';
-      setStatusMessage('Order cleared.');
+    function handleCityChange() {
+      const city = document.getElementById('city-select').value;
+      const subSelect = document.getElementById('subarea-select');
+      const options = SUBAREAS_BY_CITY[city] || [{ label: city + ' (50 EGP)', fee: 50 }];
+
+      subSelect.innerHTML = '';
+      options.forEach((opt) => {
+        const optionEl = document.createElement('option');
+        optionEl.value = opt.fee;
+        optionEl.textContent = opt.label;
+        optionEl.dataset.label = opt.label;
+        subSelect.appendChild(optionEl);
+      });
       updateOrderUI();
     }
 
-    function setStatusMessage(text) {
-      const el = document.getElementById('status-message');
-      if (el) el.textContent = text;
-    }
+    function updateOrderUI() {
+      const city = document.getElementById('city-select').value;
+      const subSelect = document.getElementById('subarea-select');
+      const selectedOption = subSelect.options[subSelect.selectedIndex];
+      const deliveryFee = selectedOption ? Number(selectedOption.value) : 40;
+      const subareaLabel = selectedOption ? selectedOption.dataset.label : city;
+      const addressDetail = document.getElementById('address-detail').value.trim();
+      const customerName = document.getElementById('customer-name').value.trim();
+      const customerEmail = document.getElementById('customer-email').value.trim();
 
-    function computeOrder() {
-      let itemsSubtotal = 0;
+      let itemsTotal = 0;
       let totalCount = 0;
       const lines = [];
 
       Object.keys(FLAVORS).forEach((key) => {
-        const qty = state.quantities[key];
+        const qty = state.qtys[key] || 0;
         if (qty > 0) {
-          const item = FLAVORS[key];
-          const lineTotal = qty * item.price;
-          itemsSubtotal += lineTotal;
+          const lineTotal = qty * FLAVORS[key].price;
+          itemsTotal += lineTotal;
           totalCount += qty;
-          lines.push(`• ${qty}x ${item.name} — ${lineTotal} EGP`);
+          lines.push('• ' + FLAVORS[key].name + ' × ' + qty + ' = ' + lineTotal + ' EGP');
         }
       });
 
       if (state.quartetQty > 0) {
-        const boxTotal = state.quartetQty * QUARTET_BOX.price;
-        itemsSubtotal += boxTotal;
+        const qTotal = state.quartetQty * QUARTET_PRICE;
+        itemsTotal += qTotal;
         totalCount += state.quartetQty;
-        lines.push(`• ${state.quartetQty}x ${QUARTET_BOX.name} — ${boxTotal} EGP`);
+        lines.push('• 4-Flavor Quartet Box × ' + state.quartetQty + ' = ' + qTotal + ' EGP');
       }
 
-      const deliveryFee = getSelectedDeliveryFee();
-      const grandTotal = itemsSubtotal + deliveryFee;
+      const grandTotal = itemsTotal + deliveryFee;
+      const instaPayDueNow =
+        state.paymentMethod === 'cod' ? Math.ceil(grandTotal * 0.5) : grandTotal;
+      const codRemaining =
+        state.paymentMethod === 'cod' ? Math.max(0, grandTotal - instaPayDueNow) : 0;
 
-      // COD requires a 50% InstaPay deposit upfront; remaining balance is due on delivery
-      const instapayDueNow =
-        state.paymentMethod === 'instapay'
-          ? grandTotal
-          : Math.ceil(grandTotal * 0.5);
-      const codRemainingDue =
-        state.paymentMethod === 'instapay'
-          ? 0
-          : Math.max(0, grandTotal - instapayDueNow);
-
-      return {
-        itemsSubtotal,
-        deliveryFee,
-        grandTotal,
-        instapayDueNow,
-        codRemainingDue,
-        totalCount,
-        lines,
-      };
-    }
-
-    function formatWhatsAppMessage(orderData) {
-      const city = document.getElementById('city-select').value;
-      const subarea = document.getElementById('subarea-select').value;
-      const addressDetail = document.getElementById('address-detail').value.trim();
-      const customerName = document.getElementById('customer-name').value.trim();
-
-      const itemsBlock =
-        orderData.lines.length > 0
-          ? orderData.lines.join('\n')
-          : '• (No items selected yet)';
-
-      const paymentSummary =
-        state.paymentMethod === 'instapay'
-          ? `Payment: InstaPay (Full 100% to ${INSTAPAY_NUMBER}) — ${orderData.instapayDueNow} EGP`
-          : `Payment: COD with 50% InstaPay Deposit to ${INSTAPAY_NUMBER} (50% Deposit Now: ${orderData.instapayDueNow} EGP | COD Balance on Delivery: ${orderData.codRemainingDue} EGP)`;
-
-      const detailsLine = addressDetail
-        ? `Address / Delivery Day (2+ days ahead): ${addressDetail}`
-        : 'Address / Delivery Day (2+ days ahead): (To confirm on chat)';
-      const nameLine = customerName
-        ? `Name & Notes: ${customerName}`
-        : 'Name & Notes: (To confirm on chat)';
-
-      return [
-        `Hello Zebda & Co. (زبدة وشركاه)! 👋`,
-        `Confirmed: I am placing this order at least 2 days in advance (Chilled 0–4°C).`,
-        ``,
-        `Items:`,
-        itemsBlock,
-        ``,
-        `Items Subtotal: ${orderData.itemsSubtotal} EGP`,
-        `Delivery (${city} — ${subarea}): ${orderData.deliveryFee} EGP`,
-        `Total Order: ${orderData.grandTotal} EGP`,
-        paymentSummary,
-        detailsLine,
-        nameLine,
-      ].join('\n');
-    }
-
-    function updateOrderUI() {
-      Object.keys(FLAVORS).forEach((key) => {
-        const el = document.getElementById(`qty-${key}`);
-        if (el) el.textContent = String(state.quantities[key]);
-      });
-
-      const quartetQtyEl = document.getElementById('qty-quartet');
-      if (quartetQtyEl) quartetQtyEl.textContent = String(state.quartetQty);
-
-      const quartetBtn = document.getElementById('quartet-toggle-btn');
-      if (quartetBtn) {
-        if (state.quartetQty > 0) {
-          quartetBtn.textContent = `✓ Quartet Box in Order (${state.quartetQty}x) — Clear`;
-          quartetBtn.className =
-            'w-full py-2.5 px-4 rounded-xl text-sm font-bold transition-all bg-[#1E4620] text-[#F7F3EA] border border-[#E8C97B] hover:opacity-95 active:scale-[0.99] cursor-pointer';
-        } else {
-          quartetBtn.textContent = '+ Add Quartet Box (560 EGP)';
-          quartetBtn.className =
-            'w-full py-2.5 px-4 rounded-xl text-sm font-bold transition-all bg-[#C59B43] text-[#1E1916] hover:brightness-105 active:scale-[0.99] cursor-pointer';
-        }
-      }
-
-      const btnInstapay = document.getElementById('pay-btn-instapay');
-      const btnCod = document.getElementById('pay-btn-cod');
-      const policyNote = document.getElementById('payment-policy-note');
-
-      if (state.paymentMethod === 'instapay') {
-        btnInstapay.className =
-          'p-3 rounded-xl text-left border-2 transition cursor-pointer bg-[#1E4620] text-[#F7F3EA] border-[#1E4620]';
-        btnCod.className =
-          'p-3 rounded-xl text-left border-2 transition cursor-pointer bg-[#F7F3EA] text-[#1E1916] border-[#1E1916]/20 hover:border-[#7A1C1C]';
-        policyNote.innerHTML =
-          `Full payment (100% of items + delivery) is sent via InstaPay to <strong>${INSTAPAY_NUMBER}</strong>. Share your transfer confirmation on WhatsApp to lock in your 2-day advance order.`;
+      const itemsListEl = document.getElementById('order-items-list');
+      if (lines.length === 0) {
+        itemsListEl.innerHTML =
+          '<p class="text-xs italic text-[#1E1916]/60">No butter tins or Quartet Boxes selected yet.</p>';
       } else {
-        btnCod.className =
-          'p-3 rounded-xl text-left border-2 transition cursor-pointer bg-[#7A1C1C] text-[#F7F3EA] border-[#7A1C1C]';
-        btnInstapay.className =
-          'p-3 rounded-xl text-left border-2 transition cursor-pointer bg-[#F7F3EA] text-[#1E1916] border-[#1E1916]/20 hover:border-[#1E4620]';
-        policyNote.innerHTML =
-          `COD requires a <strong>50% deposit via InstaPay to ${INSTAPAY_NUMBER}</strong> in advance. The remaining 50% balance is paid in cash upon delivery.`;
+        itemsListEl.innerHTML = lines
+          .map((l) => '<div class="font-medium text-[#1E1916]">' + l + '</div>')
+          .join('');
       }
 
-      const city = document.getElementById('city-select').value;
-      const subarea = document.getElementById('subarea-select').value;
-      const orderData = computeOrder();
+      document.getElementById('selected-delivery-badge').textContent = 'Delivery: ' + deliveryFee + ' EGP';
+      document.getElementById('panel-total').textContent = grandTotal + ' EGP';
+      document.getElementById('summary-items-total').textContent = itemsTotal + ' EGP';
+      document.getElementById('summary-location-label').textContent = city;
+      document.getElementById('summary-delivery-fee').textContent = deliveryFee + ' EGP';
+      document.getElementById('summary-grand-total').textContent = grandTotal + ' EGP';
+      document.getElementById('instapay-due-now').textContent = instaPayDueNow + ' EGP';
+      document.getElementById('cod-remaining-due').textContent = codRemaining + ' EGP';
+      document.getElementById('summary-instapay-now').textContent = instaPayDueNow + ' EGP';
+      document.getElementById('sticky-qty-count').textContent = totalCount + (totalCount === 1 ? ' item' : ' items');
+      document.getElementById('sticky-instapay').textContent = instaPayDueNow + ' EGP';
+      document.getElementById('sticky-total').textContent = grandTotal + ' EGP';
 
-      document.getElementById('selected-delivery-badge').textContent =
-        `Delivery: ${orderData.deliveryFee} EGP`;
-      document.getElementById('breakdown-items').textContent =
-        `${orderData.itemsSubtotal} EGP`;
-      document.getElementById('breakdown-delivery-label').textContent =
-        `Delivery (${subarea}):`;
-      document.getElementById('breakdown-delivery').textContent =
-        `${orderData.deliveryFee} EGP`;
-      document.getElementById('breakdown-total').textContent =
-        `${orderData.grandTotal} EGP`;
-      document.getElementById('panel-total').textContent =
-        `${orderData.grandTotal} EGP`;
-      document.getElementById('bar-total').textContent =
-        `${orderData.grandTotal} EGP`;
+      const paymentText =
+        state.paymentMethod === 'cod'
+          ? 'COD (50% InstaPay Deposit Now: ' + instaPayDueNow + ' EGP | Remaining on Delivery: ' + codRemaining + ' EGP)'
+          : '100% InstaPay Now: ' + instaPayDueNow + ' EGP';
 
-      const paymentLinesEl = document.getElementById('breakdown-payment-lines');
-      if (state.paymentMethod === 'instapay') {
-        paymentLinesEl.innerHTML = `
-          <div class="flex items-center justify-between font-bold text-[#1E4620]">
-            <span>Due via InstaPay (100%):</span>
-            <span>${orderData.instapayDueNow} EGP</span>
-          </div>
-        `;
-        document.getElementById('bar-due-now').textContent =
-          `InstaPay Due: ${orderData.instapayDueNow} EGP`;
+      const waMessage = [
+        'Zebda & Co. (زبدة وشركاه) — New Order',
+        '------------------------------',
+        lines.length > 0 ? lines.join('\n') : '• (No items selected yet)',
+        'Subtotal: ' + itemsTotal + ' EGP',
+        'Delivery (' + subareaLabel + '): ' + deliveryFee + ' EGP',
+        'Total Order: ' + grandTotal + ' EGP',
+        'Payment: ' + paymentText,
+        'InstaPay Number: ' + INSTAPAY_NUMBER_DISPLAY,
+        'Customer Email: ' + (customerEmail || 'Not provided'),
+        customerName ? 'Name / Notes: ' + customerName : '',
+        addressDetail ? 'Address & Delivery Day: ' + addressDetail : '',
+        'Note: Order stays on hold until transfer screenshot to ' + INSTAPAY_NUMBER_DISPLAY + ' is sent & verified.',
+      ]
+        .filter(Boolean)
+        .join('\n');
+
+      const waUrl = 'https://wa.me/' + WHATSAPP_PHONE_DIGITS + '?text=' + encodeURIComponent(waMessage);
+      document.getElementById('whatsapp-order-btn').href = waUrl;
+      document.getElementById('sticky-whatsapp-btn').href = waUrl;
+    }
+
+    function openHelpModal() {
+      resetHelpModal();
+      const modal = document.getElementById('help-modal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    function closeHelpModal() {
+      const modal = document.getElementById('help-modal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+
+    function resetHelpModal() {
+      document.getElementById('help-step-1').classList.remove('hidden');
+      document.getElementById('help-step-2').classList.add('hidden');
+      document.getElementById('help-step-3').classList.add('hidden');
+      document.getElementById('help-solved-state').classList.add('hidden');
+      document.getElementById('gate-check-1').checked = false;
+      document.getElementById('gate-check-2').checked = false;
+      document.getElementById('help-issue-desc').value = '';
+      evaluateEscalationGate();
+    }
+
+    function selectHelpTopic(topic) {
+      state.helpTopic = topic;
+      const box = document.getElementById('help-answer-box');
+      if (topic === 'timing') {
+        box.innerHTML =
+          '<strong>2-Day Advance Rule &amp; 0–4°C Storage:</strong> Every batch is whipped and chilled at 0–4°C so please order at least <strong>2 days ahead</strong> of your requested delivery day.';
+      } else if (topic === 'instapay') {
+        box.innerHTML =
+          '<strong>InstaPay &amp; Screenshot Hold:</strong> Transfer the required amount (full order or 50% deposit for COD) to <strong>' +
+          INSTAPAY_NUMBER_DISPLAY +
+          '</strong> and send the transfer screenshot. Orders remain on hold until verified (transfers outside ±1 hour of order time go for manual check).';
       } else {
-        paymentLinesEl.innerHTML = `
-          <div class="flex items-center justify-between font-bold text-[#7A1C1C]">
-            <span>50% InstaPay Deposit Due (${INSTAPAY_NUMBER}):</span>
-            <span>${orderData.instapayDueNow} EGP</span>
-          </div>
-          <div class="flex items-center justify-between font-semibold text-[#1E1916]/85">
-            <span>Remaining COD Balance on Delivery:</span>
-            <span>${orderData.codRemainingDue} EGP</span>
-          </div>
-        `;
-        document.getElementById('bar-due-now').textContent =
-          `50% Deposit: ${orderData.instapayDueNow} EGP`;
+        box.innerHTML =
+          '<strong>Flavors &amp; Quartet Box:</strong> Made with a 50/50 commercial &amp; baladi butter blend. The 4-Flavor Quartet Box (560 EGP) includes one tin of each signature flavor.';
       }
-
-      const countText =
-        orderData.totalCount === 0
-          ? '0 items'
-          : orderData.totalCount === 1
-          ? '1 item'
-          : `${orderData.totalCount} items`;
-      document.getElementById('bar-count').textContent = countText;
-      document.getElementById('bar-location').textContent = `${city} — ${subarea}`;
-
-      const message = formatWhatsAppMessage(orderData);
-      document.getElementById('wa-message-preview').textContent = message;
-
-      const encoded = encodeURIComponent(message);
-      const waUrl = `https://wa.me/${WHATSAPP_PHONE}?text=${encoded}`;
-
-      const sendLink = document.getElementById('wa-send-link');
-      if (sendLink) sendLink.href = waUrl;
-
-      const barLink = document.getElementById('bar-wa-link');
-      if (barLink) barLink.href = waUrl;
+      document.getElementById('help-step-1').classList.add('hidden');
+      document.getElementById('help-step-2').classList.remove('hidden');
     }
 
-    function copyTextToClipboard(text, successMsg, fallbackMsg) {
-      try {
-        const tempBox = document.createElement('textarea');
-        tempBox.value = text;
-        tempBox.setAttribute('readonly', '');
-        tempBox.style.position = 'fixed';
-        tempBox.style.left = '-9999px';
-        document.body.appendChild(tempBox);
-        tempBox.select();
-        const copied = document.execCommand('copy');
-        document.body.removeChild(tempBox);
-
-        setStatusMessage(copied ? successMsg : fallbackMsg);
-      } catch (err) {
-        setStatusMessage(fallbackMsg);
-      }
+    function markHelpSolved() {
+      document.getElementById('help-step-2').classList.add('hidden');
+      document.getElementById('help-solved-state').classList.remove('hidden');
     }
 
-    function copyInstaPayNumber() {
-      copyTextToClipboard(
-        INSTAPAY_NUMBER,
-        `InstaPay number (${INSTAPAY_NUMBER}) copied!`,
-        `InstaPay number: ${INSTAPAY_NUMBER}`
-      );
+    function goToHelpStep3() {
+      document.getElementById('help-step-2').classList.add('hidden');
+      document.getElementById('help-step-3').classList.remove('hidden');
+      evaluateEscalationGate();
     }
 
-    function copyWhatsAppMessage() {
-      const text = document.getElementById('wa-message-preview').textContent;
-      copyTextToClipboard(
-        text,
-        'Copied! Ready to paste into WhatsApp (01208958884).',
-        'Select and copy the message box above.'
-      );
-    }
+    function evaluateEscalationGate() {
+      const c1 = document.getElementById('gate-check-1').checked;
+      const c2 = document.getElementById('gate-check-2').checked;
+      const desc = document.getElementById('help-issue-desc').value.trim();
+      const btn = document.getElementById('escalation-whatsapp-btn');
+      const msg = document.getElementById('escalation-locked-msg');
 
-    function handleWhatsAppSend(event) {
-      const { totalCount } = computeOrder();
-      if (totalCount === 0) {
-        event.preventDefault();
-        setStatusMessage('Please add at least one flavor tin or Quartet Box before ordering on WhatsApp.');
+      const unlocked = c1 && c2 && desc.length >= 15;
+      if (unlocked) {
+        const email = document.getElementById('customer-email').value.trim();
+        const text = [
+          'Zebda & Co. — Escalated Support Issue',
+          'Topic: ' + state.helpTopic,
+          email ? 'Email: ' + email : '',
+          'Issue: ' + desc,
+        ]
+          .filter(Boolean)
+          .join('\n');
+        btn.href = 'https://wa.me/' + WHATSAPP_PHONE_DIGITS + '?text=' + encodeURIComponent(text);
+        btn.classList.remove('hidden');
+        msg.classList.add('hidden');
       } else {
-        setStatusMessage('Opening WhatsApp for 01208958884 with your 2-day advance order...');
+        btn.classList.add('hidden');
+        msg.classList.remove('hidden');
       }
     }
 
-    // Initialize rates table, sub-areas, and order summary
-    renderRatesTable();
-    populateSubAreas();
-    updateOrderUI();
+    handleCityChange();
   </script>
 </body>
 </html>
