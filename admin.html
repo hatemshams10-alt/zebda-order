@@ -1,1 +1,419 @@
-.
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ZEBDA &amp; CO. — Admin Orders, Receipts &amp; Flavor Ideas</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;700&family=Cormorant+Garamond:wght@700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            serif: ['"Cormorant Garamond"', 'Georgia', 'serif'],
+            sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+            arabic: ['Cairo', 'sans-serif'],
+          },
+        },
+      },
+    };
+  </script>
+
+  <style>
+    body {
+      background-color: #F7F3EA;
+      color: #1E1916;
+      font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    }
+    .arabic-text {
+      font-family: 'Cairo', sans-serif;
+    }
+  </style>
+</head>
+<body class="min-h-screen antialiased pb-16">
+  <!-- Top Bar -->
+  <div class="w-full bg-[#1E1916] text-[#F7F3EA] border-b border-[#C59B43]/50">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-3 flex flex-wrap items-center justify-between gap-3">
+      <div class="flex items-center gap-3">
+        <span class="font-serif text-2xl font-bold text-[#F7F3EA]">ZEBDA &amp; CO.</span>
+        <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#C59B43] text-[#1E1916] uppercase">
+          Owner Admin Portal
+        </span>
+      </div>
+      <div class="flex items-center gap-2">
+        <a
+          href="index.html"
+          class="px-3 py-1.5 rounded-xl bg-[#262523] border border-[#C59B43]/40 text-xs font-bold text-[#E8C97B] hover:bg-[#33312e]"
+        >
+          Customer Menu
+        </a>
+        <button
+          id="lock-btn"
+          type="button"
+          onclick="lockAdmin()"
+          class="hidden px-3 py-1.5 rounded-xl bg-[#7A1C1C] text-xs font-bold text-[#F7F3EA] cursor-pointer"
+        >
+          Lock
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Passcode Gate -->
+  <section id="auth-gate" class="max-w-md mx-auto px-4 pt-16">
+    <div class="bg-[#EFE9DA] border-2 border-[#C59B43] rounded-2xl p-6 sm:p-8 shadow-lg space-y-4">
+      <div>
+        <span class="text-[11px] uppercase tracking-widest font-bold text-[#7A1C1C] block">
+          Restricted Access
+        </span>
+        <h1 class="font-serif text-3xl font-bold text-[#1E1916]">
+          Admin Sign-In
+        </h1>
+        <p class="text-xs text-[#1E1916]/75 mt-1">
+          Enter your admin passcode to view synced orders, generated receipts, customer flavor ideas, and issue logs.
+        </p>
+      </div>
+
+      <div>
+        <label for="admin-passcode" class="block text-xs font-bold uppercase tracking-wider text-[#1E1916]/80 mb-1">
+          Passcode
+        </label>
+        <input
+          id="admin-passcode"
+          type="password"
+          onkeydown="if(event.key==='Enter') unlockAdmin()"
+          placeholder="Enter passcode..."
+          class="w-full rounded-xl bg-[#F7F3EA] border border-[#1E1916]/25 px-4 py-2.5 text-sm font-semibold text-[#1E1916]"
+        />
+      </div>
+
+      <p id="auth-error" class="hidden text-xs font-bold text-[#7A1C1C]">
+        Incorrect passcode. Try again.
+      </p>
+
+      <button
+        type="button"
+        onclick="unlockAdmin()"
+        class="w-full py-3 px-4 rounded-xl bg-[#1E4620] text-[#F7F3EA] font-bold text-sm hover:opacity-95 transition cursor-pointer"
+      >
+        Unlock Admin Dashboard
+      </button>
+    </div>
+  </section>
+
+  <!-- Main Admin Dashboard -->
+  <main id="admin-dashboard" class="hidden max-w-6xl mx-auto px-4 sm:px-6 pt-8 space-y-8">
+    <div class="flex flex-wrap items-end justify-between gap-4 bg-[#EFE9DA] border border-[#1E1916]/15 rounded-2xl p-6">
+      <div>
+        <span class="text-xs uppercase tracking-[0.2em] text-[#1E4620] font-bold block">
+          Synced From Customer Menu • Local Browser Log
+        </span>
+        <h1 class="font-serif text-3xl sm:text-4xl font-bold text-[#1E1916]">
+          Orders, Receipts &amp; Flavor Ideas
+        </h1>
+      </div>
+      <div class="flex flex-wrap gap-2">
+        <button
+          type="button"
+          onclick="renderAllAdminSections()"
+          class="px-3.5 py-2 rounded-xl bg-[#1E4620] text-[#F7F3EA] text-xs font-bold cursor-pointer"
+        >
+          Refresh Log
+        </button>
+        <button
+          type="button"
+          onclick="clearAllAdminData()"
+          class="px-3.5 py-2 rounded-xl bg-[#7A1C1C] text-[#F7F3EA] text-xs font-bold cursor-pointer"
+        >
+          Clear Log
+        </button>
+      </div>
+    </div>
+
+    <!-- KPI Cards -->
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+      <div class="bg-[#EFE9DA] border border-[#1E1916]/15 rounded-2xl p-5">
+        <span class="text-xs uppercase tracking-wider font-bold text-[#1E1916]/65 block">Synced Orders</span>
+        <span id="stat-orders-count" class="font-serif text-3xl font-bold text-[#1E4620] mt-1 block">0</span>
+      </div>
+      <div class="bg-[#EFE9DA] border border-[#1E1916]/15 rounded-2xl p-5">
+        <span class="text-xs uppercase tracking-wider font-bold text-[#1E1916]/65 block">Customer Flavor Ideas</span>
+        <span id="stat-ideas-count" class="font-serif text-3xl font-bold text-[#7A1C1C] mt-1 block">0</span>
+      </div>
+      <div class="bg-[#EFE9DA] border border-[#1E1916]/15 rounded-2xl p-5">
+        <span class="text-xs uppercase tracking-wider font-bold text-[#1E1916]/65 block">Logged Issues</span>
+        <span id="stat-issues-count" class="font-serif text-3xl font-bold text-[#1E1916] mt-1 block">0</span>
+      </div>
+    </div>
+
+    <!-- Orders & Receipts -->
+    <section class="space-y-4">
+      <h2 class="font-serif text-2xl sm:text-3xl font-bold text-[#1E1916]">
+        Orders &amp; Receipts
+      </h2>
+      <div id="orders-container" class="space-y-4"></div>
+    </section>
+
+    <!-- Customer Flavor Ideas -->
+    <section class="space-y-4">
+      <h2 class="font-serif text-2xl sm:text-3xl font-bold text-[#1E1916]">
+        Customer Flavor Ideas (From Blurred R&amp;D Cards)
+      </h2>
+      <div id="ideas-container" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+    </section>
+
+    <!-- Reported Issues / Feedback -->
+    <section class="space-y-4">
+      <h2 class="font-serif text-2xl sm:text-3xl font-bold text-[#1E1916]">
+        Reported Issues &amp; Feedback
+      </h2>
+      <div id="issues-container" class="space-y-3"></div>
+    </section>
+  </main>
+
+  <script>
+    const ADMIN_PASSCODE = 'ZEBDA2026';
+    const ADMIN_STORE_KEY = 'zebda_and_co_admin_sync_v1';
+    const AUTH_SESSION_KEY = 'zebda_admin_unlocked_v1';
+
+    function readStore() {
+      try {
+        const raw = localStorage.getItem(ADMIN_STORE_KEY);
+        const parsed = raw ? JSON.parse(raw) : {};
+        return {
+          orders: Array.isArray(parsed.orders) ? parsed.orders : [],
+          flavorIdeas: Array.isArray(parsed.flavorIdeas) ? parsed.flavorIdeas : [],
+          issues: Array.isArray(parsed.issues) ? parsed.issues : [],
+        };
+      } catch (e) {
+        return { orders: [], flavorIdeas: [], issues: [] };
+      }
+    }
+
+    function writeStore(data) {
+      localStorage.setItem(ADMIN_STORE_KEY, JSON.stringify(data));
+    }
+
+    function unlockAdmin() {
+      const input = document.getElementById('admin-passcode');
+      const err = document.getElementById('auth-error');
+      if (input && input.value.trim() === ADMIN_PASSCODE) {
+        sessionStorage.setItem(AUTH_SESSION_KEY, '1');
+        err.classList.add('hidden');
+        showDashboard();
+      } else {
+        err.classList.remove('hidden');
+      }
+    }
+
+    function lockAdmin() {
+      sessionStorage.removeItem(AUTH_SESSION_KEY);
+      document.getElementById('admin-dashboard').classList.add('hidden');
+      document.getElementById('lock-btn').classList.add('hidden');
+      document.getElementById('auth-gate').classList.remove('hidden');
+      document.getElementById('admin-passcode').value = '';
+    }
+
+    function showDashboard() {
+      document.getElementById('auth-gate').classList.add('hidden');
+      document.getElementById('admin-dashboard').classList.remove('hidden');
+      document.getElementById('lock-btn').classList.remove('hidden');
+      renderAllAdminSections();
+    }
+
+    function updateOrderStatus(orderRef, newStatus) {
+      const store = readStore();
+      const target = store.orders.find((o) => o.orderRef === orderRef);
+      if (target) {
+        target.status = newStatus;
+        writeStore(store);
+        renderAllAdminSections();
+      }
+    }
+
+    function downloadSavedReceipt(orderRef) {
+      const store = readStore();
+      const target = store.orders.find((o) => o.orderRef === orderRef);
+      if (!target || !target.receiptImageDataUrl) return;
+      const link = document.createElement('a');
+      link.download = 'zebda-and-co-receipt-' + orderRef + '.png';
+      link.href = target.receiptImageDataUrl;
+      link.click();
+    }
+
+    function clearAllAdminData() {
+      localStorage.removeItem(ADMIN_STORE_KEY);
+      renderAllAdminSections();
+    }
+
+    function escapeHtml(str) {
+      return String(str || '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    }
+
+    function renderAllAdminSections() {
+      const store = readStore();
+      document.getElementById('stat-orders-count').textContent = store.orders.length;
+      document.getElementById('stat-ideas-count').textContent = store.flavorIdeas.length;
+      document.getElementById('stat-issues-count').textContent = store.issues.length;
+
+      const ordersEl = document.getElementById('orders-container');
+      if (store.orders.length === 0) {
+        ordersEl.innerHTML =
+          '<div class="bg-[#EFE9DA] border border-[#1E1916]/15 rounded-2xl p-6 text-sm text-[#1E1916]/70">No synced orders yet. Complete an order on <strong>index.html</strong> to see it and its receipt here.</div>';
+      } else {
+        ordersEl.innerHTML = store.orders
+          .map((o) => {
+            const itemsHtml = (o.receiptItems || [])
+              .map((i) => '<li>' + escapeHtml(i.label) + ' — <strong>' + escapeHtml(i.amount) + '</strong></li>')
+              .join('');
+            return (
+              '<article class="bg-[#EFE9DA] border border-[#1E1916]/20 rounded-2xl p-5 space-y-4">' +
+              '<div class="flex flex-wrap items-start justify-between gap-3 border-b border-[#1E1916]/12 pb-3">' +
+              '<div>' +
+              '<span class="text-xs font-bold uppercase tracking-wider text-[#1E4620]">' +
+              escapeHtml(o.orderRef) +
+              ' • ' +
+              escapeHtml(o.createdAt || '') +
+              '</span>' +
+              '<h3 class="font-serif text-2xl font-bold text-[#1E1916]">' +
+              escapeHtml(o.customerName || 'Customer') +
+              ' — ' +
+              escapeHtml(o.grandTotal) +
+              ' EGP</h3>' +
+              '<p class="text-xs text-[#1E1916]/75">' +
+              escapeHtml(o.city) +
+              ' • ' +
+              escapeHtml(o.addressDetail || '') +
+              '</p>' +
+              '</div>' +
+              '<div class="flex items-center gap-2">' +
+              '<select onchange="updateOrderStatus(\'' +
+              escapeHtml(o.orderRef) +
+              '\', this.value)" class="rounded-xl bg-[#F7F3EA] border border-[#1E1916]/25 px-3 py-1.5 text-xs font-bold">' +
+              '<option value="Pending / On Hold"' +
+              (o.status === 'Pending / On Hold' ? ' selected' : '') +
+              '>Pending / On Hold</option>' +
+              '<option value="Verified & Whipping"' +
+              (o.status === 'Verified & Whipping' ? ' selected' : '') +
+              '>Verified &amp; Whipping</option>' +
+              '<option value="Delivered"' +
+              (o.status === 'Delivered' ? ' selected' : '') +
+              '>Delivered</option>' +
+              '</select>' +
+              (o.receiptImageDataUrl
+                ? '<button type="button" onclick="downloadSavedReceipt(\'' +
+                  escapeHtml(o.orderRef) +
+                  '\')" class="px-3 py-1.5 rounded-xl bg-[#C59B43] text-[#1E1916] text-xs font-bold cursor-pointer">Download Receipt</button>'
+                : '') +
+              '</div>' +
+              '</div>' +
+              '<div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">' +
+              '<div class="bg-[#F7F3EA] rounded-xl p-3.5 border border-[#1E1916]/12 space-y-1">' +
+              '<p class="font-bold uppercase tracking-wider text-[#7A1C1C]">Items &amp; Sample</p>' +
+              '<ul class="list-disc list-inside space-y-0.5">' +
+              itemsHtml +
+              '</ul>' +
+              (o.freeSampleUnlocked
+                ? '<p class="font-bold text-[#1E4620] pt-1">FREE Sample: ' + escapeHtml(o.selectedFreeSample) + '</p>'
+                : '') +
+              '</div>' +
+              '<div class="bg-[#F7F3EA] rounded-xl p-3.5 border border-[#1E1916]/12 space-y-1">' +
+              '<p class="font-bold uppercase tracking-wider text-[#1E4620]">Payment &amp; Map</p>' +
+              '<p><strong>InstaPay Now:</strong> ' +
+              escapeHtml(o.instaPayDueNow) +
+              ' EGP | <strong>COD Remaining:</strong> ' +
+              escapeHtml(o.codRemaining) +
+              ' EGP</p>' +
+              '<p><strong>Email:</strong> ' +
+              escapeHtml(o.customerEmail || '') +
+              '</p>' +
+              (o.mapsLink
+                ? '<p><strong>Map Pin:</strong> <a href="' +
+                  escapeHtml(o.mapsLink) +
+                  '" target="_blank" rel="noopener noreferrer" class="underline text-[#1E4620] font-bold">Open Google Maps</a></p>'
+                : '<p><strong>Map Pin:</strong> None</p>') +
+              '</div>' +
+              '</div>' +
+              '</article>'
+            );
+          })
+          .join('');
+      }
+
+      const ideasEl = document.getElementById('ideas-container');
+      if (store.flavorIdeas.length === 0) {
+        ideasEl.innerHTML =
+          '<div class="bg-[#EFE9DA] border border-[#1E1916]/15 rounded-2xl p-5 text-xs text-[#1E1916]/70">No flavor ideas submitted yet.</div>';
+      } else {
+        ideasEl.innerHTML = store.flavorIdeas
+          .map(
+            (item) =>
+              '<div class="bg-[#EFE9DA] border border-[#C59B43]/60 rounded-2xl p-4 space-y-1">' +
+              '<div class="flex items-center justify-between text-[11px] font-bold text-[#1E4620]">' +
+              '<span>' +
+              escapeHtml(item.slot) +
+              '</span>' +
+              '<span>' +
+              escapeHtml(item.createdAt) +
+              '</span>' +
+              '</div>' +
+              '<p class="font-serif text-xl font-bold text-[#1E1916]">' +
+              escapeHtml(item.idea) +
+              '</p>' +
+              '<p class="text-xs text-[#1E1916]/75">From: ' +
+              escapeHtml(item.customerName) +
+              '</p>' +
+              '</div>'
+          )
+          .join('');
+      }
+
+      const issuesEl = document.getElementById('issues-container');
+      if (store.issues.length === 0) {
+        issuesEl.innerHTML =
+          '<div class="bg-[#EFE9DA] border border-[#1E1916]/15 rounded-2xl p-5 text-xs text-[#1E1916]/70">No issues logged yet.</div>';
+      } else {
+        issuesEl.innerHTML = store.issues
+          .map(
+            (iss) =>
+              '<div class="bg-[#EFE9DA] border border-[#7A1C1C]/35 rounded-2xl p-4 text-xs space-y-1">' +
+              '<div class="flex items-center justify-between font-bold text-[#7A1C1C]">' +
+              '<span>' +
+              escapeHtml(iss.category) +
+              ' — ' +
+              escapeHtml(iss.specificProblem) +
+              '</span>' +
+              '<span>' +
+              escapeHtml(iss.createdAt) +
+              '</span>' +
+              '</div>' +
+              '<p class="text-[#1E1916]">' +
+              escapeHtml(iss.details) +
+              '</p>' +
+              '<p class="text-[11px] text-[#1E1916]/70">Photo: ' +
+              escapeHtml(iss.photoName || 'None') +
+              '</p>' +
+              '</div>'
+          )
+          .join('');
+      }
+    }
+
+    if (sessionStorage.getItem(AUTH_SESSION_KEY) === '1') {
+      showDashboard();
+    }
+  </script>
+</body>
+</html>
