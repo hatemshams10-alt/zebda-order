@@ -64,7 +64,7 @@
   <div class="box">
     <h2>Zebda &amp; Co. Order Chat Test</h2>
     <div id="log">
-      <div class="msg"><strong>Assistant:</strong> أهلاً بك في Zebda &amp; Co.! تحب لغة التواصل تبقى إيه (عربي ولا English)؟<br/>Welcome to Zebda &amp; Co.! What language would you prefer to chat in (Arabic or English)?</div>
+      <div class="msg"><strong>Zebda &amp; Co.:</strong> أهلاً بك في Zebda &amp; Co.! تحب لغة التواصل تبقى إيه (عربي ولا English)؟<br/>Welcome to Zebda &amp; Co.! What language would you prefer to chat in (Arabic or English)?</div>
     </div>
     <form id="chat-form">
       <input id="chat-input" type="text" placeholder="Type your message..." required />
@@ -79,10 +79,22 @@
     const input = document.getElementById("chat-input");
     const log = document.getElementById("log");
 
+    function cleanReplyText(text) {
+      return String(text || "")
+        .replace(/\*\*/g, "")
+        .replace(/\*/g, "")
+        .trim();
+    }
+
     function addMsg(sender, text) {
       const div = document.createElement("div");
       div.className = "msg";
-      div.innerHTML = `<strong>${sender}:</strong> <span>${text}</span>`;
+      const strong = document.createElement("strong");
+      strong.textContent = `${sender}: `;
+      const span = document.createElement("span");
+      span.textContent = text;
+      div.appendChild(strong);
+      div.appendChild(span);
       log.appendChild(div);
       log.scrollTop = log.scrollHeight;
     }
@@ -109,7 +121,7 @@
           reply = data.reply || data.output || data.text || raw;
         } catch (_) {}
 
-        addMsg("Assistant", reply);
+        addMsg("Zebda & Co.", cleanReplyText(reply));
       } catch (err) {
         addMsg("Error", err.message || "Request failed");
       } finally {
