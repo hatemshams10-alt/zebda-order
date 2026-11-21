@@ -232,7 +232,7 @@
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         <!-- 1. Roasted Garlic & Herb (145 EGP) -->
-        <article class="heritage-card bg-[#EFE9DA]/70 rounded-2xl border border-[#1E1916]/15 overflow-hidden flex flex-col">
+        <article id="card-garlic" class="heritage-card bg-[#EFE9DA]/70 rounded-2xl border border-[#1E1916]/15 overflow-hidden flex flex-col">
           <div class="bg-[#1E4620] text-[#F7F3EA] px-5 py-4 flex items-center justify-between gap-3">
             <div>
               <span class="text-[11px] uppercase tracking-[0.18em] text-[#E8C97B] font-semibold block">
@@ -273,11 +273,12 @@
             </div>
 
             <div class="pt-4 border-t border-[#1E1916]/12 flex items-center justify-between gap-3">
-              <span class="text-xs font-semibold text-[#1E1916]/75">
+              <span id="status-garlic" class="text-xs font-semibold text-[#1E1916]/75">
                 145 EGP / tin
               </span>
               <div class="inline-flex items-center rounded-xl bg-[#EFE9DA] border border-[#1E1916]/20 p-1">
                 <button
+                  id="dec-garlic"
                   type="button"
                   onclick="changeQty('garlic', -1)"
                   aria-label="Decrease quantity of Roasted Garlic and Herb"
@@ -289,6 +290,7 @@
                   0
                 </span>
                 <button
+                  id="inc-garlic"
                   type="button"
                   onclick="changeQty('garlic', 1)"
                   aria-label="Increase quantity of Roasted Garlic and Herb"
@@ -302,7 +304,7 @@
         </article>
 
         <!-- 2. Hot Honey & Chili Crunch (155 EGP) -->
-        <article class="heritage-card bg-[#EFE9DA]/70 rounded-2xl border border-[#1E1916]/15 overflow-hidden flex flex-col">
+        <article id="card-chili" class="heritage-card bg-[#EFE9DA]/70 rounded-2xl border border-[#1E1916]/15 overflow-hidden flex flex-col">
           <div class="bg-[#7A1C1C] text-[#F7F3EA] px-5 py-4 flex items-center justify-between gap-3">
             <div>
               <span class="text-[11px] uppercase tracking-[0.18em] text-[#F5D692] font-semibold block">
@@ -343,11 +345,12 @@
             </div>
 
             <div class="pt-4 border-t border-[#1E1916]/12 flex items-center justify-between gap-3">
-              <span class="text-xs font-semibold text-[#1E1916]/75">
+              <span id="status-chili" class="text-xs font-semibold text-[#1E1916]/75">
                 155 EGP / tin
               </span>
               <div class="inline-flex items-center rounded-xl bg-[#EFE9DA] border border-[#1E1916]/20 p-1">
                 <button
+                  id="dec-chili"
                   type="button"
                   onclick="changeQty('chili', -1)"
                   aria-label="Decrease quantity of Hot Honey and Chili Crunch"
@@ -359,6 +362,7 @@
                   0
                 </span>
                 <button
+                  id="inc-chili"
                   type="button"
                   onclick="changeQty('chili', 1)"
                   aria-label="Increase quantity of Hot Honey and Chili Crunch"
@@ -372,7 +376,7 @@
         </article>
 
         <!-- 3. Sundried Tomato, Basil & Parmesan (165 EGP) -->
-        <article class="heritage-card bg-[#EFE9DA]/70 rounded-2xl border border-[#1E1916]/15 overflow-hidden flex flex-col">
+        <article id="card-tomato" class="heritage-card bg-[#EFE9DA]/70 rounded-2xl border border-[#1E1916]/15 overflow-hidden flex flex-col">
           <div class="bg-[#262523] text-[#F7F3EA] px-5 py-4 flex items-center justify-between gap-3">
             <div>
               <span class="text-[11px] uppercase tracking-[0.18em] text-[#E8C97B] font-semibold block">
@@ -413,11 +417,12 @@
             </div>
 
             <div class="pt-4 border-t border-[#1E1916]/12 flex items-center justify-between gap-3">
-              <span class="text-xs font-semibold text-[#1E1916]/75">
+              <span id="status-tomato" class="text-xs font-semibold text-[#1E1916]/75">
                 165 EGP / tin
               </span>
               <div class="inline-flex items-center rounded-xl bg-[#EFE9DA] border border-[#1E1916]/20 p-1">
                 <button
+                  id="dec-tomato"
                   type="button"
                   onclick="changeQty('tomato', -1)"
                   aria-label="Decrease quantity of Sundried Tomato, Basil and Parmesan"
@@ -429,6 +434,7 @@
                   0
                 </span>
                 <button
+                  id="inc-tomato"
                   type="button"
                   onclick="changeQty('tomato', 1)"
                   aria-label="Increase quantity of Sundried Tomato, Basil and Parmesan"
@@ -442,7 +448,7 @@
         </article>
 
         <!-- 4. Black Truffle & Sea Salt (185 EGP) -->
-        <article class="heritage-card bg-[#EFE9DA]/70 rounded-2xl border-2 border-[#C59B43] overflow-hidden flex flex-col">
+        <article id="card-truffle" class="heritage-card bg-[#EFE9DA]/70 rounded-2xl border-2 border-[#C59B43] overflow-hidden flex flex-col">
           <div class="bg-[#1E1916] text-[#F7F3EA] px-5 py-4 flex items-center justify-between gap-3 border-b border-[#C59B43]/45">
             <div>
               <span class="text-[11px] uppercase tracking-[0.18em] text-[#E8C97B] font-semibold block">
@@ -483,11 +489,12 @@
             </div>
 
             <div class="pt-4 border-t border-[#C59B43]/35 flex items-center justify-between gap-3">
-              <span class="text-xs font-semibold text-[#1E1916]/75">
+              <span id="status-truffle" class="text-xs font-semibold text-[#1E1916]/75">
                 185 EGP / tin
               </span>
               <div class="inline-flex items-center rounded-xl bg-[#EFE9DA] border border-[#C59B43] p-1">
                 <button
+                  id="dec-truffle"
                   type="button"
                   onclick="changeQty('truffle', -1)"
                   aria-label="Decrease quantity of Black Truffle and Sea Salt"
@@ -499,6 +506,7 @@
                   0
                 </span>
                 <button
+                  id="inc-truffle"
                   type="button"
                   onclick="changeQty('truffle', 1)"
                   aria-label="Increase quantity of Black Truffle and Sea Salt"
@@ -654,6 +662,7 @@
 
     <!-- 4-Flavor Quartet Tasting Box Bundle (560 EGP) -->
     <section
+      id="card-quartet"
       aria-label="4-Flavor Quartet Tasting Box"
       class="bg-[#1E1916] text-[#F7F3EA] rounded-2xl border-2 border-[#C59B43] p-6 sm:p-8 mb-9 shadow-md"
     >
@@ -671,6 +680,9 @@
           </h2>
           <p class="mt-2 text-sm sm:text-[15px] text-[#F7F3EA]/80 leading-relaxed">
             Includes one tin of each flavor: <strong class="text-[#F7F3EA]">Roasted Garlic &amp; Herb</strong>, <strong class="text-[#F7F3EA]">Hot Honey &amp; Chili Crunch</strong>, <strong class="text-[#F7F3EA]">Sundried Tomato, Basil &amp; Parmesan</strong>, and <strong class="text-[#E8C97B]">Black Truffle &amp; Sea Salt</strong> (650 EGP if bought individually).
+          </p>
+          <p id="status-quartet" class="hidden mt-2 text-xs font-bold text-[#F5D692]">
+            Currently Out of Stock
           </p>
         </div>
 
@@ -699,6 +711,7 @@
               <span class="text-xs font-semibold text-[#F7F3EA]/80">Boxes:</span>
               <div class="inline-flex items-center gap-2">
                 <button
+                  id="dec-quartet"
                   type="button"
                   onclick="changeQuartetQty(-1)"
                   aria-label="Decrease number of 4-Flavor Quartet Tasting Boxes"
@@ -710,6 +723,7 @@
                   0
                 </span>
                 <button
+                  id="inc-quartet"
                   type="button"
                   onclick="changeQuartetQty(1)"
                   aria-label="Increase number of 4-Flavor Quartet Tasting Boxes"
@@ -724,10 +738,10 @@
       </div>
     </section>
 
-    <!-- Cascading Location Selector + Free Sample (>500 EGP Items) + Payment Method + Live Order Summary & WhatsApp Builder -->
+    <!-- Cascading Location Selector + Free Sample (>500 EGP Items) + Payment & Screenshot Upload + Live Order Summary -->
     <section
       id="whatsapp-order-section"
-      aria-label="Location selector, free sample, payment method, and WhatsApp order builder"
+      aria-label="Location selector, free sample, payment method, screenshot upload, and WhatsApp order builder"
       class="bg-[#EFE9DA] border border-[#1E1916]/20 rounded-2xl p-6 sm:p-8 mb-8"
     >
       <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 mb-6 border-b border-[#1E1916]/12">
@@ -762,7 +776,7 @@
       </div>
 
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <!-- Left Column: Cascading Area -> Sub-Area + Required Details + Google Maps Pin + Free Sample + Payment -->
+        <!-- Left Column: Cascading Area -> Sub-Area + Required Details + Google Maps Pin + Free Sample + Payment + Screenshot Upload -->
         <div class="space-y-4">
           <div>
             <label for="city-select" class="block text-xs font-bold uppercase tracking-wider text-[#1E1916]/80 mb-1.5">
@@ -905,7 +919,7 @@
             </div>
           </div>
 
-          <!-- Payment Method Selector: InstaPay (Full) vs COD (50% InstaPay Deposit) -->
+          <!-- Payment Method Selector + Direct Screenshot Upload to Admin -->
           <div class="pt-2">
             <span class="block text-xs font-bold uppercase tracking-wider text-[#1E1916]/80 mb-2">
               6. Payment Method (InstaPay: +20 10 41870087)
@@ -948,6 +962,44 @@
               />
             </div>
 
+            <!-- Upload InstaPay Screenshot Directly to Admin Portal -->
+            <div class="mb-3 rounded-xl bg-[#F7F3EA] border border-[#C59B43]/65 p-3.5 space-y-2">
+              <div class="flex items-center justify-between gap-2">
+                <label for="order-screenshot-input" class="block text-xs font-bold uppercase tracking-wider text-[#1E1916] arabic-text">
+                  8. رفع سكرينشوت التحويل (Upload InstaPay Screenshot)
+                </label>
+                <button
+                  type="button"
+                  onclick="clearOrderScreenshot()"
+                  class="text-[11px] font-bold underline text-[#7A1C1C] cursor-pointer"
+                >
+                  Remove
+                </button>
+              </div>
+              <p class="text-[11px] text-[#1E1916]/75">
+                Upload your transfer screenshot directly here so it appears right inside the <strong>Admin Receipt Box</strong>, and you can also send it on WhatsApp.
+              </p>
+              <input
+                id="order-screenshot-input"
+                type="file"
+                accept="image/*"
+                onchange="handleOrderScreenshotUpload(this)"
+                class="block w-full text-xs text-[#1E1916] file:mr-3 file:py-2 file:px-3.5 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-[#1E4620] file:text-[#F7F3EA] hover:file:opacity-95 cursor-pointer"
+              />
+              <div id="order-screenshot-preview-wrap" class="hidden pt-2 border-t border-[#1E1916]/12 flex items-center gap-3">
+                <img
+                  id="order-screenshot-preview-img"
+                  src=""
+                  alt="Uploaded InstaPay screenshot preview"
+                  class="w-20 h-20 rounded-lg object-cover border border-[#1E1916]/20 bg-white shrink-0"
+                />
+                <div class="text-[11px] space-y-0.5">
+                  <p id="order-screenshot-filename" class="font-bold text-[#1E4620] break-all"></p>
+                  <p class="text-[#1E1916]/75">Synced with Admin Portal receipt box.</p>
+                </div>
+              </div>
+            </div>
+
             <div id="payment-breakdown-box" class="rounded-xl bg-[#F7F3EA] border border-[#C59B43]/50 p-3.5 text-xs space-y-1.5">
               <div class="flex items-center justify-between font-bold text-[#1E1916]">
                 <span>InstaPay Transfer Due Now (+20 10 41870087):</span>
@@ -958,7 +1010,7 @@
                 <span id="cod-remaining-due">0 EGP</span>
               </div>
               <p class="text-[11px] text-[#7A1C1C] font-semibold pt-1">
-                Order stays on hold until your transfer screenshot to +20 10 41870087 is sent &amp; verified.
+                Order stays on hold until your transfer screenshot to +20 10 41870087 is uploaded/sent &amp; verified.
               </p>
             </div>
           </div>
@@ -1001,10 +1053,14 @@
                 <span>Transfer Now via InstaPay (+20 10 41870087)</span>
                 <span id="summary-instapay-now">40 EGP</span>
               </div>
+              <div class="flex justify-between text-xs font-semibold text-[#1E1916]/80 pt-0.5">
+                <span>InstaPay Screenshot</span>
+                <span id="summary-screenshot-status" class="text-[#7A1C1C]">Not uploaded yet</span>
+              </div>
             </div>
 
             <div id="admin-sync-notice" class="hidden mt-3 px-3 py-2 rounded-xl bg-[#1E4620]/10 border border-[#1E4620]/35 text-[11px] font-bold text-[#1E4620]">
-              Saved to Admin Portal log automatically so you can review orders &amp; receipts there anytime.
+              Saved to Admin Portal log automatically so you can review orders, receipts &amp; screenshots there anytime.
             </div>
 
             <!-- Missing Required Details Notice -->
@@ -1642,6 +1698,8 @@
       activeFlavorSlot: 'Experimental Flavor #1',
       latestFlavorIdeaText: '',
       photoMeta: null,
+      paymentScreenshotDataUrl: '',
+      paymentScreenshotName: '',
       latestIssueMessage: '',
       latestOrderMessage: '',
       orderReady: false,
@@ -1659,9 +1717,89 @@
           orders: Array.isArray(parsed.orders) ? parsed.orders : [],
           flavorIdeas: Array.isArray(parsed.flavorIdeas) ? parsed.flavorIdeas : [],
           issues: Array.isArray(parsed.issues) ? parsed.issues : [],
+          outOfStock:
+            parsed.outOfStock && typeof parsed.outOfStock === 'object'
+              ? parsed.outOfStock
+              : {},
+          n8nConfig:
+            parsed.n8nConfig && typeof parsed.n8nConfig === 'object'
+              ? parsed.n8nConfig
+              : {},
+          n8nLastAudit: parsed.n8nLastAudit || null,
         };
       } catch (e) {
-        return { orders: [], flavorIdeas: [], issues: [] };
+        return {
+          orders: [],
+          flavorIdeas: [],
+          issues: [],
+          outOfStock: {},
+          n8nConfig: {},
+          n8nLastAudit: null,
+        };
+      }
+    }
+
+    function isItemOutOfStock(key) {
+      const store = readAdminStore();
+      return Boolean(store.outOfStock && store.outOfStock[key]);
+    }
+
+    function applyOutOfStockStateToMenu() {
+      const store = readAdminStore();
+      const oos = store.outOfStock || {};
+
+      Object.keys(FLAVORS).forEach((key) => {
+        const isOos = Boolean(oos[key]);
+        if (isOos && state.qtys[key] > 0) {
+          state.qtys[key] = 0;
+          const qtyEl = document.getElementById('qty-' + key);
+          if (qtyEl) qtyEl.textContent = '0';
+        }
+
+        const cardEl = document.getElementById('card-' + key);
+        const statusEl = document.getElementById('status-' + key);
+        const incBtn = document.getElementById('inc-' + key);
+
+        if (cardEl) {
+          cardEl.classList.toggle('opacity-60', isOos);
+        }
+        if (statusEl) {
+          statusEl.textContent = isOos ? 'OUT OF STOCK' : FLAVORS[key].price + ' EGP / tin';
+          statusEl.className = isOos
+            ? 'text-xs font-bold text-[#7A1C1C] uppercase tracking-wider'
+            : 'text-xs font-semibold text-[#1E1916]/75';
+        }
+        if (incBtn) {
+          incBtn.disabled = isOos;
+          incBtn.classList.toggle('opacity-40', isOos);
+          incBtn.classList.toggle('cursor-not-allowed', isOos);
+        }
+      });
+
+      const qOos = Boolean(oos.quartet);
+      if (qOos && state.quartetQty > 0) {
+        state.quartetQty = 0;
+      }
+      const qStatusEl = document.getElementById('status-quartet');
+      const qToggleBtn = document.getElementById('quartet-toggle-btn');
+      const qIncBtn = document.getElementById('inc-quartet');
+
+      if (qStatusEl) {
+        qStatusEl.classList.toggle('hidden', !qOos);
+      }
+      if (qIncBtn) {
+        qIncBtn.disabled = qOos;
+        qIncBtn.classList.toggle('opacity-40', qOos);
+        qIncBtn.classList.toggle('cursor-not-allowed', qOos);
+      }
+      syncQuartetUI();
+      if (qToggleBtn && qOos) {
+        qToggleBtn.disabled = true;
+        qToggleBtn.textContent = 'Quartet Box — Out of Stock';
+        qToggleBtn.className =
+          'w-full py-2.5 px-4 rounded-xl text-sm font-bold bg-[#7A1C1C]/50 text-[#F7F3EA]/80 cursor-not-allowed';
+      } else if (qToggleBtn && !qOos) {
+        qToggleBtn.disabled = false;
       }
     }
 
@@ -1671,16 +1809,58 @@
       } catch (e) {}
     }
 
+    function handleOrderScreenshotUpload(inputEl) {
+      const file = inputEl && inputEl.files && inputEl.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        if (e.target && e.target.result) {
+          state.paymentScreenshotDataUrl = e.target.result;
+          state.paymentScreenshotName = file.name;
+          const wrap = document.getElementById('order-screenshot-preview-wrap');
+          const img = document.getElementById('order-screenshot-preview-img');
+          const nameEl = document.getElementById('order-screenshot-filename');
+          if (img) img.src = state.paymentScreenshotDataUrl;
+          if (nameEl) nameEl.textContent = file.name;
+          if (wrap) wrap.classList.remove('hidden');
+          updateOrderUI();
+        }
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function clearOrderScreenshot() {
+      state.paymentScreenshotDataUrl = '';
+      state.paymentScreenshotName = '';
+      const input = document.getElementById('order-screenshot-input');
+      const wrap = document.getElementById('order-screenshot-preview-wrap');
+      const img = document.getElementById('order-screenshot-preview-img');
+      if (input) input.value = '';
+      if (img) img.src = '';
+      if (wrap) wrap.classList.add('hidden');
+      updateOrderUI();
+    }
+
     function syncOrderToAdminStore(orderData, receiptImageDataUrl) {
       if (!orderData || !state.orderReady) return;
       const store = readAdminStore();
       const existingIdx = store.orders.findIndex((o) => o.orderRef === orderData.orderRef);
+      const existingObj = existingIdx >= 0 ? store.orders[existingIdx] : null;
+
+      const resolvedScreenshot =
+        state.paymentScreenshotDataUrl || (existingObj ? existingObj.paymentScreenshotDataUrl : '');
+      const resolvedScreenshotName =
+        state.paymentScreenshotName || (existingObj ? existingObj.paymentScreenshotName : '');
+
       const record = {
         ...orderData,
-        status: existingIdx >= 0 ? store.orders[existingIdx].status : 'Pending / On Hold',
-        receiptImageDataUrl: receiptImageDataUrl || (existingIdx >= 0 ? store.orders[existingIdx].receiptImageDataUrl : ''),
+        paymentScreenshotDataUrl: resolvedScreenshot,
+        paymentScreenshotName: resolvedScreenshotName,
+        status: existingObj ? existingObj.status : 'Pending / On Hold',
+        receiptImageDataUrl:
+          receiptImageDataUrl || (existingObj ? existingObj.receiptImageDataUrl : ''),
         orderText: state.latestOrderMessage,
-        createdAt: existingIdx >= 0 ? store.orders[existingIdx].createdAt : new Date().toLocaleString(),
+        createdAt: existingObj ? existingObj.createdAt : new Date().toLocaleString(),
         updatedAt: new Date().toLocaleString(),
       };
       if (existingIdx >= 0) {
@@ -1845,7 +2025,13 @@
     }
 
     function applyQuickSampleOrder() {
-      state.qtys = { garlic: 1, chili: 1, tomato: 0, truffle: 1 };
+      const oos = readAdminStore().outOfStock || {};
+      state.qtys = {
+        garlic: oos.garlic ? 0 : 1,
+        chili: oos.chili ? 0 : 1,
+        tomato: 0,
+        truffle: oos.truffle ? 0 : 1,
+      };
       state.quartetQty = 0;
       Object.keys(state.qtys).forEach((k) => {
         const el = document.getElementById('qty-' + k);
@@ -1900,6 +2086,7 @@
     }
 
     function changeQty(key, delta) {
+      if (delta > 0 && isItemOutOfStock(key)) return;
       state.qtys[key] = Math.max(0, (state.qtys[key] || 0) + delta);
       const el = document.getElementById('qty-' + key);
       if (el) el.textContent = state.qtys[key];
@@ -1907,12 +2094,14 @@
     }
 
     function changeQuartetQty(delta) {
+      if (delta > 0 && isItemOutOfStock('quartet')) return;
       state.quartetQty = Math.max(0, state.quartetQty + delta);
       syncQuartetUI();
       updateOrderUI();
     }
 
     function toggleQuartet() {
+      if (isItemOutOfStock('quartet')) return;
       state.quartetQty = state.quartetQty > 0 ? 0 : 1;
       syncQuartetUI();
       updateOrderUI();
@@ -1922,12 +2111,14 @@
       const qtyEl = document.getElementById('qty-quartet');
       const btnEl = document.getElementById('quartet-toggle-btn');
       if (qtyEl) qtyEl.textContent = state.quartetQty;
-      if (btnEl) {
+      if (btnEl && !isItemOutOfStock('quartet')) {
         if (state.quartetQty > 0) {
           btnEl.textContent = 'Added (' + state.quartetQty + ' Box) — Tap to Clear';
         } else {
           btnEl.textContent = '+ Add Quartet Box (560 EGP)';
         }
+        btnEl.className =
+          'w-full py-2.5 px-4 rounded-xl text-sm font-bold transition-all bg-[#C59B43] text-[#1E1916] hover:brightness-105 active:scale-[0.99] cursor-pointer';
       }
     }
 
@@ -2113,6 +2304,17 @@
       document.getElementById('sticky-instapay').textContent = instaPayDueNow + ' EGP';
       document.getElementById('sticky-total').textContent = grandTotal + ' EGP';
 
+      const ssStatusEl = document.getElementById('summary-screenshot-status');
+      if (ssStatusEl) {
+        if (state.paymentScreenshotDataUrl) {
+          ssStatusEl.textContent = 'Uploaded (' + (state.paymentScreenshotName || 'Screenshot') + ')';
+          ssStatusEl.className = 'text-[#1E4620] font-bold';
+        } else {
+          ssStatusEl.textContent = 'Not uploaded yet';
+          ssStatusEl.className = 'text-[#7A1C1C] font-bold';
+        }
+      }
+
       const paymentText =
         state.paymentMethod === 'cod'
           ? 'COD (50% InstaPay Deposit Now: ' + instaPayDueNow + ' EGP | Remaining on Delivery: ' + codRemaining + ' EGP)'
@@ -2130,6 +2332,9 @@
         'Total Order: ' + grandTotal + ' EGP',
         'Payment: ' + paymentText,
         'InstaPay Number: ' + INSTAPAY_NUMBER_DISPLAY,
+        state.paymentScreenshotDataUrl
+          ? 'InstaPay Screenshot: Uploaded to Admin Portal (' + (state.paymentScreenshotName || 'image') + ')'
+          : 'InstaPay Screenshot: Not uploaded yet',
         customerName ? 'Customer Name: ' + customerName : '',
         customerEmail ? 'Customer Email: ' + customerEmail : '',
         addressDetail ? 'Location & Delivery Day: ' + addressDetail : '',
@@ -2366,7 +2571,13 @@
 
       ctx.fillStyle = '#F5D692';
       ctx.font = 'bold 16px "Plus Jakarta Sans", sans-serif';
-      ctx.fillText('STATUS: ON HOLD UNTIL TRANSFER SCREENSHOT IS VERIFIED', 78, 1034);
+      ctx.fillText(
+        state.paymentScreenshotDataUrl
+          ? 'SCREENSHOT: UPLOADED TO ADMIN  •  STATUS: PENDING VERIFICATION'
+          : 'STATUS: ON HOLD UNTIL TRANSFER SCREENSHOT IS VERIFIED',
+        78,
+        1034
+      );
 
       ctx.fillStyle = '#1E1916';
       ctx.font = '600 16px "Plus Jakarta Sans", sans-serif';
@@ -2588,7 +2799,16 @@
       }
     }
 
+    window.addEventListener('storage', (e) => {
+      if (e.key === ADMIN_STORE_KEY) {
+        applyOutOfStockStateToMenu();
+        updateOrderUI();
+      }
+    });
+
     handleCityChange();
+    applyOutOfStockStateToMenu();
+    updateOrderUI();
   </script>
 </body>
 </html>
