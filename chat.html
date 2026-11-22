@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ZEBDA &amp; CO. (زبدة وشركاه) — Customer Chat &amp; Order Concierge</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cairo:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            serif: ['"Cormorant Garamond"', 'Georgia', 'serif'],
+            sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+            arabic: ['Cairo', 'sans-serif'],
+          },
+        },
+      },
+    };
+  </script>
+  <style>
+    body {
+      background-color: #F7F3EA;
+      color: #1E1916;
+      font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    }
+    .arabic-text {
+      font-family: 'Cairo', sans-serif;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col antialiased selection:bg-[#C59B43]/30 selection:text-[#1E1916]">
+  <!-- Top Bar -->
+  <header class="w-full bg-[#1E1916] text-[#F7F3EA] border-b border-[#C59B43]/50">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 py-3 flex flex-wrap items-center justify-between gap-2 text-xs sm:text-sm">
+      <div class="flex items-center gap-2.5">
+        <span class="font-serif text-2xl font-bold text-[#F7F3EA]">ZEBDA &amp; CO.</span>
+        <span class="px-2.5 py-0.5 rounded-full bg-[#C59B43] text-[#1E1916] text-[11px] font-bold uppercase">
+          Live Chat Concierge
+        </span>
+      </div>
+      <nav class="flex flex-wrap items-center gap-2">
+        <a
+          href="index.html"
+          class="px-3.5 py-1.5 rounded-xl bg-[#1E4620] text-[#F7F3EA] text-xs font-bold hover:opacity-95 transition"
+        >
+          Order Menu
+        </a>
+        <a
+          href="points.html"
+          class="px-3 py-1.5 rounded-xl bg-[#262523] border border-[#C59B43]/40 text-[#E8C97B] text-xs font-bold hover:bg-[#33312e] transition"
+        >
+          My Points
+        </a>
+        <a
+          href="https://wa.me/201041870087"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="px-3 py-1.5 rounded-xl bg-[#C59B43] text-[#1E1916] text-xs font-bold hover:brightness-105 transition"
+        >
+          WhatsApp Direct
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="flex-1 max-w-5xl w-full mx-auto px-4 sm:px-6 py-6 sm:py-8 grid grid-cols-1 lg:grid-cols-12 gap-6">
+    <!-- Left Column: Quick Order / Phone Lookup & Escalation -->
+    <aside class="lg:col-span-4 space-y-5">
+      <div class="bg-[#EFE9DA] border-2 border-[#C59B43] rounded-2xl p-5 space-y-4 shadow-sm">
+        <div>
+          <span class="text-[11px] uppercase tracking-[0.18em] text-[#7A1C1C] font-bold block">
+            Instant Status Check
+          </span>
+          <h2 class="font-serif text-2xl font-bold text-[#1E1916]">
+            Track Order or Phone ID
+          </h2>
+          <p class="text-xs text-[#1E1916]/75 mt-1">
+            Look up your order reference (e.g. <code>ZBD-...</code>) or mobile number to pull live status into chat.
+          </p>
+        </div>
+
+        <div class="space-y-2.5">
+          <input
+            id="lookup-query-input"
+            type="text"
+            onkeydown="if(event.key==='Enter') runOrderOrPhoneLookup()"
+            placeholder="Order Ref or 010xxxxxxxx"
+            class="w-full rounded-xl bg-[#F7F3EA] border border-[#1E1916]/25 px-3.5 py-2.5 text-xs sm:text-sm font-semibold text-[#1E1916] focus:outline-none focus:border-[#1E4620]"
+          />
+          <button
+            type="button"
+            onclick="runOrderOrPhoneLookup()"
+            class="w-full py-2.5 px-4 rounded-xl bg-[#1E4620] text-[#F7F3EA] font-bold text-xs hover:opacity-95 transition cursor-pointer"
+          >
+            Check Status in Chat
+          </button>
+        </div>
+
+        <div id="lookup-result-card" class="hidden rounded-xl bg-[#F7F3EA] border border-[#1E1916]/15 p-3.5 text-xs space-y-2"></div>
+      </div>
+
+      <div class="bg-[#1E1916] text-[#F7F3EA] border border-[#C59B43]/50 rounded-2xl p-5 space-y-3">
+        <span class="text-[11px] uppercase tracking-widest text-[#E8C97B] font-bold block arabic-text">
+          تواصل مباشر • Human Team Escalation
+        </span>
+        <h3 class="font-serif text-xl font-bold">Need a Human or Logged Ticket?</h3>
+        <p class="text-xs text-[#F7F3EA]/80 leading-relaxed">
+          Any message you flag as a support ticket or question is saved to the Admin Portal log so nothing slips through.
+        </p>
+        <button
+          type="button"
+          onclick="logCurrentThreadToAdmin()"
+          class="w-full py-2.5 px-3.5 rounded-xl bg-[#C59B43] text-[#1E1916] font-bold text-xs hover:brightness-105 transition cursor-pointer"
+        >
+          Send Chat Note to Admin Portal
+        </button>
+        <a
+          id="wa-handoff-link"
+          href="https://wa.me/201041870087"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="block text-center py-2 px-3.5 rounded-xl bg-[#262523] border border-[#C59B43]/40 text-[#E8C97B] font-bold text-xs hover:bg-[#33312e] transition"
+        >
+          Continue on WhatsApp
+        </a>
+        <p id="admin-ticket-status" class="text-[11px] font-bold text-[#E8C97B] min-h-[1rem]"></p>
+      </div>
+    </aside>
+
+    <!-- Right Column: Main Chat Window -->
+    <section class="lg:col-span-8 bg-[#EFE9DA] border-2 border-[#C59B43] rounded-2xl flex flex-col overflow-hidden shadow-sm min-h-[540px]">
+      <!-- Chat Header -->
+      <div class="bg-[#1E1916] text-[#F7F3EA] px-5 py-4 flex items-center justify-between gap-3 border-b border-[#C59B43]/40">
+        <div>
+          <h1 class="font-serif text-2xl sm:text-3xl font-bold leading-none">
+            Zebda Concierge Chat
+          </h1>
+          <p class="text-[11px] text-[#E8C97B] mt-1">
+            Orders, 3-Stage Delivery, InstaPay + COD, Free Samples &amp; Points
+          </p>
+        </div>
+        <button
+          type="button"
+          onclick="resetChatThread()"
+          class="px-3 py-1.5 rounded-xl bg-[#262523] border border-[#F7F3EA]/20 text-[11px] font-bold text-[#F7F3EA]/85 hover:text-white cursor-pointer"
+        >
+          Clear Chat
+        </button>
+      </div>
+
+      <!-- Quick Prompt Chips -->
+      <div class="px-4 sm:px-5 py-3 bg-[#F7F3EA]/80 border-b border-[#1E1916]/12 flex flex-wrap gap-1.5">
+        <button type="button" onclick="sendQuickPrompt('What flavors and prices do you have?')" class="px-2.5 py-1 rounded-full bg-[#EFE9DA] border border-[#1E1916]/20 text-[11px] font-bold hover:border-[#1E4620] cursor-pointer">
+          Flavors &amp; Prices
+        </button>
+        <button type="button" onclick="sendQuickPrompt('How do delivery stages and payment verification work?')" class="px-2.5 py-1 rounded-full bg-[#EFE9DA] border border-[#1E1916]/20 text-[11px] font-bold hover:border-[#1E4620] cursor-pointer">
+          Delivery &amp; Payment
+        </button>
+        <button type="button" onclick="sendQuickPrompt('How do loyalty points and the 10,000-pt custom flavor work?')" class="px-2.5 py-1 rounded-full bg-[#EFE9DA] border border-[#1E1916]/20 text-[11px] font-bold hover:border-[#1E4620] cursor-pointer">
+          Points &amp; VIP Flavor
+        </button>
+        <button type="button" onclick="sendQuickPrompt('How do free tasting samples work?')" class="px-2.5 py-1 rounded-full bg-[#EFE9DA] border border-[#1E1916]/20 text-[11px] font-bold hover:border-[#1E4620] cursor-pointer">
+          Free Samples
+        </button>
+      </div>
+
+      <!-- Messages Stream -->
+      <div id="chat-messages" class="flex-1 p-4 sm:p-5 space-y-3.5 overflow-y-auto max-h-[420px]"></div>
+
+      <!-- Composer -->
+      <form
+        onsubmit="event.preventDefault(); handleChatSubmit();"
+        class="p-3.5 sm:p-4 bg-[#F7F3EA] border-t border-[#1E1916]/15 flex items-center gap-2"
+      >
+        <input
+          id="chat-input"
+          type="text"
+          autocomplete="off"
+          placeholder="Ask a question, paste an order ID (ZBD-...), or type a note..."
+          class="flex-1 rounded-xl bg-white border border-[#1E1916]/25 px-4 py-2.5 text-xs sm:text-sm text-[#1E1916] focus:outline-none focus:border-[#1E4620]"
+        />
+        <button
+          type="submit"
+          class="px-5 py-2.5 rounded-xl bg-[#1E4620] text-[#F7F3EA] font-bold text-xs sm:text-sm hover:opacity-95 transition cursor-pointer shrink-0"
+        >
+          Send
+        </button>
+      </form>
+    </section>
+  </main>
+
+  <script>
+    const ADMIN_STORE_KEY = 'zebda_and_co_admin_sync_v1';
+    const WHATSAPP_PHONE_DIGITS = '201041870087';
+
+    function escapeHtml(str) {
+      return String(str || '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    }
+
+    function normalizePhone(raw) {
+      let digits = String(raw || '').replace(/\D/g, '');
+      if (digits.startsWith('20') && digits.length === 12) {
+        digits = '0' + digits.slice(2);
+      }
+      return digits;
+    }
+
+    function readStore() {
+      try {
+        const raw = localStorage.getItem(ADMIN_STORE_KEY);
+        const parsed = raw ? JSON.parse(raw) : {};
+        return {
+          orders: Array.isArray(parsed.orders) ? parsed.orders : [],
+          flavorIdeas: Array.isArray(parsed.flavorIdeas) ? parsed.flavorIdeas : [],
+          issues: Array.isArray(parsed.issues) ? parsed.issues : [],
+          outOfStock: parsed.outOfStock && typeof parsed.outOfStock === 'object' ? parsed.outOfStock : {},
+          customMenuFlavors: Array.isArray(parsed.customMenuFlavors) ? parsed.customMenuFlavors : [],
+          loyaltyProfiles: parsed.loyaltyProfiles && typeof parsed.loyaltyProfiles === 'object' ? parsed.loyaltyProfiles : {},
+        };
+      } catch (e) {
+        return {
+          orders: [],
+          flavorIdeas: [],
+          issues: [],
+          outOfStock: {},
+          customMenuFlavors: [],
+          loyaltyProfiles: {},
+        };
+      }
+    }
+
+    function writeStore(data) {
+      try {
+        localStorage.setItem(ADMIN_STORE_KEY, JSON.stringify(data));
+      } catch (e) {}
+    }
+
+    function mapLegacyStatusToStage(status) {
+      if (status === 'Delivered') return 'Delivered';
+      if (status === 'Verified & Whipping' || status === 'Out for delivery') return 'Out for delivery';
+      return 'Not started yet';
+    }
+
+    function appendMessage(sender, text) {
+      const box = document.getElementById('chat-messages');
+      if (!box) return;
+      const isUser = sender === 'user';
+      const wrapper = document.createElement('div');
+      wrapper.className = isUser ? 'flex justify-end' : 'flex justify-start';
+
+      const bubble = document.createElement('div');
+      bubble.className = isUser
+        ? 'bg-[#1E4620] text-[#F7F3EA] rounded-2xl rounded-br-sm px-4 py-2.5 max-w-[85%] text-xs sm:text-sm font-medium leading-relaxed'
+        : 'bg-[#F7F3EA] text-[#1E1916] border border-[#1E1916]/15 rounded-2xl rounded-bl-sm px-4 py-3 max-w-[88%] text-xs sm:text-sm leading-relaxed shadow-xs';
+
+      if (!isUser) {
+        bubble.innerHTML =
+          '<span class="block text-[10px] uppercase tracking-wider font-bold text-[#7A1C1C] mb-1">Zebda Concierge</span>' +
+          escapeHtml(text).replace(/\n/g, '<br />');
+      } else {
+        bubble.textContent = text;
+      }
+
+      wrapper.appendChild(bubble);
+      box.appendChild(wrapper);
+      box.scrollTop = box.scrollHeight;
+
+      const waLink = document.getElementById('wa-handoff-link');
+      if (waLink && isUser) {
+        waLink.href =
+          'https://wa.me/' +
+          WHATSAPP_PHONE_DIGITS +
+          '?text=' +
+          encodeURIComponent('Zebda & Co. Chat Question:\n' + text);
+      }
+    }
+
+    function generateAssistantReply(userText) {
+      const store = readStore();
+      const raw = userText.trim();
+      const lower = raw.toLowerCase();
+
+      // Check if user pasted an order reference like ZBD-...
+      const refMatch = raw.match(/ZBD-[A-Z0-9-]+/i);
+      if (refMatch) {
+        const ref = refMatch[0].toUpperCase();
+        const found = store.orders.find((o) => String(o.orderRef || '').toUpperCase() === ref);
+        if (found) {
+          const stage = found.deliveryStage || mapLegacyStatusToStage(found.status);
+          const verifiedText = found.paymentVerified ? 'Verified (Points Active)' : 'Pending Verification';
+          return (
+            'Order ' +
+            found.orderRef +
+            ' (' +
+            (found.customerName || 'Customer') +
+            '):\n' +
+            '• Delivery Stage: ' +
+            stage +
+            '\n' +
+            '• Payment: ' +
+            verifiedText +
+            ' | Total: ' +
+            found.grandTotal +
+            ' EGP\n' +
+            '• Points Earned: +' +
+            Number(found.pointsEarned || 0) +
+            ' pts'
+          );
+        }
+        return (
+          'I could not find order ' +
+          ref +
+          ' in local browser storage yet. If you just placed it on another device or browser, you can also check with our team on WhatsApp (+201041870087).'
+        );
+      }
+
+      // Check if user entered an Egyptian phone number
+      const digits = normalizePhone(raw);
+      if (digits.length >= 10 && !lower.includes('price') && !lower.includes('flavor')) {
+        const matches = store.orders.filter((o) => normalizePhone(o.customerPhone) === digits);
+        if (matches.length > 0) {
+          const latest = matches[0];
+          const stage = latest.deliveryStage || mapLegacyStatusToStage(latest.status);
+          return (
+            'Found ' +
+            matches.length +
+            ' order(s) under ' +
+            digits +
+            '.\nLatest Order (' +
+            latest.orderRef +
+            '): Stage is "' +
+            stage +
+            '" for ' +
+            latest.grandTotal +
+            ' EGP.\nOpen My Points to see your full balance and redeem rewards.'
+          );
+        }
+      }
+
+      if (lower.includes('flavor') || lower.includes('price') || lower.includes('menu') || lower.includes('quartet')) {
+        const oosNames = Object.entries(store.outOfStock || {})
+          .filter(([, v]) => Boolean(v))
+          .map(([k]) => k);
+        const publishedCustom = (store.customMenuFlavors || []).filter((f) => f.published);
+        let msg =
+          'Our signature menu:\n' +
+          '• Roasted Garlic & Herb — 145 EGP\n' +
+          '• Hot Honey & Chili Crunch — 155 EGP\n' +
+          '• Sundried Tomato, Basil & Parmesan — 165 EGP\n' +
+          '• Black Truffle & Sea Salt — 185 EGP\n' +
+          '• 4-Flavor Quartet Box — 560 EGP';
+        if (publishedCustom.length > 0) {
+          msg +=
+            '\n• VIP Custom Flavors: ' +
+            publishedCustom.map((f) => f.flavorName + ' (' + f.price + ' EGP)').join(', ');
+        }
+        if (oosNames.length > 0) {
+          msg += '\n(Currently marked out of stock: ' + oosNames.join(', ') + ')';
+        }
+        return msg;
+      }
+
+      if (lower.includes('deliver') || lower.includes('stage') || lower.includes('pay') || lower.includes('instapay') || lower.includes('cod')) {
+        return (
+          'Orders move through 3 clear delivery stages:\n' +
+          '1. Not started yet\n' +
+          '2. Out for delivery\n' +
+          '3. Delivered\n' +
+          'Once payment is verified in the Admin Portal, your points become active and your order progresses to fulfillment.'
+        );
+      }
+
+      if (lower.includes('point') || lower.includes('reward') || lower.includes('vip') || lower.includes('10,000') || lower.includes('10000') || lower.includes('expire')) {
+        return (
+          'You earn 1 point per 1 EGP spent, valid on a rolling 3-month (90-day) window:\n' +
+          '• 500 pts: Free Delivery\n' +
+          '• 1,200 pts: Free Mini Tasting Jar\n' +
+          '• 2,500 pts: 50% Off Order\n' +
+          '• 5,000 pts: 70% Off Order\n' +
+          '• 10,000 pts: Create your own 250g custom flavor & get it featured on the menu!'
+        );
+      }
+
+      if (lower.includes('sample') || lower.includes('free')) {
+        return (
+          'Orders that qualify for the free sample perk let you pick a complimentary tasting sample right during checkout on the Order Menu.'
+        );
+      }
+
+      return (
+        'Thanks for reaching out! You can paste an Order Reference (like ZBD-...) or phone number to check live status, ask about flavors/delivery/points, or click "Send Chat Note to Admin Portal" on the left to log this message for review.'
+      );
+    }
+
+    function handleChatSubmit() {
+      const input = document.getElementById('chat-input');
+      if (!input) return;
+      const text = input.value.trim();
+      if (!text) return;
+      input.value = '';
+      appendMessage('user', text);
+      const reply = generateAssistantReply(text);
+      setTimeout(() => appendMessage('bot', reply), 120);
+    }
+
+    function sendQuickPrompt(promptText) {
+      appendMessage('user', promptText);
+      const reply = generateAssistantReply(promptText);
+      setTimeout(() => appendMessage('bot', reply), 120);
+    }
+
+    function runOrderOrPhoneLookup() {
+      const raw = (document.getElementById('lookup-query-input')?.value || '').trim();
+      const card = document.getElementById('lookup-result-card');
+      if (!raw || !card) return;
+
+      const store = readStore();
+      const upper = raw.toUpperCase();
+      const digits = normalizePhone(raw);
+
+      let order = store.orders.find((o) => String(o.orderRef || '').toUpperCase() === upper);
+      if (!order && digits.length >= 10) {
+        order = store.orders.find((o) => normalizePhone(o.customerPhone) === digits);
+      }
+
+      card.classList.remove('hidden');
+      if (!order) {
+        card.innerHTML =
+          '<p class="font-bold text-[#7A1C1C]">No matching order found for "' +
+          escapeHtml(raw) +
+          '".</p>';
+        return;
+      }
+
+      const stage = order.deliveryStage || mapLegacyStatusToStage(order.status);
+      card.innerHTML =
+        '<div class="flex items-center justify-between gap-2">' +
+        '<span class="font-bold text-[#1E4620]">' +
+        escapeHtml(order.orderRef) +
+        '</span>' +
+        '<span class="px-2 py-0.5 rounded-full bg-[#C59B43]/30 text-[#1E1916] text-[10px] font-bold">' +
+        escapeHtml(stage) +
+        '</span>' +
+        '</div>' +
+        '<p class="font-bold text-[#1E1916]">' +
+        escapeHtml(order.customerName || 'Customer') +
+        ' • ' +
+        escapeHtml(order.grandTotal) +
+        ' EGP</p>' +
+        '<p class="text-[#1E1916]/75">' +
+        escapeHtml(order.city || '') +
+        (order.customerPhone ? ' • ' + escapeHtml(order.customerPhone) : '') +
+        '</p>';
+
+      appendMessage('user', 'Check status for ' + raw);
+      appendMessage('bot', generateAssistantReply(raw));
+    }
+
+    function logCurrentThreadToAdmin() {
+      const box = document.getElementById('chat-messages');
+      const statusEl = document.getElementById('admin-ticket-status');
+      if (!box) return;
+
+      const userBubbles = Array.from(box.querySelectorAll('.justify-end > div'));
+      const lastUserMsg =
+        userBubbles.length > 0
+          ? userBubbles[userBubbles.length - 1].textContent.trim()
+          : 'Customer opened chat concierge and requested a follow-up.';
+
+      const lookupVal = (document.getElementById('lookup-query-input')?.value || '').trim();
+      const store = readStore();
+      store.issues = Array.isArray(store.issues) ? store.issues : [];
+      store.issues.unshift({
+        id: 'CHAT-' + Date.now(),
+        category: 'Chat Concierge',
+        specificProblem: 'Customer Chat Follow-Up',
+        details: lastUserMsg,
+        orderRef: lookupVal || 'N/A',
+        photoName: 'None',
+        createdAt: new Date().toLocaleString(),
+      });
+      writeStore(store);
+
+      if (statusEl) {
+        statusEl.textContent = 'Sent to Admin Portal (' + new Date().toLocaleTimeString() + ')';
+      }
+      appendMessage(
+        'bot',
+        'I have logged your note to the Admin Portal under Reported Issues & Feedback so our team can review it.'
+      );
+    }
+
+    function resetChatThread() {
+      const box = document.getElementById('chat-messages');
+      if (!box) return;
+      box.innerHTML = '';
+      appendMessage(
+        'bot',
+        'Marhaban! Welcome to Zebda & Co. Ask about our compound butters, check an order reference or phone number, or log a note straight to the Admin Portal.'
+      );
+    }
+
+    resetChatThread();
+  </script>
+</body>
+</html>
