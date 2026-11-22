@@ -45,7 +45,7 @@
           Owner Admin Portal
         </span>
       </div>
-      <div class="flex items-center gap-2">
+      <div class="flex flex-wrap items-center gap-2">
         <a
           href="index.html"
           class="px-3 py-1.5 rounded-xl bg-[#262523] border border-[#C59B43]/40 text-xs font-bold text-[#E8C97B] hover:bg-[#33312e]"
@@ -57,6 +57,12 @@
           class="px-3 py-1.5 rounded-xl bg-[#262523] border border-[#C59B43]/40 text-xs font-bold text-[#F7F3EA] hover:bg-[#33312e]"
         >
           Points Portal
+        </a>
+        <a
+          href="chat.html"
+          class="px-3 py-1.5 rounded-xl bg-[#262523] border border-[#C59B43]/40 text-xs font-bold text-[#F7F3EA] hover:bg-[#33312e]"
+        >
+          Chat Portal
         </a>
         <button
           id="lock-btn"
@@ -114,7 +120,7 @@
     <div class="flex flex-wrap items-end justify-between gap-4 bg-[#EFE9DA] border border-[#1E1916]/15 rounded-2xl p-6">
       <div>
         <span class="text-xs uppercase tracking-[0.2em] text-[#1E4620] font-bold block">
-          Complete Customer Sync • Orders, Points, Screenshots &amp; Menu Control
+          Complete Customer Sync • Manual InstaPay Confirmation • WhatsApp Archive
         </span>
         <h1 class="font-serif text-3xl sm:text-4xl font-bold text-[#1E1916]">
           Owner Control Center
@@ -128,6 +134,15 @@
         >
           Refresh All
         </button>
+        <a
+          id="wa-full-archive-btn"
+          href="https://wa.me/201041870087"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="px-3.5 py-2 rounded-xl bg-[#25D366] text-[#1E1916] text-xs font-bold hover:brightness-105 transition"
+        >
+          Save Full Log to WhatsApp
+        </a>
         <button
           type="button"
           onclick="triggerN8nAudit(false)"
@@ -195,15 +210,15 @@
       </div>
     </section>
 
-    <!-- All Orders, Full Customer Details, 3-Stage Delivery Control & Payment Verification -->
+    <!-- All Orders, Full Customer Details, 3-Stage Delivery Control & Manual InstaPay Verification -->
     <section class="space-y-4">
       <div class="flex flex-wrap items-center justify-between gap-2">
         <div>
           <span class="text-xs uppercase tracking-[0.2em] text-[#1E4620] font-bold block">
-            Every Customer Field, Map Pin, Screenshot &amp; 3-Stage Bar
+            Every Customer Field, Map Pin, Screenshot, WhatsApp Record &amp; 3-Stage Bar
           </span>
           <h2 class="font-serif text-2xl sm:text-3xl font-bold text-[#1E1916]">
-            Orders, Receipts &amp; Payment Verification
+            Orders, Receipts &amp; Manual InstaPay Confirmation
           </h2>
         </div>
         <input
@@ -332,6 +347,7 @@
     const ADMIN_STORE_KEY = 'zebda_and_co_admin_sync_v1';
     const AUTH_SESSION_KEY = 'zebda_admin_unlocked_v1';
     const NINETY_DAYS_MS = 90 * 24 * 60 * 60 * 1000;
+    const WHATSAPP_PHONE_DIGITS = '201041870087';
 
     const TALLY_ITEMS = [
       { key: 'garlic', name: 'Roasted Garlic & Herb', ar: 'ثوم محمص وأعشاب', price: 145 },
@@ -395,6 +411,85 @@
         .replace(/"/g, '&quot;');
     }
 
+    function buildWhatsAppOrderRecordUrl(order) {
+      const stage = order.deliveryStage || mapLegacyStatusToStage(order.status);
+      const itemsText = (order.receiptItems || [])
+        .map((i) => '• ' + i.label + ' (' + i.amount + ')')
+        .join('\n');
+      const msg = [
+        'ZEBDA & CO. (زبدة وشركاه) — WhatsApp Record',
+        'Order Ref: ' + (order.orderRef || 'N/A'),
+        'Date: ' + (order.createdAt || new Date().toLocaleString()),
+        'Customer: ' + (order.customerName || 'Customer'),
+        'Phone ID: ' + (order.customerPhone || 'N/A'),
+        'Email: ' + (order.customerEmail || 'N/A'),
+        'Area & Address: ' + (order.subareaLabel || order.city || '') + ' — ' + (order.addressDetail || ''),
+        'InstaPay Confirmed: ' + (order.paymentVerified ? 'YES (Manual Confirmed)' : 'PENDING MANUAL CONFIRMATION'),
+        'Delivery Stage: ' + stage,
+        'Grand Total: ' + order.grandTotal + ' EGP (InstaPay: ' + order.instaPayDueNow + ' EGP | COD: ' + order.codRemaining + ' EGP)',
+        'Points Earned: +' + Number(order.pointsEarned || 0) + ' pts',
+        'Screenshot Attached: ' + (order.paymentScreenshotName || (order.paymentScreenshotDataUrl ? 'Yes' : 'No')),
+        itemsText ? 'Items:\n' + itemsText : '',
+      ]
+        .filter(Boolean)
+        .join('\n');
+      return 'https://wa.me/' + WHATSAPP_PHONE_DIGITS + '?text=' + encodeURIComponent(msg);
+    }
+
+    function buildWhatsAppMemberRecordUrl(member, activePts) {
+      const msg = [
+        'ZEBDA & CO. (زبدة وشركاه) — Customer Loyalty Record',
+        'Customer: ' + member.name,
+        'Phone ID: ' + member.phoneId,
+        'Orders Count: ' + member.orderCount,
+        'Total Spend: ' + member.totalSpend + ' EGP',
+        'Active Points: ' + activePts + ' pts',
+        'Pending Points: +' + member.pendingPoints + ' pts',
+      ].join('\n');
+      return 'https://wa.me/' + WHATSAPP_PHONE_DIGITS + '?text=' + encodeURIComponent(msg);
+    }
+
+    function buildWhatsAppIssueRecordUrl(issue) {
+      const msg = [
+        'ZEBDA & CO. (زبدة وشركاه) — Issue / Dispute Record',
+        'ID: ' + issue.id,
+        'Category: ' + issue.category + ' — ' + issue.specificProblem,
+        'Order Ref: ' + (issue.orderRef || 'N/A'),
+        'Date: ' + (issue.createdAt || ''),
+        'Details: ' + (issue.details || ''),
+        'Photo: ' + (issue.photoName || 'None'),
+      ].join('\n');
+      return 'https://wa.me/' + WHATSAPP_PHONE_DIGITS + '?text=' + encodeURIComponent(msg);
+    }
+
+    function updateFullWhatsAppArchiveLink() {
+      const store = readStore();
+      const btn = document.getElementById('wa-full-archive-btn');
+      if (!btn) return;
+      const summaryLines = store.orders.slice(0, 8).map((o) => {
+        const st = o.deliveryStage || mapLegacyStatusToStage(o.status);
+        return (
+          '• ' +
+          o.orderRef +
+          ' | ' +
+          (o.customerName || 'Guest') +
+          ' | ' +
+          (o.customerPhone || 'No Phone') +
+          ' | ' +
+          o.grandTotal +
+          ' EGP | InstaPay:' +
+          (o.paymentVerified ? 'CONFIRMED' : 'PENDING') +
+          ' | ' +
+          st
+        );
+      });
+      const text = [
+        'ZEBDA & CO. FULL ADMIN SNAPSHOT (' + store.orders.length + ' orders, ' + store.issues.length + ' issues)',
+        summaryLines.length > 0 ? summaryLines.join('\n') : 'No orders yet.',
+      ].join('\n');
+      btn.href = 'https://wa.me/' + WHATSAPP_PHONE_DIGITS + '?text=' + encodeURIComponent(text);
+    }
+
     function unlockAdmin() {
       const input = document.getElementById('admin-passcode');
       const err = document.getElementById('auth-error');
@@ -423,22 +518,33 @@
       renderAllAdminSections();
     }
 
-    /* 3-Option Delivery Stage Control (Not started yet -> Out for delivery -> Delivered) */
+    /* Strict Manual InstaPay Confirmation + 3-Option Delivery Stage Control */
     function updateDeliveryStage(orderRef, newStage) {
       const store = readStore();
       const target = store.orders.find((o) => o.orderRef === orderRef);
       if (!target) return;
+
+      if ((newStage === 'Out for delivery' || newStage === 'Delivered') && !target.paymentVerified) {
+        alert(
+          'Manual InstaPay Confirmation Required: Please verify the InstaPay transfer first ("Confirm InstaPay & Unlock Pts") before moving this order to ' +
+            newStage +
+            '.'
+        );
+        renderAllAdminSections();
+        return;
+      }
+
       target.deliveryStage = newStage;
       target.stageHistory = Array.isArray(target.stageHistory) ? target.stageHistory : [];
       target.stageHistory.push({ stage: newStage, at: new Date().toLocaleString() });
-
-      if (newStage === 'Out for delivery' || newStage === 'Delivered') {
-        target.paymentVerified = true;
-        if (!target.verifiedAtMs) target.verifiedAtMs = Date.now();
-        target.status = newStage === 'Delivered' ? 'Delivered' : 'Verified & Whipping';
-      } else {
-        target.status = 'Pending / On Hold';
-      }
+      target.status =
+        newStage === 'Delivered'
+          ? 'Delivered'
+          : newStage === 'Out for delivery'
+          ? 'Verified & Whipping'
+          : target.paymentVerified
+          ? 'Verified & Whipping'
+          : 'Pending / On Hold';
       writeStore(store);
       renderAllAdminSections();
     }
@@ -454,6 +560,7 @@
           target.status = 'Verified & Whipping';
         }
       } else {
+        target.deliveryStage = 'Not started yet';
         target.status = 'Pending / On Hold';
       }
       writeStore(store);
@@ -720,7 +827,7 @@
             ' pending</span>' +
             '</div>' +
             '</div>' +
-            '<div class="flex flex-wrap gap-2 pt-1 border-t border-[#1E1916]/10">' +
+            '<div class="flex flex-wrap items-center gap-2 pt-1 border-t border-[#1E1916]/10">' +
             '<button type="button" onclick="adjustCustomerPoints(\'' +
             m.phoneId +
             '\', 100)" class="px-2.5 py-1 rounded-lg bg-[#1E4620] text-[#F7F3EA] font-bold cursor-pointer">+100 Pts</button>' +
@@ -730,6 +837,9 @@
             '<button type="button" onclick="adjustCustomerPoints(\'' +
             m.phoneId +
             '\', -100)" class="px-2.5 py-1 rounded-lg bg-[#7A1C1C] text-[#F7F3EA] font-bold cursor-pointer">-100 Pts</button>' +
+            '<a href="' +
+            escapeHtml(buildWhatsAppMemberRecordUrl(m, activePts)) +
+            '" target="_blank" rel="noopener noreferrer" class="ml-auto px-2.5 py-1 rounded-lg bg-[#25D366] text-[#1E1916] font-bold">Save to WhatsApp</a>' +
             '</div>' +
             '</div>'
           );
@@ -797,6 +907,7 @@
         store.flavorIdeas.length + (store.customMenuFlavors || []).length;
       document.getElementById('stat-issues-count').textContent = store.issues.length;
 
+      updateFullWhatsAppArchiveLink();
       renderItemSalesTally();
       renderLoyaltyDirectory();
       renderVipFlavorsAdmin();
@@ -831,7 +942,7 @@
             const screenshotBoxHtml = o.paymentScreenshotDataUrl
               ? '<div class="rounded-xl bg-[#F7F3EA] border border-[#C59B43] p-3 space-y-2">' +
                 '<div class="flex items-center justify-between gap-2">' +
-                '<span class="text-[11px] font-bold uppercase tracking-wider text-[#1E4620]">Receipt &amp; Screenshot Box</span>' +
+                '<span class="text-[11px] font-bold uppercase tracking-wider text-[#1E4620]">InstaPay Screenshot</span>' +
                 '<button type="button" onclick="downloadSavedScreenshot(\'' +
                 escapeHtml(o.orderRef) +
                 '\')" class="px-2.5 py-1 rounded-lg bg-[#1E4620] text-[#F7F3EA] text-[11px] font-bold cursor-pointer">Save Screenshot</button>' +
@@ -844,7 +955,7 @@
                 '</p>' +
                 '</div>'
               : '<div class="rounded-xl bg-[#F7F3EA] border border-[#1E1916]/15 p-3 space-y-1">' +
-                '<span class="text-[11px] font-bold uppercase tracking-wider text-[#7A1C1C] block">Receipt &amp; Screenshot Box</span>' +
+                '<span class="text-[11px] font-bold uppercase tracking-wider text-[#7A1C1C] block">InstaPay Screenshot</span>' +
                 '<p class="text-xs text-[#1E1916]/70">No screenshot uploaded yet.</p>' +
                 '</div>';
 
@@ -881,7 +992,7 @@
                 ? 'bg-[#1E4620] text-[#F7F3EA]'
                 : 'bg-[#7A1C1C] text-[#F7F3EA]') +
               '">' +
-              (isVerified ? 'Payment Verified (Pts Active)' : 'Verify Payment & Unlock Pts') +
+              (isVerified ? 'InstaPay Confirmed (Pts Active)' : 'Confirm InstaPay & Unlock Pts') +
               '</button>' +
               '<select aria-label="3-stage delivery status" onchange="updateDeliveryStage(\'' +
               escapeHtml(o.orderRef) +
@@ -896,6 +1007,9 @@
               (stage === 'Delivered' ? ' selected' : '') +
               '>3. Delivered</option>' +
               '</select>' +
+              '<a href="' +
+              escapeHtml(buildWhatsAppOrderRecordUrl(o)) +
+              '" target="_blank" rel="noopener noreferrer" class="px-3 py-1.5 rounded-xl bg-[#25D366] text-[#1E1916] text-xs font-bold">Store on WhatsApp</a>' +
               (o.receiptImageDataUrl
                 ? '<button type="button" onclick="downloadSavedReceipt(\'' +
                   escapeHtml(o.orderRef) +
@@ -929,6 +1043,9 @@
               ' EGP | <strong>COD:</strong> ' +
               escapeHtml(o.codRemaining) +
               ' EGP</p>' +
+              '<p><strong>InstaPay Status:</strong> ' +
+              (isVerified ? 'Manually Confirmed' : 'Awaiting Manual Confirmation') +
+              '</p>' +
               (o.mapsLink
                 ? '<p><strong>Map Pin:</strong> <a href="' +
                   escapeHtml(o.mapsLink) +
@@ -979,8 +1096,8 @@
         issuesEl.innerHTML = store.issues
           .map(
             (iss) =>
-              '<div class="bg-[#EFE9DA] border border-[#7A1C1C]/35 rounded-2xl p-4 text-xs space-y-1">' +
-              '<div class="flex items-center justify-between font-bold text-[#7A1C1C]">' +
+              '<div class="bg-[#EFE9DA] border border-[#7A1C1C]/35 rounded-2xl p-4 text-xs space-y-2">' +
+              '<div class="flex flex-wrap items-center justify-between gap-2 font-bold text-[#7A1C1C]">' +
               '<span>' +
               escapeHtml(iss.category) +
               ' — ' +
@@ -993,11 +1110,16 @@
               '<p class="text-[#1E1916]">' +
               escapeHtml(iss.details) +
               '</p>' +
-              '<p class="text-[11px] text-[#1E1916]/70">Order Ref: ' +
+              '<div class="flex flex-wrap items-center justify-between gap-2 pt-1">' +
+              '<span class="text-[11px] text-[#1E1916]/70">Order Ref: ' +
               escapeHtml(iss.orderRef || 'N/A') +
               ' • Photo: ' +
               escapeHtml(iss.photoName || 'None') +
-              '</p>' +
+              '</span>' +
+              '<a href="' +
+              escapeHtml(buildWhatsAppIssueRecordUrl(iss)) +
+              '" target="_blank" rel="noopener noreferrer" class="px-2.5 py-1 rounded-lg bg-[#25D366] text-[#1E1916] text-[11px] font-bold">Store Issue on WhatsApp</a>' +
+              '</div>' +
               '</div>'
           )
           .join('');
