@@ -4,9 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>ZEBDA &amp; CO. (زبدة وشركاه) — Friends &amp; Customers Order Menu</title>
-  <!-- Load Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Google Fonts: Cormorant Garamond, Playfair Display, Plus Jakarta Sans & Cairo -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
@@ -57,7 +55,7 @@
   </style>
 </head>
 <body class="min-h-screen pb-32 antialiased selection:bg-[#C59B43]/30 selection:text-[#1E1916]">
-  <!-- Top Cold-Chain & 2-Day Advance Notice Bar -->
+  <!-- Top Notice Bar -->
   <div class="w-full bg-[#1E1916] text-[#F7F3EA] border-b border-[#C59B43]/50">
     <div class="max-w-5xl mx-auto px-4 sm:px-6 py-2.5 flex flex-wrap items-center justify-between gap-2 text-xs sm:text-sm">
       <div class="flex items-center gap-2 font-medium text-[#E8C97B]">
@@ -84,9 +82,8 @@
     </div>
   </div>
 
-  <!-- Main Content -->
   <main class="max-w-5xl mx-auto px-4 sm:px-6 pt-7 sm:pt-10">
-    <!-- Hero Banner + Modern Heritage Seal + 2-Day Advance Notice -->
+    <!-- Hero Header -->
     <header class="bg-[#EFE9DA] border border-[#1E1916]/15 rounded-2xl p-6 sm:p-8 mb-8">
       <div class="flex flex-col md:flex-row items-center justify-between gap-6">
         <div class="text-center md:text-left">
@@ -105,7 +102,8 @@
             Crafted from a balanced 50/50 blend of commercial unsalted butter and farmer&rsquo;s baladi butter, freshly whipped and chilled at 0–4°C for friends, family &amp; early customers.
           </p>
         </div>
-        <!-- Inline SVG Modern Heritage Seal -->
+
+        <!-- Heritage Seal -->
         <div class="shrink-0">
           <svg
             width="124"
@@ -160,7 +158,7 @@
         </div>
       </div>
 
-      <!-- Prominent Bilingual 2-Day Advance Order Notice -->
+      <!-- 2-Day Advance Notice -->
       <div class="mt-5 rounded-xl bg-[#7A1C1C] text-[#F7F3EA] px-4 py-3 flex flex-col sm:flex-row sm:items-center justify-between gap-2 border border-[#C59B43]/70">
         <div class="flex items-center gap-2.5 text-xs sm:text-sm font-bold">
           <span class="px-2 py-0.5 rounded bg-[#C59B43] text-[#1E1916] uppercase tracking-wider text-[11px] shrink-0">
@@ -173,7 +171,7 @@
         </span>
       </div>
 
-      <!-- Loyalty & Free Sample Perks Banner -->
+      <!-- Rewards Banner -->
       <div class="mt-3 rounded-xl bg-[#1E4620] text-[#F7F3EA] px-4 py-3 flex flex-col sm:flex-row sm:items-center justify-between gap-2 border border-[#C59B43]/60">
         <div class="text-xs sm:text-sm font-bold">
           <span class="text-[#E8C97B]">Rewards &amp; Perks:</span> Earn <span class="text-[#E8C97B]">1 Point per 1 EGP</span> spent (valid 3 months) + get 1 <strong class="text-[#E8C97B]">FREE</strong> sample on orders over <span class="text-[#E8C97B]">500 EGP</span>!
@@ -186,7 +184,7 @@
         </a>
       </div>
 
-      <!-- Personal Welcome Note + Top Problem / Feedback Trigger -->
+      <!-- Personal Note & Quick Actions -->
       <div class="mt-5 pt-5 border-t border-[#1E1916]/12 bg-[#F7F3EA] rounded-xl p-5 sm:p-6 border border-[#C59B43]/35">
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2">
           <h2 class="font-serif text-2xl font-bold text-[#1E4620]">
@@ -206,7 +204,7 @@
           <div class="flex flex-wrap items-center gap-2">
             <button
               type="button"
-              onclick="toggleAiBotModal(true)"
+              onclick="toggleModal('ai-bot-modal', true)"
               class="py-2 px-3.5 rounded-xl bg-[#1E1916] text-[#E8C97B] border border-[#C59B43] font-bold text-xs hover:opacity-95 transition cursor-pointer shadow-sm"
             >
               Ask Zebda AI Assistant
@@ -223,7 +221,7 @@
       </div>
     </header>
 
-    <!-- Order Reference Lookup Box (Fresh Session Behavior + InstaShop-Style 3-Stage Progress Bar) -->
+    <!-- Order Tracker -->
     <section
       id="order-tracking-section"
       aria-label="Track your order by Order ID"
@@ -245,7 +243,7 @@
           <input
             id="lookup-order-id-input"
             type="text"
-            onkeydown="if(event.key==='Enter') lookupOrderById()"
+            onkeydown="if (event.key === 'Enter') lookupOrderById()"
             placeholder="Enter Order ID (e.g. ZBC-...)"
             class="rounded-xl bg-[#F7F3EA] border border-[#1E1916]/25 px-4 py-2.5 text-sm font-bold text-[#1E1916] uppercase placeholder:normal-case placeholder:font-normal focus:outline-none focus:border-[#1E4620]"
           />
@@ -258,12 +256,10 @@
           </button>
         </div>
       </div>
-
-      <!-- Lookup Result Box -->
       <div id="lookup-result-box" class="hidden mt-5 pt-5 border-t border-[#1E1916]/15"></div>
     </section>
 
-    <!-- Four Compound Butter Flavors + Approved Community Menu Flavors -->
+    <!-- Signature Flavors -->
     <section aria-label="Compound butter flavors" class="mb-7">
       <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-2 mb-5">
         <div>
@@ -279,285 +275,9 @@
         </p>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <!-- 1. Roasted Garlic & Herb (145 EGP) -->
-        <article id="card-garlic" class="heritage-card bg-[#EFE9DA]/70 rounded-2xl border border-[#1E1916]/15 overflow-hidden flex flex-col">
-          <div class="bg-[#1E4620] text-[#F7F3EA] px-5 py-4 flex items-center justify-between gap-3">
-            <div>
-              <span class="text-[11px] uppercase tracking-[0.18em] text-[#E8C97B] font-semibold block">
-                01 • Savory &amp; Herb-Forward
-              </span>
-              <h3 class="font-serif text-2xl sm:text-3xl font-bold leading-tight mt-0.5">
-                Roasted Garlic &amp; Herb
-              </h3>
-            </div>
-            <div class="text-right shrink-0">
-              <span class="arabic-text text-sm font-bold text-[#E8C97B] block">ثوم محمص وأعشاب</span>
-              <span class="text-lg font-bold text-[#F7F3EA]">145 EGP</span>
-            </div>
-          </div>
-          <div class="p-5 flex-1 flex flex-col justify-between bg-[#F7F3EA]/85">
-            <div>
-              <p class="text-sm text-[#1E1916]/80 leading-relaxed mb-4">
-                Sweet, mellow roasted garlic folded with fragrant herbs and sea salt into 50/50 commercial &amp; baladi butter for comforting, everyday warmth.
-              </p>
-              <div class="mb-5">
-                <span class="block text-[11px] uppercase tracking-wider font-bold text-[#1E1916]/60 mb-2">
-                  Tasting Notes &amp; Pairings
-                </span>
-                <div class="flex flex-wrap gap-1.5">
-                  <span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-[#1E4620]/12 text-[#1E4620]">
-                    Roasted Garlic &amp; Herbs
-                  </span>
-                  <span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-[#1E4620]/12 text-[#1E4620]">
-                    Steak &amp; Grilled Meats
-                  </span>
-                  <span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-[#1E4620]/12 text-[#1E4620]">
-                    Garlic Bread &amp; Pasta
-                  </span>
-                </div>
-              </div>
-            </div>
-            <div class="pt-4 border-t border-[#1E1916]/12 flex items-center justify-between gap-3">
-              <span id="status-garlic" class="text-xs font-semibold text-[#1E1916]/75">
-                145 EGP / tin
-              </span>
-              <div class="inline-flex items-center rounded-xl bg-[#EFE9DA] border border-[#1E1916]/20 p-1">
-                <button
-                  id="dec-garlic"
-                  type="button"
-                  onclick="changeQty('garlic', -1)"
-                  aria-label="Decrease quantity of Roasted Garlic and Herb"
-                  class="w-9 h-9 rounded-lg flex items-center justify-center text-lg font-bold text-[#1E1916] hover:bg-[#F7F3EA] active:scale-95 transition cursor-pointer"
-                >
-                  &minus;
-                </button>
-                <span id="qty-garlic" class="w-9 text-center text-sm font-bold text-[#1E1916]">
-                  0
-                </span>
-                <button
-                  id="inc-garlic"
-                  type="button"
-                  onclick="changeQty('garlic', 1)"
-                  aria-label="Increase quantity of Roasted Garlic and Herb"
-                  class="w-9 h-9 rounded-lg flex items-center justify-center text-lg font-bold bg-[#1E4620] text-[#F7F3EA] hover:opacity-95 active:scale-95 transition cursor-pointer"
-                >
-                  +
-                </button>
-              </div>
-            </div>
-          </div>
-        </article>
+      <div id="signature-flavors-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
 
-        <!-- 2. Hot Honey & Chili Crunch (155 EGP) -->
-        <article id="card-chili" class="heritage-card bg-[#EFE9DA]/70 rounded-2xl border border-[#1E1916]/15 overflow-hidden flex flex-col">
-          <div class="bg-[#7A1C1C] text-[#F7F3EA] px-5 py-4 flex items-center justify-between gap-3">
-            <div>
-              <span class="text-[11px] uppercase tracking-[0.18em] text-[#F5D692] font-semibold block">
-                02 • Sweet Heat &amp; Crunch
-              </span>
-              <h3 class="font-serif text-2xl sm:text-3xl font-bold leading-tight mt-0.5">
-                Hot Honey &amp; Chili Crunch
-              </h3>
-            </div>
-            <div class="text-right shrink-0">
-              <span class="arabic-text text-sm font-bold text-[#F5D692] block">عسل حار وفلفل مقرمش</span>
-              <span class="text-lg font-bold text-[#F7F3EA]">155 EGP</span>
-            </div>
-          </div>
-          <div class="p-5 flex-1 flex flex-col justify-between bg-[#F7F3EA]/85">
-            <div>
-              <p class="text-sm text-[#1E1916]/80 leading-relaxed mb-4">
-                Smooth floral honey meets crisp chili crunch and warm spice—sweet, lively, and textured for breakfast tables and bold savory bites.
-              </p>
-              <div class="mb-5">
-                <span class="block text-[11px] uppercase tracking-wider font-bold text-[#1E1916]/60 mb-2">
-                  Tasting Notes &amp; Pairings
-                </span>
-                <div class="flex flex-wrap gap-1.5">
-                  <span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-[#7A1C1C]/12 text-[#7A1C1C]">
-                    Sweet Honey &amp; Chili Crunch
-                  </span>
-                  <span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-[#7A1C1C]/12 text-[#7A1C1C]">
-                    Eggs &amp; Crispy Chicken
-                  </span>
-                  <span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-[#7A1C1C]/12 text-[#7A1C1C]">
-                    Sourdough &amp; Pizza Crust
-                  </span>
-                </div>
-              </div>
-            </div>
-            <div class="pt-4 border-t border-[#1E1916]/12 flex items-center justify-between gap-3">
-              <span id="status-chili" class="text-xs font-semibold text-[#1E1916]/75">
-                155 EGP / tin
-              </span>
-              <div class="inline-flex items-center rounded-xl bg-[#EFE9DA] border border-[#1E1916]/20 p-1">
-                <button
-                  id="dec-chili"
-                  type="button"
-                  onclick="changeQty('chili', -1)"
-                  aria-label="Decrease quantity of Hot Honey and Chili Crunch"
-                  class="w-9 h-9 rounded-lg flex items-center justify-center text-lg font-bold text-[#1E1916] hover:bg-[#F7F3EA] active:scale-95 transition cursor-pointer"
-                >
-                  &minus;
-                </button>
-                <span id="qty-chili" class="w-9 text-center text-sm font-bold text-[#1E1916]">
-                  0
-                </span>
-                <button
-                  id="inc-chili"
-                  type="button"
-                  onclick="changeQty('chili', 1)"
-                  aria-label="Increase quantity of Hot Honey and Chili Crunch"
-                  class="w-9 h-9 rounded-lg flex items-center justify-center text-lg font-bold bg-[#7A1C1C] text-[#F7F3EA] hover:opacity-95 active:scale-95 transition cursor-pointer"
-                >
-                  +
-                </button>
-              </div>
-            </div>
-          </div>
-        </article>
-
-        <!-- 3. Sundried Tomato, Basil & Parmesan (165 EGP) -->
-        <article id="card-tomato" class="heritage-card bg-[#EFE9DA]/70 rounded-2xl border border-[#1E1916]/15 overflow-hidden flex flex-col">
-          <div class="bg-[#262523] text-[#F7F3EA] px-5 py-4 flex items-center justify-between gap-3">
-            <div>
-              <span class="text-[11px] uppercase tracking-[0.18em] text-[#E8C97B] font-semibold block">
-                03 • Rich Mediterranean Umami
-              </span>
-              <h3 class="font-serif text-2xl sm:text-3xl font-bold leading-tight mt-0.5">
-                Sundried Tomato, Basil &amp; Parmesan
-              </h3>
-            </div>
-            <div class="text-right shrink-0">
-              <span class="arabic-text text-sm font-bold text-[#E8C97B] block">طماطم وريحان وبارميزان</span>
-              <span class="text-lg font-bold text-[#F7F3EA]">165 EGP</span>
-            </div>
-          </div>
-          <div class="p-5 flex-1 flex flex-col justify-between bg-[#F7F3EA]/85">
-            <div>
-              <p class="text-sm text-[#1E1916]/80 leading-relaxed mb-4">
-                Tangy sundried tomatoes, sweet basil, and aged Parmesan blended into rich hybrid butter—melts into a quick, savory pan sauce in seconds.
-              </p>
-              <div class="mb-5">
-                <span class="block text-[11px] uppercase tracking-wider font-bold text-[#1E1916]/60 mb-2">
-                  Tasting Notes &amp; Pairings
-                </span>
-                <div class="flex flex-wrap gap-1.5">
-                  <span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-[#262523]/12 text-[#262523]">
-                    Sundried Tomato &amp; Parmesan
-                  </span>
-                  <span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-[#262523]/12 text-[#262523]">
-                    Fresh Basil &amp; Pasta
-                  </span>
-                  <span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-[#262523]/12 text-[#262523]">
-                    Grilled Chicken &amp; Focaccia
-                  </span>
-                </div>
-              </div>
-            </div>
-            <div class="pt-4 border-t border-[#1E1916]/12 flex items-center justify-between gap-3">
-              <span id="status-tomato" class="text-xs font-semibold text-[#1E1916]/75">
-                165 EGP / tin
-              </span>
-              <div class="inline-flex items-center rounded-xl bg-[#EFE9DA] border border-[#1E1916]/20 p-1">
-                <button
-                  id="dec-tomato"
-                  type="button"
-                  onclick="changeQty('tomato', -1)"
-                  aria-label="Decrease quantity of Sundried Tomato, Basil and Parmesan"
-                  class="w-9 h-9 rounded-lg flex items-center justify-center text-lg font-bold text-[#1E1916] hover:bg-[#F7F3EA] active:scale-95 transition cursor-pointer"
-                >
-                  &minus;
-                </button>
-                <span id="qty-tomato" class="w-9 text-center text-sm font-bold text-[#1E1916]">
-                  0
-                </span>
-                <button
-                  id="inc-tomato"
-                  type="button"
-                  onclick="changeQty('tomato', 1)"
-                  aria-label="Increase quantity of Sundried Tomato, Basil and Parmesan"
-                  class="w-9 h-9 rounded-lg flex items-center justify-center text-lg font-bold bg-[#262523] text-[#F7F3EA] hover:opacity-95 active:scale-95 transition cursor-pointer"
-                >
-                  +
-                </button>
-              </div>
-            </div>
-          </div>
-        </article>
-
-        <!-- 4. Black Truffle & Sea Salt (185 EGP) -->
-        <article id="card-truffle" class="heritage-card bg-[#EFE9DA]/70 rounded-2xl border-2 border-[#C59B43] overflow-hidden flex flex-col">
-          <div class="bg-[#1E1916] text-[#F7F3EA] px-5 py-4 flex items-center justify-between gap-3 border-b border-[#C59B43]/45">
-            <div>
-              <span class="text-[11px] uppercase tracking-[0.18em] text-[#E8C97B] font-semibold block">
-                04 • Reserve Edition
-              </span>
-              <h3 class="font-serif text-2xl sm:text-3xl font-bold leading-tight mt-0.5 text-[#F7F3EA]">
-                Black Truffle &amp; Sea Salt
-              </h3>
-            </div>
-            <div class="text-right shrink-0">
-              <span class="arabic-text text-sm font-bold text-[#E8C97B] block">كمأة سوداء وملح بحري</span>
-              <span class="text-lg font-bold text-[#E8C97B]">185 EGP</span>
-            </div>
-          </div>
-          <div class="p-5 flex-1 flex flex-col justify-between bg-[#F7F3EA]/85">
-            <div>
-              <p class="text-sm text-[#1E1916]/80 leading-relaxed mb-4">
-                Aromatic truffle olive oil, dark roasted specks, and finishing sea salt over velvety butter—made to finish steaks, risotto, and warm toast.
-              </p>
-              <div class="mb-5">
-                <span class="block text-[11px] uppercase tracking-wider font-bold text-[#1E1916]/60 mb-2">
-                  Tasting Notes &amp; Pairings
-                </span>
-                <div class="flex flex-wrap gap-1.5">
-                  <span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-[#C59B43]/20 text-[#1E1916]">
-                    Truffle Aroma &amp; Sea Salt
-                  </span>
-                  <span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-[#C59B43]/20 text-[#1E1916]">
-                    Steak &amp; Mushrooms
-                  </span>
-                  <span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-[#C59B43]/20 text-[#1E1916]">
-                    Risotto, Fries &amp; Toast
-                  </span>
-                </div>
-              </div>
-            </div>
-            <div class="pt-4 border-t border-[#C59B43]/35 flex items-center justify-between gap-3">
-              <span id="status-truffle" class="text-xs font-semibold text-[#1E1916]/75">
-                185 EGP / tin
-              </span>
-              <div class="inline-flex items-center rounded-xl bg-[#EFE9DA] border border-[#C59B43] p-1">
-                <button
-                  id="dec-truffle"
-                  type="button"
-                  onclick="changeQty('truffle', -1)"
-                  aria-label="Decrease quantity of Black Truffle and Sea Salt"
-                  class="w-9 h-9 rounded-lg flex items-center justify-center text-lg font-bold text-[#1E1916] hover:bg-[#F7F3EA] active:scale-95 transition cursor-pointer"
-                >
-                  &minus;
-                </button>
-                <span id="qty-truffle" class="w-9 text-center text-sm font-bold text-[#1E1916]">
-                  0
-                </span>
-                <button
-                  id="inc-truffle"
-                  type="button"
-                  onclick="changeQty('truffle', 1)"
-                  aria-label="Increase quantity of Black Truffle and Sea Salt"
-                  class="w-9 h-9 rounded-lg flex items-center justify-center text-lg font-bold bg-[#C59B43] text-[#1E1916] hover:brightness-105 active:scale-95 transition cursor-pointer"
-                >
-                  +
-                </button>
-              </div>
-            </div>
-          </div>
-        </article>
-      </div>
-
-      <!-- VIP 10,000-Point Community Co-Created Flavors (Published from Admin) -->
+      <!-- Published VIP Flavors -->
       <div id="community-flavors-wrapper" class="hidden mt-7">
         <div class="flex flex-wrap items-center justify-between gap-2 mb-3.5">
           <div>
@@ -578,7 +298,7 @@
         <div id="community-flavors-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
       </div>
 
-      <!-- Two Blurred "In Development" Flavors Styled Like Flavor Cards -->
+      <!-- R&D Blurred Flavors -->
       <div class="mt-7">
         <div class="flex flex-wrap items-center justify-between gap-2 mb-3.5">
           <div>
@@ -593,103 +313,7 @@
             Blurred Preview • Not Finalized Yet
           </span>
         </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <!-- Blurred Experimental Card 1 -->
-          <article class="relative bg-[#EFE9DA]/70 rounded-2xl border border-[#1E1916]/15 overflow-hidden flex flex-col">
-            <div class="blur-sm select-none pointer-events-none opacity-65 flex-1 flex flex-col">
-              <div class="bg-[#1E4620] text-[#F7F3EA] px-5 py-4 flex items-center justify-between gap-3">
-                <div>
-                  <span class="text-[11px] uppercase tracking-[0.18em] text-[#E8C97B] font-semibold block">
-                    05 • R&amp;D Test Batch
-                  </span>
-                  <h4 class="font-serif text-2xl font-bold leading-tight mt-0.5">
-                    Experimental Flavor #1
-                  </h4>
-                </div>
-                <span class="text-sm font-bold text-[#E8C97B]">TBD</span>
-              </div>
-              <div class="p-5 flex-1 bg-[#F7F3EA]/85">
-                <p class="text-sm text-[#1E1916]/80 leading-relaxed mb-4">
-                  Early kitchen trial batch blending 50/50 butter with a secret concept currently in progress.
-                </p>
-                <div class="flex flex-wrap gap-1.5">
-                  <span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-[#1E4620]/12 text-[#1E4620]">
-                    Testing Batch
-                  </span>
-                  <span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-[#1E4620]/12 text-[#1E4620]">
-                    Secret Concept
-                  </span>
-                </div>
-              </div>
-            </div>
-            <div class="absolute inset-0 bg-[#1E1916]/45 backdrop-blur-[2px] flex flex-col items-center justify-center p-5 text-center text-[#F7F3EA]">
-              <span class="px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider bg-[#C59B43] text-[#1E1916] mb-2">
-                In Development
-              </span>
-              <p class="font-serif text-xl font-bold">
-                Experimental Flavor #1
-              </p>
-              <p class="text-xs text-[#F7F3EA]/85 mt-1 max-w-xs">
-                Still under development — write your own flavor idea to suggest what comes next.
-              </p>
-              <button
-                type="button"
-                onclick="openFlavorIdeaModal('Experimental Flavor #1')"
-                class="mt-3 px-4 py-2 rounded-xl bg-[#F7F3EA] text-[#1E1916] text-xs font-bold hover:bg-white transition cursor-pointer"
-              >
-                Write Your Flavor Idea
-              </button>
-            </div>
-          </article>
-
-          <!-- Blurred Experimental Card 2 -->
-          <article class="relative bg-[#EFE9DA]/70 rounded-2xl border border-[#1E1916]/15 overflow-hidden flex flex-col">
-            <div class="blur-sm select-none pointer-events-none opacity-65 flex-1 flex flex-col">
-              <div class="bg-[#262523] text-[#F7F3EA] px-5 py-4 flex items-center justify-between gap-3">
-                <div>
-                  <span class="text-[11px] uppercase tracking-[0.18em] text-[#E8C97B] font-semibold block">
-                    06 • R&amp;D Test Batch
-                  </span>
-                  <h4 class="font-serif text-2xl font-bold leading-tight mt-0.5">
-                    Experimental Flavor #2
-                  </h4>
-                </div>
-                <span class="text-sm font-bold text-[#E8C97B]">TBD</span>
-              </div>
-              <div class="p-5 flex-1 bg-[#F7F3EA]/85">
-                <p class="text-sm text-[#1E1916]/80 leading-relaxed mb-4">
-                  Second experimental batch in the works with nothing finalized yet.
-                </p>
-                <div class="flex flex-wrap gap-1.5">
-                  <span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-[#262523]/12 text-[#262523]">
-                    Testing Batch
-                  </span>
-                  <span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-[#262523]/12 text-[#262523]">
-                    Coming Soon
-                  </span>
-                </div>
-              </div>
-            </div>
-            <div class="absolute inset-0 bg-[#1E1916]/45 backdrop-blur-[2px] flex flex-col items-center justify-center p-5 text-center text-[#F7F3EA]">
-              <span class="px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider bg-[#C59B43] text-[#1E1916] mb-2">
-                In Development
-              </span>
-              <p class="font-serif text-xl font-bold">
-                Experimental Flavor #2
-              </p>
-              <p class="text-xs text-[#F7F3EA]/85 mt-1 max-w-xs">
-                Still under development — tell us what flavor you want us to test.
-              </p>
-              <button
-                type="button"
-                onclick="openFlavorIdeaModal('Experimental Flavor #2')"
-                class="mt-3 px-4 py-2 rounded-xl bg-[#F7F3EA] text-[#1E1916] text-xs font-bold hover:bg-white transition cursor-pointer"
-              >
-                Write Your Flavor Idea
-              </button>
-            </div>
-          </article>
-        </div>
+        <div id="rd-flavors-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
       </div>
 
       <!-- Storage & Serving Cheat-Sheet -->
@@ -715,7 +339,7 @@
       </div>
     </section>
 
-    <!-- 4-Flavor Quartet Tasting Box Bundle (560 EGP) -->
+    <!-- Quartet Box -->
     <section
       id="card-quartet"
       aria-label="4-Flavor Quartet Tasting Box"
@@ -790,7 +414,7 @@
       </div>
     </section>
 
-    <!-- Cascading Location Selector + Loyalty Reward Banner + Free Sample + Payment & Screenshot Upload + Live Order Summary -->
+    <!-- Order Builder -->
     <section
       id="whatsapp-order-section"
       aria-label="Location selector, loyalty rewards, free sample, payment method, screenshot upload, and order builder"
@@ -827,7 +451,6 @@
         </div>
       </div>
 
-      <!-- Active Loyalty Reward Banner (If Redeemed on points.html) -->
       <div id="active-loyalty-reward-banner" class="hidden mb-6 rounded-xl bg-[#1E1916] text-[#F7F3EA] border-2 border-[#C59B43] p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
           <span class="text-[11px] uppercase tracking-widest font-bold text-[#E8C97B] block">
@@ -845,7 +468,7 @@
       </div>
 
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <!-- Left Column: Form Inputs -->
+        <!-- Left Column -->
         <div class="space-y-4">
           <div>
             <label for="city-select" class="block text-xs font-bold uppercase tracking-wider text-[#1E1916]/80 mb-1.5">
@@ -893,7 +516,6 @@
             />
           </div>
 
-          <!-- Phone Number Field (Customer ID for Points & Order History) -->
           <div class="rounded-xl bg-[#F7F3EA] border-2 border-[#C59B43]/75 p-3.5 space-y-1.5">
             <div class="flex items-center justify-between gap-2">
               <label for="customer-phone" class="block text-xs font-bold uppercase tracking-wider text-[#1E1916]">
@@ -928,7 +550,6 @@
             />
           </div>
 
-          <!-- Google Maps Pin Link + Current Location Helper -->
           <div class="rounded-xl bg-[#F7F3EA] border border-[#C59B43]/55 p-3.5 space-y-2">
             <div class="flex items-center justify-between gap-2">
               <label for="maps-link-input" class="block text-xs font-bold uppercase tracking-wider text-[#1E1916]">
@@ -980,7 +601,6 @@
             </p>
           </div>
 
-          <!-- Free Sample Selector (Unlocks When Items Subtotal > 500 EGP) -->
           <div class="rounded-xl bg-[#F7F3EA] border border-[#1E4620]/30 p-3.5 space-y-2">
             <div class="flex items-center justify-between gap-2">
               <span class="text-xs font-bold uppercase tracking-wider text-[#1E4620]">
@@ -1010,14 +630,12 @@
             </div>
           </div>
 
-          <!-- Payment Method Selector + Direct InstaPay Link & Screenshot Upload -->
           <div class="pt-2">
             <span class="block text-xs font-bold uppercase tracking-wider text-[#1E1916]/80 mb-2">
               7. Payment Method &amp; Direct InstaPay Link
             </span>
 
-            <!-- Direct InstaPay Payment Box -->
-            <div id="zebda-instapay-box" class="rounded-2xl bg-[#1E1916] text-[#F7F3EA] border border-[#C59B43]/60 p-4 mb-3 space-y-2.5 text-xs">
+            <div class="rounded-2xl bg-[#1E1916] text-[#F7F3EA] border border-[#C59B43]/60 p-4 mb-3 space-y-2.5 text-xs">
               <div class="flex items-center justify-between gap-2">
                 <span class="uppercase tracking-wider font-bold text-[#E8C97B]">InstaPay Direct Payment</span>
                 <span class="px-2 py-0.5 rounded-full bg-[#C59B43] text-[#1E1916] font-bold text-[10px]">
@@ -1038,14 +656,14 @@
                 </a>
                 <button
                   type="button"
-                  onclick="copyInstaPayValue('tommy_shams@instapay', this)"
+                  onclick="copyTextWithFeedback('tommy_shams@instapay', this)"
                   class="px-3 py-2 rounded-xl bg-[#262523] border border-[#C59B43]/40 text-[#F7F3EA] font-bold hover:bg-[#33312e] transition cursor-pointer"
                 >
                   Copy IPA Handle
                 </button>
                 <button
                   type="button"
-                  onclick="copyInstaPayValue('01208958884', this)"
+                  onclick="copyTextWithFeedback('01208958884', this)"
                   class="px-3 py-2 rounded-xl bg-[#262523] border border-[#C59B43]/40 text-[#F7F3EA] font-bold hover:bg-[#33312e] transition cursor-pointer"
                 >
                   Copy Number
@@ -1089,7 +707,6 @@
               />
             </div>
 
-            <!-- Upload InstaPay Screenshot Directly Into Receipt & Admin Portal -->
             <div class="mb-3 rounded-xl bg-[#F7F3EA] border border-[#C59B43]/65 p-3.5 space-y-2">
               <div class="flex items-center justify-between gap-2">
                 <label for="order-screenshot-input" class="block text-xs font-bold uppercase tracking-wider text-[#1E1916] arabic-text">
@@ -1127,7 +744,7 @@
               </div>
             </div>
 
-            <div id="payment-breakdown-box" class="rounded-xl bg-[#F7F3EA] border border-[#C59B43]/50 p-3.5 text-xs space-y-1.5">
+            <div class="rounded-xl bg-[#F7F3EA] border border-[#C59B43]/50 p-3.5 text-xs space-y-1.5">
               <div class="flex items-center justify-between font-bold text-[#1E1916]">
                 <span>InstaPay Transfer Due Now (tommy_shams@instapay / 01208958884):</span>
                 <span id="instapay-due-now" class="text-sm text-[#1E4620]">40 EGP</span>
@@ -1143,7 +760,7 @@
           </div>
         </div>
 
-        <!-- Right Column: Live Order Summary + Confirmation Banner + WhatsApp + Receipt Download -->
+        <!-- Right Column -->
         <div class="bg-[#F7F3EA] rounded-2xl border border-[#1E1916]/15 p-5 flex flex-col justify-between">
           <div>
             <div class="flex items-center justify-between gap-2 pb-3 mb-4 border-b border-[#1E1916]/12">
@@ -1194,7 +811,6 @@
               </div>
             </div>
 
-            <!-- Order Confirmation Box (Shown when Place / Confirm Order is clicked in current session) -->
             <div id="order-confirmation-banner" class="hidden mt-4 rounded-xl bg-[#1E4620] text-[#F7F3EA] border-2 border-[#C59B43] p-4 space-y-2 text-xs">
               <div class="flex items-center justify-between gap-2">
                 <span class="px-2 py-0.5 rounded bg-[#C59B43] text-[#1E1916] font-bold uppercase tracking-wider text-[10px]">
@@ -1225,7 +841,6 @@
               </div>
             </div>
 
-            <!-- Missing Required Details Notice -->
             <div
               id="missing-fields-alert"
               class="mt-4 rounded-xl bg-[#7A1C1C]/10 border border-[#7A1C1C]/40 p-3 text-xs text-[#7A1C1C] font-semibold"
@@ -1305,7 +920,7 @@
         </div>
         <button
           type="button"
-          onclick="toggleAiBotModal(false)"
+          onclick="toggleModal('ai-bot-modal', false)"
           class="px-2.5 py-1 rounded-lg bg-[#EFE9DA] text-xs font-bold hover:bg-[#e3dccb] cursor-pointer"
         >
           Close
@@ -1338,7 +953,7 @@
         <input
           id="ai-bot-input"
           type="text"
-          onkeydown="if(event.key==='Enter') sendAiBotMessage()"
+          onkeydown="if (event.key === 'Enter') sendAiBotMessage()"
           placeholder="Ask a question..."
           class="flex-1 rounded-xl bg-white border border-[#1E1916]/25 px-3.5 py-2.5 text-xs sm:text-sm text-[#1E1916]"
         />
@@ -1353,7 +968,7 @@
     </div>
   </div>
 
-  <!-- Dedicated Flavor Idea Modal (Separate From Problem / Issue Modal) -->
+  <!-- Flavor Idea Modal -->
   <div
     id="flavor-idea-modal"
     class="fixed inset-0 z-50 hidden bg-[#1E1916]/75 backdrop-blur-[1px] items-center justify-center p-4 overflow-y-auto"
@@ -1433,71 +1048,7 @@
     </div>
   </div>
 
-  <!-- Hidden Canvas Used to Generate Branded Receipt Image (Auto-resizes when screenshot is attached) -->
-  <canvas id="receipt-canvas" width="900" height="1620" class="hidden"></canvas>
-
-  <!-- Above-Keyboard Quick-Close Bar (Appears Automatically When Typing in Any Field) -->
-  <div
-    id="keyboard-helper-bar"
-    class="hidden fixed inset-x-0 bottom-[62px] z-40 px-4 pointer-events-none"
-  >
-    <div class="max-w-5xl mx-auto flex justify-end">
-      <div class="pointer-events-auto inline-flex items-center gap-2 rounded-full bg-[#1E1916] text-[#F7F3EA] border border-[#C59B43] px-3.5 py-1.5 shadow-xl text-xs">
-        <span class="text-[#E8C97B] font-semibold hidden sm:inline">Typing in field</span>
-        <button
-          type="button"
-          onmousedown="event.preventDefault()"
-          onclick="dismissActiveKeyboard()"
-          class="px-3 py-1 rounded-full bg-[#C59B43] text-[#1E1916] font-bold hover:brightness-105 cursor-pointer"
-        >
-          Done / Close Keyboard
-        </button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Sticky Bottom Summary Bar -->
-  <div class="fixed bottom-0 inset-x-0 z-30 bg-[#1E1916] text-[#F7F3EA] border-t border-[#C59B43]/50 shadow-lg">
-    <div class="max-w-5xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between gap-3">
-      <div>
-        <div class="text-xs text-[#E8C97B] font-semibold">
-          <span id="sticky-qty-count">0 items</span> • InstaPay Now: <span id="sticky-instapay">40 EGP</span>
-        </div>
-        <div class="text-sm font-bold">
-          Total: <span id="sticky-total">40 EGP</span>
-        </div>
-      </div>
-      <div class="flex items-center gap-2 shrink-0">
-        <button
-          type="button"
-          onclick="toggleAiBotModal(true)"
-          class="py-2.5 px-3 rounded-xl bg-[#262523] text-[#E8C97B] border border-[#C59B43]/50 font-bold text-xs hover:bg-[#33312e] transition cursor-pointer"
-        >
-          AI Bot
-        </button>
-        <button
-          type="button"
-          onclick="downloadOrderReceiptImage()"
-          class="py-2.5 px-3 rounded-xl bg-[#EFE9DA] text-[#1E1916] font-bold text-xs hover:bg-white transition cursor-pointer"
-        >
-          Receipt
-        </button>
-        <a
-          id="sticky-whatsapp-btn"
-          href="#"
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-disabled="true"
-          onclick="return handleWhatsAppOrderClick(event)"
-          class="py-2.5 px-4 sm:px-5 rounded-xl bg-[#C59B43]/40 text-[#F7F3EA]/75 font-bold text-xs sm:text-sm cursor-not-allowed transition"
-        >
-          Order on WhatsApp
-        </a>
-      </div>
-    </div>
-  </div>
-
-  <!-- Multi-Section Help, Issue Diagnostic & Escalation Modal -->
+  <!-- Help & Issue Modal -->
   <div
     id="help-modal"
     class="fixed inset-0 z-50 hidden bg-[#1E1916]/75 backdrop-blur-[1px] items-center justify-center p-4 overflow-y-auto"
@@ -1524,71 +1075,43 @@
           Close
         </button>
       </div>
-      <!-- Section 1: Main Problem Type -->
+
       <div id="help-section-1" class="space-y-3">
         <p class="text-sm font-bold text-[#1E1916]">
           Section 1 — What is the main problem or type of issue?
         </p>
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-bold">
-          <button
-            type="button"
-            onclick="selectMainCategory('quality')"
-            class="p-3 rounded-xl bg-[#EFE9DA] border border-[#1E1916]/20 text-left hover:border-[#1E4620] cursor-pointer"
-          >
+          <button type="button" onclick="selectMainCategory('quality')" class="p-3 rounded-xl bg-[#EFE9DA] border border-[#1E1916]/20 text-left hover:border-[#1E4620] cursor-pointer">
             Food &amp; Butter Quality
             <span class="block text-[11px] font-normal text-[#1E1916]/70 mt-0.5">Taste, warmth, texture, or freshness</span>
           </button>
-          <button
-            type="button"
-            onclick="selectMainCategory('packaging')"
-            class="p-3 rounded-xl bg-[#EFE9DA] border border-[#1E1916]/20 text-left hover:border-[#1E4620] cursor-pointer"
-          >
+          <button type="button" onclick="selectMainCategory('packaging')" class="p-3 rounded-xl bg-[#EFE9DA] border border-[#1E1916]/20 text-left hover:border-[#1E4620] cursor-pointer">
             Packaging &amp; Tin Condition
             <span class="block text-[11px] font-normal text-[#1E1916]/70 mt-0.5">Damaged tin, seal, or packing quality</span>
           </button>
-          <button
-            type="button"
-            onclick="selectMainCategory('delivery')"
-            class="p-3 rounded-xl bg-[#EFE9DA] border border-[#1E1916]/20 text-left hover:border-[#1E4620] cursor-pointer"
-          >
+          <button type="button" onclick="selectMainCategory('delivery')" class="p-3 rounded-xl bg-[#EFE9DA] border border-[#1E1916]/20 text-left hover:border-[#1E4620] cursor-pointer">
             Delivery &amp; Timing
             <span class="block text-[11px] font-normal text-[#1E1916]/70 mt-0.5">2-day lead time, late arrival, or zone</span>
           </button>
-          <button
-            type="button"
-            onclick="selectMainCategory('payment')"
-            class="p-3 rounded-xl bg-[#EFE9DA] border border-[#1E1916]/20 text-left hover:border-[#1E4620] cursor-pointer"
-          >
+          <button type="button" onclick="selectMainCategory('payment')" class="p-3 rounded-xl bg-[#EFE9DA] border border-[#1E1916]/20 text-left hover:border-[#1E4620] cursor-pointer">
             InstaPay, Points &amp; Hold
             <span class="block text-[11px] font-normal text-[#1E1916]/70 mt-0.5">01208958884, 500+ EGP sample, or points</span>
           </button>
-          <button
-            type="button"
-            onclick="selectMainCategory('items')"
-            class="p-3 rounded-xl bg-[#EFE9DA] border border-[#1E1916]/20 text-left hover:border-[#1E4620] cursor-pointer"
-          >
+          <button type="button" onclick="selectMainCategory('items')" class="p-3 rounded-xl bg-[#EFE9DA] border border-[#1E1916]/20 text-left hover:border-[#1E4620] cursor-pointer">
             Flavors &amp; Quartet Box
             <span class="block text-[11px] font-normal text-[#1E1916]/70 mt-0.5">Wrong flavor, missing tin, or 560 EGP box</span>
           </button>
-          <button
-            type="button"
-            onclick="selectMainCategory('other')"
-            class="p-3 rounded-xl bg-[#7A1C1C] text-[#F7F3EA] border border-[#7A1C1C] text-left hover:opacity-95 cursor-pointer"
-          >
+          <button type="button" onclick="selectMainCategory('other')" class="p-3 rounded-xl bg-[#7A1C1C] text-[#F7F3EA] border border-[#7A1C1C] text-left hover:opacity-95 cursor-pointer">
             Other Problem (Write Yours)
             <span class="block text-[11px] font-normal text-[#F5D692] mt-0.5">Anything else — type it &amp; send directly</span>
           </button>
         </div>
       </div>
-      <!-- Section 2 -->
+
       <div id="help-section-2" class="hidden space-y-3">
         <div class="flex items-center justify-between gap-2">
           <span id="selected-category-badge" class="px-2.5 py-1 rounded-full text-xs font-bold bg-[#1E4620] text-[#F7F3EA]"></span>
-          <button
-            type="button"
-            onclick="resetHelpModal()"
-            class="text-xs underline font-semibold text-[#1E1916]/75 cursor-pointer"
-          >
+          <button type="button" onclick="resetHelpModal()" class="text-xs underline font-semibold text-[#1E1916]/75 cursor-pointer">
             Change main problem
           </button>
         </div>
@@ -1604,21 +1127,14 @@
         </div>
         <div id="self-check-tip-box" class="p-3.5 rounded-xl bg-[#EFE9DA] border border-[#1E1916]/15 text-xs sm:text-sm leading-relaxed"></div>
         <div id="routine-fix-controls" class="flex flex-wrap gap-2">
-          <button
-            type="button"
-            onclick="markHelpSolved()"
-            class="flex-1 py-2.5 px-3 rounded-xl bg-[#1E4620] text-[#F7F3EA] text-xs font-bold cursor-pointer"
-          >
+          <button type="button" onclick="markHelpSolved()" class="flex-1 py-2.5 px-3 rounded-xl bg-[#1E4620] text-[#F7F3EA] text-xs font-bold cursor-pointer">
             Problem Fixed — No Need to Contact
           </button>
-          <button
-            type="button"
-            onclick="showEscalationBox()"
-            class="flex-1 py-2.5 px-3 rounded-xl bg-[#7A1C1C] text-[#F7F3EA] text-xs font-bold cursor-pointer"
-          >
+          <button type="button" onclick="showEscalationBox()" class="flex-1 py-2.5 px-3 rounded-xl bg-[#7A1C1C] text-[#F7F3EA] text-xs font-bold cursor-pointer">
             Not Fixed / Send to You Now
           </button>
         </div>
+
         <div id="escalation-details-box" class="hidden space-y-3 pt-2 border-t border-[#1E1916]/15">
           <div>
             <label for="custom-problem-input" class="block text-xs font-bold text-[#7A1C1C] mb-1">
@@ -1632,76 +1148,35 @@
               class="w-full rounded-xl bg-[#EFE9DA] border border-[#1E1916]/25 p-2.5 text-xs text-[#1E1916]"
             ></textarea>
           </div>
-          <!-- 3-Way Photo Choice -->
+
           <div class="rounded-xl bg-[#EFE9DA] border border-[#1E1916]/20 p-3 space-y-2.5">
             <div class="flex items-center justify-between gap-2">
-              <span class="text-xs font-bold text-[#1E1916]">
-                Attach Photo (Optional — iPhone &amp; Samsung)
-              </span>
-              <button
-                type="button"
-                onclick="clearAttachedPhoto()"
-                class="text-[11px] font-bold underline text-[#7A1C1C] cursor-pointer"
-              >
+              <span class="text-xs font-bold text-[#1E1916]">Attach Photo (Optional — iPhone &amp; Samsung)</span>
+              <button type="button" onclick="clearAttachedPhoto()" class="text-[11px] font-bold underline text-[#7A1C1C] cursor-pointer">
                 Clear Photo
               </button>
             </div>
-            <input
-              id="photo-input-camera"
-              type="file"
-              accept="image/*"
-              capture="environment"
-              onchange="handlePhotoSelected(this, 'Take Photo Now (Camera)')"
-              class="hidden"
-            />
-            <input
-              id="photo-input-gallery"
-              type="file"
-              accept="image/*"
-              onchange="handlePhotoSelected(this, 'Attach / Choose Photo (Gallery)')"
-              class="hidden"
-            />
-            <input
-              id="photo-input-file"
-              type="file"
-              accept="image/*,.pdf"
-              onchange="handlePhotoSelected(this, 'Browse & Attach File')"
-              class="hidden"
-            />
+            <input id="photo-input-camera" type="file" accept="image/*" capture="environment" onchange="handlePhotoSelected(this, 'Take Photo Now (Camera)')" class="hidden" />
+            <input id="photo-input-gallery" type="file" accept="image/*" onchange="handlePhotoSelected(this, 'Attach / Choose Photo (Gallery)')" class="hidden" />
+            <input id="photo-input-file" type="file" accept="image/*,.pdf" onchange="handlePhotoSelected(this, 'Browse & Attach File')" class="hidden" />
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs font-bold">
-              <button
-                type="button"
-                onclick="triggerPhotoChoice('photo-input-camera')"
-                class="py-2 px-2.5 rounded-xl bg-[#1E1916] text-[#E8C97B] hover:opacity-95 transition cursor-pointer text-center"
-              >
+              <button type="button" onclick="triggerPhotoChoice('photo-input-camera')" class="py-2 px-2.5 rounded-xl bg-[#1E1916] text-[#E8C97B] hover:opacity-95 transition cursor-pointer text-center">
                 1. Take Photo Now
               </button>
-              <button
-                type="button"
-                onclick="triggerPhotoChoice('photo-input-gallery')"
-                class="py-2 px-2.5 rounded-xl bg-[#1E4620] text-[#F7F3EA] hover:opacity-95 transition cursor-pointer text-center"
-              >
+              <button type="button" onclick="triggerPhotoChoice('photo-input-gallery')" class="py-2 px-2.5 rounded-xl bg-[#1E4620] text-[#F7F3EA] hover:opacity-95 transition cursor-pointer text-center">
                 2. Attach Photo
               </button>
-              <button
-                type="button"
-                onclick="triggerPhotoChoice('photo-input-file')"
-                class="py-2 px-2.5 rounded-xl bg-[#F7F3EA] text-[#1E1916] border border-[#1E1916]/25 hover:bg-white transition cursor-pointer text-center"
-              >
+              <button type="button" onclick="triggerPhotoChoice('photo-input-file')" class="py-2 px-2.5 rounded-xl bg-[#F7F3EA] text-[#1E1916] border border-[#1E1916]/25 hover:bg-white transition cursor-pointer text-center">
                 3. Browse File
               </button>
             </div>
             <div id="photo-preview-container" class="hidden pt-2 border-t border-[#1E1916]/12 space-y-2">
               <div class="text-[11px] font-bold text-[#1E4620]" id="photo-selected-label"></div>
-              <img
-                id="photo-preview-img"
-                src=""
-                alt="Selected problem photo preview"
-                class="max-h-40 rounded-lg border border-[#1E1916]/20 object-contain bg-[#F7F3EA]"
-              />
+              <img id="photo-preview-img" src="" alt="Selected problem photo preview" class="max-h-40 rounded-lg border border-[#1E1916]/20 object-contain bg-[#F7F3EA]" />
             </div>
           </div>
-          <label id="gate-confirm-label" class="flex items-start gap-2 text-xs font-semibold cursor-pointer">
+
+          <label class="flex items-start gap-2 text-xs font-semibold cursor-pointer">
             <input id="gate-confirm-checkbox" type="checkbox" onchange="updateEscalationLink()" class="mt-0.5" />
             <span>I confirmed this isn't already solved by the info above and want to send this to Zebda &amp; Co.</span>
           </label>
@@ -1730,54 +1205,173 @@
           </div>
         </div>
       </div>
-      <!-- Solved State -->
+
       <div id="help-solved-state" class="hidden space-y-3 text-center py-2">
         <p class="text-base font-bold text-[#1E4620]">Awesome — problem resolved without needing support!</p>
-        <p class="text-xs text-[#1E1916]/80">
-          Whenever you're ready, place your order at least 2 days ahead.
-        </p>
-        <button
-          type="button"
-          onclick="closeHelpModal()"
-          class="py-2.5 px-5 rounded-xl bg-[#1E4620] text-[#F7F3EA] text-xs font-bold cursor-pointer"
-        >
+        <p class="text-xs text-[#1E1916]/80">Whenever you're ready, place your order at least 2 days ahead.</p>
+        <button type="button" onclick="closeHelpModal()" class="py-2.5 px-5 rounded-xl bg-[#1E4620] text-[#F7F3EA] text-xs font-bold cursor-pointer">
           Back to Menu
         </button>
       </div>
     </div>
   </div>
 
+  <!-- Keyboard Helper Bar -->
+  <div id="keyboard-helper-bar" class="hidden fixed inset-x-0 bottom-[62px] z-40 px-4 pointer-events-none">
+    <div class="max-w-5xl mx-auto flex justify-end">
+      <div class="pointer-events-auto inline-flex items-center gap-2 rounded-full bg-[#1E1916] text-[#F7F3EA] border border-[#C59B43] px-3.5 py-1.5 shadow-xl text-xs">
+        <span class="text-[#E8C97B] font-semibold hidden sm:inline">Typing in field</span>
+        <button
+          type="button"
+          onmousedown="event.preventDefault()"
+          onclick="dismissActiveKeyboard()"
+          class="px-3 py-1 rounded-full bg-[#C59B43] text-[#1E1916] font-bold hover:brightness-105 cursor-pointer"
+        >
+          Done / Close Keyboard
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sticky Bottom Bar -->
+  <div class="fixed bottom-0 inset-x-0 z-30 bg-[#1E1916] text-[#F7F3EA] border-t border-[#C59B43]/50 shadow-lg">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between gap-3">
+      <div>
+        <div class="text-xs text-[#E8C97B] font-semibold">
+          <span id="sticky-qty-count">0 items</span> • InstaPay Now: <span id="sticky-instapay">40 EGP</span>
+        </div>
+        <div class="text-sm font-bold">
+          Total: <span id="sticky-total">40 EGP</span>
+        </div>
+      </div>
+      <div class="flex items-center gap-2 shrink-0">
+        <button
+          type="button"
+          onclick="toggleModal('ai-bot-modal', true)"
+          class="py-2.5 px-3 rounded-xl bg-[#262523] text-[#E8C97B] border border-[#C59B43]/50 font-bold text-xs hover:bg-[#33312e] transition cursor-pointer"
+        >
+          AI Bot
+        </button>
+        <button
+          type="button"
+          onclick="downloadOrderReceiptImage()"
+          class="py-2.5 px-3 rounded-xl bg-[#EFE9DA] text-[#1E1916] font-bold text-xs hover:bg-white transition cursor-pointer"
+        >
+          Receipt
+        </button>
+        <a
+          id="sticky-whatsapp-btn"
+          href="#"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-disabled="true"
+          onclick="return handleWhatsAppOrderClick(event)"
+          class="py-2.5 px-4 sm:px-5 rounded-xl bg-[#C59B43]/40 text-[#F7F3EA]/75 font-bold text-xs sm:text-sm cursor-not-allowed transition"
+        >
+          Order on WhatsApp
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <canvas id="receipt-canvas" width="900" height="1640" class="hidden"></canvas>
+
   <script>
-    const INSTAPAY_NUMBER_DISPLAY = '01208958884';
-    const INSTAPAY_HANDLE_DISPLAY = 'tommy_shams@instapay';
-    const INSTAPAY_DIRECT_URL = 'https://ipn.eg/S/tommy_shams/instapay/5KpRkP';
-    const WHATSAPP_PHONE_DIGITS = '201041870087';
-    const FREE_SAMPLE_ITEMS_THRESHOLD = 500;
-    const ADMIN_STORE_KEY = 'zebda_and_co_admin_sync_v1';
-    const ACTIVE_REWARD_SESSION_KEY = 'zebda_active_loyalty_reward_v1';
+    const INSTAPAY_NUMBER = '01208958884';
+    const INSTAPAY_HANDLE = 'tommy_shams@instapay';
+    const INSTAPAY_URL = 'https://ipn.eg/S/tommy_shams/instapay/5KpRkP';
+    const WHATSAPP_DIGITS = '201041870087';
+    const FREE_SAMPLE_THRESHOLD = 500;
+    const STORE_KEY = 'zebda_and_co_admin_sync_v1';
+    const REWARD_SESSION_KEY = 'zebda_active_loyalty_reward_v1';
     const NINETY_DAYS_MS = 90 * 24 * 60 * 60 * 1000;
-
-    function copyInstaPayValue(val, btnEl) {
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(val).then(() => {
-          if (btnEl) {
-            const orig = btnEl.textContent;
-            btnEl.textContent = 'Copied!';
-            setTimeout(() => {
-              btnEl.textContent = orig;
-            }, 1500);
-          }
-        });
-      }
-    }
-
-    const BASE_FLAVORS = {
-      garlic: { name: 'Roasted Garlic & Herb', price: 145 },
-      chili: { name: 'Hot Honey & Chili Crunch', price: 155 },
-      tomato: { name: 'Sundried Tomato, Basil & Parmesan', price: 165 },
-      truffle: { name: 'Black Truffle & Sea Salt', price: 185 },
-    };
     const QUARTET_PRICE = 560;
+
+    const SIGNATURE_FLAVORS = [
+      {
+        key: 'garlic',
+        code: '01 • Savory & Herb-Forward',
+        name: 'Roasted Garlic & Herb',
+        ar: 'ثوم محمص وأعشاب',
+        price: 145,
+        headerClass: 'bg-[#1E4620] text-[#F7F3EA]',
+        accentClass: 'text-[#E8C97B]',
+        btnClass: 'bg-[#1E4620] text-[#F7F3EA]',
+        chipClass: 'bg-[#1E4620]/12 text-[#1E4620]',
+        cardClass: 'border-[#1E1916]/15',
+        description:
+          'Sweet, mellow roasted garlic folded with fragrant herbs and sea salt into 50/50 commercial & baladi butter for comforting, everyday warmth.',
+        notes: ['Roasted Garlic & Herbs', 'Steak & Grilled Meats', 'Garlic Bread & Pasta'],
+      },
+      {
+        key: 'chili',
+        code: '02 • Sweet Heat & Crunch',
+        name: 'Hot Honey & Chili Crunch',
+        ar: 'عسل حار وفلفل مقرمش',
+        price: 155,
+        headerClass: 'bg-[#7A1C1C] text-[#F7F3EA]',
+        accentClass: 'text-[#F5D692]',
+        btnClass: 'bg-[#7A1C1C] text-[#F7F3EA]',
+        chipClass: 'bg-[#7A1C1C]/12 text-[#7A1C1C]',
+        cardClass: 'border-[#1E1916]/15',
+        description:
+          'Smooth floral honey meets crisp chili crunch and warm spice—sweet, lively, and textured for breakfast tables and bold savory bites.',
+        notes: ['Sweet Honey & Chili Crunch', 'Eggs & Crispy Chicken', 'Sourdough & Pizza Crust'],
+      },
+      {
+        key: 'tomato',
+        code: '03 • Rich Mediterranean Umami',
+        name: 'Sundried Tomato, Basil & Parmesan',
+        ar: 'طماطم وريحان وبارميزان',
+        price: 165,
+        headerClass: 'bg-[#262523] text-[#F7F3EA]',
+        accentClass: 'text-[#E8C97B]',
+        btnClass: 'bg-[#262523] text-[#F7F3EA]',
+        chipClass: 'bg-[#262523]/12 text-[#262523]',
+        cardClass: 'border-[#1E1916]/15',
+        description:
+          'Tangy sundried tomatoes, sweet basil, and aged Parmesan blended into rich hybrid butter—melts into a quick, savory pan sauce in seconds.',
+        notes: ['Sundried Tomato & Parmesan', 'Fresh Basil & Pasta', 'Grilled Chicken & Focaccia'],
+      },
+      {
+        key: 'truffle',
+        code: '04 • Reserve Edition',
+        name: 'Black Truffle & Sea Salt',
+        ar: 'كمأة سوداء وملح بحري',
+        price: 185,
+        headerClass: 'bg-[#1E1916] text-[#F7F3EA] border-b border-[#C59B43]/45',
+        accentClass: 'text-[#E8C97B]',
+        btnClass: 'bg-[#C59B43] text-[#1E1916]',
+        chipClass: 'bg-[#C59B43]/20 text-[#1E1916]',
+        cardClass: 'border-2 border-[#C59B43]',
+        description:
+          'Aromatic truffle olive oil, dark roasted specks, and finishing sea salt over velvety butter—made to finish steaks, risotto, and warm toast.',
+        notes: ['Truffle Aroma & Sea Salt', 'Steak & Mushrooms', 'Risotto, Fries & Toast'],
+      },
+    ];
+
+    const RD_FLAVORS = [
+      {
+        slot: 'Experimental Flavor #1',
+        code: '05 • R&D Test Batch',
+        headerClass: 'bg-[#1E4620] text-[#F7F3EA]',
+        chipClass: 'bg-[#1E4620]/12 text-[#1E4620]',
+        copy: 'Early kitchen trial batch blending 50/50 butter with a secret concept currently in progress.',
+        overlayCopy: 'Still under development — write your own flavor idea to suggest what comes next.',
+        btnLabel: 'Write Your Flavor Idea',
+        tags: ['Testing Batch', 'Secret Concept'],
+      },
+      {
+        slot: 'Experimental Flavor #2',
+        code: '06 • R&D Test Batch',
+        headerClass: 'bg-[#262523] text-[#F7F3EA]',
+        chipClass: 'bg-[#262523]/12 text-[#262523]',
+        copy: 'Second experimental batch in the works with nothing finalized yet.',
+        overlayCopy: 'Still under development — tell us what flavor you want us to test.',
+        btnLabel: 'Write Your Flavor Idea',
+        tags: ['Testing Batch', 'Coming Soon'],
+      },
+    ];
 
     const SUBAREAS_BY_CITY = {
       'Heliopolis & Nozha': [
@@ -1808,95 +1402,61 @@
         label: 'Food & Butter Quality',
         forceEscalation: true,
         problems: [
-          {
-            title: 'Food / butter came bad, off-smelling, or spoiled',
-            tip: '<strong>Quality Alert:</strong> Keep chilled at 0–4°C and report details below so we can immediately log this batch quality issue and make it right.',
-          },
-          {
-            title: 'Butter arrived warm or melted',
-            tip: '<strong>Cold-Chain Check:</strong> Butters are chilled at 0–4°C before dispatch. Describe how warm it arrived below so we can improve cold-pack protection.',
-          },
-          {
-            title: 'Flavor, salt, spice, or texture wasn’t what I expected',
-            tip: '<strong>Taste Feedback:</strong> Our blends mix 50/50 commercial &amp; baladi butter. Share your exact notes below so we can tune our recipe.',
-          },
+          { title: 'Food / butter came bad, off-smelling, or spoiled', tip: '<strong>Quality Alert:</strong> Keep chilled at 0–4°C and report details below so we can immediately log this batch quality issue and make it right.' },
+          { title: 'Butter arrived warm or melted', tip: '<strong>Cold-Chain Check:</strong> Butters are chilled at 0–4°C before dispatch. Describe how warm it arrived below so we can improve cold-pack protection.' },
+          { title: 'Flavor, salt, spice, or texture wasn’t what I expected', tip: '<strong>Taste Feedback:</strong> Our blends mix 50/50 commercial &amp; baladi butter. Share your exact notes below so we can tune our recipe.' },
         ],
       },
       packaging: {
         label: 'Packaging & Tin Condition',
         forceEscalation: true,
         problems: [
-          {
-            title: 'Packaging was bad, messy, or poorly wrapped',
-            tip: '<strong>Packaging Feedback:</strong> We want every order to arrive clean and well-protected. Tell us what looked wrong with the packaging below.',
-          },
-          {
-            title: 'Tin was dented, opened, or unsealed on arrival',
-            tip: '<strong>Seal / Tin Issue:</strong> Note the flavor tin affected and what happened in the box below so we can inspect our packing workflow.',
-          },
+          { title: 'Packaging was bad, messy, or poorly wrapped', tip: '<strong>Packaging Feedback:</strong> We want every order to arrive clean and well-protected. Tell us what looked wrong with the packaging below.' },
+          { title: 'Tin was dented, opened, or unsealed on arrival', tip: '<strong>Seal / Tin Issue:</strong> Note the flavor tin affected and what happened in the box below so we can inspect our packing workflow.' },
         ],
       },
       delivery: {
         label: 'Delivery & Timing',
         forceEscalation: false,
         problems: [
-          {
-            title: 'I need delivery sooner than 2 days',
-            tip: '<strong>2-Day Advance Notice:</strong> Every batch is whipped and chilled fresh to order, so we require at least <strong>2 days advance notice</strong>.',
-          },
-          {
-            title: 'Delivery is late or address / compound needs update',
-            tip: '<strong>Delivery Timing / Address:</strong> If your delivery window passed or your compound/street needs correction, click <em>Not Fixed / Send to You Now</em> below.',
-          },
-          {
-            title: 'Delivery zone fee question',
-            tip: '<strong>Delivery Zones:</strong> Heliopolis &amp; Nozha (40 EGP), Nasr City (45 EGP), Maadi/Zamalek/West-Central (60 EGP), New Cairo (75–85 EGP), Sheikh Zayed (90–105 EGP).',
-          },
+          { title: 'I need delivery sooner than 2 days', tip: '<strong>2-Day Advance Notice:</strong> Every batch is whipped and chilled fresh to order, so we require at least <strong>2 days advance notice</strong>.' },
+          { title: 'Delivery is late or address / compound needs update', tip: '<strong>Delivery Timing / Address:</strong> If your delivery window passed or your compound/street needs correction, click <em>Not Fixed / Send to You Now</em> below.' },
+          { title: 'Delivery zone fee question', tip: '<strong>Delivery Zones:</strong> Heliopolis &amp; Nozha (40 EGP), Nasr City (45 EGP), Maadi/Zamalek/West-Central (60 EGP), New Cairo (75–85 EGP), Sheikh Zayed (90–105 EGP).' },
         ],
       },
       payment: {
         label: 'InstaPay, Points & Hold',
         forceEscalation: false,
         problems: [
-          {
-            title: 'How do Points & the 3-month expiration work?',
-            tip: '<strong>1 EGP = 1 Point:</strong> Every verified pound spent earns 1 point (valid for 3 months / 90 days). Redeem 500 pts for Free Delivery, 2,500 pts for 50% Off, 5,000 pts for 70% Off, or 10,000 pts to create your own 250g flavor!',
-          },
-          {
-            title: 'Why is my order on hold or taking time to verify?',
-            tip: '<strong>Hold &amp; Verification Rule:</strong> Transfers within <strong>±1 hour</strong> of order time are verified in <strong>~5 minutes</strong> once your screenshot to <strong>01208958884</strong> (<strong>tommy_shams@instapay</strong>) is checked.',
-          },
-          {
-            title: 'How does the 50% InstaPay deposit + COD work?',
-            tip: '<strong>50% Deposit Option:</strong> Choose <em>COD + 50% Deposit</em> to transfer 50% now via InstaPay (<strong>01208958884</strong> / <strong>tommy_shams@instapay</strong>) and pay the remaining 50% upon delivery.',
-          },
+          { title: 'How do Points & the 3-month expiration work?', tip: '<strong>1 EGP = 1 Point:</strong> Every verified pound spent earns 1 point (valid for 3 months / 90 days). Redeem 500 pts for Free Delivery, 2,500 pts for 50% Off, 5,000 pts for 70% Off, or 10,000 pts to create your own 250g flavor!' },
+          { title: 'Why is my order on hold or taking time to verify?', tip: '<strong>Hold &amp; Verification Rule:</strong> Transfers within <strong>±1 hour</strong> of order time are verified in <strong>~5 minutes</strong> once your screenshot to <strong>01208958884</strong> (<strong>tommy_shams@instapay</strong>) is checked.' },
+          { title: 'How does the 50% InstaPay deposit + COD work?', tip: '<strong>50% Deposit Option:</strong> Choose <em>COD + 50% Deposit</em> to transfer 50% now via InstaPay (<strong>01208958884</strong> / <strong>tommy_shams@instapay</strong>) and pay the remaining 50% upon delivery.' },
         ],
       },
       items: {
         label: 'Flavors & Quartet Box',
         forceEscalation: false,
         problems: [
-          {
-            title: 'What is inside the 4-Flavor Quartet Box (560 EGP)?',
-            tip: '<strong>Quartet Box (560 EGP):</strong> Includes one tin each of Roasted Garlic &amp; Herb, Hot Honey &amp; Chili Crunch, Sundried Tomato/Basil/Parmesan, and Black Truffle &amp; Sea Salt.',
-          },
-          {
-            title: 'Missing tin or wrong flavor received',
-            tip: '<strong>Item Mismatch:</strong> Click <em>Not Fixed / Send to You Now</em> below and list which flavor tin was missing or incorrect.',
-          },
+          { title: 'What is inside the 4-Flavor Quartet Box (560 EGP)?', tip: '<strong>Quartet Box (560 EGP):</strong> Includes one tin each of Roasted Garlic &amp; Herb, Hot Honey &amp; Chili Crunch, Sundried Tomato/Basil/Parmesan, and Black Truffle &amp; Sea Salt.' },
+          { title: 'Missing tin or wrong flavor received', tip: '<strong>Item Mismatch:</strong> Click <em>Not Fixed / Send to You Now</em> below and list which flavor tin was missing or incorrect.' },
         ],
       },
       other: {
         label: 'Other Problem',
         forceEscalation: true,
         problems: [
-          {
-            title: 'Other — I will write my own problem',
-            tip: '<strong>Custom Issue:</strong> Type whatever problem you experienced below and send it straight to <strong>+20 10 41870087</strong>.',
-          },
+          { title: 'Other — I will write my own problem', tip: '<strong>Custom Issue:</strong> Type whatever problem you experienced below and send it straight to <strong>+20 10 41870087</strong>.' },
         ],
       },
     };
+
+    function escapeHtml(str) {
+      return String(str || '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    }
 
     function normalizePhone(raw) {
       let digits = String(raw || '').replace(/\D/g, '');
@@ -1911,6 +1471,46 @@
       const pad = (n) => String(n).padStart(2, '0');
       const rand = Math.floor(1000 + Math.random() * 9000);
       return 'ZBC-' + pad(d.getDate()) + pad(d.getMonth() + 1) + '-' + rand;
+    }
+
+    function mapLegacyStatusToStage(status) {
+      if (status === 'Delivered') return 'Delivered';
+      if (status === 'Verified & Whipping' || status === 'Out for delivery') return 'Out for delivery';
+      return 'Not started yet';
+    }
+
+    function readAdminStore() {
+      try {
+        const raw = localStorage.getItem(STORE_KEY);
+        const parsed = raw ? JSON.parse(raw) : {};
+        return {
+          orders: Array.isArray(parsed.orders) ? parsed.orders : [],
+          flavorIdeas: Array.isArray(parsed.flavorIdeas) ? parsed.flavorIdeas : [],
+          issues: Array.isArray(parsed.issues) ? parsed.issues : [],
+          outOfStock: parsed.outOfStock && typeof parsed.outOfStock === 'object' ? parsed.outOfStock : {},
+          customMenuFlavors: Array.isArray(parsed.customMenuFlavors) ? parsed.customMenuFlavors : [],
+          loyaltyProfiles: parsed.loyaltyProfiles && typeof parsed.loyaltyProfiles === 'object' ? parsed.loyaltyProfiles : {},
+          n8nConfig: parsed.n8nConfig && typeof parsed.n8nConfig === 'object' ? parsed.n8nConfig : {},
+          n8nLastAudit: parsed.n8nLastAudit || null,
+        };
+      } catch {
+        return {
+          orders: [],
+          flavorIdeas: [],
+          issues: [],
+          outOfStock: {},
+          customMenuFlavors: [],
+          loyaltyProfiles: {},
+          n8nConfig: {},
+          n8nLastAudit: null,
+        };
+      }
+    }
+
+    function writeAdminStore(data) {
+      try {
+        localStorage.setItem(STORE_KEY, JSON.stringify(data));
+      } catch {}
     }
 
     const state = {
@@ -1935,59 +1535,114 @@
       activeLoyaltyReward: null,
     };
 
-    function readAdminStore() {
-      try {
-        const raw = localStorage.getItem(ADMIN_STORE_KEY);
-        const parsed = raw ? JSON.parse(raw) : {};
-        return {
-          orders: Array.isArray(parsed.orders) ? parsed.orders : [],
-          flavorIdeas: Array.isArray(parsed.flavorIdeas) ? parsed.flavorIdeas : [],
-          issues: Array.isArray(parsed.issues) ? parsed.issues : [],
-          outOfStock:
-            parsed.outOfStock && typeof parsed.outOfStock === 'object'
-              ? parsed.outOfStock
-              : {},
-          customMenuFlavors: Array.isArray(parsed.customMenuFlavors)
-            ? parsed.customMenuFlavors
-            : [],
-          loyaltyProfiles:
-            parsed.loyaltyProfiles && typeof parsed.loyaltyProfiles === 'object'
-              ? parsed.loyaltyProfiles
-              : {},
-          n8nConfig:
-            parsed.n8nConfig && typeof parsed.n8nConfig === 'object'
-              ? parsed.n8nConfig
-              : {},
-          n8nLastAudit: parsed.n8nLastAudit || null,
-        };
-      } catch (e) {
-        return {
-          orders: [],
-          flavorIdeas: [],
-          issues: [],
-          outOfStock: {},
-          customMenuFlavors: [],
-          loyaltyProfiles: {},
-          n8nConfig: {},
-          n8nLastAudit: null,
-        };
+    function renderStaticMenuCards() {
+      const sigGrid = document.getElementById('signature-flavors-grid');
+      if (sigGrid) {
+        sigGrid.innerHTML = SIGNATURE_FLAVORS.map(
+          (f) => `
+          <article id="card-${f.key}" class="heritage-card bg-[#EFE9DA]/70 rounded-2xl border ${f.cardClass} overflow-hidden flex flex-col">
+            <div class="${f.headerClass} px-5 py-4 flex items-center justify-between gap-3">
+              <div>
+                <span class="text-[11px] uppercase tracking-[0.18em] ${f.accentClass} font-semibold block">${escapeHtml(f.code)}</span>
+                <h3 class="font-serif text-2xl sm:text-3xl font-bold leading-tight mt-0.5">${escapeHtml(f.name)}</h3>
+              </div>
+              <div class="text-right shrink-0">
+                <span class="arabic-text text-sm font-bold ${f.accentClass} block">${escapeHtml(f.ar)}</span>
+                <span class="text-lg font-bold text-[#F7F3EA]">${f.price} EGP</span>
+              </div>
+            </div>
+            <div class="p-5 flex-1 flex flex-col justify-between bg-[#F7F3EA]/85">
+              <div>
+                <p class="text-sm text-[#1E1916]/80 leading-relaxed mb-4">${escapeHtml(f.description)}</p>
+                <div class="mb-5">
+                  <span class="block text-[11px] uppercase tracking-wider font-bold text-[#1E1916]/60 mb-2">Tasting Notes &amp; Pairings</span>
+                  <div class="flex flex-wrap gap-1.5">
+                    ${f.notes.map((n) => `<span class="px-2.5 py-1 rounded-full text-xs font-semibold ${f.chipClass}">${escapeHtml(n)}</span>`).join('')}
+                  </div>
+                </div>
+              </div>
+              <div class="pt-4 border-t border-[#1E1916]/12 flex items-center justify-between gap-3">
+                <span id="status-${f.key}" class="text-xs font-semibold text-[#1E1916]/75">${f.price} EGP / tin</span>
+                <div class="inline-flex items-center rounded-xl bg-[#EFE9DA] border border-[#1E1916]/20 p-1">
+                  <button id="dec-${f.key}" type="button" onclick="changeQty('${f.key}', -1)" aria-label="Decrease quantity of ${escapeHtml(f.name)}" class="w-9 h-9 rounded-lg flex items-center justify-center text-lg font-bold text-[#1E1916] hover:bg-[#F7F3EA] active:scale-95 transition cursor-pointer">&minus;</button>
+                  <span id="qty-${f.key}" class="w-9 text-center text-sm font-bold text-[#1E1916]">0</span>
+                  <button id="inc-${f.key}" type="button" onclick="changeQty('${f.key}', 1)" aria-label="Increase quantity of ${escapeHtml(f.name)}" class="w-9 h-9 rounded-lg flex items-center justify-center text-lg font-bold ${f.btnClass} hover:opacity-95 active:scale-95 transition cursor-pointer">+</button>
+                </div>
+              </div>
+            </div>
+          </article>`
+        ).join('');
+      }
+
+      const rdGrid = document.getElementById('rd-flavors-grid');
+      if (rdGrid) {
+        rdGrid.innerHTML = RD_FLAVORS.map(
+          (item) => `
+          <article class="relative bg-[#EFE9DA]/70 rounded-2xl border border-[#1E1916]/15 overflow-hidden flex flex-col">
+            <div class="blur-sm select-none pointer-events-none opacity-65 flex-1 flex flex-col">
+              <div class="${item.headerClass} px-5 py-4 flex items-center justify-between gap-3">
+                <div>
+                  <span class="text-[11px] uppercase tracking-[0.18em] text-[#E8C97B] font-semibold block">${escapeHtml(item.code)}</span>
+                  <h4 class="font-serif text-2xl font-bold leading-tight mt-0.5">${escapeHtml(item.slot)}</h4>
+                </div>
+                <span class="text-sm font-bold text-[#E8C97B]">TBD</span>
+              </div>
+              <div class="p-5 flex-1 bg-[#F7F3EA]/85">
+                <p class="text-sm text-[#1E1916]/80 leading-relaxed mb-4">${escapeHtml(item.copy)}</p>
+                <div class="flex flex-wrap gap-1.5">
+                  ${item.tags.map((t) => `<span class="px-2.5 py-1 rounded-full text-xs font-semibold ${item.chipClass}">${escapeHtml(t)}</span>`).join('')}
+                </div>
+              </div>
+            </div>
+            <div class="absolute inset-0 bg-[#1E1916]/45 backdrop-blur-[2px] flex flex-col items-center justify-center p-5 text-center text-[#F7F3EA]">
+              <span class="px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider bg-[#C59B43] text-[#1E1916] mb-2">In Development</span>
+              <p class="font-serif text-xl font-bold">${escapeHtml(item.slot)}</p>
+              <p class="text-xs text-[#F7F3EA]/85 mt-1 max-w-xs">${escapeHtml(item.overlayCopy)}</p>
+              <button type="button" onclick="openFlavorIdeaModal('${escapeHtml(item.slot)}')" class="mt-3 px-4 py-2 rounded-xl bg-[#F7F3EA] text-[#1E1916] text-xs font-bold hover:bg-white transition cursor-pointer">
+                ${escapeHtml(item.btnLabel)}
+              </button>
+            </div>
+          </article>`
+        ).join('');
       }
     }
 
-    function writeAdminStore(data) {
-      try {
-        localStorage.setItem(ADMIN_STORE_KEY, JSON.stringify(data));
-      } catch (e) {}
+    function copyTextWithFeedback(val, btnEl) {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(val).then(() => {
+          if (!btnEl) return;
+          const orig = btnEl.textContent;
+          btnEl.textContent = 'Copied!';
+          setTimeout(() => {
+            btnEl.textContent = orig;
+          }, 1500);
+        });
+      }
     }
+
+    function toggleModal(modalId, open) {
+      const modal = document.getElementById(modalId);
+      if (!modal) return;
+      modal.classList.toggle('hidden', !open);
+      modal.classList.toggle('flex', open);
+      if (!open) hideKeyboardBar();
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        toggleModal('ai-bot-modal', false);
+        closeFlavorIdeaModal();
+        closeHelpModal();
+      }
+    });
 
     function getCustomerActivePoints(rawPhone) {
       const phoneId = normalizePhone(rawPhone);
-      if (phoneId.length < 10) return { activePoints: 0, pendingPoints: 0, expiresAt: null };
+      if (phoneId.length < 10) return { activePoints: 0, pendingPoints: 0 };
       const store = readAdminStore();
       const now = Date.now();
       let activePoints = 0;
       let pendingPoints = 0;
-      let latestExpiry = null;
 
       store.orders.forEach((o) => {
         if (normalizePhone(o.customerPhone) !== phoneId) return;
@@ -2004,47 +1659,38 @@
           pendingPoints += pts;
         } else {
           const verifiedTs = o.verifiedAtMs || o.createdAtMs || now;
-          const expTs = verifiedTs + NINETY_DAYS_MS;
-          if (expTs > now) {
+          if (verifiedTs + NINETY_DAYS_MS > now) {
             activePoints += pts;
-            if (!latestExpiry || expTs > latestExpiry) latestExpiry = expTs;
           }
         }
       });
 
       const prof = store.loyaltyProfiles[phoneId] || {};
-      const manualAdj = Number(prof.manualAdjustment || 0);
-      const redeemed = Number(prof.redeemedPoints || 0);
-      activePoints = Math.max(0, activePoints + manualAdj - redeemed);
-      return { activePoints, pendingPoints, expiresAt: latestExpiry };
-    }
-
-    function mapLegacyStatusToStage(status) {
-      if (status === 'Delivered') return 'Delivered';
-      if (status === 'Verified & Whipping' || status === 'Out for delivery') return 'Out for delivery';
-      return 'Not started yet';
+      activePoints = Math.max(
+        0,
+        activePoints + Number(prof.manualAdjustment || 0) - Number(prof.redeemedPoints || 0)
+      );
+      return { activePoints, pendingPoints };
     }
 
     function loadActiveLoyaltyReward() {
       try {
-        const raw = sessionStorage.getItem(ACTIVE_REWARD_SESSION_KEY);
+        const raw = sessionStorage.getItem(REWARD_SESSION_KEY);
         if (!raw) return;
         const parsed = JSON.parse(raw);
         if (parsed && parsed.tierId) {
           state.activeLoyaltyReward = parsed;
           if (parsed.phoneId) {
             const phoneInput = document.getElementById('customer-phone');
-            if (phoneInput && !phoneInput.value) {
-              phoneInput.value = parsed.phoneId;
-            }
+            if (phoneInput && !phoneInput.value) phoneInput.value = parsed.phoneId;
           }
         }
-      } catch (e) {}
+      } catch {}
     }
 
     function clearActiveLoyaltyReward() {
       state.activeLoyaltyReward = null;
-      sessionStorage.removeItem(ACTIVE_REWARD_SESSION_KEY);
+      sessionStorage.removeItem(REWARD_SESSION_KEY);
       updateOrderUI();
     }
 
@@ -2073,48 +1719,32 @@
       wrapper.classList.remove('hidden');
       grid.innerHTML = approved
         .map((item) => {
-          const id = item.id;
-          const qty = state.communityQtys[id] || 0;
+          const qty = state.communityQtys[item.id] || 0;
           const price = Number(item.price || 175);
-          return (
-            '<article class="heritage-card bg-[#EFE9DA]/70 rounded-2xl border-2 border-[#C59B43] overflow-hidden flex flex-col">' +
-            '<div class="bg-[#1E4620] text-[#F7F3EA] px-5 py-4 flex items-center justify-between gap-3">' +
-            '<div>' +
-            '<span class="text-[11px] uppercase tracking-[0.18em] text-[#E8C97B] font-semibold block">VIP 10,000-Pt Member Creation</span>' +
-            '<h4 class="font-serif text-2xl font-bold leading-tight mt-0.5">' +
-            escapeHtml(item.flavorName) +
-            '</h4>' +
-            '</div>' +
-            '<div class="text-right shrink-0">' +
-            '<span class="text-xs font-bold text-[#E8C97B] block">250g Tin</span>' +
-            '<span class="text-lg font-bold text-[#F7F3EA]">' +
-            price +
-            ' EGP</span>' +
-            '</div>' +
-            '</div>' +
-            '<div class="p-5 flex-1 flex flex-col justify-between bg-[#F7F3EA]/85">' +
-            '<p class="text-sm text-[#1E1916]/80 leading-relaxed mb-4">' +
-            escapeHtml(item.description || 'Custom compound butter co-created by a Z&C VIP member.') +
-            '</p>' +
-            '<div class="pt-4 border-t border-[#1E1916]/12 flex items-center justify-between gap-3">' +
-            '<span class="text-xs font-semibold text-[#1E1916]/75">' +
-            price +
-            ' EGP / tin</span>' +
-            '<div class="inline-flex items-center rounded-xl bg-[#EFE9DA] border border-[#1E1916]/20 p-1">' +
-            '<button type="button" onclick="changeCommunityQty(\'' +
-            escapeHtml(id) +
-            '\', -1)" class="w-9 h-9 rounded-lg flex items-center justify-center text-lg font-bold text-[#1E1916] hover:bg-[#F7F3EA] cursor-pointer">&minus;</button>' +
-            '<span class="w-9 text-center text-sm font-bold text-[#1E1916]">' +
-            qty +
-            '</span>' +
-            '<button type="button" onclick="changeCommunityQty(\'' +
-            escapeHtml(id) +
-            '\', 1)" class="w-9 h-9 rounded-lg flex items-center justify-center text-lg font-bold bg-[#1E4620] text-[#F7F3EA] cursor-pointer">+</button>' +
-            '</div>' +
-            '</div>' +
-            '</div>' +
-            '</article>'
-          );
+          return `
+            <article class="heritage-card bg-[#EFE9DA]/70 rounded-2xl border-2 border-[#C59B43] overflow-hidden flex flex-col">
+              <div class="bg-[#1E4620] text-[#F7F3EA] px-5 py-4 flex items-center justify-between gap-3">
+                <div>
+                  <span class="text-[11px] uppercase tracking-[0.18em] text-[#E8C97B] font-semibold block">VIP 10,000-Pt Member Creation</span>
+                  <h4 class="font-serif text-2xl font-bold leading-tight mt-0.5">${escapeHtml(item.flavorName)}</h4>
+                </div>
+                <div class="text-right shrink-0">
+                  <span class="text-xs font-bold text-[#E8C97B] block">250g Tin</span>
+                  <span class="text-lg font-bold text-[#F7F3EA]">${price} EGP</span>
+                </div>
+              </div>
+              <div class="p-5 flex-1 flex flex-col justify-between bg-[#F7F3EA]/85">
+                <p class="text-sm text-[#1E1916]/80 leading-relaxed mb-4">${escapeHtml(item.description || 'Custom compound butter co-created by a Z&C VIP member.')}</p>
+                <div class="pt-4 border-t border-[#1E1916]/12 flex items-center justify-between gap-3">
+                  <span class="text-xs font-semibold text-[#1E1916]/75">${price} EGP / tin</span>
+                  <div class="inline-flex items-center rounded-xl bg-[#EFE9DA] border border-[#1E1916]/20 p-1">
+                    <button type="button" onclick="changeCommunityQty('${escapeHtml(item.id)}', -1)" class="w-9 h-9 rounded-lg flex items-center justify-center text-lg font-bold text-[#1E1916] hover:bg-[#F7F3EA] cursor-pointer">&minus;</button>
+                    <span class="w-9 text-center text-sm font-bold text-[#1E1916]">${qty}</span>
+                    <button type="button" onclick="changeCommunityQty('${escapeHtml(item.id)}', 1)" class="w-9 h-9 rounded-lg flex items-center justify-center text-lg font-bold bg-[#1E4620] text-[#F7F3EA] cursor-pointer">+</button>
+                  </div>
+                </div>
+              </div>
+            </article>`;
         })
         .join('');
     }
@@ -2125,35 +1755,25 @@
       updateOrderUI();
     }
 
-    function escapeHtml(str) {
-      return String(str || '')
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;');
-    }
-
     function isItemOutOfStock(key) {
-      const store = readAdminStore();
-      return Boolean(store.outOfStock && store.outOfStock[key]);
+      return Boolean(readAdminStore().outOfStock?.[key]);
     }
 
     function applyOutOfStockStateToMenu() {
-      const store = readAdminStore();
-      const oos = store.outOfStock || {};
-      Object.keys(BASE_FLAVORS).forEach((key) => {
-        const isOos = Boolean(oos[key]);
-        if (isOos && state.qtys[key] > 0) {
-          state.qtys[key] = 0;
-          const qtyEl = document.getElementById('qty-' + key);
+      const oos = readAdminStore().outOfStock || {};
+      SIGNATURE_FLAVORS.forEach((f) => {
+        const isOos = Boolean(oos[f.key]);
+        if (isOos && state.qtys[f.key] > 0) {
+          state.qtys[f.key] = 0;
+          const qtyEl = document.getElementById('qty-' + f.key);
           if (qtyEl) qtyEl.textContent = '0';
         }
-        const cardEl = document.getElementById('card-' + key);
-        const statusEl = document.getElementById('status-' + key);
-        const incBtn = document.getElementById('inc-' + key);
+        const cardEl = document.getElementById('card-' + f.key);
+        const statusEl = document.getElementById('status-' + f.key);
+        const incBtn = document.getElementById('inc-' + f.key);
         if (cardEl) cardEl.classList.toggle('opacity-60', isOos);
         if (statusEl) {
-          statusEl.textContent = isOos ? 'OUT OF STOCK' : BASE_FLAVORS[key].price + ' EGP / tin';
+          statusEl.textContent = isOos ? 'OUT OF STOCK' : f.price + ' EGP / tin';
           statusEl.className = isOos
             ? 'text-xs font-bold text-[#7A1C1C] uppercase tracking-wider'
             : 'text-xs font-semibold text-[#1E1916]/75';
@@ -2180,37 +1800,32 @@
       if (qToggleBtn && qOos) {
         qToggleBtn.disabled = true;
         qToggleBtn.textContent = 'Quartet Box — Out of Stock';
-        qToggleBtn.className =
-          'w-full py-2.5 px-4 rounded-xl text-sm font-bold bg-[#7A1C1C]/50 text-[#F7F3EA]/80 cursor-not-allowed';
-      } else if (qToggleBtn && !qOos) {
+        qToggleBtn.className = 'w-full py-2.5 px-4 rounded-xl text-sm font-bold bg-[#7A1C1C]/50 text-[#F7F3EA]/80 cursor-not-allowed';
+      } else if (qToggleBtn) {
         qToggleBtn.disabled = false;
       }
       renderApprovedCommunityFlavors();
     }
 
     function handleOrderScreenshotUpload(inputEl) {
-      const file = inputEl && inputEl.files && inputEl.files[0];
+      const file = inputEl?.files?.[0];
       if (!file) return;
       const reader = new FileReader();
-      reader.onload = function (e) {
-        if (e.target && e.target.result) {
-          state.paymentScreenshotDataUrl = e.target.result;
-          state.paymentScreenshotName = file.name;
-          const imgObj = new Image();
-          imgObj.onload = function () {
-            state.paymentScreenshotImgObj = imgObj;
-            updateOrderUI();
-          };
-          imgObj.src = e.target.result;
-
-          const wrap = document.getElementById('order-screenshot-preview-wrap');
-          const img = document.getElementById('order-screenshot-preview-img');
-          const nameEl = document.getElementById('order-screenshot-filename');
-          if (img) img.src = state.paymentScreenshotDataUrl;
-          if (nameEl) nameEl.textContent = file.name;
-          if (wrap) wrap.classList.remove('hidden');
+      reader.onload = (e) => {
+        if (!e.target?.result) return;
+        state.paymentScreenshotDataUrl = e.target.result;
+        state.paymentScreenshotName = file.name;
+        const imgObj = new Image();
+        imgObj.onload = () => {
+          state.paymentScreenshotImgObj = imgObj;
           updateOrderUI();
-        }
+        };
+        imgObj.src = e.target.result;
+
+        document.getElementById('order-screenshot-preview-img').src = state.paymentScreenshotDataUrl;
+        document.getElementById('order-screenshot-filename').textContent = file.name;
+        document.getElementById('order-screenshot-preview-wrap').classList.remove('hidden');
+        updateOrderUI();
       };
       reader.readAsDataURL(file);
     }
@@ -2219,12 +1834,9 @@
       state.paymentScreenshotDataUrl = '';
       state.paymentScreenshotName = '';
       state.paymentScreenshotImgObj = null;
-      const input = document.getElementById('order-screenshot-input');
-      const wrap = document.getElementById('order-screenshot-preview-wrap');
-      const img = document.getElementById('order-screenshot-preview-img');
-      if (input) input.value = '';
-      if (img) img.src = '';
-      if (wrap) wrap.classList.add('hidden');
+      document.getElementById('order-screenshot-input').value = '';
+      document.getElementById('order-screenshot-preview-img').src = '';
+      document.getElementById('order-screenshot-preview-wrap').classList.add('hidden');
       updateOrderUI();
     }
 
@@ -2233,181 +1845,133 @@
       const store = readAdminStore();
       const existingIdx = store.orders.findIndex((o) => o.orderRef === orderData.orderRef);
       const existingObj = existingIdx >= 0 ? store.orders[existingIdx] : null;
-      const resolvedScreenshot =
-        state.paymentScreenshotDataUrl || (existingObj ? existingObj.paymentScreenshotDataUrl : '');
-      const resolvedScreenshotName =
-        state.paymentScreenshotName || (existingObj ? existingObj.paymentScreenshotName : '');
-
-      const deliveryStage = existingObj
-        ? existingObj.deliveryStage || mapLegacyStatusToStage(existingObj.status)
-        : 'Not started yet';
+      const nowStr = new Date().toLocaleString();
 
       const record = {
         ...orderData,
-        paymentScreenshotDataUrl: resolvedScreenshot,
-        paymentScreenshotName: resolvedScreenshotName,
-        status: existingObj ? existingObj.status : 'Pending / On Hold',
-        deliveryStage,
-        stageHistory: existingObj && Array.isArray(existingObj.stageHistory)
+        paymentScreenshotDataUrl: state.paymentScreenshotDataUrl || existingObj?.paymentScreenshotDataUrl || '',
+        paymentScreenshotName: state.paymentScreenshotName || existingObj?.paymentScreenshotName || '',
+        status: existingObj?.status || 'Pending / On Hold',
+        deliveryStage: existingObj?.deliveryStage || mapLegacyStatusToStage(existingObj?.status),
+        stageHistory: Array.isArray(existingObj?.stageHistory)
           ? existingObj.stageHistory
-          : [{ stage: 'Not started yet', at: new Date().toLocaleString() }],
-        receiptImageDataUrl:
-          receiptImageDataUrl || (existingObj ? existingObj.receiptImageDataUrl : ''),
+          : [{ stage: 'Not started yet', at: nowStr }],
+        receiptImageDataUrl: receiptImageDataUrl || existingObj?.receiptImageDataUrl || '',
         orderText: state.latestOrderMessage,
-        createdAt: existingObj ? existingObj.createdAt : new Date().toLocaleString(),
-        createdAtMs: existingObj ? existingObj.createdAtMs : Date.now(),
-        updatedAt: new Date().toLocaleString(),
+        createdAt: existingObj?.createdAt || nowStr,
+        createdAtMs: existingObj?.createdAtMs || Date.now(),
+        updatedAt: nowStr,
       };
-
-      if (existingIdx >= 0) {
-        store.orders[existingIdx] = record;
-      } else {
-        store.orders.unshift(record);
-      }
 
       if (orderData.appliedReward && !orderData.appliedRewardDeducted) {
         const phoneId = normalizePhone(orderData.customerPhone);
         if (phoneId.length >= 10) {
-          store.loyaltyProfiles = store.loyaltyProfiles || {};
-          const prof = store.loyaltyProfiles[phoneId] || { redeemedPoints: 0, manualAdjustment: 0, history: [] };
+          store.loyaltyProfiles[phoneId] = store.loyaltyProfiles[phoneId] || {
+            redeemedPoints: 0,
+            manualAdjustment: 0,
+            history: [],
+          };
+          const prof = store.loyaltyProfiles[phoneId];
           prof.redeemedPoints = Number(prof.redeemedPoints || 0) + Number(orderData.appliedReward.pointsCost || 0);
-          prof.history = Array.isArray(prof.history) ? prof.history : [];
           prof.history.unshift({
             type: 'redeem',
             points: -Number(orderData.appliedReward.pointsCost || 0),
             label: orderData.appliedReward.title,
             orderRef: orderData.orderRef,
-            at: new Date().toLocaleString(),
+            at: nowStr,
           });
-          store.loyaltyProfiles[phoneId] = prof;
           record.appliedRewardDeducted = true;
-          if (existingIdx >= 0) store.orders[existingIdx] = record;
-          else store.orders[0] = record;
         }
-        sessionStorage.removeItem(ACTIVE_REWARD_SESSION_KEY);
+        sessionStorage.removeItem(REWARD_SESSION_KEY);
       }
+
+      if (existingIdx >= 0) store.orders[existingIdx] = record;
+      else store.orders.unshift(record);
 
       writeAdminStore(store);
     }
 
     function confirmAndPlaceOrder() {
       if (!state.orderReady) {
-        const alertBox = document.getElementById('missing-fields-alert');
-        if (alertBox) alertBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        document.getElementById('missing-fields-alert')?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         return;
       }
       const receiptDataUrl = renderReceiptCanvas(state.currentOrderData);
       saveOrderRecord(state.currentOrderData, receiptDataUrl);
 
-      const banner = document.getElementById('order-confirmation-banner');
       document.getElementById('conf-order-id').textContent = state.orderRef;
       document.getElementById('conf-order-id-inline').textContent = state.orderRef;
       document.getElementById('conf-email').textContent = state.currentOrderData.customerEmail;
+      const banner = document.getElementById('order-confirmation-banner');
       banner.classList.remove('hidden');
       banner.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }
 
     function quickTrackConfirmedOrder() {
       const input = document.getElementById('lookup-order-id-input');
-      if (input) {
-        input.value = state.orderRef;
-        lookupOrderById();
-        document.getElementById('order-tracking-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
+      if (!input) return;
+      input.value = state.orderRef;
+      lookupOrderById();
+      document.getElementById('order-tracking-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
 
     function lookupOrderById() {
       const rawId = (document.getElementById('lookup-order-id-input')?.value || '').trim().toUpperCase();
       const box = document.getElementById('lookup-result-box');
       if (!box) return;
-      if (!rawId) {
-        box.classList.remove('hidden');
-        box.innerHTML =
-          '<p class="text-xs font-bold text-[#7A1C1C]">Please enter an Order Reference ID first (e.g., ZBC-2211-4821).</p>';
-        return;
-      }
-      const store = readAdminStore();
-      const order = store.orders.find((o) => String(o.orderRef || '').toUpperCase() === rawId);
       box.classList.remove('hidden');
 
+      if (!rawId) {
+        box.innerHTML = '<p class="text-xs font-bold text-[#7A1C1C]">Please enter an Order Reference ID first (e.g., ZBC-2211-4821).</p>';
+        return;
+      }
+
+      const order = readAdminStore().orders.find((o) => String(o.orderRef || '').toUpperCase() === rawId);
       if (!order) {
-        box.innerHTML =
-          '<div class="rounded-xl bg-[#F7F3EA] border border-[#7A1C1C]/40 p-4 text-xs text-[#7A1C1C] font-bold">' +
-          'No order found matching <strong>' +
-          escapeHtml(rawId) +
-          '</strong>. Double-check your Order ID or search with your phone number on <a href="points.html" class="underline text-[#1E4620]">My Points &amp; Orders</a>.' +
-          '</div>';
+        box.innerHTML = `
+          <div class="rounded-xl bg-[#F7F3EA] border border-[#7A1C1C]/40 p-4 text-xs text-[#7A1C1C] font-bold">
+            No order found matching <strong>${escapeHtml(rawId)}</strong>. Double-check your Order ID or search with your phone number on <a href="points.html" class="underline text-[#1E4620]">My Points &amp; Orders</a>.
+          </div>`;
         return;
       }
 
       const stage = order.deliveryStage || mapLegacyStatusToStage(order.status);
       const stageIdx = stage === 'Delivered' ? 2 : stage === 'Out for delivery' ? 1 : 0;
       const stages = ['Not started yet', 'Out for delivery', 'Delivered'];
-      const updatesHtml = (order.stageHistory || [])
-        .map(
-          (u) =>
-            '<li class="text-[11px] text-[#1E1916]/80"><strong>' +
-            escapeHtml(u.stage) +
-            '</strong> — ' +
-            escapeHtml(u.at) +
-            '</li>'
-        )
-        .join('');
-
-      box.innerHTML =
-        '<div class="rounded-2xl bg-[#F7F3EA] border border-[#1E1916]/15 p-4 sm:p-5 space-y-4">' +
-        '<div class="flex flex-wrap items-center justify-between gap-2">' +
-        '<div>' +
-        '<span class="text-[11px] uppercase tracking-wider font-bold text-[#1E4620] block">Order ' +
-        escapeHtml(order.orderRef) +
-        ' • ' +
-        escapeHtml(order.createdAt || '') +
-        '</span>' +
-        '<h3 class="font-serif text-2xl font-bold text-[#1E1916]">' +
-        escapeHtml(order.customerName || 'Customer') +
-        ' — ' +
-        escapeHtml(order.grandTotal) +
-        ' EGP</h3>' +
-        '</div>' +
-        '<span class="px-3 py-1 rounded-full text-xs font-bold ' +
-        (stageIdx === 2
+      const badgeStyle =
+        stageIdx === 2
           ? 'bg-[#1E4620] text-[#F7F3EA]'
           : stageIdx === 1
           ? 'bg-[#C59B43] text-[#1E1916]'
-          : 'bg-[#7A1C1C] text-[#F7F3EA]') +
-        '">' +
-        escapeHtml(stage) +
-        '</span>' +
-        '</div>' +
-        '<div class="space-y-2">' +
-        '<div class="grid grid-cols-3 gap-2">' +
-        stages
-          .map((label, i) => {
-            const active = i <= stageIdx;
-            return (
-              '<div class="space-y-1.5">' +
-              '<div class="h-2.5 rounded-full ' +
-              (active ? 'bg-[#1E4620]' : 'bg-[#1E1916]/15') +
-              '"></div>' +
-              '<p class="text-[11px] sm:text-xs font-bold ' +
-              (active ? 'text-[#1E4620]' : 'text-[#1E1916]/50') +
-              '">' +
-              (i + 1) +
-              '. ' +
-              label +
-              '</p>' +
-              '</div>'
-            );
-          })
-          .join('') +
-        '</div>' +
-        '</div>' +
-        (updatesHtml
-          ? '<div class="pt-2 border-t border-[#1E1916]/10"><span class="text-[11px] font-bold uppercase tracking-wider text-[#1E1916]/70 block mb-1">Stage Updates:</span><ul class="list-disc list-inside space-y-0.5">' +
-            updatesHtml +
-            '</ul></div>'
-          : '') +
-        '</div>';
+          : 'bg-[#7A1C1C] text-[#F7F3EA]';
+
+      const updatesHtml = (order.stageHistory || [])
+        .map((u) => `<li class="text-[11px] text-[#1E1916]/80"><strong>${escapeHtml(u.stage)}</strong> — ${escapeHtml(u.at)}</li>`)
+        .join('');
+
+      box.innerHTML = `
+        <div class="rounded-2xl bg-[#F7F3EA] border border-[#1E1916]/15 p-4 sm:p-5 space-y-4">
+          <div class="flex flex-wrap items-center justify-between gap-2">
+            <div>
+              <span class="text-[11px] uppercase tracking-wider font-bold text-[#1E4620] block">Order ${escapeHtml(order.orderRef)} • ${escapeHtml(order.createdAt || '')}</span>
+              <h3 class="font-serif text-2xl font-bold text-[#1E1916]">${escapeHtml(order.customerName || 'Customer')} — ${escapeHtml(order.grandTotal)} EGP</h3>
+            </div>
+            <span class="px-3 py-1 rounded-full text-xs font-bold ${badgeStyle}">${escapeHtml(stage)}</span>
+          </div>
+          <div class="grid grid-cols-3 gap-2">
+            ${stages
+              .map((label, i) => {
+                const active = i <= stageIdx;
+                return `
+                  <div class="space-y-1.5">
+                    <div class="h-2.5 rounded-full ${active ? 'bg-[#1E4620]' : 'bg-[#1E1916]/15'}"></div>
+                    <p class="text-[11px] sm:text-xs font-bold ${active ? 'text-[#1E4620]' : 'text-[#1E1916]/50'}">${i + 1}. ${label}</p>
+                  </div>`;
+              })
+              .join('')}
+          </div>
+          ${updatesHtml ? `<div class="pt-2 border-t border-[#1E1916]/10"><span class="text-[11px] font-bold uppercase tracking-wider text-[#1E1916]/70 block mb-1">Stage Updates:</span><ul class="list-disc list-inside space-y-0.5">${updatesHtml}</ul></div>` : ''}
+        </div>`;
     }
 
     function logFlavorIdeaToAdmin() {
@@ -2428,10 +1992,8 @@
     function logIssueToAdmin() {
       if (!state.latestIssueMessage) return;
       const cat = PROBLEM_CATEGORIES[state.activeCategoryKey];
-      const selectEl = document.getElementById('specific-problem-select');
-      const idx = Number(selectEl ? selectEl.value : 0);
-      const specificTitle =
-        cat && cat.problems[idx] ? cat.problems[idx].title : 'General Issue';
+      const idx = Number(document.getElementById('specific-problem-select')?.value || 0);
+      const specificTitle = cat?.problems[idx]?.title || 'General Issue';
       const customText = document.getElementById('custom-problem-input').value.trim();
       const store = readAdminStore();
       store.issues.unshift({
@@ -2446,31 +2008,17 @@
       writeAdminStore(store);
     }
 
-    /* AI Assistant Bot */
-    function toggleAiBotModal(open) {
-      const modal = document.getElementById('ai-bot-modal');
-      if (!modal) return;
-      if (open) {
-        modal.classList.remove('hidden');
-        modal.classList.add('flex');
-      } else {
-        modal.classList.add('hidden');
-        modal.classList.remove('flex');
-      }
-    }
-
+    /* AI Assistant */
     function askAiPreset(q) {
-      const input = document.getElementById('ai-bot-input');
-      if (input) input.value = q;
+      document.getElementById('ai-bot-input').value = q;
       sendAiBotMessage();
     }
 
     function sendAiBotMessage() {
       const input = document.getElementById('ai-bot-input');
       const history = document.getElementById('ai-chat-history');
-      if (!input || !history) return;
-      const text = input.value.trim();
-      if (!text) return;
+      const text = input?.value.trim();
+      if (!text || !history) return;
       input.value = '';
 
       const userBubble = document.createElement('div');
@@ -2483,13 +2031,12 @@
         'Every Zebda & Co. tin is made from a 50/50 blend of commercial unsalted butter and farmer’s baladi butter, chilled at 0–4°C, and prepared with a 2-day advance lead time.';
       if (q.includes('point') || q.includes('reward') || q.includes('expire') || q.includes('month')) {
         reply =
-          'Use your mobile phone number as your ID! Every 1 EGP spent earns 1 Point (valid for 3 months / 90 days). Rewards: 500 pts = Free Delivery, 1,200 pts = Free Mini Jar, 2,500 pts = 50% Off, 5,000 pts = 70% Off, and 10,000 pts = Create your own custom 250g butter flavor featured on our menu! Check points.html anytime.';
+          'Use your mobile phone number as your ID! Every 1 EGP spent earns 1 Point (valid for 3 months / 90 days). Redeem 500 pts for Free Delivery, 1,200 pts for Free Mini Jar, 2,500 pts for 50% Off, 5,000 pts for 70% Off, and 10,000 pts = Create your own custom 250g butter flavor featured on our menu! Check points.html anytime.';
       } else if (q.includes('custom') || q.includes('10,000') || q.includes('10000') || q.includes('create')) {
         reply =
           'At 10,000 points, you unlock our VIP Co-Creation reward on points.html! You get a FREE 250g tin of your custom butter recipe, and once approved by our kitchen in Admin, your flavor joins the official Zebda & Co. menu.';
       } else if (q.includes('verify') || q.includes('verification') || q.includes('instapay') || q.includes('hold')) {
-        reply =
-          'Pay via InstaPay link (' + INSTAPAY_DIRECT_URL + '), handle (' + INSTAPAY_HANDLE_DISPLAY + '), or number (' + INSTAPAY_NUMBER_DISPLAY + ') and upload your screenshot right in Step 9. Transfers made within ±1 hour of placing your order are verified in ~5 minutes, unlocking your pending points and moving your order forward!';
+        reply = `Pay via InstaPay link (${INSTAPAY_URL}), handle (${INSTAPAY_HANDLE}), or number (${INSTAPAY_NUMBER}) and upload your screenshot right in Step 9. Transfers made within ±1 hour of placing your order are verified in ~5 minutes, unlocking your pending points and moving your order forward!`;
       } else if (q.includes('steak') || q.includes('pasta') || q.includes('pair') || q.includes('flavor')) {
         reply =
           'For steak, mushrooms, and risotto, go with Black Truffle & Sea Salt (185 EGP) or Roasted Garlic & Herb (145 EGP). For pasta and chicken, Sundried Tomato, Basil & Parmesan (165 EGP) melts into an instant pan sauce. For eggs, sourdough, and pizza crusts, try Hot Honey & Chili Crunch (155 EGP)!';
@@ -2505,38 +2052,30 @@
       history.scrollTop = history.scrollHeight;
     }
 
-    /* Mobile / Desktop Above-Keyboard Helper Bar */
+    /* Keyboard Helper */
     function isTextEntryElement(el) {
-      if (!el || !el.tagName) return false;
+      if (!el?.tagName) return false;
       const tag = el.tagName.toUpperCase();
       if (tag === 'TEXTAREA') return true;
       if (tag === 'INPUT') {
-        const type = (el.type || 'text').toLowerCase();
-        return ['text', 'email', 'url', 'tel', 'search', 'number', 'password'].includes(type);
+        return ['text', 'email', 'url', 'tel', 'search', 'number', 'password'].includes((el.type || 'text').toLowerCase());
       }
       return false;
     }
-    function showKeyboardBar(el) {
-      state.activeInputEl = el;
-      const bar = document.getElementById('keyboard-helper-bar');
-      if (bar) bar.classList.remove('hidden');
-    }
     function hideKeyboardBar() {
-      const bar = document.getElementById('keyboard-helper-bar');
-      if (bar) bar.classList.add('hidden');
+      document.getElementById('keyboard-helper-bar')?.classList.add('hidden');
     }
     function dismissActiveKeyboard() {
-      if (state.activeInputEl && typeof state.activeInputEl.blur === 'function') {
-        state.activeInputEl.blur();
-      }
-      if (document.activeElement && typeof document.activeElement.blur === 'function') {
-        document.activeElement.blur();
-      }
+      state.activeInputEl?.blur?.();
+      document.activeElement?.blur?.();
       state.activeInputEl = null;
       hideKeyboardBar();
     }
     document.addEventListener('focusin', (e) => {
-      if (isTextEntryElement(e.target)) showKeyboardBar(e.target);
+      if (isTextEntryElement(e.target)) {
+        state.activeInputEl = e.target;
+        document.getElementById('keyboard-helper-bar')?.classList.remove('hidden');
+      }
     });
     document.addEventListener('focusout', () => {
       setTimeout(() => {
@@ -2544,31 +2083,20 @@
       }, 80);
     });
 
+    /* Flavor Idea Modal */
     function openFlavorIdeaModal(slotLabel) {
       state.activeFlavorSlot = slotLabel || 'In-Development Flavor';
-      const ctx = document.getElementById('flavor-slot-context');
+      document.getElementById('flavor-slot-context').textContent =
+        `Suggestion for ${state.activeFlavorSlot} (still in development): write any flavor you want us to test.`;
       const input = document.getElementById('flavor-idea-input');
-      const modal = document.getElementById('flavor-idea-modal');
-      if (ctx) {
-        ctx.textContent =
-          'Suggestion for ' +
-          state.activeFlavorSlot +
-          ' (still in development): write any flavor you want us to test.';
-      }
-      if (input) input.value = '';
+      input.value = '';
       updateFlavorIdeaSend();
-      modal.classList.remove('hidden');
-      modal.classList.add('flex');
-      if (input) input.focus();
+      toggleModal('flavor-idea-modal', true);
+      input.focus();
     }
-
     function closeFlavorIdeaModal() {
-      const modal = document.getElementById('flavor-idea-modal');
-      modal.classList.add('hidden');
-      modal.classList.remove('flex');
-      hideKeyboardBar();
+      toggleModal('flavor-idea-modal', false);
     }
-
     function updateFlavorIdeaSend() {
       const idea = document.getElementById('flavor-idea-input').value.trim();
       const name = document.getElementById('flavor-idea-name').value.trim();
@@ -2586,7 +2114,7 @@
           .filter(Boolean)
           .join('\n');
         state.latestFlavorIdeaText = msg;
-        sendBtn.href = 'https://wa.me/' + WHATSAPP_PHONE_DIGITS + '?text=' + encodeURIComponent(msg);
+        sendBtn.href = 'https://wa.me/' + WHATSAPP_DIGITS + '?text=' + encodeURIComponent(msg);
         sendBtn.classList.remove('hidden');
         copyBtn.classList.remove('hidden');
         hint.classList.add('hidden');
@@ -2597,18 +2125,15 @@
         hint.classList.remove('hidden');
       }
     }
-
     function copyFlavorIdeaText() {
       logFlavorIdeaToAdmin();
       if (!state.latestFlavorIdeaText) return;
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(state.latestFlavorIdeaText).then(() => {
-          const btn = document.getElementById('copy-flavor-idea-btn');
-          if (btn) btn.textContent = 'Saved to Admin & Copied!';
-        });
-      }
+      copyTextWithFeedback(state.latestFlavorIdeaText, document.getElementById('copy-flavor-idea-btn'));
+      const btn = document.getElementById('copy-flavor-idea-btn');
+      if (btn) btn.textContent = 'Saved to Admin & Copied!';
     }
 
+    /* Order & Quantity Controls */
     function applyQuickSampleOrder() {
       const oos = readAdminStore().outOfStock || {};
       state.qtys = {
@@ -2627,10 +2152,9 @@
     }
 
     function handleMapsLinkInput() {
-      const input = document.getElementById('maps-link-input');
+      const raw = document.getElementById('maps-link-input').value.trim();
       const preview = document.getElementById('maps-preview-link');
       const status = document.getElementById('gps-status-text');
-      const raw = input ? input.value.trim() : '';
       state.mapsLink = raw;
       if (raw && /^https?:\/\//i.test(raw)) {
         preview.href = raw;
@@ -2639,8 +2163,7 @@
       } else {
         preview.href = '#';
         preview.classList.add('hidden');
-        status.textContent =
-          'Paste a Google Maps pin URL or use your current GPS pin so we have your exact drop-off point.';
+        status.textContent = 'Paste a Google Maps pin URL or use your current GPS pin so we have your exact drop-off point.';
       }
       updateOrderUI();
     }
@@ -2657,10 +2180,9 @@
         (pos) => {
           const lat = pos.coords.latitude.toFixed(6);
           const lng = pos.coords.longitude.toFixed(6);
-          const url = 'https://www.google.com/maps?q=' + lat + ',' + lng;
-          input.value = url;
+          input.value = `https://www.google.com/maps?q=${lat},${lng}`;
           handleMapsLinkInput();
-          status.textContent = 'Captured GPS pin (' + lat + ', ' + lng + ') — will be sent on WhatsApp.';
+          status.textContent = `Captured GPS pin (${lat}, ${lng}) — will be sent on WhatsApp.`;
         },
         () => {
           status.textContent = 'Could not read GPS automatically—paste a Google Maps link or share location in WhatsApp.';
@@ -2696,13 +2218,7 @@
       const btnEl = document.getElementById('quartet-toggle-btn');
       if (qtyEl) qtyEl.textContent = state.quartetQty;
       if (btnEl && !isItemOutOfStock('quartet')) {
-        if (state.quartetQty > 0) {
-          btnEl.textContent = 'Added (' + state.quartetQty + ' Box) — Tap to Clear';
-        } else {
-          btnEl.textContent = '+ Add Quartet Box (560 EGP)';
-        }
-        btnEl.className =
-          'w-full py-2.5 px-4 rounded-xl text-sm font-bold transition-all bg-[#C59B43] text-[#1E1916] hover:brightness-105 active:scale-[0.99] cursor-pointer';
+        btnEl.textContent = state.quartetQty > 0 ? `Added (${state.quartetQty} Box) — Tap to Clear` : '+ Add Quartet Box (560 EGP)';
       }
     }
 
@@ -2710,24 +2226,20 @@
       state.paymentMethod = method;
       const instaBtn = document.getElementById('pay-btn-instapay');
       const codBtn = document.getElementById('pay-btn-cod');
-      if (method === 'instapay') {
-        instaBtn.className =
-          'p-3 rounded-xl text-left border-2 transition cursor-pointer bg-[#1E4620] text-[#F7F3EA] border-[#1E4620]';
-        codBtn.className =
-          'p-3 rounded-xl text-left border-2 transition cursor-pointer bg-[#F7F3EA] text-[#1E1916] border-[#1E1916]/20 hover:border-[#1E1916]/45';
-      } else {
-        codBtn.className =
-          'p-3 rounded-xl text-left border-2 transition cursor-pointer bg-[#7A1C1C] text-[#F7F3EA] border-[#7A1C1C]';
-        instaBtn.className =
-          'p-3 rounded-xl text-left border-2 transition cursor-pointer bg-[#F7F3EA] text-[#1E1916] border-[#1E1916]/20 hover:border-[#1E1916]/45';
-      }
+      const activeInsta = method === 'instapay';
+      instaBtn.className = activeInsta
+        ? 'p-3 rounded-xl text-left border-2 transition cursor-pointer bg-[#1E4620] text-[#F7F3EA] border-[#1E4620]'
+        : 'p-3 rounded-xl text-left border-2 transition cursor-pointer bg-[#F7F3EA] text-[#1E1916] border-[#1E1916]/20 hover:border-[#1E1916]/45';
+      codBtn.className = !activeInsta
+        ? 'p-3 rounded-xl text-left border-2 transition cursor-pointer bg-[#7A1C1C] text-[#F7F3EA] border-[#7A1C1C]'
+        : 'p-3 rounded-xl text-left border-2 transition cursor-pointer bg-[#F7F3EA] text-[#1E1916] border-[#1E1916]/20 hover:border-[#1E1916]/45';
       updateOrderUI();
     }
 
     function handleCityChange() {
       const city = document.getElementById('city-select').value;
       const subSelect = document.getElementById('subarea-select');
-      const options = SUBAREAS_BY_CITY[city] || [{ label: city + ' (50 EGP)', fee: 50 }];
+      const options = SUBAREAS_BY_CITY[city] || [{ label: `${city} (50 EGP)`, fee: 50 }];
       subSelect.innerHTML = '';
       options.forEach((opt) => {
         const optionEl = document.createElement('option');
@@ -2753,9 +2265,8 @@
       const chosen = new Date(dateStr + 'T00:00:00');
       const now = new Date();
       const todayMidnight = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-      const diffDays = (chosen - todayMidnight) / (1000 * 60 * 60 * 24);
-      if (diffDays < 2) warnEl.classList.remove('hidden');
-      else warnEl.classList.add('hidden');
+      const diffDays = (chosen - todayMidnight) / 86400000;
+      warnEl.classList.toggle('hidden', diffDays >= 2);
     }
 
     function updateOrderUI() {
@@ -2778,14 +2289,14 @@
       const lines = [];
       const receiptItems = [];
 
-      Object.keys(BASE_FLAVORS).forEach((key) => {
-        const qty = state.qtys[key] || 0;
+      SIGNATURE_FLAVORS.forEach((f) => {
+        const qty = state.qtys[f.key] || 0;
         if (qty > 0) {
-          const lineTotal = qty * BASE_FLAVORS[key].price;
+          const lineTotal = qty * f.price;
           itemsTotal += lineTotal;
           totalCount += qty;
-          lines.push('• ' + BASE_FLAVORS[key].name + ' × ' + qty + ' = ' + lineTotal + ' EGP');
-          receiptItems.push({ label: BASE_FLAVORS[key].name + ' × ' + qty, amount: lineTotal + ' EGP' });
+          lines.push(`• ${f.name} × ${qty} = ${lineTotal} EGP`);
+          receiptItems.push({ label: `${f.name} × ${qty}`, amount: `${lineTotal} EGP` });
         }
       });
 
@@ -2798,8 +2309,8 @@
           const lineTotal = qty * price;
           itemsTotal += lineTotal;
           totalCount += qty;
-          lines.push('• [VIP] ' + cf.flavorName + ' × ' + qty + ' = ' + lineTotal + ' EGP');
-          receiptItems.push({ label: '[VIP] ' + cf.flavorName + ' × ' + qty, amount: lineTotal + ' EGP' });
+          lines.push(`• [VIP] ${cf.flavorName} × ${qty} = ${lineTotal} EGP`);
+          receiptItems.push({ label: `[VIP] ${cf.flavorName} × ${qty}`, amount: `${lineTotal} EGP` });
         }
       });
 
@@ -2807,44 +2318,37 @@
         const qTotal = state.quartetQty * QUARTET_PRICE;
         itemsTotal += qTotal;
         totalCount += state.quartetQty;
-        lines.push('• 4-Flavor Quartet Box × ' + state.quartetQty + ' = ' + qTotal + ' EGP');
-        receiptItems.push({ label: '4-Flavor Quartet Box × ' + state.quartetQty, amount: qTotal + ' EGP' });
+        lines.push(`• 4-Flavor Quartet Box × ${state.quartetQty} = ${qTotal} EGP`);
+        receiptItems.push({ label: `4-Flavor Quartet Box × ${state.quartetQty}`, amount: `${qTotal} EGP` });
       }
 
-      // Apply Active Loyalty Reward if present
       let deliveryFee = baseDeliveryFee;
       let loyaltyDiscountAmount = 0;
       let loyaltyRewardSummary = '';
       const rewardBanner = document.getElementById('active-loyalty-reward-banner');
-      const rewardBannerText = document.getElementById('active-loyalty-reward-text');
       const discountRow = document.getElementById('summary-discount-row');
 
       if (state.activeLoyaltyReward) {
         rewardBanner.classList.remove('hidden');
-        rewardBannerText.textContent =
-          state.activeLoyaltyReward.title + ' (-' + state.activeLoyaltyReward.pointsCost + ' pts)';
+        document.getElementById('active-loyalty-reward-text').textContent =
+          `${state.activeLoyaltyReward.title} (-${state.activeLoyaltyReward.pointsCost} pts)`;
         const rType = state.activeLoyaltyReward.type;
         if (rType === 'free_delivery') {
           deliveryFee = 0;
-          loyaltyRewardSummary = 'Loyalty Reward: Free Delivery (-' + state.activeLoyaltyReward.pointsCost + ' pts)';
+          loyaltyRewardSummary = `Loyalty Reward: Free Delivery (-${state.activeLoyaltyReward.pointsCost} pts)`;
           discountRow.classList.remove('hidden');
           document.getElementById('summary-discount-label').textContent = 'Loyalty: Free Delivery';
-          document.getElementById('summary-discount-amount').textContent = '-' + baseDeliveryFee + ' EGP';
-        } else if (rType === 'pct_50') {
-          loyaltyDiscountAmount = Math.round(itemsTotal * 0.5);
-          loyaltyRewardSummary = 'Loyalty Reward: 50% Off Items (-' + state.activeLoyaltyReward.pointsCost + ' pts)';
+          document.getElementById('summary-discount-amount').textContent = `-${baseDeliveryFee} EGP`;
+        } else if (rType === 'pct_50' || rType === 'pct_70') {
+          const rate = rType === 'pct_50' ? 0.5 : 0.7;
+          const pctLabel = rType === 'pct_50' ? '50% Off' : '70% Off';
+          loyaltyDiscountAmount = Math.round(itemsTotal * rate);
+          loyaltyRewardSummary = `Loyalty Reward: ${pctLabel} Items (-${state.activeLoyaltyReward.pointsCost} pts)`;
           discountRow.classList.remove('hidden');
-          document.getElementById('summary-discount-label').textContent = 'Loyalty: 50% Off';
-          document.getElementById('summary-discount-amount').textContent = '-' + loyaltyDiscountAmount + ' EGP';
-        } else if (rType === 'pct_70') {
-          loyaltyDiscountAmount = Math.round(itemsTotal * 0.7);
-          loyaltyRewardSummary = 'Loyalty Reward: 70% Off Items (-' + state.activeLoyaltyReward.pointsCost + ' pts)';
-          discountRow.classList.remove('hidden');
-          document.getElementById('summary-discount-label').textContent = 'Loyalty: 70% Off';
-          document.getElementById('summary-discount-amount').textContent = '-' + loyaltyDiscountAmount + ' EGP';
-        } else if (rType === 'free_mini' || rType === 'custom_250g') {
-          loyaltyRewardSummary =
-            'Loyalty Reward: ' + state.activeLoyaltyReward.title + ' — FREE (0 EGP)';
+          document.getElementById('summary-discount-label').textContent = `Loyalty: ${pctLabel}`;
+          document.getElementById('summary-discount-amount').textContent = `-${loyaltyDiscountAmount} EGP`;
+        } else {
+          loyaltyRewardSummary = `Loyalty Reward: ${state.activeLoyaltyReward.title} — FREE (0 EGP)`;
           lines.push('• ' + loyaltyRewardSummary);
           receiptItems.push({ label: state.activeLoyaltyReward.title, amount: 'FREE (0 EGP)' });
           discountRow.classList.add('hidden');
@@ -2854,38 +2358,27 @@
         discountRow.classList.add('hidden');
       }
 
-      const freeSampleUnlocked = itemsTotal > FREE_SAMPLE_ITEMS_THRESHOLD;
+      const freeSampleUnlocked = itemsTotal > FREE_SAMPLE_THRESHOLD;
       const sampleBadge = document.getElementById('sample-status-badge');
       const sampleProgressText = document.getElementById('sample-progress-text');
       const samplePickerWrap = document.getElementById('free-sample-picker-wrap');
       const sampleSelect = document.getElementById('free-sample-select');
       const summarySampleRow = document.getElementById('summary-free-sample-row');
-      const summarySampleFlavor = document.getElementById('summary-free-sample-flavor');
       let selectedFreeSample = '';
 
       if (freeSampleUnlocked) {
         selectedFreeSample = sampleSelect.value;
         sampleBadge.textContent = 'Unlocked (FREE)';
-        sampleBadge.className =
-          'px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#1E4620] text-[#F7F3EA]';
-        sampleProgressText.innerHTML =
-          'Your items subtotal is <strong>' +
-          itemsTotal +
-          ' EGP</strong> (over 500 EGP). Pick 1 FREE flavor sample below:';
+        sampleBadge.className = 'px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#1E4620] text-[#F7F3EA]';
+        sampleProgressText.innerHTML = `Your items subtotal is <strong>${itemsTotal} EGP</strong> (over 500 EGP). Pick 1 FREE flavor sample below:`;
         samplePickerWrap.classList.remove('hidden');
         summarySampleRow.classList.remove('hidden');
-        summarySampleFlavor.textContent = selectedFreeSample;
+        document.getElementById('summary-free-sample-flavor').textContent = selectedFreeSample;
       } else {
-        const neededOver500 = FREE_SAMPLE_ITEMS_THRESHOLD + 1 - itemsTotal;
+        const neededOver500 = FREE_SAMPLE_THRESHOLD + 1 - itemsTotal;
         sampleBadge.textContent = 'Locked';
-        sampleBadge.className =
-          'px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#EFE9DA] text-[#1E1916]/75 border border-[#1E1916]/15';
-        sampleProgressText.innerHTML =
-          'Items subtotal is <strong>' +
-          itemsTotal +
-          ' EGP</strong>. Add <strong>' +
-          neededOver500 +
-          ' EGP</strong> more in items (excluding delivery) to unlock a FREE sample.';
+        sampleBadge.className = 'px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#EFE9DA] text-[#1E1916]/75 border border-[#1E1916]/15';
+        sampleProgressText.innerHTML = `Items subtotal is <strong>${itemsTotal} EGP</strong>. Add <strong>${neededOver500} EGP</strong> more in items (excluding delivery) to unlock a FREE sample.`;
         samplePickerWrap.classList.add('hidden');
         summarySampleRow.classList.add('hidden');
       }
@@ -2893,10 +2386,8 @@
       const discountedItemsTotal = Math.max(0, itemsTotal - loyaltyDiscountAmount);
       const grandTotal = discountedItemsTotal + deliveryFee;
       const pointsEarned = Math.floor(discountedItemsTotal);
-      const instaPayDueNow =
-        state.paymentMethod === 'cod' ? Math.ceil(grandTotal * 0.5) : grandTotal;
-      const codRemaining =
-        state.paymentMethod === 'cod' ? Math.max(0, grandTotal - instaPayDueNow) : 0;
+      const instaPayDueNow = state.paymentMethod === 'cod' ? Math.ceil(grandTotal * 0.5) : grandTotal;
+      const codRemaining = state.paymentMethod === 'cod' ? Math.max(0, grandTotal - instaPayDueNow) : 0;
 
       state.currentOrderData = {
         orderRef: state.orderRef,
@@ -2924,78 +2415,67 @@
 
       document.getElementById('order-ref-tag').textContent = 'Ref: ' + state.orderRef;
       const itemsListEl = document.getElementById('order-items-list');
-      if (lines.length === 0) {
-        itemsListEl.innerHTML =
-          '<p class="text-xs italic text-[#1E1916]/60">No butter tins or Quartet Boxes selected yet.</p>';
-      } else {
-        itemsListEl.innerHTML = lines
-          .map((l) => '<div class="font-medium text-[#1E1916]">' + escapeHtml(l) + '</div>')
-          .join('');
-      }
+      itemsListEl.innerHTML = lines.length
+        ? lines.map((l) => `<div class="font-medium text-[#1E1916]">${escapeHtml(l)}</div>`).join('')
+        : '<p class="text-xs italic text-[#1E1916]/60">No butter tins or Quartet Boxes selected yet.</p>';
 
-      document.getElementById('selected-delivery-badge').textContent = 'Delivery: ' + deliveryFee + ' EGP';
-      document.getElementById('panel-total').textContent = grandTotal + ' EGP';
-      document.getElementById('summary-items-total').textContent = itemsTotal + ' EGP';
+      document.getElementById('selected-delivery-badge').textContent = `Delivery: ${deliveryFee} EGP`;
+      document.getElementById('panel-total').textContent = `${grandTotal} EGP`;
+      document.getElementById('summary-items-total').textContent = `${itemsTotal} EGP`;
       document.getElementById('summary-location-label').textContent = city;
-      document.getElementById('summary-delivery-fee').textContent = deliveryFee + ' EGP';
-      document.getElementById('summary-grand-total').textContent = grandTotal + ' EGP';
-      document.getElementById('instapay-due-now').textContent = instaPayDueNow + ' EGP';
-      document.getElementById('cod-remaining-due').textContent = codRemaining + ' EGP';
-      document.getElementById('summary-instapay-now').textContent = instaPayDueNow + ' EGP';
-      document.getElementById('summary-points-earned').textContent = '+' + pointsEarned + ' pts';
-      document.getElementById('sticky-qty-count').textContent = totalCount + (totalCount === 1 ? ' item' : ' items');
-      document.getElementById('sticky-instapay').textContent = instaPayDueNow + ' EGP';
-      document.getElementById('sticky-total').textContent = grandTotal + ' EGP';
+      document.getElementById('summary-delivery-fee').textContent = `${deliveryFee} EGP`;
+      document.getElementById('summary-grand-total').textContent = `${grandTotal} EGP`;
+      document.getElementById('instapay-due-now').textContent = `${instaPayDueNow} EGP`;
+      document.getElementById('cod-remaining-due').textContent = `${codRemaining} EGP`;
+      document.getElementById('summary-instapay-now').textContent = `${instaPayDueNow} EGP`;
+      document.getElementById('summary-points-earned').textContent = `+${pointsEarned} pts`;
+      document.getElementById('sticky-qty-count').textContent = `${totalCount} ${totalCount === 1 ? 'item' : 'items'}`;
+      document.getElementById('sticky-instapay').textContent = `${instaPayDueNow} EGP`;
+      document.getElementById('sticky-total').textContent = `${grandTotal} EGP`;
 
       const ssStatusEl = document.getElementById('summary-screenshot-status');
-      if (ssStatusEl) {
-        if (state.paymentScreenshotDataUrl) {
-          ssStatusEl.textContent = 'Embedded (' + (state.paymentScreenshotName || 'Screenshot') + ')';
-          ssStatusEl.className = 'text-[#1E4620] font-bold';
-        } else {
-          ssStatusEl.textContent = 'Not uploaded yet';
-          ssStatusEl.className = 'text-[#7A1C1C] font-bold';
-        }
+      if (state.paymentScreenshotDataUrl) {
+        ssStatusEl.textContent = `Embedded (${state.paymentScreenshotName || 'Screenshot'})`;
+        ssStatusEl.className = 'text-[#1E4620] font-bold';
+      } else {
+        ssStatusEl.textContent = 'Not uploaded yet';
+        ssStatusEl.className = 'text-[#7A1C1C] font-bold';
       }
 
       const paymentText =
         state.paymentMethod === 'cod'
-          ? 'COD (50% InstaPay Deposit Now: ' + instaPayDueNow + ' EGP | Remaining on Delivery: ' + codRemaining + ' EGP)'
-          : '100% InstaPay Now: ' + instaPayDueNow + ' EGP';
+          ? `COD (50% InstaPay Deposit Now: ${instaPayDueNow} EGP | Remaining on Delivery: ${codRemaining} EGP)`
+          : `100% InstaPay Now: ${instaPayDueNow} EGP`;
 
       state.latestOrderMessage = [
-        'Zebda & Co. (زبدة وشركاه) — New Order [' + state.orderRef + ']',
+        `Zebda & Co. (زبدة وشركاه) — New Order [${state.orderRef}]`,
         '--------------------------------------------------',
         lines.length ? lines.join('\n') : '• No items selected yet',
-        freeSampleUnlocked
-          ? '• FREE Sample (>500 EGP Items): ' + selectedFreeSample + ' — FREE (0 EGP)'
-          : '',
-        loyaltyRewardSummary ? '• ' + loyaltyRewardSummary : '',
-        'Items Subtotal: ' + itemsTotal + ' EGP',
-        'Delivery (' + subareaLabel + '): ' + deliveryFee + ' EGP',
-        'Total Order: ' + grandTotal + ' EGP',
-        'Loyalty Points Earned: +' + pointsEarned + ' pts (1 EGP = 1 Point)',
-        'Payment: ' + paymentText,
-        'InstaPay Handle: ' + INSTAPAY_HANDLE_DISPLAY,
-        'InstaPay Number: ' + INSTAPAY_NUMBER_DISPLAY,
-        'InstaPay Link: ' + INSTAPAY_DIRECT_URL,
+        freeSampleUnlocked ? `• FREE Sample (>500 EGP Items): ${selectedFreeSample} — FREE (0 EGP)` : '',
+        loyaltyRewardSummary ? `• ${loyaltyRewardSummary}` : '',
+        `Items Subtotal: ${itemsTotal} EGP`,
+        `Delivery (${subareaLabel}): ${deliveryFee} EGP`,
+        `Total Order: ${grandTotal} EGP`,
+        `Loyalty Points Earned: +${pointsEarned} pts (1 EGP = 1 Point)`,
+        `Payment: ${paymentText}`,
+        `InstaPay Handle: ${INSTAPAY_HANDLE}`,
+        `InstaPay Number: ${INSTAPAY_NUMBER}`,
+        `InstaPay Link: ${INSTAPAY_URL}`,
         state.paymentScreenshotDataUrl
-          ? 'InstaPay Screenshot: Embedded in Receipt (' + (state.paymentScreenshotName || 'image') + ')'
+          ? `InstaPay Screenshot: Embedded in Receipt (${state.paymentScreenshotName || 'image'})`
           : 'InstaPay Screenshot: Not uploaded yet',
-        customerName ? 'Customer Name: ' + customerName : '',
-        customerPhoneNorm ? 'Phone (Loyalty ID): ' + customerPhoneNorm : '',
-        customerEmail ? 'Customer Email: ' + customerEmail : '',
-        addressDetail ? 'Location & Delivery Day: ' + addressDetail : '',
-        mapsLink ? 'Google Maps Pin: ' + mapsLink : '',
-        deliveryDate ? 'Preferred Date: ' + deliveryDate : '',
+        customerName ? `Customer Name: ${customerName}` : '',
+        customerPhoneNorm ? `Phone (Loyalty ID): ${customerPhoneNorm}` : '',
+        customerEmail ? `Customer Email: ${customerEmail}` : '',
+        addressDetail ? `Location & Delivery Day: ${addressDetail}` : '',
+        mapsLink ? `Google Maps Pin: ${mapsLink}` : '',
+        deliveryDate ? `Preferred Date: ${deliveryDate}` : '',
       ]
         .filter(Boolean)
         .join('\n');
 
       const missing = [];
-      if (totalCount === 0 && !state.activeLoyaltyReward) {
-        missing.push('Select at least 1 butter tin or Quartet Box');
-      }
+      if (totalCount === 0 && !state.activeLoyaltyReward) missing.push('Select at least 1 butter tin or Quartet Box');
       if (!customerName) missing.push('Enter your full name');
       if (customerPhoneNorm.length < 10) missing.push('Enter a valid 11-digit Egyptian mobile number (e.g. 010...)');
       if (!addressDetail) missing.push('Enter your full address / location & delivery day');
@@ -3010,64 +2490,50 @@
 
       if (!state.orderReady) {
         alertBox.classList.remove('hidden');
-        alertList.innerHTML = missing.map((m) => '<li>' + m + '</li>').join('');
-        confirmBtn.className =
-          'w-full py-3.5 px-5 rounded-xl bg-[#1E1916]/35 text-[#F7F3EA]/80 font-bold text-sm text-center flex items-center justify-center gap-2 cursor-not-allowed transition shadow';
+        alertList.innerHTML = missing.map((m) => `<li>${m}</li>`).join('');
+        confirmBtn.className = 'w-full py-3.5 px-5 rounded-xl bg-[#1E1916]/35 text-[#F7F3EA]/80 font-bold text-sm text-center flex items-center justify-center gap-2 cursor-not-allowed transition shadow';
         confirmBtn.innerHTML = '<span>Complete Details to Confirm Order</span>';
         waBtn.href = '#';
         waBtn.setAttribute('aria-disabled', 'true');
-        waBtn.className =
-          'w-full py-3.5 px-5 rounded-xl bg-[#1E1916]/35 text-[#F7F3EA]/80 font-bold text-sm text-center flex items-center justify-center gap-2 cursor-not-allowed transition shadow';
+        waBtn.className = 'w-full py-3.5 px-5 rounded-xl bg-[#1E1916]/35 text-[#F7F3EA]/80 font-bold text-sm text-center flex items-center justify-center gap-2 cursor-not-allowed transition shadow';
         waBtn.innerHTML = '<span>Fill All Required Details to Send on WhatsApp</span>';
         stickyWaBtn.href = '#';
         stickyWaBtn.setAttribute('aria-disabled', 'true');
-        stickyWaBtn.className =
-          'py-2.5 px-4 sm:px-5 rounded-xl bg-[#C59B43]/40 text-[#F7F3EA]/75 font-bold text-xs sm:text-sm cursor-not-allowed transition';
+        stickyWaBtn.className = 'py-2.5 px-4 sm:px-5 rounded-xl bg-[#C59B43]/40 text-[#F7F3EA]/75 font-bold text-xs sm:text-sm cursor-not-allowed transition';
       } else {
         alertBox.classList.add('hidden');
-        confirmBtn.className =
-          'w-full py-3.5 px-5 rounded-xl bg-[#1E1916] text-[#E8C97B] border border-[#C59B43] font-bold text-sm text-center flex items-center justify-center gap-2 hover:brightness-105 transition shadow cursor-pointer';
+        confirmBtn.className = 'w-full py-3.5 px-5 rounded-xl bg-[#1E1916] text-[#E8C97B] border border-[#C59B43] font-bold text-sm text-center flex items-center justify-center gap-2 hover:brightness-105 transition shadow cursor-pointer';
         confirmBtn.innerHTML = '<span>Confirm Order &amp; Generate Order ID</span>';
 
-        const waUrl =
-          'https://wa.me/' + WHATSAPP_PHONE_DIGITS + '?text=' + encodeURIComponent(state.latestOrderMessage);
+        const waUrl = `https://wa.me/${WHATSAPP_DIGITS}?text=${encodeURIComponent(state.latestOrderMessage)}`;
         waBtn.href = waUrl;
         waBtn.setAttribute('aria-disabled', 'false');
-        waBtn.className =
-          'w-full py-3.5 px-5 rounded-xl bg-[#1E4620] text-[#F7F3EA] font-bold text-sm text-center flex items-center justify-center gap-2 hover:opacity-95 transition shadow cursor-pointer';
+        waBtn.className = 'w-full py-3.5 px-5 rounded-xl bg-[#1E4620] text-[#F7F3EA] font-bold text-sm text-center flex items-center justify-center gap-2 hover:opacity-95 transition shadow cursor-pointer';
         waBtn.innerHTML = '<span>Send Order on WhatsApp (+20 10 41870087)</span>';
         stickyWaBtn.href = waUrl;
         stickyWaBtn.setAttribute('aria-disabled', 'false');
-        stickyWaBtn.className =
-          'py-2.5 px-4 sm:px-5 rounded-xl bg-[#C59B43] text-[#1E1916] font-bold text-xs sm:text-sm hover:brightness-105 transition cursor-pointer';
+        stickyWaBtn.className = 'py-2.5 px-4 sm:px-5 rounded-xl bg-[#C59B43] text-[#1E1916] font-bold text-xs sm:text-sm hover:brightness-105 transition cursor-pointer';
       }
     }
 
     function copyOrderSummaryText() {
       if (state.orderReady) {
-        const receiptDataUrl = renderReceiptCanvas(state.currentOrderData);
-        saveOrderRecord(state.currentOrderData, receiptDataUrl);
+        saveOrderRecord(state.currentOrderData, renderReceiptCanvas(state.currentOrderData));
       }
       if (!state.latestOrderMessage) return;
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(state.latestOrderMessage).then(() => {
-          const btn = document.getElementById('copy-order-text-btn');
-          if (btn) {
-            const orig = btn.textContent;
-            btn.textContent = 'Copied Order Text!';
-            setTimeout(() => {
-              btn.textContent = orig;
-            }, 1800);
-          }
-        });
+      copyTextWithFeedback(state.latestOrderMessage, document.getElementById('copy-order-text-btn'));
+      const btn = document.getElementById('copy-order-text-btn');
+      if (btn) {
+        const orig = btn.textContent;
+        btn.textContent = 'Copied Order Text!';
+        setTimeout(() => { btn.textContent = orig; }, 1800);
       }
     }
 
     function handleWhatsAppOrderClick(event) {
       if (!state.orderReady) {
         event.preventDefault();
-        const alertBox = document.getElementById('missing-fields-alert');
-        if (alertBox) alertBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        document.getElementById('missing-fields-alert')?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         return false;
       }
       confirmAndPlaceOrder();
@@ -3089,14 +2555,13 @@
       ctx.lineWidth = 6;
       ctx.strokeRect(24, 24, W - 48, H - 48);
 
-      // Header
       ctx.fillStyle = '#1E1916';
       ctx.fillRect(36, 36, W - 72, 175);
       ctx.fillStyle = '#C59B43';
       ctx.fillRect(36, 205, W - 72, 6);
       ctx.fillStyle = '#E8C97B';
       ctx.font = 'bold 16px "Plus Jakarta Sans", sans-serif';
-      ctx.fillText('ORDER RECEIPT • REF: ' + data.orderRef + ' • 0–4°C', 68, 78);
+      ctx.fillText(`ORDER RECEIPT • REF: ${data.orderRef} • 0–4°C`, 68, 78);
       ctx.fillStyle = '#F7F3EA';
       ctx.font = 'bold 46px "Cormorant Garamond", Georgia, serif';
       ctx.fillText('ZEBDA & CO.', 68, 134);
@@ -3105,9 +2570,8 @@
       ctx.fillText('زبدة وشركاه', 360, 134);
       ctx.fillStyle = '#F7F3EA';
       ctx.font = '600 16px "Plus Jakarta Sans", sans-serif';
-      ctx.fillText('InstaPay: ' + INSTAPAY_HANDLE_DISPLAY + ' (' + INSTAPAY_NUMBER_DISPLAY + ')  •  2-Day Notice', 68, 176);
+      ctx.fillText(`InstaPay: ${INSTAPAY_HANDLE} (${INSTAPAY_NUMBER})  •  2-Day Notice`, 68, 176);
 
-      // Customer Details Box
       ctx.fillStyle = '#EFE9DA';
       ctx.fillRect(54, 232, W - 108, 245);
       ctx.strokeStyle = 'rgba(30, 25, 22, 0.2)';
@@ -3118,18 +2582,13 @@
       ctx.fillText('CUSTOMER & DELIVERY DETAILS', 78, 266);
       ctx.fillStyle = '#1E1916';
       ctx.font = '600 19px "Plus Jakarta Sans", sans-serif';
-      ctx.fillText('Name: ' + (data.customerName || 'Not entered yet'), 78, 298);
-      ctx.fillText('Phone (Loyalty ID): ' + (data.customerPhone || 'Not entered yet'), 78, 328);
-      ctx.fillText('Email: ' + (data.customerEmail || 'Not entered yet'), 78, 358);
-      ctx.fillText('Zone: ' + data.city, 78, 388);
-      ctx.fillText('Location: ' + (data.addressDetail || 'Not entered yet'), 78, 418);
-      ctx.fillText(
-        'Map Pin: ' + (data.mapsLink ? 'Included in order' : 'Not pinned'),
-        78,
-        448
-      );
+      ctx.fillText(`Name: ${data.customerName || 'Not entered yet'}`, 78, 298);
+      ctx.fillText(`Phone (Loyalty ID): ${data.customerPhone || 'Not entered yet'}`, 78, 328);
+      ctx.fillText(`Email: ${data.customerEmail || 'Not entered yet'}`, 78, 358);
+      ctx.fillText(`Zone: ${data.city}`, 78, 388);
+      ctx.fillText(`Location: ${data.addressDetail || 'Not entered yet'}`, 78, 418);
+      ctx.fillText(`Map Pin: ${data.mapsLink ? 'Included in order' : 'Not pinned'}`, 78, 448);
 
-      // Order Items Box
       ctx.fillStyle = '#EFE9DA';
       ctx.fillRect(54, 496, W - 108, 395);
       ctx.strokeRect(54, 496, W - 108, 395);
@@ -3138,12 +2597,10 @@
       ctx.fillText('ORDER ITEMS & LOYALTY SUMMARY', 78, 530);
 
       let y = 566;
-      ctx.fillStyle = '#1E1916';
       ctx.font = '600 20px "Plus Jakarta Sans", sans-serif';
-      if (data.receiptItems.length === 0) {
+      if (!data.receiptItems.length) {
         ctx.fillStyle = '#555555';
         ctx.fillText('No items selected yet', 78, y);
-        y += 32;
       } else {
         data.receiptItems.slice(0, 5).forEach((item) => {
           ctx.fillStyle = '#1E1916';
@@ -3157,7 +2614,7 @@
       if (data.freeSampleUnlocked) {
         ctx.fillStyle = '#1E4620';
         ctx.font = 'bold 18px "Plus Jakarta Sans", sans-serif';
-        ctx.fillText('FREE Sample (>500 EGP): ' + data.selectedFreeSample, 78, y);
+        ctx.fillText(`FREE Sample (>500 EGP): ${data.selectedFreeSample}`, 78, y);
         ctx.textAlign = 'right';
         ctx.fillText('FREE (0 EGP)', W - 78, y);
         ctx.textAlign = 'left';
@@ -3169,53 +2626,32 @@
       ctx.lineTo(W - 78, 735);
       ctx.stroke();
 
-      ctx.fillStyle = '#1E1916';
-      ctx.font = '600 18px "Plus Jakarta Sans", sans-serif';
-      ctx.fillText('Items Subtotal', 78, 764);
-      ctx.textAlign = 'right';
-      ctx.fillText(data.itemsTotal + ' EGP', W - 78, 764);
-      ctx.textAlign = 'left';
-
-      if (data.loyaltyDiscountAmount > 0) {
-        ctx.fillStyle = '#1E4620';
-        ctx.fillText('Loyalty Reward Discount', 78, 792);
+      const drawSummaryRow = (label, val, rowY, color = '#1E1916', font = '600 18px "Plus Jakarta Sans", sans-serif') => {
+        ctx.fillStyle = color;
+        ctx.font = font;
+        ctx.fillText(label, 78, rowY);
         ctx.textAlign = 'right';
-        ctx.fillText('-' + data.loyaltyDiscountAmount + ' EGP', W - 78, 792);
+        ctx.fillText(val, W - 78, rowY);
         ctx.textAlign = 'left';
+      };
+
+      drawSummaryRow('Items Subtotal', `${data.itemsTotal} EGP`, 764);
+      if (data.loyaltyDiscountAmount > 0) {
+        drawSummaryRow('Loyalty Reward Discount', `-${data.loyaltyDiscountAmount} EGP`, 792, '#1E4620');
       }
+      drawSummaryRow(`Delivery (${data.city})`, `${data.deliveryFee} EGP`, 820);
+      drawSummaryRow(`TOTAL ORDER (+${data.pointsEarned || 0} PTS)`, `${data.grandTotal} EGP`, 864, '#1E4620', 'bold 24px "Plus Jakarta Sans", sans-serif');
 
-      ctx.fillStyle = '#1E1916';
-      ctx.fillText('Delivery (' + data.city + ')', 78, 820);
-      ctx.textAlign = 'right';
-      ctx.fillText(data.deliveryFee + ' EGP', W - 78, 820);
-      ctx.textAlign = 'left';
-
-      ctx.fillStyle = '#1E4620';
-      ctx.font = 'bold 24px "Plus Jakarta Sans", sans-serif';
-      ctx.fillText('TOTAL ORDER (+' + (data.pointsEarned || 0) + ' PTS)', 78, 864);
-      ctx.textAlign = 'right';
-      ctx.fillText(data.grandTotal + ' EGP', W - 78, 864);
-      ctx.textAlign = 'left';
-
-      // Payment Box
       ctx.fillStyle = '#1E4620';
       ctx.fillRect(54, 912, W - 108, 178);
       ctx.fillStyle = '#E8C97B';
       ctx.font = 'bold 20px "Plus Jakarta Sans", sans-serif';
-      ctx.fillText(
-        data.paymentMethod === 'cod' ? 'PAYMENT: COD + 50% INSTAPAY DEPOSIT' : 'PAYMENT: 100% INSTAPAY',
-        78,
-        952
-      );
+      ctx.fillText(data.paymentMethod === 'cod' ? 'PAYMENT: COD + 50% INSTAPAY DEPOSIT' : 'PAYMENT: 100% INSTAPAY', 78, 952);
       ctx.fillStyle = '#F7F3EA';
       ctx.font = 'bold 24px "Plus Jakarta Sans", sans-serif';
-      ctx.fillText('InstaPay Due Now: ' + data.instaPayDueNow + ' EGP', 78, 990);
+      ctx.fillText(`InstaPay Due Now: ${data.instaPayDueNow} EGP`, 78, 990);
       ctx.font = '600 18px "Plus Jakarta Sans", sans-serif';
-      ctx.fillText(
-        'COD Rem: ' + data.codRemaining + ' EGP  |  ' + INSTAPAY_HANDLE_DISPLAY + ' (' + INSTAPAY_NUMBER_DISPLAY + ')',
-        78,
-        1026
-      );
+      ctx.fillText(`COD Rem: ${data.codRemaining} EGP  |  ${INSTAPAY_HANDLE} (${INSTAPAY_NUMBER})`, 78, 1026);
       ctx.fillStyle = '#F5D692';
       ctx.font = 'bold 16px "Plus Jakarta Sans", sans-serif';
       ctx.fillText(
@@ -3227,8 +2663,6 @@
       );
 
       let footerY = 1135;
-
-      // Embedded Customer Transfer Screenshot Section
       if (hasImg && state.paymentScreenshotImgObj) {
         const boxY = 1112;
         const boxH = 400;
@@ -3248,27 +2682,16 @@
         const scale = Math.min(maxW / img.width, maxH / img.height, 1);
         const drawW = img.width * scale;
         const drawH = img.height * scale;
-        const drawX = (W - drawW) / 2;
-        const drawY = boxY + 50 + (maxH - drawH) / 2;
-        ctx.drawImage(img, drawX, drawY, drawW, drawH);
-
+        ctx.drawImage(img, (W - drawW) / 2, boxY + 50 + (maxH - drawH) / 2, drawW, drawH);
         footerY = boxY + boxH + 42;
       }
 
       ctx.fillStyle = '#1E1916';
       ctx.font = '600 16px "Plus Jakarta Sans", sans-serif';
-      ctx.fillText(
-        'Thank you for supporting Zebda & Co. (زبدة وشركاه) • Keep chilled at 0–4°C',
-        68,
-        footerY
-      );
+      ctx.fillText('Thank you for supporting Zebda & Co. (زبدة وشركاه) • Keep chilled at 0–4°C', 68, footerY);
       ctx.fillStyle = '#7A1C1C';
       ctx.font = 'bold 15px "Plus Jakarta Sans", sans-serif';
-      ctx.fillText(
-        'Track your order ID or view your points anytime at Zebda & Co.',
-        68,
-        footerY + 30
-      );
+      ctx.fillText('Track your order ID or view your points anytime at Zebda & Co.', 68, footerY + 30);
 
       return canvas.toDataURL('image/png');
     }
@@ -3277,27 +2700,20 @@
       const data = state.currentOrderData;
       if (!data) return;
       const dataUrl = renderReceiptCanvas(data);
-      if (state.orderReady) {
-        saveOrderRecord(data, dataUrl);
-      }
+      if (state.orderReady) saveOrderRecord(data, dataUrl);
       const link = document.createElement('a');
-      link.download = 'zebda-and-co-receipt-' + data.orderRef + '.png';
+      link.download = `zebda-and-co-receipt-${data.orderRef}.png`;
       link.href = dataUrl;
       link.click();
     }
 
-    /* Help Modal Functions */
+    /* Help Modal */
     function openHelpModal() {
       resetHelpModal();
-      const modal = document.getElementById('help-modal');
-      modal.classList.remove('hidden');
-      modal.classList.add('flex');
+      toggleModal('help-modal', true);
     }
     function closeHelpModal() {
-      const modal = document.getElementById('help-modal');
-      modal.classList.add('hidden');
-      modal.classList.remove('flex');
-      hideKeyboardBar();
+      toggleModal('help-modal', false);
     }
     function clearAttachedPhoto() {
       state.photoMeta = null;
@@ -3305,28 +2721,24 @@
         const el = document.getElementById(id);
         if (el) el.value = '';
       });
-      const container = document.getElementById('photo-preview-container');
+      document.getElementById('photo-preview-container')?.classList.add('hidden');
       const img = document.getElementById('photo-preview-img');
-      if (container) container.classList.add('hidden');
       if (img) img.src = '';
       updateEscalationLink();
     }
     function triggerPhotoChoice(inputId) {
-      const input = document.getElementById(inputId);
-      if (input) input.click();
+      document.getElementById(inputId)?.click();
     }
     function handlePhotoSelected(inputEl, methodLabel) {
-      const file = inputEl && inputEl.files && inputEl.files[0];
+      const file = inputEl?.files?.[0];
       if (!file) return;
       state.photoMeta = { name: file.name, method: methodLabel };
-      const container = document.getElementById('photo-preview-container');
-      const labelEl = document.getElementById('photo-selected-label');
+      document.getElementById('photo-selected-label').textContent = `${methodLabel} — ${file.name}`;
       const imgEl = document.getElementById('photo-preview-img');
-      if (labelEl) labelEl.textContent = methodLabel + ' — ' + file.name;
-      if (file.type && file.type.startsWith('image/')) {
+      if (file.type?.startsWith('image/')) {
         const reader = new FileReader();
-        reader.onload = function (e) {
-          if (imgEl && e.target && e.target.result) {
+        reader.onload = (e) => {
+          if (e.target?.result && imgEl) {
             imgEl.src = e.target.result;
             imgEl.classList.remove('hidden');
           }
@@ -3335,7 +2747,7 @@
       } else if (imgEl) {
         imgEl.classList.add('hidden');
       }
-      if (container) container.classList.remove('hidden');
+      document.getElementById('photo-preview-container')?.classList.remove('hidden');
       updateEscalationLink();
     }
     function resetHelpModal() {
@@ -3366,20 +2778,14 @@
       document.getElementById('custom-problem-input').value = '';
       document.getElementById('gate-confirm-checkbox').checked = false;
       clearAttachedPhoto();
-      if (cat.forceEscalation) {
-        document.getElementById('routine-fix-controls').classList.add('hidden');
-        document.getElementById('escalation-details-box').classList.remove('hidden');
-      } else {
-        document.getElementById('routine-fix-controls').classList.remove('hidden');
-        document.getElementById('escalation-details-box').classList.add('hidden');
-      }
+      document.getElementById('routine-fix-controls').classList.toggle('hidden', cat.forceEscalation);
+      document.getElementById('escalation-details-box').classList.toggle('hidden', !cat.forceEscalation);
       handleSpecificProblemChange();
     }
     function handleSpecificProblemChange() {
       const cat = PROBLEM_CATEGORIES[state.activeCategoryKey];
-      const selectEl = document.getElementById('specific-problem-select');
-      const idx = Number(selectEl.value || 0);
-      const item = cat && cat.problems[idx] ? cat.problems[idx] : null;
+      const idx = Number(document.getElementById('specific-problem-select').value || 0);
+      const item = cat?.problems[idx];
       if (item) document.getElementById('self-check-tip-box').innerHTML = item.tip;
       updateEscalationLink();
     }
@@ -3394,36 +2800,34 @@
     }
     function updateEscalationLink() {
       const cat = PROBLEM_CATEGORIES[state.activeCategoryKey];
-      const selectEl = document.getElementById('specific-problem-select');
-      const idx = Number(selectEl.value || 0);
-      const specificTitle =
-        cat && cat.problems[idx] ? cat.problems[idx].title : 'General Issue';
+      const idx = Number(document.getElementById('specific-problem-select')?.value || 0);
+      const specificTitle = cat?.problems[idx]?.title || 'General Issue';
       const customText = document.getElementById('custom-problem-input').value.trim();
       const checked = document.getElementById('gate-confirm-checkbox').checked;
       const btn = document.getElementById('instant-send-whatsapp-btn');
       const copyBtn = document.getElementById('copy-issue-text-btn');
       const hint = document.getElementById('escalation-status-hint');
-      const ready = checked && customText.length >= 10;
-      if (ready) {
+
+      if (checked && customText.length >= 10) {
         const customerEmail = document.getElementById('customer-email').value.trim();
         const customerName = document.getElementById('customer-name').value.trim();
         const photoLine = state.photoMeta
-          ? 'Photo Selected: ' + state.photoMeta.name + ' (' + state.photoMeta.method + ' — attach in chat)'
+          ? `Photo Selected: ${state.photoMeta.name} (${state.photoMeta.method} — attach in chat)`
           : 'Photo Selected: None';
         const msg = [
-          'Zebda & Co. (زبدة وشركاه) — Problem / Feedback Alert [' + state.orderRef + ']',
+          `Zebda & Co. (زبدة وشركاه) — Problem / Feedback Alert [${state.orderRef}]`,
           '----------------------------------------------------------------',
-          'Main Type: ' + (cat ? cat.label : state.activeCategoryKey),
-          'Specific Problem: ' + specificTitle,
-          'Details / Other Problem: ' + customText,
+          `Main Type: ${cat ? cat.label : state.activeCategoryKey}`,
+          `Specific Problem: ${specificTitle}`,
+          `Details / Other Problem: ${customText}`,
           photoLine,
-          customerEmail ? 'Customer Email: ' + customerEmail : '',
-          customerName ? 'Customer Name: ' + customerName : '',
+          customerEmail ? `Customer Email: ${customerEmail}` : '',
+          customerName ? `Customer Name: ${customerName}` : '',
         ]
           .filter(Boolean)
           .join('\n');
         state.latestIssueMessage = msg;
-        btn.href = 'https://wa.me/' + WHATSAPP_PHONE_DIGITS + '?text=' + encodeURIComponent(msg);
+        btn.href = `https://wa.me/${WHATSAPP_DIGITS}?text=${encodeURIComponent(msg)}`;
         btn.classList.remove('hidden');
         copyBtn.classList.remove('hidden');
         hint.classList.add('hidden');
@@ -3437,23 +2841,20 @@
     function copyIssueSummary() {
       logIssueToAdmin();
       if (!state.latestIssueMessage) return;
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(state.latestIssueMessage).then(() => {
-          const btn = document.getElementById('copy-issue-text-btn');
-          if (btn) btn.textContent = 'Saved to Admin & Copied!';
-        });
-      }
+      copyTextWithFeedback(state.latestIssueMessage, document.getElementById('copy-issue-text-btn'));
+      const btn = document.getElementById('copy-issue-text-btn');
+      if (btn) btn.textContent = 'Saved to Admin & Copied!';
     }
 
     window.addEventListener('storage', (e) => {
-      if (e.key === ADMIN_STORE_KEY) {
+      if (e.key === STORE_KEY) {
         applyOutOfStockStateToMenu();
         handlePhoneInputChange();
         updateOrderUI();
       }
     });
 
-    // Fresh session initialization on every page load/reopen
+    renderStaticMenuCards();
     loadActiveLoyaltyReward();
     handleCityChange();
     applyOutOfStockStateToMenu();
