@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ZEBDA &amp; CO. (زبدة وشركاه) — Customer Chat &amp; Order Concierge</title>
+  <title>ZEBDA &amp; CO. (زبدة وشركاه) — Concierge Chat, InstaShop &amp; Receipts</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -33,19 +33,42 @@
     .arabic-text {
       font-family: 'Cairo', sans-serif;
     }
+    @keyframes pulseDot {
+      0%, 80%, 100% { transform: scale(0.6); opacity: 0.4; }
+      40% { transform: scale(1); opacity: 1; }
+    }
+    .typing-dot {
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      border-radius: 9999px;
+      background-color: #7A1C1C;
+      animation: pulseDot 1.2s infinite ease-in-out;
+    }
+    .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+    .typing-dot:nth-child(3) { animation-delay: 0.4s; }
   </style>
 </head>
 <body class="min-h-screen flex flex-col antialiased selection:bg-[#C59B43]/30 selection:text-[#1E1916]">
   <!-- Top Bar -->
   <header class="w-full bg-[#1E1916] text-[#F7F3EA] border-b border-[#C59B43]/50">
-    <div class="max-w-5xl mx-auto px-4 sm:px-6 py-3 flex flex-wrap items-center justify-between gap-2 text-xs sm:text-sm">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-3 flex flex-wrap items-center justify-between gap-2 text-xs sm:text-sm">
       <div class="flex items-center gap-2.5">
         <span class="font-serif text-2xl font-bold text-[#F7F3EA]">ZEBDA &amp; CO.</span>
         <span class="px-2.5 py-0.5 rounded-full bg-[#C59B43] text-[#1E1916] text-[11px] font-bold uppercase">
-          Live Chat Concierge
+          Concierge &amp; InstaShop
         </span>
       </div>
+
       <nav class="flex flex-wrap items-center gap-2">
+        <button
+          id="lang-toggle-btn"
+          type="button"
+          onclick="toggleLanguage()"
+          class="px-3 py-1.5 rounded-xl bg-[#C59B43] text-[#1E1916] text-xs font-bold hover:brightness-105 transition cursor-pointer"
+        >
+          العربية (AR)
+        </button>
         <a
           href="index.html"
           class="px-3.5 py-1.5 rounded-xl bg-[#1E4620] text-[#F7F3EA] text-xs font-bold hover:opacity-95 transition"
@@ -62,27 +85,28 @@
           href="https://wa.me/201041870087"
           target="_blank"
           rel="noopener noreferrer"
-          class="px-3 py-1.5 rounded-xl bg-[#C59B43] text-[#1E1916] text-xs font-bold hover:brightness-105 transition"
+          class="px-3 py-1.5 rounded-xl bg-[#262523] border border-[#C59B43]/40 text-[#F7F3EA] text-xs font-bold hover:bg-[#33312e] transition"
         >
-          WhatsApp Direct
+          WhatsApp
         </a>
       </nav>
     </div>
   </header>
 
-  <main class="flex-1 max-w-5xl w-full mx-auto px-4 sm:px-6 py-6 sm:py-8 grid grid-cols-1 lg:grid-cols-12 gap-6">
-    <!-- Left Column: Quick Order / Phone Lookup & Escalation -->
+  <main class="flex-1 max-w-6xl w-full mx-auto px-4 sm:px-6 py-6 grid grid-cols-1 lg:grid-cols-12 gap-6">
+    <!-- Left Column: Live Lookup, Email Receipt Sender & Structured Admin Ticket -->
     <aside class="lg:col-span-4 space-y-5">
+      <!-- Live Order / Phone Lookup + Email Receipt Dispatch -->
       <div class="bg-[#EFE9DA] border-2 border-[#C59B43] rounded-2xl p-5 space-y-4 shadow-sm">
         <div>
           <span class="text-[11px] uppercase tracking-[0.18em] text-[#7A1C1C] font-bold block">
-            Instant Status Check
+            Live Status &amp; Email Receipt
           </span>
-          <h2 class="font-serif text-2xl font-bold text-[#1E1916]">
+          <h2 id="ui-lookup-title" class="font-serif text-2xl font-bold text-[#1E1916]">
             Track Order or Phone ID
           </h2>
           <p class="text-xs text-[#1E1916]/75 mt-1">
-            Look up your order reference (e.g. <code>ZBD-...</code>) or mobile number to pull live status into chat.
+            Look up an Order Ref (<code>ZBD-...</code>) or mobile number to view 3-stage delivery, reorder, or email your receipt.
           </p>
         </div>
 
@@ -99,28 +123,77 @@
             onclick="runOrderOrPhoneLookup()"
             class="w-full py-2.5 px-4 rounded-xl bg-[#1E4620] text-[#F7F3EA] font-bold text-xs hover:opacity-95 transition cursor-pointer"
           >
-            Check Status in Chat
+            Check Live Status
           </button>
         </div>
 
-        <div id="lookup-result-card" class="hidden rounded-xl bg-[#F7F3EA] border border-[#1E1916]/15 p-3.5 text-xs space-y-2"></div>
+        <div id="lookup-result-card" class="hidden rounded-xl bg-[#F7F3EA] border border-[#1E1916]/15 p-3.5 text-xs space-y-3"></div>
+
+        <!-- Email Receipt Sender Box -->
+        <div class="pt-3 border-t border-[#1E1916]/15 space-y-2">
+          <label for="receipt-email-input" class="block text-[11px] uppercase tracking-wider font-bold text-[#1E4620]">
+            Send Receipt to Customer Email
+          </label>
+          <input
+            id="receipt-email-input"
+            type="email"
+            placeholder="customer@example.com"
+            class="w-full rounded-xl bg-[#F7F3EA] border border-[#1E1916]/25 px-3 py-2 text-xs text-[#1E1916]"
+          />
+          <button
+            type="button"
+            onclick="sendReceiptViaEmail()"
+            class="w-full py-2 px-3 rounded-xl bg-[#C59B43] text-[#1E1916] font-bold text-xs hover:brightness-105 transition cursor-pointer"
+          >
+            Email Receipt (Mailto + Log)
+          </button>
+          <p id="receipt-email-status" class="text-[11px] font-bold text-[#1E4620] min-h-[1rem]"></p>
+        </div>
       </div>
 
+      <!-- Structured Ticket & Escalation to Admin -->
       <div class="bg-[#1E1916] text-[#F7F3EA] border border-[#C59B43]/50 rounded-2xl p-5 space-y-3">
         <span class="text-[11px] uppercase tracking-widest text-[#E8C97B] font-bold block arabic-text">
-          تواصل مباشر • Human Team Escalation
+          تذكرة دعم للإدارة • Structured Admin Ticket
         </span>
-        <h3 class="font-serif text-xl font-bold">Need a Human or Logged Ticket?</h3>
-        <p class="text-xs text-[#F7F3EA]/80 leading-relaxed">
-          Any message you flag as a support ticket or question is saved to the Admin Portal log so nothing slips through.
-        </p>
+        <h3 class="font-serif text-xl font-bold">Send Note or Issue to Admin</h3>
+
+        <div class="space-y-2 text-xs">
+          <select
+            id="ticket-category-select"
+            class="w-full rounded-xl bg-[#262523] border border-[#C59B43]/40 px-3 py-2 text-[#F7F3EA] font-semibold"
+          >
+            <option value="General Inquiry">General Inquiry</option>
+            <option value="Order & Delivery">Order &amp; 3-Stage Delivery</option>
+            <option value="Payment & Screenshot">Payment / InstaPay Screenshot</option>
+            <option value="Loyalty & 10k Flavor">Loyalty Points / 10,000-Pt Flavor</option>
+            <option value="Allergy / Ingredient">Allergy or Ingredient Question</option>
+            <option value="Issue / Complaint">Reported Issue</option>
+          </select>
+
+          <input
+            id="ticket-phone-input"
+            type="tel"
+            placeholder="Your Mobile Phone ID (optional)"
+            class="w-full rounded-xl bg-[#262523] border border-[#C59B43]/40 px-3 py-2 text-[#F7F3EA] placeholder:text-[#F7F3EA]/45"
+          />
+
+          <input
+            id="ticket-gift-note"
+            type="text"
+            placeholder="Optional gift / occasion note..."
+            class="w-full rounded-xl bg-[#262523] border border-[#C59B43]/40 px-3 py-2 text-[#F7F3EA] placeholder:text-[#F7F3EA]/45"
+          />
+        </div>
+
         <button
           type="button"
-          onclick="logCurrentThreadToAdmin()"
+          onclick="logStructuredTicketToAdmin()"
           class="w-full py-2.5 px-3.5 rounded-xl bg-[#C59B43] text-[#1E1916] font-bold text-xs hover:brightness-105 transition cursor-pointer"
         >
-          Send Chat Note to Admin Portal
+          Log Ticket to Admin Portal
         </button>
+
         <a
           id="wa-handoff-link"
           href="https://wa.me/201041870087"
@@ -134,71 +207,192 @@
       </div>
     </aside>
 
-    <!-- Right Column: Main Chat Window -->
-    <section class="lg:col-span-8 bg-[#EFE9DA] border-2 border-[#C59B43] rounded-2xl flex flex-col overflow-hidden shadow-sm min-h-[540px]">
-      <!-- Chat Header -->
-      <div class="bg-[#1E1916] text-[#F7F3EA] px-5 py-4 flex items-center justify-between gap-3 border-b border-[#C59B43]/40">
-        <div>
-          <h1 class="font-serif text-2xl sm:text-3xl font-bold leading-none">
-            Zebda Concierge Chat
-          </h1>
-          <p class="text-[11px] text-[#E8C97B] mt-1">
-            Orders, 3-Stage Delivery, InstaPay + COD, Free Samples &amp; Points
-          </p>
+    <!-- Right Column: Main Concierge Chat + InstaShop Quick-Order Drawer -->
+    <section class="lg:col-span-8 space-y-5">
+      <!-- Chat Window -->
+      <div class="bg-[#EFE9DA] border-2 border-[#C59B43] rounded-2xl flex flex-col overflow-hidden shadow-sm min-h-[500px]">
+        <div class="bg-[#1E1916] text-[#F7F3EA] px-5 py-4 flex flex-wrap items-center justify-between gap-3 border-b border-[#C59B43]/40">
+          <div>
+            <h1 id="ui-chat-header" class="font-serif text-2xl sm:text-3xl font-bold leading-none">
+              Zebda Concierge Chat
+            </h1>
+            <p class="text-[11px] text-[#E8C97B] mt-1">
+              Live Orders • Points &amp; 3-Month Expiration • Flavor Pairings • Allergy Check • Email Receipts
+            </p>
+          </div>
+          <div class="flex items-center gap-2">
+            <button
+              type="button"
+              onclick="copyChatTranscript()"
+              class="px-3 py-1.5 rounded-xl bg-[#262523] border border-[#C59B43]/40 text-[11px] font-bold text-[#E8C97B] hover:bg-[#33312e] cursor-pointer"
+            >
+              Copy Transcript
+            </button>
+            <button
+              type="button"
+              onclick="resetChatThread()"
+              class="px-3 py-1.5 rounded-xl bg-[#262523] border border-[#F7F3EA]/20 text-[11px] font-bold text-[#F7F3EA]/85 hover:text-white cursor-pointer"
+            >
+              Clear Chat
+            </button>
+          </div>
         </div>
-        <button
-          type="button"
-          onclick="resetChatThread()"
-          class="px-3 py-1.5 rounded-xl bg-[#262523] border border-[#F7F3EA]/20 text-[11px] font-bold text-[#F7F3EA]/85 hover:text-white cursor-pointer"
+
+        <!-- Quick Prompt Chips -->
+        <div class="px-4 sm:px-5 py-3 bg-[#F7F3EA]/85 border-b border-[#1E1916]/12 flex flex-wrap gap-1.5">
+          <button type="button" onclick="sendQuickPrompt('What flavors and prices do you have?')" class="px-2.5 py-1 rounded-full bg-[#EFE9DA] border border-[#1E1916]/20 text-[11px] font-bold hover:border-[#1E4620] cursor-pointer">
+            Flavors &amp; Prices
+          </button>
+          <button type="button" onclick="sendQuickPrompt('What pairs best with steak, sourdough, or eggs?')" class="px-2.5 py-1 rounded-full bg-[#EFE9DA] border border-[#1E1916]/20 text-[11px] font-bold hover:border-[#1E4620] cursor-pointer">
+            Pairing Ideas
+          </button>
+          <button type="button" onclick="sendQuickPrompt('Do your butters contain garlic, chili, or dairy/allergy notes?')" class="px-2.5 py-1 rounded-full bg-[#EFE9DA] border border-[#1E1916]/20 text-[11px] font-bold hover:border-[#1E4620] cursor-pointer">
+            Allergy &amp; Ingredients
+          </button>
+          <button type="button" onclick="sendQuickPrompt('How do loyalty points, 3-month expiry, and the 10,000-pt flavor work?')" class="px-2.5 py-1 rounded-full bg-[#EFE9DA] border border-[#1E1916]/20 text-[11px] font-bold hover:border-[#1E4620] cursor-pointer">
+            Points &amp; 10k Flavor
+          </button>
+          <button type="button" onclick="sendQuickPrompt('How do free tasting samples and chilled delivery work?')" class="px-2.5 py-1 rounded-full bg-[#EFE9DA] border border-[#1E1916]/20 text-[11px] font-bold hover:border-[#1E4620] cursor-pointer">
+            Samples &amp; Delivery
+          </button>
+          <button type="button" onclick="sendQuickPrompt('منيو واسعار ونقاطي')" class="px-2.5 py-1 rounded-full bg-[#EFE9DA] border border-[#1E1916]/20 text-[11px] font-bold arabic-text hover:border-[#1E4620] cursor-pointer">
+            منيو / نقاطي
+          </button>
+        </div>
+
+        <!-- Messages Stream -->
+        <div id="chat-messages" class="flex-1 p-4 sm:p-5 space-y-3.5 overflow-y-auto max-h-[380px]"></div>
+
+        <!-- Typing Indicator -->
+        <div id="typing-indicator" class="hidden px-5 pb-2 flex items-center gap-2 text-xs text-[#1E1916]/75">
+          <span class="typing-dot"></span>
+          <span class="typing-dot"></span>
+          <span class="typing-dot"></span>
+          <span class="font-semibold">Zebda Concierge is typing...</span>
+        </div>
+
+        <!-- Photo Preview Strip (if attached) -->
+        <div id="chat-attachment-preview" class="hidden px-4 sm:px-5 py-2 bg-[#EFE9DA] border-t border-[#1E1916]/12 flex items-center justify-between gap-3 text-xs">
+          <div class="flex items-center gap-2.5 min-w-0">
+            <img id="chat-attachment-thumb" src="" alt="Attached preview" class="w-10 h-10 rounded-lg object-cover border border-[#1E1916]/20" />
+            <span id="chat-attachment-name" class="font-semibold text-[#1E1916] truncate"></span>
+          </div>
+          <button
+            type="button"
+            onclick="clearChatAttachment()"
+            class="px-2.5 py-1 rounded-lg bg-[#7A1C1C] text-[#F7F3EA] text-[11px] font-bold cursor-pointer shrink-0"
+          >
+            Remove
+          </button>
+        </div>
+
+        <!-- Composer -->
+        <form
+          onsubmit="event.preventDefault(); handleChatSubmit();"
+          class="p-3.5 sm:p-4 bg-[#F7F3EA] border-t border-[#1E1916]/15 flex items-center gap-2"
         >
-          Clear Chat
-        </button>
+          <label
+            title="Attach screenshot or photo"
+            class="px-3 py-2.5 rounded-xl bg-[#EFE9DA] border border-[#1E1916]/25 text-xs font-bold text-[#1E1916] hover:border-[#1E4620] cursor-pointer shrink-0"
+          >
+            Photo
+            <input
+              id="chat-photo-input"
+              type="file"
+              accept="image/*"
+              onchange="handleChatPhotoSelect(event)"
+              class="hidden"
+            />
+          </label>
+          <input
+            id="chat-input"
+            type="text"
+            autocomplete="off"
+            placeholder="Ask a question, paste Order Ref (ZBD-...), phone, or what you're cooking..."
+            class="flex-1 rounded-xl bg-white border border-[#1E1916]/25 px-4 py-2.5 text-xs sm:text-sm text-[#1E1916] focus:outline-none focus:border-[#1E4620]"
+          />
+          <button
+            type="submit"
+            class="px-5 py-2.5 rounded-xl bg-[#1E4620] text-[#F7F3EA] font-bold text-xs sm:text-sm hover:opacity-95 transition cursor-pointer shrink-0"
+          >
+            Send
+          </button>
+        </form>
       </div>
 
-      <!-- Quick Prompt Chips -->
-      <div class="px-4 sm:px-5 py-3 bg-[#F7F3EA]/80 border-b border-[#1E1916]/12 flex flex-wrap gap-1.5">
-        <button type="button" onclick="sendQuickPrompt('What flavors and prices do you have?')" class="px-2.5 py-1 rounded-full bg-[#EFE9DA] border border-[#1E1916]/20 text-[11px] font-bold hover:border-[#1E4620] cursor-pointer">
-          Flavors &amp; Prices
-        </button>
-        <button type="button" onclick="sendQuickPrompt('How do delivery stages and payment verification work?')" class="px-2.5 py-1 rounded-full bg-[#EFE9DA] border border-[#1E1916]/20 text-[11px] font-bold hover:border-[#1E4620] cursor-pointer">
-          Delivery &amp; Payment
-        </button>
-        <button type="button" onclick="sendQuickPrompt('How do loyalty points and the 10,000-pt custom flavor work?')" class="px-2.5 py-1 rounded-full bg-[#EFE9DA] border border-[#1E1916]/20 text-[11px] font-bold hover:border-[#1E4620] cursor-pointer">
-          Points &amp; VIP Flavor
-        </button>
-        <button type="button" onclick="sendQuickPrompt('How do free tasting samples work?')" class="px-2.5 py-1 rounded-full bg-[#EFE9DA] border border-[#1E1916]/20 text-[11px] font-bold hover:border-[#1E4620] cursor-pointer">
-          Free Samples
-        </button>
-      </div>
+      <!-- InstaShop Quick-Order Drawer Inside Chat -->
+      <section class="bg-[#EFE9DA] border-2 border-[#C59B43] rounded-2xl p-5 sm:p-6 space-y-4 shadow-sm">
+        <div class="flex flex-wrap items-center justify-between gap-2 border-b border-[#1E1916]/15 pb-3">
+          <div>
+            <span class="text-[11px] uppercase tracking-[0.2em] text-[#1E4620] font-bold block arabic-text">
+              إنستا شوب سريع • InstaShop Quick-Order in Chat
+            </span>
+            <h2 class="font-serif text-2xl sm:text-3xl font-bold text-[#1E1916]">
+              Quick-Add Tins &amp; Quartet Box
+            </h2>
+          </div>
+          <span id="instashop-points-preview" class="px-3 py-1 rounded-full bg-[#1E1916] text-[#E8C97B] text-xs font-bold">
+            Est. Points: +0 pts
+          </span>
+        </div>
 
-      <!-- Messages Stream -->
-      <div id="chat-messages" class="flex-1 p-4 sm:p-5 space-y-3.5 overflow-y-auto max-h-[420px]"></div>
+        <div id="instashop-items-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3"></div>
 
-      <!-- Composer -->
-      <form
-        onsubmit="event.preventDefault(); handleChatSubmit();"
-        class="p-3.5 sm:p-4 bg-[#F7F3EA] border-t border-[#1E1916]/15 flex items-center gap-2"
-      >
-        <input
-          id="chat-input"
-          type="text"
-          autocomplete="off"
-          placeholder="Ask a question, paste an order ID (ZBD-...), or type a note..."
-          class="flex-1 rounded-xl bg-white border border-[#1E1916]/25 px-4 py-2.5 text-xs sm:text-sm text-[#1E1916] focus:outline-none focus:border-[#1E4620]"
-        />
-        <button
-          type="submit"
-          class="px-5 py-2.5 rounded-xl bg-[#1E4620] text-[#F7F3EA] font-bold text-xs sm:text-sm hover:opacity-95 transition cursor-pointer shrink-0"
-        >
-          Send
-        </button>
-      </form>
+        <!-- Live InstaShop Summary Bar -->
+        <div class="rounded-2xl bg-[#1E1916] text-[#F7F3EA] p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div class="space-y-0.5 text-xs">
+            <span class="text-[#E8C97B] font-bold uppercase tracking-wider block">
+              InstaShop Chat Bag (<span id="instashop-total-qty">0</span> items)
+            </span>
+            <p class="font-serif text-2xl font-bold">
+              Subtotal: <span id="instashop-subtotal">0</span> EGP
+            </p>
+            <p class="text-[#F7F3EA]/75 text-[11px]">
+              Keep compound butter chilled (2–4°C) • Free sample perk applies on qualifying orders
+            </p>
+          </div>
+
+          <div class="flex flex-wrap items-center gap-2">
+            <button
+              type="button"
+              onclick="postInstaShopBagToChat()"
+              class="px-4 py-2.5 rounded-xl bg-[#C59B43] text-[#1E1916] font-bold text-xs hover:brightness-105 transition cursor-pointer"
+            >
+              Send Bag to Chat &amp; Email Draft
+            </button>
+            <a
+              id="instashop-wa-btn"
+              href="https://wa.me/201041870087"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="px-4 py-2.5 rounded-xl bg-[#1E4620] text-[#F7F3EA] font-bold text-xs hover:opacity-95 transition"
+            >
+              Order via WhatsApp
+            </a>
+          </div>
+        </div>
+      </section>
     </section>
   </main>
 
   <script>
     const ADMIN_STORE_KEY = 'zebda_and_co_admin_sync_v1';
     const WHATSAPP_PHONE_DIGITS = '201041870087';
+
+    const BASE_MENU_ITEMS = [
+      { key: 'garlic', name: 'Roasted Garlic & Herb', ar: 'ثوم محمص وأعشاب', price: 145, tags: ['garlic', 'steak', 'bread'] },
+      { key: 'chili', name: 'Hot Honey & Chili Crunch', ar: 'عسل حار وفلفل مقرمش', price: 155, tags: ['chili', 'spicy', 'chicken'] },
+      { key: 'tomato', name: 'Sundried Tomato, Basil & Parmesan', ar: 'طماطم وريحان وبارميزان', price: 165, tags: ['tomato', 'pasta', 'eggs'] },
+      { key: 'truffle', name: 'Black Truffle & Sea Salt', ar: 'كمأة سوداء وملح بحري', price: 185, tags: ['truffle', 'steak', 'eggs'] },
+      { key: 'quartet', name: '4-Flavor Quartet Box', ar: 'بوكس التذوق (4 نكهات)', price: 560, tags: ['gift', 'all'] },
+    ];
+
+    let currentLang = 'en';
+    let lastLookedUpOrder = null;
+    let lastLookedUpPhone = '';
+    let attachedPhotoDataUrl = '';
+    let attachedPhotoName = '';
+    const instaShopBag = {};
 
     function escapeHtml(str) {
       return String(str || '')
@@ -252,6 +446,35 @@
       return 'Not started yet';
     }
 
+    function getCatalogItems() {
+      const store = readStore();
+      const publishedVip = (store.customMenuFlavors || [])
+        .filter((f) => f.published)
+        .map((f) => ({
+          key: 'vip_' + f.id,
+          name: f.flavorName + ' (VIP 250g)',
+          ar: f.flavorName,
+          price: Number(f.price || 175),
+          tags: ['vip'],
+        }));
+      return [...BASE_MENU_ITEMS, ...publishedVip];
+    }
+
+    function toggleLanguage() {
+      currentLang = currentLang === 'en' ? 'ar' : 'en';
+      const isAr = currentLang === 'ar';
+      document.documentElement.dir = isAr ? 'rtl' : 'ltr';
+      document.documentElement.lang = isAr ? 'ar' : 'en';
+      document.getElementById('lang-toggle-btn').textContent = isAr ? 'English (EN)' : 'العربية (AR)';
+      document.getElementById('ui-chat-header').textContent = isAr
+        ? 'مساعد زبدة وشركاه المباشر'
+        : 'Zebda Concierge Chat';
+      document.getElementById('ui-lookup-title').textContent = isAr
+        ? 'تتبع الطلب أو رقم الموبايل'
+        : 'Track Order or Phone ID';
+      renderInstaShopGrid();
+    }
+
     function appendMessage(sender, text) {
       const box = document.getElementById('chat-messages');
       if (!box) return;
@@ -276,14 +499,25 @@
       box.appendChild(wrapper);
       box.scrollTop = box.scrollHeight;
 
-      const waLink = document.getElementById('wa-handoff-link');
-      if (waLink && isUser) {
-        waLink.href =
-          'https://wa.me/' +
-          WHATSAPP_PHONE_DIGITS +
-          '?text=' +
-          encodeURIComponent('Zebda & Co. Chat Question:\n' + text);
+      if (isUser) {
+        const waLink = document.getElementById('wa-handoff-link');
+        if (waLink) {
+          waLink.href =
+            'https://wa.me/' +
+            WHATSAPP_PHONE_DIGITS +
+            '?text=' +
+            encodeURIComponent('Zebda & Co. Chat:\n' + text);
+        }
       }
+    }
+
+    function replyWithTyping(replyText) {
+      const typingEl = document.getElementById('typing-indicator');
+      if (typingEl) typingEl.classList.remove('hidden');
+      setTimeout(() => {
+        if (typingEl) typingEl.classList.add('hidden');
+        appendMessage('bot', replyText);
+      }, 360);
     }
 
     function generateAssistantReply(userText) {
@@ -291,133 +525,244 @@
       const raw = userText.trim();
       const lower = raw.toLowerCase();
 
-      // Check if user pasted an order reference like ZBD-...
+      // 1. Order Reference lookup
       const refMatch = raw.match(/ZBD-[A-Z0-9-]+/i);
       if (refMatch) {
         const ref = refMatch[0].toUpperCase();
         const found = store.orders.find((o) => String(o.orderRef || '').toUpperCase() === ref);
         if (found) {
+          lastLookedUpOrder = found;
+          if (found.customerPhone) lastLookedUpPhone = normalizePhone(found.customerPhone);
           const stage = found.deliveryStage || mapLegacyStatusToStage(found.status);
-          const verifiedText = found.paymentVerified ? 'Verified (Points Active)' : 'Pending Verification';
           return (
             'Order ' +
             found.orderRef +
             ' (' +
             (found.customerName || 'Customer') +
             '):\n' +
-            '• Delivery Stage: ' +
+            '• Stage: ' +
             stage +
-            '\n' +
+            ' (1. Not started yet → 2. Out for delivery → 3. Delivered)\n' +
             '• Payment: ' +
-            verifiedText +
-            ' | Total: ' +
+            (found.paymentVerified ? 'Verified (Points Active)' : 'Pending Verification') +
+            ' • Total: ' +
             found.grandTotal +
             ' EGP\n' +
-            '• Points Earned: +' +
+            '• Points: +' +
             Number(found.pointsEarned || 0) +
-            ' pts'
+            ' pts • Chilled delivery care included'
           );
         }
-        return (
-          'I could not find order ' +
-          ref +
-          ' in local browser storage yet. If you just placed it on another device or browser, you can also check with our team on WhatsApp (+201041870087).'
-        );
+        return 'Order ' + ref + ' was not found in this browser yet. You can also check via WhatsApp (+201041870087).';
       }
 
-      // Check if user entered an Egyptian phone number
+      // 2. Phone ID lookup & reward milestone calculation
       const digits = normalizePhone(raw);
       if (digits.length >= 10 && !lower.includes('price') && !lower.includes('flavor')) {
+        lastLookedUpPhone = digits;
         const matches = store.orders.filter((o) => normalizePhone(o.customerPhone) === digits);
         if (matches.length > 0) {
-          const latest = matches[0];
-          const stage = latest.deliveryStage || mapLegacyStatusToStage(latest.status);
+          lastLookedUpOrder = matches[0];
+          const totalPts = matches.reduce((sum, o) => sum + Number(o.pointsEarned || 0), 0);
+          const milestones = [500, 1200, 2500, 5000, 10000];
+          const nextM = milestones.find((m) => totalPts < m);
+          const nextLine = nextM
+            ? 'Next reward milestone at ' + nextM + ' pts (' + (nextM - totalPts) + ' pts away).'
+            : 'You reached 10,000+ pts—VIP Custom 250g Flavor unlocked!';
           return (
             'Found ' +
             matches.length +
-            ' order(s) under ' +
+            ' order(s) for ' +
             digits +
-            '.\nLatest Order (' +
-            latest.orderRef +
-            '): Stage is "' +
-            stage +
-            '" for ' +
-            latest.grandTotal +
-            ' EGP.\nOpen My Points to see your full balance and redeem rewards.'
+            '.\n• Latest Order: ' +
+            matches[0].orderRef +
+            ' ("' +
+            (matches[0].deliveryStage || mapLegacyStatusToStage(matches[0].status)) +
+            '")\n• Points Logged Across Orders: ' +
+            totalPts +
+            ' pts (3-month rolling window)\n• ' +
+            nextLine
           );
         }
       }
 
-      if (lower.includes('flavor') || lower.includes('price') || lower.includes('menu') || lower.includes('quartet')) {
-        const oosNames = Object.entries(store.outOfStock || {})
-          .filter(([, v]) => Boolean(v))
-          .map(([k]) => k);
-        const publishedCustom = (store.customMenuFlavors || []).filter((f) => f.published);
-        let msg =
-          'Our signature menu:\n' +
-          '• Roasted Garlic & Herb — 145 EGP\n' +
-          '• Hot Honey & Chili Crunch — 155 EGP\n' +
-          '• Sundried Tomato, Basil & Parmesan — 165 EGP\n' +
-          '• Black Truffle & Sea Salt — 185 EGP\n' +
-          '• 4-Flavor Quartet Box — 560 EGP';
-        if (publishedCustom.length > 0) {
-          msg +=
-            '\n• VIP Custom Flavors: ' +
-            publishedCustom.map((f) => f.flavorName + ' (' + f.price + ' EGP)').join(', ');
-        }
-        if (oosNames.length > 0) {
-          msg += '\n(Currently marked out of stock: ' + oosNames.join(', ') + ')';
-        }
-        return msg;
-      }
-
-      if (lower.includes('deliver') || lower.includes('stage') || lower.includes('pay') || lower.includes('instapay') || lower.includes('cod')) {
+      // 3. Follow-up using remembered order
+      if (
+        lastLookedUpOrder &&
+        (lower.includes('verified') || lower.includes('status') || lower.includes('stage') || lower.includes('when'))
+      ) {
+        const stage = lastLookedUpOrder.deliveryStage || mapLegacyStatusToStage(lastLookedUpOrder.status);
         return (
-          'Orders move through 3 clear delivery stages:\n' +
-          '1. Not started yet\n' +
-          '2. Out for delivery\n' +
-          '3. Delivered\n' +
-          'Once payment is verified in the Admin Portal, your points become active and your order progresses to fulfillment.'
+          'For your last checked order ' +
+          lastLookedUpOrder.orderRef +
+          ': Delivery stage is "' +
+          stage +
+          '" and payment is ' +
+          (lastLookedUpOrder.paymentVerified ? 'Verified.' : 'awaiting verification.')
         );
       }
 
-      if (lower.includes('point') || lower.includes('reward') || lower.includes('vip') || lower.includes('10,000') || lower.includes('10000') || lower.includes('expire')) {
+      // 4. Pairing / recipe matcher
+      if (
+        lower.includes('steak') ||
+        lower.includes('sourdough') ||
+        lower.includes('egg') ||
+        lower.includes('pasta') ||
+        lower.includes('pair') ||
+        lower.includes('cook') ||
+        lower.includes('recipe')
+      ) {
         return (
-          'You earn 1 point per 1 EGP spent, valid on a rolling 3-month (90-day) window:\n' +
+          'Flavor Pairing Guide:\n' +
+          '• Steak, Roast & Eggs: Black Truffle & Sea Salt (185 EGP) or Roasted Garlic & Herb (145 EGP) melted right on top.\n' +
+          '• Sourdough & Toast: Roasted Garlic & Herb (145 EGP) or Hot Honey & Chili Crunch (155 EGP).\n' +
+          '• Pasta & Savory Bakes: Sundried Tomato, Basil & Parmesan (165 EGP).'
+        );
+      }
+
+      // 5. Allergy & ingredient info
+      if (
+        lower.includes('allerg') ||
+        lower.includes('ingredient') ||
+        lower.includes('dairy') ||
+        lower.includes('garlic') ||
+        lower.includes('chili') ||
+        lower.includes('spicy')
+      ) {
+        return (
+          'Ingredients & Allergy Notes:\n' +
+          '• All compound butters are dairy-based and best kept refrigerated (2–4°C).\n' +
+          '• Specific flavors contain garlic/herbs, chili/honey heat, tomato/basil/parmesan, or black truffle & sea salt.\n' +
+          '• Have a strict allergy? Use "Log Ticket to Admin" on the left so our kitchen team can confirm batch details.'
+        );
+      }
+
+      // 6. Menu, prices & out-of-stock alternatives
+      if (
+        lower.includes('flavor') ||
+        lower.includes('price') ||
+        lower.includes('menu') ||
+        lower.includes('منيو') ||
+        lower.includes('اسعار') ||
+        lower.includes('أسعار')
+      ) {
+        const oosMap = store.outOfStock || {};
+        const lines = BASE_MENU_ITEMS.map((item) => {
+          const isOos = Boolean(oosMap[item.key]);
+          return (
+            '• ' +
+            item.name +
+            ' (' +
+            item.ar +
+            ') — ' +
+            item.price +
+            ' EGP' +
+            (isOos ? ' [Out of Stock — try Quartet or another flavor]' : '')
+          );
+        });
+        return 'Zebda & Co. Menu:\n' + lines.join('\n');
+      }
+
+      // 7. Points, 3-month expiration & 10,000-pt custom flavor
+      if (
+        lower.includes('point') ||
+        lower.includes('reward') ||
+        lower.includes('10,000') ||
+        lower.includes('10000') ||
+        lower.includes('vip') ||
+        lower.includes('expire') ||
+        lower.includes('month') ||
+        lower.includes('نقاط')
+      ) {
+        return (
+          'Loyalty Program (1 EGP = 1 Point • 3-Month Rolling Validity):\n' +
           '• 500 pts: Free Delivery\n' +
           '• 1,200 pts: Free Mini Tasting Jar\n' +
           '• 2,500 pts: 50% Off Order\n' +
           '• 5,000 pts: 70% Off Order\n' +
-          '• 10,000 pts: Create your own 250g custom flavor & get it featured on the menu!'
+          '• 10,000 pts: Create your own 250g custom butter flavor & feature it on the menu!'
         );
       }
 
-      if (lower.includes('sample') || lower.includes('free')) {
+      // 8. Free samples & chilled delivery
+      if (
+        lower.includes('sample') ||
+        lower.includes('free') ||
+        lower.includes('deliver') ||
+        lower.includes('توصيل') ||
+        lower.includes('اوردر')
+      ) {
         return (
-          'Orders that qualify for the free sample perk let you pick a complimentary tasting sample right during checkout on the Order Menu.'
+          'Delivery & Samples:\n' +
+          '• Qualifying orders unlock a complimentary tasting sample right during checkout.\n' +
+          '• Orders move through 3 stages: Not started yet → Out for delivery → Delivered.\n' +
+          '• Store compound butter in the fridge and bring to room temp for 10–15 mins before spreading.'
         );
       }
 
-      return (
-        'Thanks for reaching out! You can paste an Order Reference (like ZBD-...) or phone number to check live status, ask about flavors/delivery/points, or click "Send Chat Note to Admin Portal" on the left to log this message for review.'
-      );
+      return currentLang === 'ar'
+        ? 'أهلاً بك في زبدة وشركاه! يمكنك كتابة رقم الطلب أو رقم الموبايل لمعرفة الحالة، أو إضافة أصناف من إنستا شوب بالأسفل، أو إرسال ملاحظة للإدارة.'
+        : 'Welcome to Zebda & Co.! Paste an Order Ref or phone number to track status, add items in the InstaShop drawer below, ask about pairings/allergies/points, or send a note to the Admin Portal.';
     }
 
     function handleChatSubmit() {
       const input = document.getElementById('chat-input');
       if (!input) return;
       const text = input.value.trim();
-      if (!text) return;
+      if (!text && !attachedPhotoDataUrl) return;
+
+      const composedUserText = attachedPhotoName
+        ? (text || 'Attached screenshot/photo') + ' [Photo: ' + attachedPhotoName + ']'
+        : text;
+
       input.value = '';
-      appendMessage('user', text);
-      const reply = generateAssistantReply(text);
-      setTimeout(() => appendMessage('bot', reply), 120);
+      appendMessage('user', composedUserText);
+
+      if (attachedPhotoDataUrl) {
+        const store = readStore();
+        store.issues = Array.isArray(store.issues) ? store.issues : [];
+        store.issues.unshift({
+          id: 'CHAT-IMG-' + Date.now(),
+          category: 'Payment & Screenshot',
+          specificProblem: 'Chat Photo / Screenshot Upload',
+          details: text || 'Customer shared photo in Concierge Chat.',
+          orderRef: lastLookedUpOrder ? lastLookedUpOrder.orderRef : 'N/A',
+          photoName: attachedPhotoName,
+          createdAt: new Date().toLocaleString(),
+        });
+        writeStore(store);
+        clearChatAttachment();
+      }
+
+      replyWithTyping(generateAssistantReply(text || 'photo'));
     }
 
     function sendQuickPrompt(promptText) {
       appendMessage('user', promptText);
-      const reply = generateAssistantReply(promptText);
-      setTimeout(() => appendMessage('bot', reply), 120);
+      replyWithTyping(generateAssistantReply(promptText));
+    }
+
+    function handleChatPhotoSelect(event) {
+      const file = event.target?.files?.[0];
+      if (!file) return;
+      attachedPhotoName = file.name;
+      const reader = new FileReader();
+      reader.onload = () => {
+        attachedPhotoDataUrl = String(reader.result || '');
+        document.getElementById('chat-attachment-thumb').src = attachedPhotoDataUrl;
+        document.getElementById('chat-attachment-name').textContent = attachedPhotoName;
+        document.getElementById('chat-attachment-preview').classList.remove('hidden');
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function clearChatAttachment() {
+      attachedPhotoDataUrl = '';
+      attachedPhotoName = '';
+      const fileInput = document.getElementById('chat-photo-input');
+      if (fileInput) fileInput.value = '';
+      const prev = document.getElementById('chat-attachment-preview');
+      if (prev) prev.classList.add('hidden');
     }
 
     function runOrderOrPhoneLookup() {
@@ -436,14 +781,24 @@
 
       card.classList.remove('hidden');
       if (!order) {
+        lastLookedUpOrder = null;
         card.innerHTML =
-          '<p class="font-bold text-[#7A1C1C]">No matching order found for "' +
+          '<p class="font-bold text-[#7A1C1C]">No order found for "' +
           escapeHtml(raw) +
           '".</p>';
         return;
       }
 
+      lastLookedUpOrder = order;
+      if (order.customerPhone) lastLookedUpPhone = normalizePhone(order.customerPhone);
+      if (order.customerEmail) {
+        const emailInp = document.getElementById('receipt-email-input');
+        if (emailInp && !emailInp.value) emailInp.value = order.customerEmail;
+      }
+
       const stage = order.deliveryStage || mapLegacyStatusToStage(order.status);
+      const stageIdx = stage === 'Delivered' ? 2 : stage === 'Out for delivery' ? 1 : 0;
+
       card.innerHTML =
         '<div class="flex items-center justify-between gap-2">' +
         '<span class="font-bold text-[#1E4620]">' +
@@ -453,51 +808,322 @@
         escapeHtml(stage) +
         '</span>' +
         '</div>' +
+        '<div class="grid grid-cols-3 gap-1">' +
+        [0, 1, 2]
+          .map(
+            (i) =>
+              '<div class="h-2 rounded-full ' +
+              (i <= stageIdx ? 'bg-[#1E4620]' : 'bg-[#1E1916]/15') +
+              '"></div>'
+          )
+          .join('') +
+        '</div>' +
         '<p class="font-bold text-[#1E1916]">' +
         escapeHtml(order.customerName || 'Customer') +
         ' • ' +
         escapeHtml(order.grandTotal) +
         ' EGP</p>' +
-        '<p class="text-[#1E1916]/75">' +
-        escapeHtml(order.city || '') +
-        (order.customerPhone ? ' • ' + escapeHtml(order.customerPhone) : '') +
-        '</p>';
+        '<div class="flex flex-wrap gap-1.5 pt-1">' +
+        '<button type="button" onclick="reorderFromLookup()" class="px-2.5 py-1 rounded-lg bg-[#1E4620] text-[#F7F3EA] text-[11px] font-bold cursor-pointer">One-Tap Reorder</button>' +
+        '<button type="button" onclick="sendReceiptViaEmail()" class="px-2.5 py-1 rounded-lg bg-[#C59B43] text-[#1E1916] text-[11px] font-bold cursor-pointer">Email Receipt</button>' +
+        '</div>';
 
       appendMessage('user', 'Check status for ' + raw);
-      appendMessage('bot', generateAssistantReply(raw));
+      replyWithTyping(generateAssistantReply(raw));
     }
 
-    function logCurrentThreadToAdmin() {
-      const box = document.getElementById('chat-messages');
-      const statusEl = document.getElementById('admin-ticket-status');
-      if (!box) return;
+    function reorderFromLookup() {
+      if (!lastLookedUpOrder) return;
+      const itemsSummary = (lastLookedUpOrder.receiptItems || [])
+        .map((it) => it.label + ' (' + it.amount + ')')
+        .join(', ');
+      const reorderText =
+        'Reorder Request based on ' +
+        lastLookedUpOrder.orderRef +
+        ': ' +
+        (itemsSummary || lastLookedUpOrder.grandTotal + ' EGP');
+      appendMessage('user', reorderText);
 
-      const userBubbles = Array.from(box.querySelectorAll('.justify-end > div'));
-      const lastUserMsg =
-        userBubbles.length > 0
-          ? userBubbles[userBubbles.length - 1].textContent.trim()
-          : 'Customer opened chat concierge and requested a follow-up.';
-
-      const lookupVal = (document.getElementById('lookup-query-input')?.value || '').trim();
       const store = readStore();
       store.issues = Array.isArray(store.issues) ? store.issues : [];
       store.issues.unshift({
-        id: 'CHAT-' + Date.now(),
-        category: 'Chat Concierge',
-        specificProblem: 'Customer Chat Follow-Up',
-        details: lastUserMsg,
-        orderRef: lookupVal || 'N/A',
+        id: 'REORDER-' + Date.now(),
+        category: 'Order & Delivery',
+        specificProblem: 'One-Tap Reorder Request',
+        details: reorderText,
+        orderRef: lastLookedUpOrder.orderRef,
+        photoName: 'None',
+        createdAt: new Date().toLocaleString(),
+      });
+      writeStore(store);
+
+      const waLink = document.getElementById('wa-handoff-link');
+      if (waLink) {
+        waLink.href =
+          'https://wa.me/' + WHATSAPP_PHONE_DIGITS + '?text=' + encodeURIComponent(reorderText);
+      }
+
+      replyWithTyping(
+        'Reorder logged for ' +
+          lastLookedUpOrder.orderRef +
+          '! Your request is now visible in the Admin Portal and ready to send via WhatsApp.'
+      );
+    }
+
+    function buildReceiptEmailBody() {
+      if (lastLookedUpOrder) {
+        const itemsLines = (lastLookedUpOrder.receiptItems || [])
+          .map((it) => ' - ' + it.label + ': ' + it.amount)
+          .join('\n');
+        return [
+          'ZEBDA & CO. (زبدة وشركاه) — OFFICIAL ORDER RECEIPT',
+          'Order Reference: ' + lastLookedUpOrder.orderRef,
+          'Date: ' + (lastLookedUpOrder.createdAt || new Date().toLocaleString()),
+          'Customer: ' + (lastLookedUpOrder.customerName || 'Valued Guest'),
+          'Phone ID: ' + (lastLookedUpOrder.customerPhone || 'N/A'),
+          'Delivery: ' + (lastLookedUpOrder.subareaLabel || lastLookedUpOrder.city || '') + ' — ' + (lastLookedUpOrder.addressDetail || ''),
+          'Stage: ' + (lastLookedUpOrder.deliveryStage || mapLegacyStatusToStage(lastLookedUpOrder.status)),
+          'Items:',
+          itemsLines || ' - Compound Butter Order',
+          'Grand Total: ' + lastLookedUpOrder.grandTotal + ' EGP',
+          'InstaPay Paid/Due Now: ' + lastLookedUpOrder.instaPayDueNow + ' EGP | COD: ' + lastLookedUpOrder.codRemaining + ' EGP',
+          'Loyalty Points Earned: +' + Number(lastLookedUpOrder.pointsEarned || 0) + ' pts (1 EGP = 1 pt, 3-month validity)',
+          'Thank you for choosing Zebda & Co.!',
+        ].join('\n');
+      }
+
+      const catalog = getCatalogItems();
+      const bagLines = Object.entries(instaShopBag)
+        .filter(([, q]) => q > 0)
+        .map(([k, q]) => {
+          const item = catalog.find((c) => c.key === k);
+          return item ? ' - ' + item.name + ' × ' + q + ' (' + item.price * q + ' EGP)' : '';
+        })
+        .filter(Boolean);
+
+      return [
+        'ZEBDA & CO. (زبدة وشركاه) — INSTASHOP QUOTE / RECEIPT DRAFT',
+        'Date: ' + new Date().toLocaleString(),
+        bagLines.length > 0 ? 'Selected Items:\n' + bagLines.join('\n') : 'No items selected yet.',
+        'Estimated Points (1 EGP = 1 pt): +' + getInstaShopSubtotal() + ' pts',
+      ].join('\n');
+    }
+
+    function sendReceiptViaEmail() {
+      const emailInput = document.getElementById('receipt-email-input');
+      const statusEl = document.getElementById('receipt-email-status');
+      const toEmail = (emailInput?.value || '').trim();
+      if (!toEmail || !toEmail.includes('@')) {
+        if (statusEl) statusEl.textContent = 'Please enter a valid customer email address.';
+        return;
+      }
+
+      const subject = lastLookedUpOrder
+        ? 'Zebda & Co. Receipt — ' + lastLookedUpOrder.orderRef
+        : 'Zebda & Co. Order / Quote Receipt';
+      const body = buildReceiptEmailBody();
+
+      // Log receipt email dispatch in shared store for admin visibility
+      const store = readStore();
+      store.issues = Array.isArray(store.issues) ? store.issues : [];
+      store.issues.unshift({
+        id: 'EMAIL-RCPT-' + Date.now(),
+        category: 'Order & Delivery',
+        specificProblem: 'Customer Email Receipt Sent (' + toEmail + ')',
+        details: body,
+        orderRef: lastLookedUpOrder ? lastLookedUpOrder.orderRef : 'INSTASHOP-DRAFT',
         photoName: 'None',
         createdAt: new Date().toLocaleString(),
       });
       writeStore(store);
 
       if (statusEl) {
-        statusEl.textContent = 'Sent to Admin Portal (' + new Date().toLocaleTimeString() + ')';
+        statusEl.textContent = 'Receipt prepared & logged for ' + toEmail + '!';
       }
-      appendMessage(
-        'bot',
-        'I have logged your note to the Admin Portal under Reported Issues & Feedback so our team can review it.'
+
+      const mailtoUrl =
+        'mailto:' +
+        encodeURIComponent(toEmail) +
+        '?subject=' +
+        encodeURIComponent(subject) +
+        '&body=' +
+        encodeURIComponent(body);
+      window.location.href = mailtoUrl;
+    }
+
+    function logStructuredTicketToAdmin() {
+      const box = document.getElementById('chat-messages');
+      const cat = document.getElementById('ticket-category-select')?.value || 'General Inquiry';
+      const phone = normalizePhone(document.getElementById('ticket-phone-input')?.value || lastLookedUpPhone);
+      const giftNote = (document.getElementById('ticket-gift-note')?.value || '').trim();
+      const statusEl = document.getElementById('admin-ticket-status');
+
+      const userBubbles = box ? Array.from(box.querySelectorAll('.justify-end > div')) : [];
+      const lastMsg =
+        userBubbles.length > 0
+          ? userBubbles[userBubbles.length - 1].textContent.trim()
+          : 'Customer submitted a ticket from Concierge Chat.';
+
+      const details = [
+        lastMsg,
+        phone ? 'Phone ID: ' + phone : '',
+        giftNote ? 'Gift/Occasion Note: ' + giftNote : '',
+      ]
+        .filter(Boolean)
+        .join(' | ');
+
+      const store = readStore();
+      store.issues = Array.isArray(store.issues) ? store.issues : [];
+      store.issues.unshift({
+        id: 'TKT-' + Date.now(),
+        category: cat,
+        specificProblem: 'Concierge Chat Ticket',
+        details,
+        orderRef: lastLookedUpOrder ? lastLookedUpOrder.orderRef : 'N/A',
+        photoName: attachedPhotoName || 'None',
+        createdAt: new Date().toLocaleString(),
+      });
+      writeStore(store);
+
+      if (statusEl) {
+        statusEl.textContent = 'Logged to Admin Portal (' + new Date().toLocaleTimeString() + ')';
+      }
+      replyWithTyping(
+        'Your ticket under "' + cat + '" has been saved to the Admin Portal so our team can follow up.'
+      );
+    }
+
+    function copyChatTranscript() {
+      const box = document.getElementById('chat-messages');
+      if (!box) return;
+      const lines = Array.from(box.children).map((row) => {
+        const isUser = row.classList.contains('justify-end');
+        const txt = row.innerText.replace(/^ZEBDA CONCIERGE\s*/i, '').trim();
+        return (isUser ? 'Customer: ' : 'Zebda Concierge: ') + txt;
+      });
+      navigator.clipboard?.writeText(lines.join('\n\n'));
+      appendMessage('bot', 'Chat transcript copied to your clipboard!');
+    }
+
+    /* InstaShop Quick-Order Inside Chat */
+    function renderInstaShopGrid() {
+      const store = readStore();
+      const oosMap = store.outOfStock || {};
+      const catalog = getCatalogItems();
+      const grid = document.getElementById('instashop-items-grid');
+      if (!grid) return;
+
+      grid.innerHTML = catalog
+        .map((item) => {
+          const qty = instaShopBag[item.key] || 0;
+          const isOos = Boolean(oosMap[item.key]);
+          return (
+            '<div class="rounded-xl bg-[#F7F3EA] border ' +
+            (isOos ? 'border-[#7A1C1C]/50 opacity-75' : 'border-[#1E1916]/15') +
+            ' p-3.5 flex flex-col justify-between gap-2.5">' +
+            '<div>' +
+            '<span class="arabic-text text-[11px] font-bold text-[#7A1C1C] block">' +
+            escapeHtml(item.ar) +
+            '</span>' +
+            '<h3 class="font-serif text-lg font-bold text-[#1E1916] leading-snug">' +
+            escapeHtml(item.name) +
+            '</h3>' +
+            '<span class="text-xs font-bold text-[#1E4620]">' +
+            item.price +
+            ' EGP</span>' +
+            '</div>' +
+            (isOos
+              ? '<span class="text-[11px] font-bold text-[#7A1C1C]">Out of Stock</span>'
+              : '<div class="flex items-center justify-between gap-2 pt-1">' +
+                '<button type="button" onclick="adjustInstaShopQty(\'' +
+                escapeHtml(item.key) +
+                '\', -1)" class="w-8 h-8 rounded-lg bg-[#EFE9DA] border border-[#1E1916]/25 font-bold text-sm cursor-pointer">−</button>' +
+                '<span class="font-bold text-sm">' +
+                qty +
+                '</span>' +
+                '<button type="button" onclick="adjustInstaShopQty(\'' +
+                escapeHtml(item.key) +
+                '\', 1)" class="w-8 h-8 rounded-lg bg-[#1E4620] text-[#F7F3EA] font-bold text-sm cursor-pointer">+</button>' +
+                '</div>') +
+            '</div>'
+          );
+        })
+        .join('');
+
+      updateInstaShopSummary();
+    }
+
+    function adjustInstaShopQty(key, delta) {
+      const next = Math.max(0, (instaShopBag[key] || 0) + delta);
+      instaShopBag[key] = next;
+      renderInstaShopGrid();
+    }
+
+    function getInstaShopSubtotal() {
+      const catalog = getCatalogItems();
+      return Object.entries(instaShopBag).reduce((sum, [k, q]) => {
+        const found = catalog.find((c) => c.key === k);
+        return sum + (found ? found.price * q : 0);
+      }, 0);
+    }
+
+    function updateInstaShopSummary() {
+      const totalQty = Object.values(instaShopBag).reduce((a, b) => a + b, 0);
+      const subtotal = getInstaShopSubtotal();
+      document.getElementById('instashop-total-qty').textContent = totalQty;
+      document.getElementById('instashop-subtotal').textContent = subtotal;
+      document.getElementById('instashop-points-preview').textContent = 'Est. Points: +' + subtotal + ' pts';
+
+      const catalog = getCatalogItems();
+      const summaryLines = Object.entries(instaShopBag)
+        .filter(([, q]) => q > 0)
+        .map(([k, q]) => {
+          const item = catalog.find((c) => c.key === k);
+          return item ? item.name + ' × ' + q + ' (' + item.price * q + ' EGP)' : '';
+        })
+        .filter(Boolean);
+
+      const giftNote = (document.getElementById('ticket-gift-note')?.value || '').trim();
+      const waText =
+        'Zebda & Co. InstaShop Order:\n' +
+        (summaryLines.length > 0 ? summaryLines.join('\n') : 'Browse & Order') +
+        '\nSubtotal: ' +
+        subtotal +
+        ' EGP (+' +
+        subtotal +
+        ' pts)' +
+        (giftNote ? '\nGift/Note: ' + giftNote : '');
+
+      const waBtn = document.getElementById('instashop-wa-btn');
+      if (waBtn) {
+        waBtn.href = 'https://wa.me/' + WHATSAPP_PHONE_DIGITS + '?text=' + encodeURIComponent(waText);
+      }
+    }
+
+    function postInstaShopBagToChat() {
+      const subtotal = getInstaShopSubtotal();
+      const totalQty = Object.values(instaShopBag).reduce((a, b) => a + b, 0);
+      if (totalQty === 0) {
+        replyWithTyping('Add at least 1 item in the InstaShop quick-order grid first!');
+        return;
+      }
+      const catalog = getCatalogItems();
+      const lines = Object.entries(instaShopBag)
+        .filter(([, q]) => q > 0)
+        .map(([k, q]) => {
+          const item = catalog.find((c) => c.key === k);
+          return '• ' + item.name + ' × ' + q + ' = ' + item.price * q + ' EGP';
+        });
+
+      appendMessage('user', 'InstaShop Bag (' + totalQty + ' items, ' + subtotal + ' EGP)');
+      replyWithTyping(
+        'Your InstaShop bag summary:\n' +
+          lines.join('\n') +
+          '\nSubtotal: ' +
+          subtotal +
+          ' EGP (+' +
+          subtotal +
+          ' loyalty pts).\nEnter your email on the left to send this receipt/quote draft or click "Order via WhatsApp"!'
       );
     }
 
@@ -507,11 +1133,34 @@
       box.innerHTML = '';
       appendMessage(
         'bot',
-        'Marhaban! Welcome to Zebda & Co. Ask about our compound butters, check an order reference or phone number, or log a note straight to the Admin Portal.'
+        'Marhaban! Welcome to Zebda & Co. Ask about flavors, food pairings, ingredients/allergies, loyalty points (1 EGP = 1 pt, 3-month window), check an order/phone ID, build an InstaShop bag below, or send your receipt by email.'
       );
     }
 
+    window.addEventListener('storage', (e) => {
+      if (e.key === ADMIN_STORE_KEY) {
+        renderInstaShopGrid();
+        if (lastLookedUpOrder) {
+          const updated = readStore().orders.find((o) => o.orderRef === lastLookedUpOrder.orderRef);
+          if (updated) {
+            lastLookedUpOrder = updated;
+            appendMessage(
+              'bot',
+              'Live Update: Order ' +
+                updated.orderRef +
+                ' is now "' +
+                (updated.deliveryStage || mapLegacyStatusToStage(updated.status)) +
+                '" (Payment Verified: ' +
+                (updated.paymentVerified ? 'Yes' : 'No') +
+                ').'
+            );
+          }
+        }
+      }
+    });
+
     resetChatThread();
+    renderInstaShopGrid();
   </script>
 </body>
 </html>
