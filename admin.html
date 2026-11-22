@@ -97,7 +97,7 @@
         <input
           id="admin-passcode"
           type="password"
-          onkeydown="if(event.key==='Enter') unlockAdmin()"
+          onkeydown="if (event.key === 'Enter') unlockAdmin()"
           placeholder="Enter passcode..."
           class="w-full rounded-xl bg-[#F7F3EA] border border-[#1E1916]/25 px-4 py-2.5 text-sm font-semibold text-[#1E1916]"
         />
@@ -115,7 +115,7 @@
     </div>
   </section>
 
-  <!-- Main Admin Dashboard -->
+  <!-- Main Dashboard -->
   <main id="admin-dashboard" class="hidden max-w-6xl mx-auto px-4 sm:px-6 pt-8 space-y-8">
     <div class="flex flex-wrap items-end justify-between gap-4 bg-[#EFE9DA] border border-[#1E1916]/15 rounded-2xl p-6">
       <div>
@@ -180,7 +180,7 @@
       </div>
     </div>
 
-    <!-- Item Sales Tally & Out-of-Stock Toggle -->
+    <!-- Item Sales Tally & Stock Toggle -->
     <section class="bg-[#EFE9DA] border-2 border-[#C59B43]/70 rounded-2xl p-6 space-y-4">
       <div class="flex flex-wrap items-center justify-between gap-3 border-b border-[#1E1916]/12 pb-3">
         <div>
@@ -210,7 +210,7 @@
       </div>
     </section>
 
-    <!-- All Orders, Full Customer Details, 3-Stage Delivery Control & Manual InstaPay Verification -->
+    <!-- Orders & Verification -->
     <section class="space-y-4">
       <div class="flex flex-wrap items-center justify-between gap-2">
         <div>
@@ -232,7 +232,7 @@
       <div id="orders-container" class="space-y-4"></div>
     </section>
 
-    <!-- Customer Loyalty Directory (By Phone Number ID) -->
+    <!-- Loyalty Directory -->
     <section class="bg-[#EFE9DA] border-2 border-[#C59B43]/70 rounded-2xl p-6 space-y-4">
       <div class="flex flex-wrap items-center justify-between gap-3 border-b border-[#1E1916]/12 pb-3">
         <div>
@@ -254,7 +254,7 @@
       <div id="loyalty-directory-container" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
     </section>
 
-    <!-- VIP 10,000-Point Custom Flavors (Publish Directly to index.html Menu!) -->
+    <!-- VIP Flavors -->
     <section class="bg-[#1E1916] text-[#F7F3EA] border-2 border-[#C59B43] rounded-2xl p-6 space-y-4">
       <div class="border-b border-[#C59B43]/30 pb-3">
         <span class="text-[11px] uppercase tracking-widest font-bold text-[#E8C97B] block">
@@ -267,7 +267,7 @@
       <div id="vip-flavors-admin-container" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
     </section>
 
-    <!-- Customer Flavor Ideas (From Blurred R&D Cards) -->
+    <!-- Flavor Ideas -->
     <section class="space-y-4">
       <h2 class="font-serif text-2xl sm:text-3xl font-bold text-[#1E1916]">
         Customer Flavor Ideas (From Blurred R&amp;D Cards)
@@ -275,7 +275,7 @@
       <div id="ideas-container" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
     </section>
 
-    <!-- Reported Issues / Feedback -->
+    <!-- Reported Issues -->
     <section class="space-y-4">
       <h2 class="font-serif text-2xl sm:text-3xl font-bold text-[#1E1916]">
         Reported Issues &amp; Feedback
@@ -283,7 +283,7 @@
       <div id="issues-container" class="space-y-3"></div>
     </section>
 
-    <!-- n8n Audit & Review Connector -->
+    <!-- n8n Connector -->
     <section class="bg-[#1E1916] text-[#F7F3EA] border-2 border-[#C59B43] rounded-2xl p-6 space-y-4">
       <div class="flex flex-wrap items-center justify-between gap-3 border-b border-[#C59B43]/30 pb-3">
         <div>
@@ -344,10 +344,10 @@
 
   <script>
     const ADMIN_PASSCODE = 'ZEBDA2026';
-    const ADMIN_STORE_KEY = 'zebda_and_co_admin_sync_v1';
+    const STORE_KEY = 'zebda_and_co_admin_sync_v1';
     const AUTH_SESSION_KEY = 'zebda_admin_unlocked_v1';
     const NINETY_DAYS_MS = 90 * 24 * 60 * 60 * 1000;
-    const WHATSAPP_PHONE_DIGITS = '201041870087';
+    const WHATSAPP_DIGITS = '201041870087';
 
     const TALLY_ITEMS = [
       { key: 'garlic', name: 'Roasted Garlic & Herb', ar: 'ثوم محمص وأعشاب', price: 145 },
@@ -357,6 +357,14 @@
       { key: 'quartet', name: '4-Flavor Quartet Box', ar: 'بوكس التذوق (4 نكهات)', price: 560 },
     ];
 
+    function escapeHtml(str) {
+      return String(str || '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    }
+
     function normalizePhone(raw) {
       let digits = String(raw || '').replace(/\D/g, '');
       if (digits.startsWith('20') && digits.length === 12) {
@@ -365,9 +373,15 @@
       return digits;
     }
 
+    function mapLegacyStatusToStage(status) {
+      if (status === 'Delivered') return 'Delivered';
+      if (status === 'Verified & Whipping' || status === 'Out for delivery') return 'Out for delivery';
+      return 'Not started yet';
+    }
+
     function readStore() {
       try {
-        const raw = localStorage.getItem(ADMIN_STORE_KEY);
+        const raw = localStorage.getItem(STORE_KEY);
         const parsed = raw ? JSON.parse(raw) : {};
         return {
           orders: Array.isArray(parsed.orders) ? parsed.orders : [],
@@ -379,7 +393,7 @@
           n8nConfig: parsed.n8nConfig && typeof parsed.n8nConfig === 'object' ? parsed.n8nConfig : {},
           n8nLastAudit: parsed.n8nLastAudit || null,
         };
-      } catch (e) {
+      } catch {
         return {
           orders: [],
           flavorIdeas: [],
@@ -394,72 +408,55 @@
     }
 
     function writeStore(data) {
-      localStorage.setItem(ADMIN_STORE_KEY, JSON.stringify(data));
+      localStorage.setItem(STORE_KEY, JSON.stringify(data));
     }
 
-    function mapLegacyStatusToStage(status) {
-      if (status === 'Delivered') return 'Delivered';
-      if (status === 'Verified & Whipping' || status === 'Out for delivery') return 'Out for delivery';
-      return 'Not started yet';
-    }
-
-    function escapeHtml(str) {
-      return String(str || '')
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;');
+    function waUrl(lines) {
+      return `https://wa.me/${WHATSAPP_DIGITS}?text=${encodeURIComponent(lines.filter(Boolean).join('\n'))}`;
     }
 
     function buildWhatsAppOrderRecordUrl(order) {
       const stage = order.deliveryStage || mapLegacyStatusToStage(order.status);
-      const itemsText = (order.receiptItems || [])
-        .map((i) => '• ' + i.label + ' (' + i.amount + ')')
-        .join('\n');
-      const msg = [
+      const itemsText = (order.receiptItems || []).map((i) => `• ${i.label} (${i.amount})`).join('\n');
+      return waUrl([
         'ZEBDA & CO. (زبدة وشركاه) — WhatsApp Record',
-        'Order Ref: ' + (order.orderRef || 'N/A'),
-        'Date: ' + (order.createdAt || new Date().toLocaleString()),
-        'Customer: ' + (order.customerName || 'Customer'),
-        'Phone ID: ' + (order.customerPhone || 'N/A'),
-        'Email: ' + (order.customerEmail || 'N/A'),
-        'Area & Address: ' + (order.subareaLabel || order.city || '') + ' — ' + (order.addressDetail || ''),
-        'InstaPay Confirmed: ' + (order.paymentVerified ? 'YES (Manual Confirmed)' : 'PENDING MANUAL CONFIRMATION'),
-        'Delivery Stage: ' + stage,
-        'Grand Total: ' + order.grandTotal + ' EGP (InstaPay: ' + order.instaPayDueNow + ' EGP | COD: ' + order.codRemaining + ' EGP)',
-        'Points Earned: +' + Number(order.pointsEarned || 0) + ' pts',
-        'Screenshot Attached: ' + (order.paymentScreenshotName || (order.paymentScreenshotDataUrl ? 'Yes' : 'No')),
-        itemsText ? 'Items:\n' + itemsText : '',
-      ]
-        .filter(Boolean)
-        .join('\n');
-      return 'https://wa.me/' + WHATSAPP_PHONE_DIGITS + '?text=' + encodeURIComponent(msg);
+        `Order Ref: ${order.orderRef || 'N/A'}`,
+        `Date: ${order.createdAt || new Date().toLocaleString()}`,
+        `Customer: ${order.customerName || 'Customer'}`,
+        `Phone ID: ${order.customerPhone || 'N/A'}`,
+        `Email: ${order.customerEmail || 'N/A'}`,
+        `Area & Address: ${order.subareaLabel || order.city || ''} — ${order.addressDetail || ''}`,
+        `InstaPay Confirmed: ${order.paymentVerified ? 'YES (Manual Confirmed)' : 'PENDING MANUAL CONFIRMATION'}`,
+        `Delivery Stage: ${stage}`,
+        `Grand Total: ${order.grandTotal} EGP (InstaPay: ${order.instaPayDueNow} EGP | COD: ${order.codRemaining} EGP)`,
+        `Points Earned: +${Number(order.pointsEarned || 0)} pts`,
+        `Screenshot Attached: ${order.paymentScreenshotName || (order.paymentScreenshotDataUrl ? 'Yes' : 'No')}`,
+        itemsText ? `Items:\n${itemsText}` : '',
+      ]);
     }
 
     function buildWhatsAppMemberRecordUrl(member, activePts) {
-      const msg = [
+      return waUrl([
         'ZEBDA & CO. (زبدة وشركاه) — Customer Loyalty Record',
-        'Customer: ' + member.name,
-        'Phone ID: ' + member.phoneId,
-        'Orders Count: ' + member.orderCount,
-        'Total Spend: ' + member.totalSpend + ' EGP',
-        'Active Points: ' + activePts + ' pts',
-        'Pending Points: +' + member.pendingPoints + ' pts',
-      ].join('\n');
-      return 'https://wa.me/' + WHATSAPP_PHONE_DIGITS + '?text=' + encodeURIComponent(msg);
+        `Customer: ${member.name}`,
+        `Phone ID: ${member.phoneId}`,
+        `Orders Count: ${member.orderCount}`,
+        `Total Spend: ${member.totalSpend} EGP`,
+        `Active Points: ${activePts} pts`,
+        `Pending Points: +${member.pendingPoints} pts`,
+      ]);
     }
 
     function buildWhatsAppIssueRecordUrl(issue) {
-      const msg = [
+      return waUrl([
         'ZEBDA & CO. (زبدة وشركاه) — Issue / Dispute Record',
-        'ID: ' + issue.id,
-        'Category: ' + issue.category + ' — ' + issue.specificProblem,
-        'Order Ref: ' + (issue.orderRef || 'N/A'),
-        'Date: ' + (issue.createdAt || ''),
-        'Details: ' + (issue.details || ''),
-        'Photo: ' + (issue.photoName || 'None'),
-      ].join('\n');
-      return 'https://wa.me/' + WHATSAPP_PHONE_DIGITS + '?text=' + encodeURIComponent(msg);
+        `ID: ${issue.id}`,
+        `Category: ${issue.category} — ${issue.specificProblem}`,
+        `Order Ref: ${issue.orderRef || 'N/A'}`,
+        `Date: ${issue.createdAt || ''}`,
+        `Details: ${issue.details || ''}`,
+        `Photo: ${issue.photoName || 'None'}`,
+      ]);
     }
 
     function updateFullWhatsAppArchiveLink() {
@@ -468,32 +465,18 @@
       if (!btn) return;
       const summaryLines = store.orders.slice(0, 8).map((o) => {
         const st = o.deliveryStage || mapLegacyStatusToStage(o.status);
-        return (
-          '• ' +
-          o.orderRef +
-          ' | ' +
-          (o.customerName || 'Guest') +
-          ' | ' +
-          (o.customerPhone || 'No Phone') +
-          ' | ' +
-          o.grandTotal +
-          ' EGP | InstaPay:' +
-          (o.paymentVerified ? 'CONFIRMED' : 'PENDING') +
-          ' | ' +
-          st
-        );
+        return `• ${o.orderRef} | ${o.customerName || 'Guest'} | ${o.customerPhone || 'No Phone'} | ${o.grandTotal} EGP | InstaPay:${o.paymentVerified ? 'CONFIRMED' : 'PENDING'} | ${st}`;
       });
-      const text = [
-        'ZEBDA & CO. FULL ADMIN SNAPSHOT (' + store.orders.length + ' orders, ' + store.issues.length + ' issues)',
-        summaryLines.length > 0 ? summaryLines.join('\n') : 'No orders yet.',
-      ].join('\n');
-      btn.href = 'https://wa.me/' + WHATSAPP_PHONE_DIGITS + '?text=' + encodeURIComponent(text);
+      btn.href = waUrl([
+        `ZEBDA & CO. FULL ADMIN SNAPSHOT (${store.orders.length} orders, ${store.issues.length} issues)`,
+        summaryLines.length ? summaryLines.join('\n') : 'No orders yet.',
+      ]);
     }
 
     function unlockAdmin() {
       const input = document.getElementById('admin-passcode');
       const err = document.getElementById('auth-error');
-      if (input && input.value.trim() === ADMIN_PASSCODE) {
+      if (input?.value.trim() === ADMIN_PASSCODE) {
         sessionStorage.setItem(AUTH_SESSION_KEY, '1');
         err.classList.add('hidden');
         showDashboard();
@@ -518,18 +501,13 @@
       renderAllAdminSections();
     }
 
-    /* Strict Manual InstaPay Confirmation + 3-Option Delivery Stage Control */
     function updateDeliveryStage(orderRef, newStage) {
       const store = readStore();
       const target = store.orders.find((o) => o.orderRef === orderRef);
       if (!target) return;
 
       if ((newStage === 'Out for delivery' || newStage === 'Delivered') && !target.paymentVerified) {
-        alert(
-          'Manual InstaPay Confirmation Required: Please verify the InstaPay transfer first ("Confirm InstaPay & Unlock Pts") before moving this order to ' +
-            newStage +
-            '.'
-        );
+        alert(`Manual InstaPay Confirmation Required: Please verify the InstaPay transfer first ("Confirm InstaPay & Unlock Pts") before moving this order to ${newStage}.`);
         renderAllAdminSections();
         return;
       }
@@ -569,17 +547,19 @@
 
     function adjustCustomerPoints(phoneId, delta) {
       const store = readStore();
-      store.loyaltyProfiles = store.loyaltyProfiles || {};
-      const prof = store.loyaltyProfiles[phoneId] || { redeemedPoints: 0, manualAdjustment: 0, history: [] };
+      store.loyaltyProfiles[phoneId] = store.loyaltyProfiles[phoneId] || {
+        redeemedPoints: 0,
+        manualAdjustment: 0,
+        history: [],
+      };
+      const prof = store.loyaltyProfiles[phoneId];
       prof.manualAdjustment = Number(prof.manualAdjustment || 0) + delta;
-      prof.history = Array.isArray(prof.history) ? prof.history : [];
       prof.history.unshift({
         type: 'admin_adjust',
         points: delta,
         label: (delta >= 0 ? 'Admin Bonus +' : 'Admin Deduction ') + delta + ' pts',
         at: new Date().toLocaleString(),
       });
-      store.loyaltyProfiles[phoneId] = prof;
       writeStore(store);
       renderLoyaltyDirectory();
     }
@@ -603,30 +583,27 @@
 
     function toggleOutOfStock(itemKey) {
       const store = readStore();
-      store.outOfStock = store.outOfStock || {};
       store.outOfStock[itemKey] = !Boolean(store.outOfStock[itemKey]);
       writeStore(store);
       renderItemSalesTally();
     }
 
-    function downloadSavedReceipt(orderRef) {
-      const store = readStore();
-      const target = store.orders.find((o) => o.orderRef === orderRef);
-      if (!target || !target.receiptImageDataUrl) return;
+    function triggerDownloadDataUrl(dataUrl, filename) {
+      if (!dataUrl) return;
       const link = document.createElement('a');
-      link.download = 'zebda-and-co-receipt-' + orderRef + '.png';
-      link.href = target.receiptImageDataUrl;
+      link.download = filename;
+      link.href = dataUrl;
       link.click();
     }
 
+    function downloadSavedReceipt(orderRef) {
+      const target = readStore().orders.find((o) => o.orderRef === orderRef);
+      triggerDownloadDataUrl(target?.receiptImageDataUrl, `zebda-and-co-receipt-${orderRef}.png`);
+    }
+
     function downloadSavedScreenshot(orderRef) {
-      const store = readStore();
-      const target = store.orders.find((o) => o.orderRef === orderRef);
-      if (!target || !target.paymentScreenshotDataUrl) return;
-      const link = document.createElement('a');
-      link.download = 'zebda-instapay-screenshot-' + orderRef + '.png';
-      link.href = target.paymentScreenshotDataUrl;
-      link.click();
+      const target = readStore().orders.find((o) => o.orderRef === orderRef);
+      triggerDownloadDataUrl(target?.paymentScreenshotDataUrl, `zebda-instapay-screenshot-${orderRef}.png`);
     }
 
     function clearAllAdminData() {
@@ -646,8 +623,7 @@
 
     function extractOrderCounts(order) {
       const counts = { garlic: 0, chili: 0, tomato: 0, truffle: 0, quartet: 0 };
-      const rows = Array.isArray(order.receiptItems) ? order.receiptItems : [];
-      rows.forEach((row) => {
+      (Array.isArray(order.receiptItems) ? order.receiptItems : []).forEach((row) => {
         const label = String(row.label || '');
         const match = label.match(/×\s*(\d+)\s*$/);
         const qty = match ? Number(match[1]) : 1;
@@ -662,77 +638,53 @@
 
     function renderItemSalesTally() {
       const store = readStore();
-      const scopeEl = document.getElementById('tally-scope-select');
-      const scope = scopeEl ? scopeEl.value : 'all';
+      const scope = document.getElementById('tally-scope-select')?.value || 'all';
       const oosMap = store.outOfStock || {};
       const filteredOrders =
         scope === 'active'
           ? store.orders.filter((o) => o.paymentVerified || o.status !== 'Pending / On Hold')
           : store.orders;
+
       const totals = { garlic: 0, chili: 0, tomato: 0, truffle: 0, quartet: 0 };
       const freeSampleMap = {};
       filteredOrders.forEach((o) => {
         const c = extractOrderCounts(o);
-        Object.keys(totals).forEach((k) => {
-          totals[k] += c[k] || 0;
-        });
+        Object.keys(totals).forEach((k) => { totals[k] += c[k] || 0; });
         if (o.freeSampleUnlocked && o.selectedFreeSample) {
           freeSampleMap[o.selectedFreeSample] = (freeSampleMap[o.selectedFreeSample] || 0) + 1;
         }
       });
-      const gridEl = document.getElementById('item-tally-grid');
-      gridEl.innerHTML = TALLY_ITEMS.map((item) => {
+
+      document.getElementById('item-tally-grid').innerHTML = TALLY_ITEMS.map((item) => {
         const qty = totals[item.key] || 0;
-        const revenue = qty * item.price;
         const isOos = Boolean(oosMap[item.key]);
-        return (
-          '<div class="bg-[#F7F3EA] border ' +
-          (isOos ? 'border-[#7A1C1C]' : 'border-[#1E1916]/15') +
-          ' rounded-xl p-4 flex flex-col justify-between gap-3">' +
-          '<div>' +
-          '<div class="flex items-center justify-between gap-1">' +
-          '<span class="arabic-text text-xs font-bold text-[#7A1C1C]">' +
-          escapeHtml(item.ar) +
-          '</span>' +
-          '<span class="px-2 py-0.5 rounded-full text-[10px] font-bold ' +
-          (isOos ? 'bg-[#7A1C1C] text-[#F7F3EA]' : 'bg-[#1E4620]/15 text-[#1E4620]') +
-          '">' +
-          (isOos ? 'OUT OF STOCK' : 'IN STOCK') +
-          '</span>' +
-          '</div>' +
-          '<h3 class="font-serif text-lg font-bold text-[#1E1916] leading-snug mt-1">' +
-          escapeHtml(item.name) +
-          '</h3>' +
-          '</div>' +
-          '<div class="space-y-2.5">' +
-          '<div class="pt-2 border-t border-[#1E1916]/10 flex items-baseline justify-between">' +
-          '<span class="text-2xl font-bold text-[#1E4620]">' +
-          qty +
-          ' <span class="text-xs font-semibold text-[#1E1916]/70">sold</span></span>' +
-          '<span class="text-xs font-bold text-[#1E1916]/75">' +
-          revenue +
-          ' EGP</span>' +
-          '</div>' +
-          '<button type="button" onclick="toggleOutOfStock(\'' +
-          item.key +
-          '\')" class="w-full py-2 px-3 rounded-xl text-xs font-bold transition cursor-pointer ' +
-          (isOos ? 'bg-[#1E4620] text-[#F7F3EA]' : 'bg-[#7A1C1C] text-[#F7F3EA]') +
-          '">' +
-          (isOos ? 'Mark In Stock' : 'Mark Out of Stock') +
-          '</button>' +
-          '</div>' +
-          '</div>'
-        );
+        return `
+          <div class="bg-[#F7F3EA] border ${isOos ? 'border-[#7A1C1C]' : 'border-[#1E1916]/15'} rounded-xl p-4 flex flex-col justify-between gap-3">
+            <div>
+              <div class="flex items-center justify-between gap-1">
+                <span class="arabic-text text-xs font-bold text-[#7A1C1C]">${escapeHtml(item.ar)}</span>
+                <span class="px-2 py-0.5 rounded-full text-[10px] font-bold ${isOos ? 'bg-[#7A1C1C] text-[#F7F3EA]' : 'bg-[#1E4620]/15 text-[#1E4620]'}">${isOos ? 'OUT OF STOCK' : 'IN STOCK'}</span>
+              </div>
+              <h3 class="font-serif text-lg font-bold text-[#1E1916] leading-snug mt-1">${escapeHtml(item.name)}</h3>
+            </div>
+            <div class="space-y-2.5">
+              <div class="pt-2 border-t border-[#1E1916]/10 flex items-baseline justify-between">
+                <span class="text-2xl font-bold text-[#1E4620]">${qty} <span class="text-xs font-semibold text-[#1E1916]/70">sold</span></span>
+                <span class="text-xs font-bold text-[#1E1916]/75">${qty * item.price} EGP</span>
+              </div>
+              <button type="button" onclick="toggleOutOfStock('${item.key}')" class="w-full py-2 px-3 rounded-xl text-xs font-bold transition cursor-pointer ${isOos ? 'bg-[#1E4620] text-[#F7F3EA]' : 'bg-[#7A1C1C] text-[#F7F3EA]'}">
+                ${isOos ? 'Mark In Stock' : 'Mark Out of Stock'}
+              </button>
+            </div>
+          </div>`;
       }).join('');
 
       const grandUnits = Object.values(totals).reduce((sum, n) => sum + n, 0);
-      document.getElementById('tally-total-units').textContent =
-        'Total Tins & Boxes Sold (' + filteredOrders.length + ' orders): ' + grandUnits;
+      document.getElementById('tally-total-units').textContent = `Total Tins & Boxes Sold (${filteredOrders.length} orders): ${grandUnits}`;
       const sampleEntries = Object.entries(freeSampleMap);
-      document.getElementById('tally-free-samples').textContent =
-        sampleEntries.length > 0
-          ? 'Free Samples: ' + sampleEntries.map(([name, cnt]) => name + ' (' + cnt + ')').join(', ')
-          : 'Free Samples Given: None';
+      document.getElementById('tally-free-samples').textContent = sampleEntries.length
+        ? 'Free Samples: ' + sampleEntries.map(([name, cnt]) => `${name} (${cnt})`).join(', ')
+        : 'Free Samples Given: None';
     }
 
     function renderLoyaltyDirectory() {
@@ -773,16 +725,12 @@
         }
       });
 
-      const list = Object.values(byPhone).filter((m) => {
-        if (!query) return true;
-        return m.phoneId.includes(query) || m.name.toLowerCase().includes(query);
-      });
-
+      const list = Object.values(byPhone).filter((m) => !query || m.phoneId.includes(query) || m.name.toLowerCase().includes(query));
       document.getElementById('stat-members-count').textContent = Object.keys(byPhone).length;
       const container = document.getElementById('loyalty-directory-container');
-      if (list.length === 0) {
-        container.innerHTML =
-          '<p class="text-xs text-[#1E1916]/70">No customer phone profiles found yet.</p>';
+
+      if (!list.length) {
+        container.innerHTML = '<p class="text-xs text-[#1E1916]/70">No customer phone profiles found yet.</p>';
         return;
       }
 
@@ -790,112 +738,61 @@
         .map((m) => {
           const prof = store.loyaltyProfiles[m.phoneId] || {};
           const expired = m.latestVerifiedTs > 0 && m.latestVerifiedTs + NINETY_DAYS_MS <= now;
-          const activePts = Math.max(
-            0,
-            (expired ? 0 : m.earnedActive) + Number(prof.manualAdjustment || 0) - Number(prof.redeemedPoints || 0)
-          );
-          const expLabel =
-            m.latestVerifiedTs > 0
-              ? expired
-                ? 'Expired (>3 mos)'
-                : 'Expires ' + new Date(m.latestVerifiedTs + NINETY_DAYS_MS).toLocaleDateString()
-              : 'Pending verification';
+          const activePts = Math.max(0, (expired ? 0 : m.earnedActive) + Number(prof.manualAdjustment || 0) - Number(prof.redeemedPoints || 0));
+          const expLabel = m.latestVerifiedTs > 0
+            ? expired
+              ? 'Expired (>3 mos)'
+              : 'Expires ' + new Date(m.latestVerifiedTs + NINETY_DAYS_MS).toLocaleDateString()
+            : 'Pending verification';
 
-          return (
-            '<div class="bg-[#F7F3EA] border border-[#1E1916]/15 rounded-xl p-4 space-y-2.5 text-xs">' +
-            '<div class="flex items-start justify-between gap-2">' +
-            '<div>' +
-            '<span class="font-bold text-[#1E4620] text-sm block">' +
-            escapeHtml(m.name) +
-            ' (' +
-            escapeHtml(m.phoneId) +
-            ')</span>' +
-            '<span class="text-[#1E1916]/70">' +
-            m.orderCount +
-            ' orders • ' +
-            m.totalSpend +
-            ' EGP total spend • ' +
-            expLabel +
-            '</span>' +
-            '</div>' +
-            '<div class="text-right">' +
-            '<span class="font-serif text-2xl font-bold text-[#1E1916] block">' +
-            activePts +
-            ' pts</span>' +
-            '<span class="text-[11px] text-[#7A1C1C] font-bold">+' +
-            m.pendingPoints +
-            ' pending</span>' +
-            '</div>' +
-            '</div>' +
-            '<div class="flex flex-wrap items-center gap-2 pt-1 border-t border-[#1E1916]/10">' +
-            '<button type="button" onclick="adjustCustomerPoints(\'' +
-            m.phoneId +
-            '\', 100)" class="px-2.5 py-1 rounded-lg bg-[#1E4620] text-[#F7F3EA] font-bold cursor-pointer">+100 Pts</button>' +
-            '<button type="button" onclick="adjustCustomerPoints(\'' +
-            m.phoneId +
-            '\', 500)" class="px-2.5 py-1 rounded-lg bg-[#C59B43] text-[#1E1916] font-bold cursor-pointer">+500 Pts</button>' +
-            '<button type="button" onclick="adjustCustomerPoints(\'' +
-            m.phoneId +
-            '\', -100)" class="px-2.5 py-1 rounded-lg bg-[#7A1C1C] text-[#F7F3EA] font-bold cursor-pointer">-100 Pts</button>' +
-            '<a href="' +
-            escapeHtml(buildWhatsAppMemberRecordUrl(m, activePts)) +
-            '" target="_blank" rel="noopener noreferrer" class="ml-auto px-2.5 py-1 rounded-lg bg-[#25D366] text-[#1E1916] font-bold">Save to WhatsApp</a>' +
-            '</div>' +
-            '</div>'
-          );
+          return `
+            <div class="bg-[#F7F3EA] border border-[#1E1916]/15 rounded-xl p-4 space-y-2.5 text-xs">
+              <div class="flex items-start justify-between gap-2">
+                <div>
+                  <span class="font-bold text-[#1E4620] text-sm block">${escapeHtml(m.name)} (${escapeHtml(m.phoneId)})</span>
+                  <span class="text-[#1E1916]/70">${m.orderCount} orders • ${m.totalSpend} EGP total spend • ${expLabel}</span>
+                </div>
+                <div class="text-right">
+                  <span class="font-serif text-2xl font-bold text-[#1E1916] block">${activePts} pts</span>
+                  <span class="text-[11px] text-[#7A1C1C] font-bold">+${m.pendingPoints} pending</span>
+                </div>
+              </div>
+              <div class="flex flex-wrap items-center gap-2 pt-1 border-t border-[#1E1916]/10">
+                <button type="button" onclick="adjustCustomerPoints('${m.phoneId}', 100)" class="px-2.5 py-1 rounded-lg bg-[#1E4620] text-[#F7F3EA] font-bold cursor-pointer">+100 Pts</button>
+                <button type="button" onclick="adjustCustomerPoints('${m.phoneId}', 500)" class="px-2.5 py-1 rounded-lg bg-[#C59B43] text-[#1E1916] font-bold cursor-pointer">+500 Pts</button>
+                <button type="button" onclick="adjustCustomerPoints('${m.phoneId}', -100)" class="px-2.5 py-1 rounded-lg bg-[#7A1C1C] text-[#F7F3EA] font-bold cursor-pointer">-100 Pts</button>
+                <a href="${escapeHtml(buildWhatsAppMemberRecordUrl(m, activePts))}" target="_blank" rel="noopener noreferrer" class="ml-auto px-2.5 py-1 rounded-lg bg-[#25D366] text-[#1E1916] font-bold">Save to WhatsApp</a>
+              </div>
+            </div>`;
         })
         .join('');
     }
 
     function renderVipFlavorsAdmin() {
-      const store = readStore();
-      const list = store.customMenuFlavors || [];
+      const list = readStore().customMenuFlavors || [];
       const el = document.getElementById('vip-flavors-admin-container');
-      if (list.length === 0) {
-        el.innerHTML =
-          '<p class="text-xs text-[#F7F3EA]/75">No 10,000-point custom flavors submitted yet.</p>';
+      if (!list.length) {
+        el.innerHTML = '<p class="text-xs text-[#F7F3EA]/75">No 10,000-point custom flavors submitted yet.</p>';
         return;
       }
       el.innerHTML = list
         .map(
-          (f) =>
-            '<div class="rounded-xl bg-[#262523] border border-[#C59B43]/50 p-4 space-y-2.5 text-xs">' +
-            '<div class="flex items-center justify-between gap-2">' +
-            '<span class="font-bold text-[#E8C97B]">By ' +
-            escapeHtml(f.customerName) +
-            ' (' +
-            escapeHtml(f.phoneId) +
-            ')</span>' +
-            '<span class="px-2 py-0.5 rounded-full text-[10px] font-bold ' +
-            (f.published ? 'bg-[#1E4620] text-[#F7F3EA]' : 'bg-[#7A1C1C] text-[#F7F3EA]') +
-            '">' +
-            (f.published ? 'LIVE ON MENU' : 'AWAITING APPROVAL') +
-            '</span>' +
-            '</div>' +
-            '<h3 class="font-serif text-2xl font-bold text-[#F7F3EA]">' +
-            escapeHtml(f.flavorName) +
-            '</h3>' +
-            '<p class="text-[#F7F3EA]/85"><strong>Ingredients:</strong> ' +
-            escapeHtml(f.ingredients) +
-            '</p>' +
-            '<p class="text-[#F7F3EA]/75">' +
-            escapeHtml(f.description || '') +
-            '</p>' +
-            '<div class="flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-[#C59B43]/25">' +
-            '<label class="flex items-center gap-1.5 text-[#E8C97B] font-bold">Menu Price (EGP): <input type="number" value="' +
-            Number(f.price || 175) +
-            '" onchange="updateVipFlavorPrice(\'' +
-            escapeHtml(f.id) +
-            '\', this.value)" class="w-20 rounded bg-[#1E1916] border border-[#C59B43]/50 px-2 py-1 text-[#F7F3EA]" /></label>' +
-            '<button type="button" onclick="togglePublishVipFlavor(\'' +
-            escapeHtml(f.id) +
-            '\')" class="px-3.5 py-1.5 rounded-xl font-bold cursor-pointer ' +
-            (f.published ? 'bg-[#7A1C1C] text-[#F7F3EA]' : 'bg-[#C59B43] text-[#1E1916]') +
-            '">' +
-            (f.published ? 'Unpublish From Menu' : 'Approve & Add to Live Menu') +
-            '</button>' +
-            '</div>' +
-            '</div>'
+          (f) => `
+          <div class="rounded-xl bg-[#262523] border border-[#C59B43]/50 p-4 space-y-2.5 text-xs">
+            <div class="flex items-center justify-between gap-2">
+              <span class="font-bold text-[#E8C97B]">By ${escapeHtml(f.customerName)} (${escapeHtml(f.phoneId)})</span>
+              <span class="px-2 py-0.5 rounded-full text-[10px] font-bold ${f.published ? 'bg-[#1E4620] text-[#F7F3EA]' : 'bg-[#7A1C1C] text-[#F7F3EA]'}">${f.published ? 'LIVE ON MENU' : 'AWAITING APPROVAL'}</span>
+            </div>
+            <h3 class="font-serif text-2xl font-bold text-[#F7F3EA]">${escapeHtml(f.flavorName)}</h3>
+            <p class="text-[#F7F3EA]/85"><strong>Ingredients:</strong> ${escapeHtml(f.ingredients)}</p>
+            <p class="text-[#F7F3EA]/75">${escapeHtml(f.description || '')}</p>
+            <div class="flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-[#C59B43]/25">
+              <label class="flex items-center gap-1.5 text-[#E8C97B] font-bold">Menu Price (EGP): <input type="number" value="${Number(f.price || 175)}" onchange="updateVipFlavorPrice('${escapeHtml(f.id)}', this.value)" class="w-20 rounded bg-[#1E1916] border border-[#C59B43]/50 px-2 py-1 text-[#F7F3EA]" /></label>
+              <button type="button" onclick="togglePublishVipFlavor('${escapeHtml(f.id)}')" class="px-3.5 py-1.5 rounded-xl font-bold cursor-pointer ${f.published ? 'bg-[#7A1C1C] text-[#F7F3EA]' : 'bg-[#C59B43] text-[#1E1916]'}">
+                ${f.published ? 'Unpublish From Menu' : 'Approve & Add to Live Menu'}
+              </button>
+            </div>
+          </div>`
         )
         .join('');
     }
@@ -903,8 +800,7 @@
     function renderAllAdminSections() {
       const store = readStore();
       document.getElementById('stat-orders-count').textContent = store.orders.length;
-      document.getElementById('stat-ideas-count').textContent =
-        store.flavorIdeas.length + (store.customMenuFlavors || []).length;
+      document.getElementById('stat-ideas-count').textContent = store.flavorIdeas.length + (store.customMenuFlavors || []).length;
       document.getElementById('stat-issues-count').textContent = store.issues.length;
 
       updateFullWhatsAppArchiveLink();
@@ -919,226 +815,124 @@
       const searchQ = (document.getElementById('admin-order-search')?.value || '').trim().toLowerCase();
       const filteredOrders = store.orders.filter((o) => {
         if (!searchQ) return true;
-        return (
-          String(o.orderRef || '').toLowerCase().includes(searchQ) ||
-          String(o.customerName || '').toLowerCase().includes(searchQ) ||
-          String(o.customerPhone || '').toLowerCase().includes(searchQ) ||
-          String(o.city || '').toLowerCase().includes(searchQ)
-        );
+        return [o.orderRef, o.customerName, o.customerPhone, o.city].some((v) => String(v || '').toLowerCase().includes(searchQ));
       });
 
       const ordersEl = document.getElementById('orders-container');
-      if (filteredOrders.length === 0) {
-        ordersEl.innerHTML =
-          '<div class="bg-[#EFE9DA] border border-[#1E1916]/15 rounded-2xl p-6 text-sm text-[#1E1916]/70">No orders match the current view.</div>';
+      if (!filteredOrders.length) {
+        ordersEl.innerHTML = '<div class="bg-[#EFE9DA] border border-[#1E1916]/15 rounded-2xl p-6 text-sm text-[#1E1916]/70">No orders match the current view.</div>';
       } else {
         ordersEl.innerHTML = filteredOrders
           .map((o) => {
             const stage = o.deliveryStage || mapLegacyStatusToStage(o.status);
             const isVerified = Boolean(o.paymentVerified);
-            const itemsHtml = (o.receiptItems || [])
-              .map((i) => '<li>' + escapeHtml(i.label) + ' — <strong>' + escapeHtml(i.amount) + '</strong></li>')
-              .join('');
+            const itemsHtml = (o.receiptItems || []).map((i) => `<li>${escapeHtml(i.label)} — <strong>${escapeHtml(i.amount)}</strong></li>`).join('');
             const screenshotBoxHtml = o.paymentScreenshotDataUrl
-              ? '<div class="rounded-xl bg-[#F7F3EA] border border-[#C59B43] p-3 space-y-2">' +
-                '<div class="flex items-center justify-between gap-2">' +
-                '<span class="text-[11px] font-bold uppercase tracking-wider text-[#1E4620]">InstaPay Screenshot</span>' +
-                '<button type="button" onclick="downloadSavedScreenshot(\'' +
-                escapeHtml(o.orderRef) +
-                '\')" class="px-2.5 py-1 rounded-lg bg-[#1E4620] text-[#F7F3EA] text-[11px] font-bold cursor-pointer">Save Screenshot</button>' +
-                '</div>' +
-                '<img src="' +
-                o.paymentScreenshotDataUrl +
-                '" alt="Customer InstaPay transfer screenshot" class="w-full max-h-48 object-contain rounded-lg border border-[#1E1916]/15 bg-white" />' +
-                '<p class="text-[11px] text-[#1E1916]/75 truncate">' +
-                escapeHtml(o.paymentScreenshotName || 'Uploaded Screenshot') +
-                '</p>' +
-                '</div>'
-              : '<div class="rounded-xl bg-[#F7F3EA] border border-[#1E1916]/15 p-3 space-y-1">' +
-                '<span class="text-[11px] font-bold uppercase tracking-wider text-[#7A1C1C] block">InstaPay Screenshot</span>' +
-                '<p class="text-xs text-[#1E1916]/70">No screenshot uploaded yet.</p>' +
-                '</div>';
+              ? `
+                <div class="rounded-xl bg-[#F7F3EA] border border-[#C59B43] p-3 space-y-2">
+                  <div class="flex items-center justify-between gap-2">
+                    <span class="text-[11px] font-bold uppercase tracking-wider text-[#1E4620]">InstaPay Screenshot</span>
+                    <button type="button" onclick="downloadSavedScreenshot('${escapeHtml(o.orderRef)}')" class="px-2.5 py-1 rounded-lg bg-[#1E4620] text-[#F7F3EA] text-[11px] font-bold cursor-pointer">Save Screenshot</button>
+                  </div>
+                  <img src="${o.paymentScreenshotDataUrl}" alt="Customer InstaPay transfer screenshot" class="w-full max-h-48 object-contain rounded-lg border border-[#1E1916]/15 bg-white" />
+                  <p class="text-[11px] text-[#1E1916]/75 truncate">${escapeHtml(o.paymentScreenshotName || 'Uploaded Screenshot')}</p>
+                </div>`
+              : `
+                <div class="rounded-xl bg-[#F7F3EA] border border-[#1E1916]/15 p-3 space-y-1">
+                  <span class="text-[11px] font-bold uppercase tracking-wider text-[#7A1C1C] block">InstaPay Screenshot</span>
+                  <p class="text-xs text-[#1E1916]/70">No screenshot uploaded yet.</p>
+                </div>`;
 
-            return (
-              '<article class="bg-[#EFE9DA] border border-[#1E1916]/20 rounded-2xl p-5 space-y-4">' +
-              '<div class="flex flex-wrap items-start justify-between gap-3 border-b border-[#1E1916]/12 pb-3">' +
-              '<div>' +
-              '<span class="text-xs font-bold uppercase tracking-wider text-[#1E4620]">' +
-              escapeHtml(o.orderRef) +
-              ' • ' +
-              escapeHtml(o.createdAt || '') +
-              ' • Phone ID: ' +
-              escapeHtml(o.customerPhone || 'N/A') +
-              '</span>' +
-              '<h3 class="font-serif text-2xl font-bold text-[#1E1916]">' +
-              escapeHtml(o.customerName || 'Customer') +
-              ' — ' +
-              escapeHtml(o.grandTotal) +
-              ' EGP (+' +
-              Number(o.pointsEarned || 0) +
-              ' pts)</h3>' +
-              '<p class="text-xs text-[#1E1916]/75">' +
-              escapeHtml(o.subareaLabel || o.city || '') +
-              ' • ' +
-              escapeHtml(o.addressDetail || '') +
-              (o.deliveryDate ? ' • Preferred Date: ' + escapeHtml(o.deliveryDate) : '') +
-              '</p>' +
-              '</div>' +
-              '<div class="flex flex-wrap items-center gap-2">' +
-              '<button type="button" onclick="togglePaymentVerified(\'' +
-              escapeHtml(o.orderRef) +
-              '\')" class="px-3 py-1.5 rounded-xl text-xs font-bold cursor-pointer ' +
-              (isVerified
-                ? 'bg-[#1E4620] text-[#F7F3EA]'
-                : 'bg-[#7A1C1C] text-[#F7F3EA]') +
-              '">' +
-              (isVerified ? 'InstaPay Confirmed (Pts Active)' : 'Confirm InstaPay & Unlock Pts') +
-              '</button>' +
-              '<select aria-label="3-stage delivery status" onchange="updateDeliveryStage(\'' +
-              escapeHtml(o.orderRef) +
-              '\', this.value)" class="rounded-xl bg-[#F7F3EA] border border-[#1E1916]/25 px-3 py-1.5 text-xs font-bold">' +
-              '<option value="Not started yet"' +
-              (stage === 'Not started yet' ? ' selected' : '') +
-              '>1. Not started yet</option>' +
-              '<option value="Out for delivery"' +
-              (stage === 'Out for delivery' ? ' selected' : '') +
-              '>2. Out for delivery</option>' +
-              '<option value="Delivered"' +
-              (stage === 'Delivered' ? ' selected' : '') +
-              '>3. Delivered</option>' +
-              '</select>' +
-              '<a href="' +
-              escapeHtml(buildWhatsAppOrderRecordUrl(o)) +
-              '" target="_blank" rel="noopener noreferrer" class="px-3 py-1.5 rounded-xl bg-[#25D366] text-[#1E1916] text-xs font-bold">Store on WhatsApp</a>' +
-              (o.receiptImageDataUrl
-                ? '<button type="button" onclick="downloadSavedReceipt(\'' +
-                  escapeHtml(o.orderRef) +
-                  '\')" class="px-3 py-1.5 rounded-xl bg-[#C59B43] text-[#1E1916] text-xs font-bold cursor-pointer">Download Receipt</button>'
-                : '') +
-              '</div>' +
-              '</div>' +
-              '<div class="grid grid-cols-1 lg:grid-cols-3 gap-4 text-xs">' +
-              '<div class="bg-[#F7F3EA] rounded-xl p-3.5 border border-[#1E1916]/12 space-y-1">' +
-              '<p class="font-bold uppercase tracking-wider text-[#7A1C1C]">Items, Reward &amp; Sample</p>' +
-              '<ul class="list-disc list-inside space-y-0.5">' +
-              itemsHtml +
-              '</ul>' +
-              (o.freeSampleUnlocked
-                ? '<p class="font-bold text-[#1E4620] pt-1">FREE Sample: ' + escapeHtml(o.selectedFreeSample) + '</p>'
-                : '') +
-              (o.appliedReward
-                ? '<p class="font-bold text-[#7A1C1C] pt-1">Redeemed: ' + escapeHtml(o.appliedReward.title) + '</p>'
-                : '') +
-              '</div>' +
-              '<div class="bg-[#F7F3EA] rounded-xl p-3.5 border border-[#1E1916]/12 space-y-1">' +
-              '<p class="font-bold uppercase tracking-wider text-[#1E4620]">Customer, Payment &amp; Map</p>' +
-              '<p><strong>Phone ID:</strong> ' +
-              escapeHtml(o.customerPhone || 'Not provided') +
-              '</p>' +
-              '<p><strong>Email:</strong> ' +
-              escapeHtml(o.customerEmail || '') +
-              '</p>' +
-              '<p><strong>InstaPay Now:</strong> ' +
-              escapeHtml(o.instaPayDueNow) +
-              ' EGP | <strong>COD:</strong> ' +
-              escapeHtml(o.codRemaining) +
-              ' EGP</p>' +
-              '<p><strong>InstaPay Status:</strong> ' +
-              (isVerified ? 'Manually Confirmed' : 'Awaiting Manual Confirmation') +
-              '</p>' +
-              (o.mapsLink
-                ? '<p><strong>Map Pin:</strong> <a href="' +
-                  escapeHtml(o.mapsLink) +
-                  '" target="_blank" rel="noopener noreferrer" class="underline text-[#1E4620] font-bold">Open Google Maps</a></p>'
-                : '<p><strong>Map Pin:</strong> None</p>') +
-              '</div>' +
-              screenshotBoxHtml +
-              '</div>' +
-              '</article>'
-            );
+            return `
+              <article class="bg-[#EFE9DA] border border-[#1E1916]/20 rounded-2xl p-5 space-y-4">
+                <div class="flex flex-wrap items-start justify-between gap-3 border-b border-[#1E1916]/12 pb-3">
+                  <div>
+                    <span class="text-xs font-bold uppercase tracking-wider text-[#1E4620]">${escapeHtml(o.orderRef)} • ${escapeHtml(o.createdAt || '')} • Phone ID: ${escapeHtml(o.customerPhone || 'N/A')}</span>
+                    <h3 class="font-serif text-2xl font-bold text-[#1E1916]">${escapeHtml(o.customerName || 'Customer')} — ${escapeHtml(o.grandTotal)} EGP (+${Number(o.pointsEarned || 0)} pts)</h3>
+                    <p class="text-xs text-[#1E1916]/75">${escapeHtml(o.subareaLabel || o.city || '')} • ${escapeHtml(o.addressDetail || '')}${o.deliveryDate ? ` • Preferred Date: ${escapeHtml(o.deliveryDate)}` : ''}</p>
+                  </div>
+                  <div class="flex flex-wrap items-center gap-2">
+                    <button type="button" onclick="togglePaymentVerified('${escapeHtml(o.orderRef)}')" class="px-3 py-1.5 rounded-xl text-xs font-bold cursor-pointer ${isVerified ? 'bg-[#1E4620] text-[#F7F3EA]' : 'bg-[#7A1C1C] text-[#F7F3EA]'}">
+                      ${isVerified ? 'InstaPay Confirmed (Pts Active)' : 'Confirm InstaPay & Unlock Pts'}
+                    </button>
+                    <select aria-label="3-stage delivery status" onchange="updateDeliveryStage('${escapeHtml(o.orderRef)}', this.value)" class="rounded-xl bg-[#F7F3EA] border border-[#1E1916]/25 px-3 py-1.5 text-xs font-bold">
+                      <option value="Not started yet" ${stage === 'Not started yet' ? 'selected' : ''}>1. Not started yet</option>
+                      <option value="Out for delivery" ${stage === 'Out for delivery' ? 'selected' : ''}>2. Out for delivery</option>
+                      <option value="Delivered" ${stage === 'Delivered' ? 'selected' : ''}>3. Delivered</option>
+                    </select>
+                    <a href="${escapeHtml(buildWhatsAppOrderRecordUrl(o))}" target="_blank" rel="noopener noreferrer" class="px-3 py-1.5 rounded-xl bg-[#25D366] text-[#1E1916] text-xs font-bold">Store on WhatsApp</a>
+                    ${o.receiptImageDataUrl ? `<button type="button" onclick="downloadSavedReceipt('${escapeHtml(o.orderRef)}')" class="px-3 py-1.5 rounded-xl bg-[#C59B43] text-[#1E1916] text-xs font-bold cursor-pointer">Download Receipt</button>` : ''}
+                  </div>
+                </div>
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 text-xs">
+                  <div class="bg-[#F7F3EA] rounded-xl p-3.5 border border-[#1E1916]/12 space-y-1">
+                    <p class="font-bold uppercase tracking-wider text-[#7A1C1C]">Items, Reward &amp; Sample</p>
+                    <ul class="list-disc list-inside space-y-0.5">${itemsHtml}</ul>
+                    ${o.freeSampleUnlocked ? `<p class="font-bold text-[#1E4620] pt-1">FREE Sample: ${escapeHtml(o.selectedFreeSample)}</p>` : ''}
+                    ${o.appliedReward ? `<p class="font-bold text-[#7A1C1C] pt-1">Redeemed: ${escapeHtml(o.appliedReward.title)}</p>` : ''}
+                  </div>
+                  <div class="bg-[#F7F3EA] rounded-xl p-3.5 border border-[#1E1916]/12 space-y-1">
+                    <p class="font-bold uppercase tracking-wider text-[#1E4620]">Customer, Payment &amp; Map</p>
+                    <p><strong>Phone ID:</strong> ${escapeHtml(o.customerPhone || 'Not provided')}</p>
+                    <p><strong>Email:</strong> ${escapeHtml(o.customerEmail || '')}</p>
+                    <p><strong>InstaPay Now:</strong> ${escapeHtml(o.instaPayDueNow)} EGP | <strong>COD:</strong> ${escapeHtml(o.codRemaining)} EGP</p>
+                    <p><strong>InstaPay Status:</strong> ${isVerified ? 'Manually Confirmed' : 'Awaiting Manual Confirmation'}</p>
+                    <p><strong>Map Pin:</strong> ${o.mapsLink ? `<a href="${escapeHtml(o.mapsLink)}" target="_blank" rel="noopener noreferrer" class="underline text-[#1E4620] font-bold">Open Google Maps</a>` : 'None'}</p>
+                  </div>
+                  ${screenshotBoxHtml}
+                </div>
+              </article>`;
           })
           .join('');
       }
 
       const ideasEl = document.getElementById('ideas-container');
-      if (store.flavorIdeas.length === 0) {
-        ideasEl.innerHTML =
-          '<div class="bg-[#EFE9DA] border border-[#1E1916]/15 rounded-2xl p-5 text-xs text-[#1E1916]/70">No flavor ideas submitted yet.</div>';
-      } else {
-        ideasEl.innerHTML = store.flavorIdeas
-          .map(
-            (item) =>
-              '<div class="bg-[#EFE9DA] border border-[#C59B43]/60 rounded-2xl p-4 space-y-1">' +
-              '<div class="flex items-center justify-between text-[11px] font-bold text-[#1E4620]">' +
-              '<span>' +
-              escapeHtml(item.slot) +
-              '</span>' +
-              '<span>' +
-              escapeHtml(item.createdAt) +
-              '</span>' +
-              '</div>' +
-              '<p class="font-serif text-xl font-bold text-[#1E1916]">' +
-              escapeHtml(item.idea) +
-              '</p>' +
-              '<p class="text-xs text-[#1E1916]/75">From: ' +
-              escapeHtml(item.customerName) +
-              '</p>' +
-              '</div>'
-          )
-          .join('');
-      }
+      ideasEl.innerHTML = !store.flavorIdeas.length
+        ? '<div class="bg-[#EFE9DA] border border-[#1E1916]/15 rounded-2xl p-5 text-xs text-[#1E1916]/70">No flavor ideas submitted yet.</div>'
+        : store.flavorIdeas
+            .map(
+              (item) => `
+              <div class="bg-[#EFE9DA] border border-[#C59B43]/60 rounded-2xl p-4 space-y-1">
+                <div class="flex items-center justify-between text-[11px] font-bold text-[#1E4620]">
+                  <span>${escapeHtml(item.slot)}</span>
+                  <span>${escapeHtml(item.createdAt)}</span>
+                </div>
+                <p class="font-serif text-xl font-bold text-[#1E1916]">${escapeHtml(item.idea)}</p>
+                <p class="text-xs text-[#1E1916]/75">From: ${escapeHtml(item.customerName)}</p>
+              </div>`
+            )
+            .join('');
 
       const issuesEl = document.getElementById('issues-container');
-      if (store.issues.length === 0) {
-        issuesEl.innerHTML =
-          '<div class="bg-[#EFE9DA] border border-[#1E1916]/15 rounded-2xl p-5 text-xs text-[#1E1916]/70">No issues logged yet.</div>';
-      } else {
-        issuesEl.innerHTML = store.issues
-          .map(
-            (iss) =>
-              '<div class="bg-[#EFE9DA] border border-[#7A1C1C]/35 rounded-2xl p-4 text-xs space-y-2">' +
-              '<div class="flex flex-wrap items-center justify-between gap-2 font-bold text-[#7A1C1C]">' +
-              '<span>' +
-              escapeHtml(iss.category) +
-              ' — ' +
-              escapeHtml(iss.specificProblem) +
-              '</span>' +
-              '<span>' +
-              escapeHtml(iss.createdAt) +
-              '</span>' +
-              '</div>' +
-              '<p class="text-[#1E1916]">' +
-              escapeHtml(iss.details) +
-              '</p>' +
-              '<div class="flex flex-wrap items-center justify-between gap-2 pt-1">' +
-              '<span class="text-[11px] text-[#1E1916]/70">Order Ref: ' +
-              escapeHtml(iss.orderRef || 'N/A') +
-              ' • Photo: ' +
-              escapeHtml(iss.photoName || 'None') +
-              '</span>' +
-              '<a href="' +
-              escapeHtml(buildWhatsAppIssueRecordUrl(iss)) +
-              '" target="_blank" rel="noopener noreferrer" class="px-2.5 py-1 rounded-lg bg-[#25D366] text-[#1E1916] text-[11px] font-bold">Store Issue on WhatsApp</a>' +
-              '</div>' +
-              '</div>'
-          )
-          .join('');
-      }
+      issuesEl.innerHTML = !store.issues.length
+        ? '<div class="bg-[#EFE9DA] border border-[#1E1916]/15 rounded-2xl p-5 text-xs text-[#1E1916]/70">No issues logged yet.</div>'
+        : store.issues
+            .map(
+              (iss) => `
+              <div class="bg-[#EFE9DA] border border-[#7A1C1C]/35 rounded-2xl p-4 text-xs space-y-2">
+                <div class="flex flex-wrap items-center justify-between gap-2 font-bold text-[#7A1C1C]">
+                  <span>${escapeHtml(iss.category)} — ${escapeHtml(iss.specificProblem)}</span>
+                  <span>${escapeHtml(iss.createdAt)}</span>
+                </div>
+                <p class="text-[#1E1916]">${escapeHtml(iss.details)}</p>
+                <div class="flex flex-wrap items-center justify-between gap-2 pt-1">
+                  <span class="text-[11px] text-[#1E1916]/70">Order Ref: ${escapeHtml(iss.orderRef || 'N/A')} • Photo: ${escapeHtml(iss.photoName || 'None')}</span>
+                  <a href="${escapeHtml(buildWhatsAppIssueRecordUrl(iss))}" target="_blank" rel="noopener noreferrer" class="px-2.5 py-1 rounded-lg bg-[#25D366] text-[#1E1916] text-[11px] font-bold">Store Issue on WhatsApp</a>
+                </div>
+              </div>`
+            )
+            .join('');
     }
 
     function loadN8nUi() {
       const store = readStore();
       const cfg = store.n8nConfig || {};
-      const urlEl = document.getElementById('n8n-webhook-url');
-      const tokEl = document.getElementById('n8n-secret-token');
-      const autoEl = document.getElementById('n8n-auto-sync');
-      const bodyEl = document.getElementById('n8n-audit-body');
-      if (urlEl) urlEl.value = cfg.url || '';
-      if (tokEl) tokEl.value = cfg.token || '';
-      if (autoEl) autoEl.checked = Boolean(cfg.autoSync);
-      if (bodyEl && store.n8nLastAudit) {
-        bodyEl.textContent =
-          '[' + (store.n8nLastAudit.checkedAt || '') + '] ' + (store.n8nLastAudit.summary || '');
+      document.getElementById('n8n-webhook-url').value = cfg.url || '';
+      document.getElementById('n8n-secret-token').value = cfg.token || '';
+      document.getElementById('n8n-auto-sync').checked = Boolean(cfg.autoSync);
+      if (store.n8nLastAudit) {
+        document.getElementById('n8n-audit-body').textContent =
+          `[${store.n8nLastAudit.checkedAt || ''}] ${store.n8nLastAudit.summary || ''}`;
       }
     }
 
@@ -1155,8 +949,7 @@
     async function triggerN8nAudit(silent) {
       saveN8nConfig();
       const store = readStore();
-      const url = store.n8nConfig?.url || '';
-      const token = store.n8nConfig?.token || '';
+      const { url, token } = store.n8nConfig || {};
       const statusEl = document.getElementById('n8n-status-text');
       const bodyEl = document.getElementById('n8n-audit-body');
       if (!url) {
@@ -1164,6 +957,7 @@
         return;
       }
       if (statusEl) statusEl.textContent = 'Sending snapshot to n8n...';
+
       const payload = {
         source: 'zebda-and-co-admin',
         auditedAt: new Date().toISOString(),
@@ -1186,30 +980,23 @@
         })),
         issues: store.issues,
       };
+
       try {
         const headers = { 'Content-Type': 'application/json' };
         if (token) headers['X-Audit-Key'] = token;
-        const res = await fetch(url, {
-          method: 'POST',
-          headers,
-          body: JSON.stringify(payload),
-        });
-        let responseSummary = 'HTTP ' + res.status + ' — Sent ' + store.orders.length + ' orders to n8n.';
-        try {
-          const text = await res.text();
-          if (text) responseSummary += ' Response: ' + text.slice(0, 240);
-        } catch (e) {}
+        const res = await fetch(url, { method: 'POST', headers, body: JSON.stringify(payload) });
+        let responseSummary = `HTTP ${res.status} — Sent ${store.orders.length} orders to n8n.`;
+        const text = await res.text().catch(() => '');
+        if (text) responseSummary += ` Response: ${text.slice(0, 240)}`;
+
         const updated = readStore();
-        updated.n8nLastAudit = {
-          checkedAt: new Date().toLocaleString(),
-          summary: responseSummary,
-        };
+        updated.n8nLastAudit = { checkedAt: new Date().toLocaleString(), summary: responseSummary };
         writeStore(updated);
-        if (statusEl) statusEl.textContent = 'Synced with n8n (' + new Date().toLocaleTimeString() + ')';
+        if (statusEl) statusEl.textContent = `Synced with n8n (${new Date().toLocaleTimeString()})`;
         if (bodyEl) bodyEl.textContent = responseSummary;
       } catch (err) {
         if (!silent && statusEl) statusEl.textContent = 'n8n request failed (check URL / CORS)';
-        if (!silent && bodyEl) bodyEl.textContent = String(err && err.message ? err.message : err);
+        if (!silent && bodyEl) bodyEl.textContent = String(err?.message || err);
       }
     }
 
