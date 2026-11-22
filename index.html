@@ -3,12 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ZEBDA &amp; CO. — Artisanal Compound Butter (زبدة وشركاه)</title>
+  <title>ZEBDA &amp; CO. (زبدة وشركاه) — Friends &amp; Customers Order Menu</title>
+  <!-- Load Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Cormorant Garamond, Playfair Display, Plus Jakarta Sans & Cairo -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
-    href="https://fonts.googleapis.com/css2?family=Cairo:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Cairo:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=Playfair+Display:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
     rel="stylesheet"
   />
   <script>
@@ -16,9 +18,19 @@
       theme: {
         extend: {
           fontFamily: {
-            serif: ['"Cormorant Garamond"', 'Georgia', 'serif'],
+            serif: ['"Cormorant Garamond"', '"Playfair Display"', 'Georgia', 'serif'],
+            display: ['"Playfair Display"', '"Cormorant Garamond"', 'Georgia', 'serif'],
             sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
             arabic: ['Cairo', 'sans-serif'],
+          },
+          colors: {
+            linen: '#F7F3EA',
+            linenCard: '#EFE9DA',
+            espresso: '#1E1916',
+            brass: '#C59B43',
+            sage: '#1E4620',
+            terracotta: '#7A1C1C',
+            charcoal: '#262523',
           },
         },
       },
@@ -33,145 +45,3420 @@
     .arabic-text {
       font-family: 'Cairo', sans-serif;
     }
+    .heritage-card {
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    @media (hover: hover) {
+      .heritage-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 12px 26px -10px rgba(30, 25, 22, 0.14);
+      }
+    }
   </style>
 </head>
-<body class="min-h-screen antialiased pb-20">
-  <!-- Top Brand Header -->
-  <header class="w-full bg-[#1E1916] text-[#F7F3EA] border-b border-[#C59B43]/50 sticky top-0 z-30">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-3 flex flex-wrap items-center justify-between gap-3">
-      <a href="index.html" class="flex items-center gap-3">
-        <span class="font-serif text-2xl sm:text-3xl font-bold text-[#F7F3EA]">ZEBDA &amp; CO.</span>
-        <span class="arabic-text text-sm font-bold text-[#E8C97B]">زبدة وشركاه</span>
-      </a>
-      <nav class="flex flex-wrap items-center gap-2 text-xs font-bold">
-        <a href="#menu-section" class="px-3 py-1.5 rounded-xl bg-[#262523] border border-[#C59B43]/40 text-[#E8C97B] hover:bg-[#33312e]">
-          Menu
-        </a>
-        <a href="#checkout-section" class="px-3 py-1.5 rounded-xl bg-[#262523] border border-[#C59B43]/40 text-[#F7F3EA] hover:bg-[#33312e]">
-          Checkout
-        </a>
-        <a href="points.html" class="px-3 py-1.5 rounded-xl bg-[#262523] border border-[#C59B43]/40 text-[#F7F3EA] hover:bg-[#33312e]">
-          Points &amp; Rewards
-        </a>
-        <a href="chat.html" class="px-3 py-1.5 rounded-xl bg-[#262523] border border-[#C59B43]/40 text-[#F7F3EA] hover:bg-[#33312e]">
-          Chat &amp; Quick Order
-        </a>
-        <a href="admin.html" class="px-3 py-1.5 rounded-xl bg-[#C59B43] text-[#1E1916] hover:brightness-105">
-          Admin
-        </a>
-      </nav>
-    </div>
-  </header>
-
-  <!-- Hero Banner -->
-  <section class="max-w-6xl mx-auto px-4 sm:px-6 pt-8">
-    <div class="bg-[#EFE9DA] border-2 border-[#C59B43] rounded-3xl p-6 sm:p-10 shadow-sm space-y-5">
-      <div class="flex flex-wrap items-center justify-between gap-2">
-        <span class="text-xs uppercase tracking-[0.2em] font-bold text-[#1E4620]">
-          Small-Batch Compound Butter • Cairo &amp; Egypt
-        </span>
-        <span class="arabic-text text-xs font-bold px-3 py-1 rounded-full bg-[#1E4620] text-[#F7F3EA]">
-          نقاط الولاء: 1 جنيه = 1 نقطة
-        </span>
+<body class="min-h-screen pb-32 antialiased selection:bg-[#C59B43]/30 selection:text-[#1E1916]">
+  <!-- Top Cold-Chain & 2-Day Advance Notice Bar -->
+  <div class="w-full bg-[#1E1916] text-[#F7F3EA] border-b border-[#C59B43]/50">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 py-2.5 flex flex-wrap items-center justify-between gap-2 text-xs sm:text-sm">
+      <div class="flex items-center gap-2 font-medium text-[#E8C97B]">
+        <span class="inline-block w-2 h-2 rounded-full bg-[#C59B43]"></span>
+        <span>50/50 Commercial &amp; Baladi Butter • Chilled 0–4°C</span>
       </div>
-      <div class="space-y-2 max-w-3xl">
-        <h1 class="font-serif text-4xl sm:text-5xl font-bold text-[#1E1916] leading-tight">
-          Rich, Whipped Compound Butters Crafted to Elevate Every Table.
-        </h1>
-        <p class="text-sm sm:text-base text-[#1E1916]/80">
-          Earn <strong>1 Point per 1 EGP</strong> spent (3-month rolling validity). Unlock free delivery at 500 pts, free mini jar at 1,200 pts, 50% off at 2,500 pts, 70% off at 5,000 pts, or co-create a custom 250g flavor at 10,000 pts.
-        </p>
-      </div>
-      <div class="flex flex-wrap items-center gap-3 pt-1">
-        <a href="#checkout-section" class="px-5 py-3 rounded-xl bg-[#1E4620] text-[#F7F3EA] text-sm font-bold hover:opacity-95">
-          Build Your Order
+      <div class="flex flex-wrap items-center gap-2.5 font-semibold text-[#F7F3EA]">
+        <span class="hidden md:inline">2-Day Advance Order</span>
+        <span class="hidden md:inline text-[#C59B43]">•</span>
+        <span class="arabic-text hidden sm:inline">الطلب قبل الموعد بيومين</span>
+        <a
+          href="points.html"
+          class="px-3 py-1 rounded-full bg-[#C59B43] text-[#1E1916] text-xs font-bold hover:brightness-105 transition"
+        >
+          My Points &amp; Orders
         </a>
         <a
-          href="https://ipn.eg/S/tommy_shams/instapay/5KpRkP"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="px-5 py-3 rounded-xl bg-[#C59B43] text-[#1E1916] text-sm font-bold hover:brightness-105"
+          href="admin.html"
+          class="px-2.5 py-1 rounded-full bg-[#262523] border border-[#C59B43]/50 text-[#E8C97B] text-xs hover:bg-[#33312e] transition"
         >
-          Pay via InstaPay Link
-        </a>
-        <a href="points.html" class="px-5 py-3 rounded-xl bg-[#F7F3EA] border border-[#1E1916]/25 text-[#1E1916] text-sm font-bold hover:bg-white">
-          Check My Points
+          Admin Portal
         </a>
       </div>
     </div>
-  </section>
+  </div>
 
-  <!-- Core Menu + Published VIP Flavors -->
-  <section id="menu-section" class="max-w-6xl mx-auto px-4 sm:px-6 pt-10 space-y-5">
-    <div class="flex flex-wrap items-end justify-between gap-2">
-      <div>
-        <span class="text-xs uppercase tracking-[0.2em] font-bold text-[#7A1C1C] block arabic-text">
-          قائمة النكهات • Signature Collection
-        </span>
-        <h2 class="font-serif text-3xl sm:text-4xl font-bold text-[#1E1916]">
-          Select Quantities
-        </h2>
+  <!-- Main Content -->
+  <main class="max-w-5xl mx-auto px-4 sm:px-6 pt-7 sm:pt-10">
+    <!-- Hero Banner + Modern Heritage Seal + 2-Day Advance Notice -->
+    <header class="bg-[#EFE9DA] border border-[#1E1916]/15 rounded-2xl p-6 sm:p-8 mb-8">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+        <div class="text-center md:text-left">
+          <p class="text-xs uppercase tracking-[0.22em] text-[#7A1C1C] font-bold mb-1.5">
+            Hero Batch • Small-Batch Compound Butters
+          </p>
+          <div class="flex flex-wrap items-baseline justify-center md:justify-start gap-x-3.5 gap-y-1">
+            <h1 class="font-serif text-4xl sm:text-5xl font-bold tracking-tight text-[#1E1916]">
+              ZEBDA &amp; CO.
+            </h1>
+            <span class="arabic-text text-2xl sm:text-3xl font-bold text-[#1E4620]">
+              زبدة وشركاه
+            </span>
+          </div>
+          <p class="mt-2.5 text-sm text-[#1E1916]/80 max-w-xl">
+            Crafted from a balanced 50/50 blend of commercial unsalted butter and farmer&rsquo;s baladi butter, freshly whipped and chilled at 0–4°C for friends, family &amp; early customers.
+          </p>
+        </div>
+        <!-- Inline SVG Modern Heritage Seal -->
+        <div class="shrink-0">
+          <svg
+            width="124"
+            height="124"
+            viewBox="0 0 140 140"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            role="img"
+            aria-label="Zebda and Co. Modern Heritage Seal"
+          >
+            <circle cx="70" cy="70" r="65" fill="#1E1916" stroke="#C59B43" stroke-width="2" />
+            <circle cx="70" cy="70" r="58" stroke="#C59B43" stroke-width="1" stroke-dasharray="3 3" />
+            <circle cx="70" cy="70" r="44" fill="#1E4620" stroke="#C59B43" stroke-width="1.5" />
+            <defs>
+              <path id="sealTopArc" d="M 22,70 A 48,48 0 1,1 118,70" />
+              <path id="sealBotArc" d="M 116,74 A 46,46 0 0,1 24,74" />
+            </defs>
+            <text fill="#E8C97B" font-size="8.2" font-weight="700" letter-spacing="2.2">
+              <textPath href="#sealTopArc" startOffset="50%" text-anchor="middle">
+                ZEBDA &amp; CO. • EGYPT
+              </textPath>
+            </text>
+            <text fill="#F7F3EA" font-size="7.8" font-weight="600" letter-spacing="1.8">
+              <textPath href="#sealBotArc" startOffset="50%" text-anchor="middle">
+                50/50 BALADI • 0–4°C
+              </textPath>
+            </text>
+            <text
+              x="70"
+              y="67"
+              text-anchor="middle"
+              fill="#F7F3EA"
+              font-family="Cormorant Garamond, Georgia, serif"
+              font-size="24"
+              font-weight="700"
+            >
+              Z&amp;C
+            </text>
+            <line x1="48" y1="74" x2="92" y2="74" stroke="#C59B43" stroke-width="1" />
+            <text
+              x="70"
+              y="85"
+              text-anchor="middle"
+              fill="#E8C97B"
+              font-size="7.5"
+              letter-spacing="1.4"
+              font-weight="700"
+            >
+              2-DAY LEAD
+            </text>
+          </svg>
+        </div>
       </div>
-      <p class="text-xs font-semibold text-[#1E1916]/70">
-        Every 1 EGP on items = 1 Point (unlocked after manual InstaPay confirmation)
-      </p>
-    </div>
 
-    <div id="menu-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"></div>
-  </section>
-
-  <!-- Checkout & Manual InstaPay Verification -->
-  <section id="checkout-section" class="max-w-6xl mx-auto px-4 sm:px-6 pt-12">
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-      <!-- Customer & Delivery Details -->
-      <div class="lg:col-span-2 bg-[#EFE9DA] border border-[#1E1916]/20 rounded-2xl p-6 space-y-5">
-        <div class="border-b border-[#1E1916]/12 pb-3">
-          <span class="text-xs uppercase tracking-widest font-bold text-[#1E4620] block">
-            Order &amp; Loyalty Profile
+      <!-- Prominent Bilingual 2-Day Advance Order Notice -->
+      <div class="mt-5 rounded-xl bg-[#7A1C1C] text-[#F7F3EA] px-4 py-3 flex flex-col sm:flex-row sm:items-center justify-between gap-2 border border-[#C59B43]/70">
+        <div class="flex items-center gap-2.5 text-xs sm:text-sm font-bold">
+          <span class="px-2 py-0.5 rounded bg-[#C59B43] text-[#1E1916] uppercase tracking-wider text-[11px] shrink-0">
+            2-Day Notice
           </span>
-          <h2 class="font-serif text-3xl font-bold text-[#1E1916]">
-            Checkout Details
+          <span>All orders must be placed at least 2 days in advance so every tin is freshly whipped and chilled.</span>
+        </div>
+        <span class="arabic-text text-xs sm:text-sm font-bold text-[#F5D692] shrink-0">
+          يجب تأكيد الطلب قبل الموعد بيومين على الأقل
+        </span>
+      </div>
+
+      <!-- Loyalty & Free Sample Perks Banner -->
+      <div class="mt-3 rounded-xl bg-[#1E4620] text-[#F7F3EA] px-4 py-3 flex flex-col sm:flex-row sm:items-center justify-between gap-2 border border-[#C59B43]/60">
+        <div class="text-xs sm:text-sm font-bold">
+          <span class="text-[#E8C97B]">Rewards &amp; Perks:</span> Earn <span class="text-[#E8C97B]">1 Point per 1 EGP</span> spent (valid 3 months) + get 1 <strong class="text-[#E8C97B]">FREE</strong> sample on orders over <span class="text-[#E8C97B]">500 EGP</span>!
+        </div>
+        <a
+          href="points.html"
+          class="px-3 py-1 rounded-lg bg-[#C59B43] text-[#1E1916] text-xs font-bold shrink-0 hover:brightness-105 transition text-center"
+        >
+          Check Points &amp; Redeem &rarr;
+        </a>
+      </div>
+
+      <!-- Personal Welcome Note + Top Problem / Feedback Trigger -->
+      <div class="mt-5 pt-5 border-t border-[#1E1916]/12 bg-[#F7F3EA] rounded-xl p-5 sm:p-6 border border-[#C59B43]/35">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2">
+          <h2 class="font-serif text-2xl font-bold text-[#1E4620]">
+            Made for friends, family &amp; early supporters
+          </h2>
+          <span class="arabic-text text-sm font-bold text-[#7A1C1C]">
+            أهلاً بكم في زبدة وشركاه — من مطبخنا إلى مائدتكم
+          </span>
+        </div>
+        <p class="text-sm sm:text-[15px] text-[#1E1916]/85 leading-relaxed">
+          Thank you for tasting and sharing <strong class="text-[#1E1916]">Zebda &amp; Co.</strong>. Each batch blends <strong class="text-[#1E1916]">commercial unsalted butter with farmer&rsquo;s baladi butter</strong> and is stored at <strong class="text-[#1E1916]">0–4°C</strong>. Please place orders <strong class="text-[#7A1C1C]">at least 2 days ahead</strong>, pay via InstaPay (<strong class="text-[#1E1916]">tommy_shams@instapay</strong> / <strong class="text-[#1E1916]">01208958884</strong>), or choose COD with a <strong class="text-[#1E1916]">50% InstaPay deposit</strong>.
+        </p>
+        <div class="mt-4 pt-3.5 border-t border-[#1E1916]/10 flex flex-wrap items-center justify-between gap-3">
+          <span class="text-xs text-[#1E1916]/75 font-medium">
+            Have an issue, question, or feedback about an order?
+          </span>
+          <div class="flex flex-wrap items-center gap-2">
+            <button
+              type="button"
+              onclick="toggleAiBotModal(true)"
+              class="py-2 px-3.5 rounded-xl bg-[#1E1916] text-[#E8C97B] border border-[#C59B43] font-bold text-xs hover:opacity-95 transition cursor-pointer shadow-sm"
+            >
+              Ask Zebda AI Assistant
+            </button>
+            <button
+              type="button"
+              onclick="openHelpModal()"
+              class="py-2 px-4 rounded-xl bg-[#7A1C1C] text-[#F7F3EA] font-bold text-xs hover:opacity-95 transition cursor-pointer shadow-sm"
+            >
+              Report a Problem / Feedback
+            </button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Order Reference Lookup Box (Fresh Session Behavior + InstaShop-Style 3-Stage Progress Bar) -->
+    <section
+      id="order-tracking-section"
+      aria-label="Track your order by Order ID"
+      class="bg-[#EFE9DA] border-2 border-[#C59B43]/75 rounded-2xl p-5 sm:p-6 mb-8 shadow-sm"
+    >
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <span class="text-[11px] uppercase tracking-[0.2em] text-[#1E4620] font-bold block">
+            Live Order Progress • InstaShop-Style Tracker
+          </span>
+          <h2 class="font-serif text-2xl sm:text-3xl font-bold text-[#1E1916]">
+            Track Your Order Status
+          </h2>
+          <p class="text-xs text-[#1E1916]/75 mt-0.5">
+            Enter your Order Reference ID (e.g., <span class="font-bold">ZBC-2211-4821</span>) to check live delivery stages, or visit <a href="points.html" class="underline font-bold text-[#1E4620]">My Points &amp; Orders</a> to search by phone number.
+          </p>
+        </div>
+        <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 w-full md:w-auto">
+          <input
+            id="lookup-order-id-input"
+            type="text"
+            onkeydown="if(event.key==='Enter') lookupOrderById()"
+            placeholder="Enter Order ID (e.g. ZBC-...)"
+            class="rounded-xl bg-[#F7F3EA] border border-[#1E1916]/25 px-4 py-2.5 text-sm font-bold text-[#1E1916] uppercase placeholder:normal-case placeholder:font-normal focus:outline-none focus:border-[#1E4620]"
+          />
+          <button
+            type="button"
+            onclick="lookupOrderById()"
+            class="px-5 py-2.5 rounded-xl bg-[#1E4620] text-[#F7F3EA] font-bold text-xs sm:text-sm hover:opacity-95 transition cursor-pointer shrink-0"
+          >
+            Track / Check Order
+          </button>
+        </div>
+      </div>
+
+      <!-- Lookup Result Box -->
+      <div id="lookup-result-box" class="hidden mt-5 pt-5 border-t border-[#1E1916]/15"></div>
+    </section>
+
+    <!-- Four Compound Butter Flavors + Approved Community Menu Flavors -->
+    <section aria-label="Compound butter flavors" class="mb-7">
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-2 mb-5">
+        <div>
+          <span class="text-xs uppercase tracking-[0.2em] text-[#1E4620] font-bold block">
+            Place Orders At Least 2 Days In Advance • Freshly Whipped
+          </span>
+          <h2 class="font-serif text-3xl sm:text-4xl font-bold text-[#1E1916]">
+            Signature Compound Butter Flavors
           </h2>
         </div>
+        <p class="text-xs sm:text-sm text-[#1E1916]/75">
+          Use <strong class="text-[#1E1916]">+ / &minus;</strong> on any tin to build your order.
+        </p>
+      </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
-          <div>
-            <label for="cust-name" class="block font-bold uppercase tracking-wider text-[#1E1916]/80 mb-1">
-              Full Name *
-            </label>
-            <input
-              id="cust-name"
-              type="text"
-              placeholder="e.g. Hatem Shams"
-              class="w-full rounded-xl bg-[#F7F3EA] border border-[#1E1916]/25 px-3.5 py-2.5 text-sm font-semibold text-[#1E1916]"
-            />
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- 1. Roasted Garlic & Herb (145 EGP) -->
+        <article id="card-garlic" class="heritage-card bg-[#EFE9DA]/70 rounded-2xl border border-[#1E1916]/15 overflow-hidden flex flex-col">
+          <div class="bg-[#1E4620] text-[#F7F3EA] px-5 py-4 flex items-center justify-between gap-3">
+            <div>
+              <span class="text-[11px] uppercase tracking-[0.18em] text-[#E8C97B] font-semibold block">
+                01 • Savory &amp; Herb-Forward
+              </span>
+              <h3 class="font-serif text-2xl sm:text-3xl font-bold leading-tight mt-0.5">
+                Roasted Garlic &amp; Herb
+              </h3>
+            </div>
+            <div class="text-right shrink-0">
+              <span class="arabic-text text-sm font-bold text-[#E8C97B] block">ثوم محمص وأعشاب</span>
+              <span class="text-lg font-bold text-[#F7F3EA]">145 EGP</span>
+            </div>
           </div>
-          <div>
-            <label for="cust-phone" class="block font-bold uppercase tracking-wider text-[#1E1916]/80 mb-1">
-              Phone Number (Loyalty ID) *
-            </label>
-            <input
-              id="cust-phone"
-              type="tel"
-              placeholder="010xxxxxxxx"
-              class="w-full rounded-xl bg-[#F7F3EA] border border-[#1E1916]/25 px-3.5 py-2.5 text-sm font-semibold text-[#1E1916]"
-            />
+          <div class="p-5 flex-1 flex flex-col justify-between bg-[#F7F3EA]/85">
+            <div>
+              <p class="text-sm text-[#1E1916]/80 leading-relaxed mb-4">
+                Sweet, mellow roasted garlic folded with fragrant herbs and sea salt into 50/50 commercial &amp; baladi butter for comforting, everyday warmth.
+              </p>
+              <div class="mb-5">
+                <span class="block text-[11px] uppercase tracking-wider font-bold text-[#1E1916]/60 mb-2">
+                  Tasting Notes &amp; Pairings
+                </span>
+                <div class="flex flex-wrap gap-1.5">
+                  <span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-[#1E4620]/12 text-[#1E4620]">
+                    Roasted Garlic &amp; Herbs
+                  </span>
+                  <span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-[#1E4620]/12 text-[#1E4620]">
+                    Steak &amp; Grilled Meats
+                  </span>
+                  <span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-[#1E4620]/12 text-[#1E4620]">
+                    Garlic Bread &amp; Pasta
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="pt-4 border-t border-[#1E1916]/12 flex items-center justify-between gap-3">
+              <span id="status-garlic" class="text-xs font-semibold text-[#1E1916]/75">
+                145 EGP / tin
+              </span>
+              <div class="inline-flex items-center rounded-xl bg-[#EFE9DA] border border-[#1E1916]/20 p-1">
+                <button
+                  id="dec-garlic"
+                  type="button"
+                  onclick="changeQty('garlic', -1)"
+                  aria-label="Decrease quantity of Roasted Garlic and Herb"
+                  class="w-9 h-9 rounded-lg flex items-center justify-center text-lg font-bold text-[#1E1916] hover:bg-[#F7F3EA] active:scale-95 transition cursor-pointer"
+                >
+                  &minus;
+                </button>
+                <span id="qty-garlic" class="w-9 text-center text-sm font-bold text-[#1E1916]">
+                  0
+                </span>
+                <button
+                  id="inc-garlic"
+                  type="button"
+                  onclick="changeQty('garlic', 1)"
+                  aria-label="Increase quantity of Roasted Garlic and Herb"
+                  class="w-9 h-9 rounded-lg flex items-center justify-center text-lg font-bold bg-[#1E4620] text-[#F7F3EA] hover:opacity-95 active:scale-95 transition cursor-pointer"
+                >
+                  +
+                </button>
+              </div>
+            </div>
           </div>
-          <div>
-            <label for="cust-email" class="block font-bold uppercase tracking-wider text-[#1E1916]/80 mb-1">
-              Email (Optional)
-            </label>
-            <input
-              id="cust-email"
-              type="email"
-              placeholder="name@example.com"
-              class="w-full rounded-xl bg-[#F7F3EA] border border-[#1E1916]/25 px-3.5 py-2.5 text-sm font-semibold text-[#1E1916]"
-            />
+        </article>
+
+        <!-- 2. Hot Honey & Chili Crunch (155 EGP) -->
+        <article id="card-chili" class="heritage-card bg-[#EFE9DA]/70 rounded-2xl border border-[#1E1916]/15 overflow-hidden flex flex-col">
+          <div class="bg-[#7A1C1C] text-[#F7F3EA] px-5 py-4 flex items-center justify-between gap-3">
+            <div>
+              <span class="text-[11px] uppercase tracking-[0.18em] text-[#F5D692] font-semibold block">
+                02 • Sweet Heat &amp; Crunch
+              </span>
+              <h3 class="font-serif text-2xl sm:text-3xl font-bold leading-tight mt-0.5">
+                Hot Honey &amp; Chili Crunch
+              </h3>
+            </div>
+            <div class="text-right shrink-0">
+              <span class="arabic-text text-sm font-bold text-[#F5D692] block">عسل حار وفلفل مقرمش</span>
+              <span class="text-lg font-bold text-[#F7F3EA]">155 EGP</span>
+            </div>
           </div>
+          <div class="p-5 flex-1 flex flex-col justify-between bg-[#F7F3EA]/85">
+            <div>
+              <p class="text-sm text-[#1E1916]/80 leading-relaxed mb-4">
+                Smooth floral honey meets crisp chili crunch and warm spice—sweet, lively, and textured for breakfast tables and bold savory bites.
+              </p>
+              <div class="mb-5">
+                <span class="block text-[11px] uppercase tracking-wider font-bold text-[#1E1916]/60 mb-2">
+                  Tasting Notes &amp; Pairings
+                </span>
+                <div class="flex flex-wrap gap-1.5">
+                  <span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-[#7A1C1C]/12 text-[#7A1C1C]">
+                    Sweet Honey &amp; Chili Crunch
+                  </span>
+                  <span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-[#7A1C1C]/12 text-[#7A1C1C]">
+                    Eggs &amp; Crispy Chicken
+                  </span>
+                  <span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-[#7A1C1C]/12 text-[#7A1C1C]">
+                    Sourdough &amp; Pizza Crust
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="pt-4 border-t border-[#1E1916]/12 flex items-center justify-between gap-3">
+              <span id="status-chili" class="text-xs font-semibold text-[#1E1916]/75">
+                155 EGP / tin
+              </span>
+              <div class="inline-flex items-center rounded-xl bg-[#EFE9DA] border border-[#1E1916]/20 p-1">
+                <button
+                  id="dec-chili"
+                  type="button"
+                  onclick="changeQty('chili', -1)"
+                  aria-label="Decrease quantity of Hot Honey and Chili Crunch"
+                  class="w-9 h-9 rounded-lg flex items-center justify-center text-lg font-bold text-[#1E1916] hover:bg-[#F7F3EA] active:scale-95 transition cursor-pointer"
+                >
+                  &minus;
+                </button>
+                <span id="qty-chili" class="w-9 text-center text-sm font-bold text-[#1E1916]">
+                  0
+                </span>
+                <button
+                  id="inc-chili"
+                  type="button"
+                  onclick="changeQty('chili', 1)"
+                  aria-label="Increase quantity of Hot Honey and Chili Crunch"
+                  class="w-9 h-9 rounded-lg flex items-center justify-center text-lg font-bold bg-[#7A1C1C] text-[#F7F3EA] hover:opacity-95 active:scale-95 transition cursor-pointer"
+                >
+                  +
+                </button>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- 3. Sundried Tomato, Basil & Parmesan (165 EGP) -->
+        <article id="card-tomato" class="heritage-card bg-[#EFE9DA]/70 rounded-2xl border border-[#1E1916]/15 overflow-hidden flex flex-col">
+          <div class="bg-[#262523] text-[#F7F3EA] px-5 py-4 flex items-center justify-between gap-3">
+            <div>
+              <span class="text-[11px] uppercase tracking-[0.18em] text-[#E8C97B] font-semibold block">
+                03 • Rich Mediterranean Umami
+              </span>
+              <h3 class="font-serif text-2xl sm:text-3xl font-bold leading-tight mt-0.5">
+                Sundried Tomato, Basil &amp; Parmesan
+              </h3>
+            </div>
+            <div class="text-right shrink-0">
+              <span class="arabic-text text-sm font-bold text-[#E8C97B] block">طماطم وريحان وبارميزان</span>
+              <span class="text-lg font-bold text-[#F7F3EA]">165 EGP</span>
+            </div>
+          </div>
+          <div class="p-5 flex-1 flex flex-col justify-between bg-[#F7F3EA]/85">
+            <div>
+              <p class="text-sm text-[#1E1916]/80 leading-relaxed mb-4">
+                Tangy sundried tomatoes, sweet basil, and aged Parmesan blended into rich hybrid butter—melts into a quick, savory pan sauce in seconds.
+              </p>
+              <div class="mb-5">
+                <span class="block text-[11px] uppercase tracking-wider font-bold text-[#1E1916]/60 mb-2">
+                  Tasting Notes &amp; Pairings
+                </span>
+                <div class="flex flex-wrap gap-1.5">
+                  <span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-[#262523]/12 text-[#262523]">
+                    Sundried Tomato &amp; Parmesan
+                  </span>
+                  <span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-[#262523]/12 text-[#262523]">
+                    Fresh Basil &amp; Pasta
+                  </span>
+                  <span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-[#262523]/12 text-[#262523]">
+                    Grilled Chicken &amp; Focaccia
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="pt-4 border-t border-[#1E1916]/12 flex items-center justify-between gap-3">
+              <span id="status-tomato" class="text-xs font-semibold text-[#1E1916]/75">
+                165 EGP / tin
+              </span>
+              <div class="inline-flex items-center rounded-xl bg-[#EFE9DA] border border-[#1E1916]/20 p-1">
+                <button
+                  id="dec-tomato"
+                  type="button"
+                  onclick="changeQty('tomato', -1)"
+                  aria-label="Decrease quantity of Sundried Tomato, Basil and Parmesan"
+                  class="w-9 h-9 rounded-lg flex items-center justify-center text-lg font-bold text-[#1E1916] hover:bg-[#F7F3EA] active:scale-95 transition cursor-pointer"
+                >
+                  &minus;
+                </button>
+                <span id="qty-tomato" class="w-9 text-center text-sm font-bold text-[#1E1916]">
+                  0
+                </span>
+                <button
+                  id="inc-tomato"
+                  type="button"
+                  onclick="changeQty('tomato', 1)"
+                  aria-label="Increase quantity of Sundried Tomato, Basil and Parmesan"
+                  class="w-9 h-9 rounded-lg flex items-center justify-center text-lg font-bold bg-[#262523] text-[#F7F3EA] hover:opacity-95 active:scale-95 transition cursor-pointer"
+                >
+                  +
+                </button>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- 4. Black Truffle & Sea Salt (185 EGP) -->
+        <article id="card-truffle" class="heritage-card bg-[#EFE9DA]/70 rounded-2xl border-2 border-[#C59B43] overflow-hidden flex flex-col">
+          <div class="bg-[#1E1916] text-[#F7F3EA] px-5 py-4 flex items-center justify-between gap-3 border-b border-[#C59B43]/45">
+            <div>
+              <span class="text-[11px] uppercase tracking-[0.18em] text-[#E8C97B] font-semibold block">
+                04 • Reserve Edition
+              </span>
+              <h3 class="font-serif text-2xl sm:text-3xl font-bold leading-tight mt-0.5 text-[#F7F3EA]">
+                Black Truffle &amp; Sea Salt
+              </h3>
+            </div>
+            <div class="text-right shrink-0">
+              <span class="arabic-text text-sm font-bold text-[#E8C97B] block">كمأة سوداء وملح بحري</span>
+              <span class="text-lg font-bold text-[#E8C97B]">185 EGP</span>
+            </div>
+          </div>
+          <div class="p-5 flex-1 flex flex-col justify-between bg-[#F7F3EA]/85">
+            <div>
+              <p class="text-sm text-[#1E1916]/80 leading-relaxed mb-4">
+                Aromatic truffle olive oil, dark roasted specks, and finishing sea salt over velvety butter—made to finish steaks, risotto, and warm toast.
+              </p>
+              <div class="mb-5">
+                <span class="block text-[11px] uppercase tracking-wider font-bold text-[#1E1916]/60 mb-2">
+                  Tasting Notes &amp; Pairings
+                </span>
+                <div class="flex flex-wrap gap-1.5">
+                  <span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-[#C59B43]/20 text-[#1E1916]">
+                    Truffle Aroma &amp; Sea Salt
+                  </span>
+                  <span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-[#C59B43]/20 text-[#1E1916]">
+                    Steak &amp; Mushrooms
+                  </span>
+                  <span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-[#C59B43]/20 text-[#1E1916]">
+                    Risotto, Fries &amp; Toast
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="pt-4 border-t border-[#C59B43]/35 flex items-center justify-between gap-3">
+              <span id="status-truffle" class="text-xs font-semibold text-[#1E1916]/75">
+                185 EGP / tin
+              </span>
+              <div class="inline-flex items-center rounded-xl bg-[#EFE9DA] border border-[#C59B43] p-1">
+                <button
+                  id="dec-truffle"
+                  type="button"
+                  onclick="changeQty('truffle', -1)"
+                  aria-label="Decrease quantity of Black Truffle and Sea Salt"
+                  class="w-9 h-9 rounded-lg flex items-center justify-center text-lg font-bold text-[#1E1916] hover:bg-[#F7F3EA] active:scale-95 transition cursor-pointer"
+                >
+                  &minus;
+                </button>
+                <span id="qty-truffle" class="w-9 text-center text-sm font-bold text-[#1E1916]">
+                  0
+                </span>
+                <button
+                  id="inc-truffle"
+                  type="button"
+                  onclick="changeQty('truffle', 1)"
+                  aria-label="Increase quantity of Black Truffle and Sea Salt"
+                  class="w-9 h-9 rounded-lg flex items-center justify-center text-lg font-bold bg-[#C59B43] text-[#1E1916] hover:brightness-105 active:scale-95 transition cursor-pointer"
+                >
+                  +
+                </button>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <!-- VIP 10,000-Point Community Co-Created Flavors (Published from Admin) -->
+      <div id="community-flavors-wrapper" class="hidden mt-7">
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-3.5">
           <div>
-            <label for="cust-area" class="block font-bold uppercase tracking-wider text-[#1E1916]/80 mb-1">
-              Area / District *
+            <span class="text-[11px] uppercase tracking-[0.2em] text-[#1E4620] font-bold block">
+              VIP 10,000-Point Co-Creations • Official Menu Additions
+            </span>
+            <h3 class="font-serif text-2xl font-bold text-[#1E1916]">
+              VIP Custom Member Flavors
+            </h3>
+          </div>
+          <a
+            href="points.html"
+            class="px-3 py-1 rounded-full text-xs font-bold bg-[#1E1916] text-[#E8C97B] border border-[#C59B43]"
+          >
+            Earn 10,000 Pts to Create Yours
+          </a>
+        </div>
+        <div id="community-flavors-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
+      </div>
+
+      <!-- Two Blurred "In Development" Flavors Styled Like Flavor Cards -->
+      <div class="mt-7">
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-3.5">
+          <div>
+            <span class="text-[11px] uppercase tracking-[0.2em] text-[#7A1C1C] font-bold block">
+              Kitchen R&amp;D • Secret Test Batches
+            </span>
+            <h3 class="font-serif text-2xl font-bold text-[#1E1916]">
+              Two Flavors In Development
+            </h3>
+          </div>
+          <span class="px-3 py-1 rounded-full text-xs font-bold bg-[#EFE9DA] border border-[#C59B43] text-[#1E1916]">
+            Blurred Preview • Not Finalized Yet
+          </span>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <!-- Blurred Experimental Card 1 -->
+          <article class="relative bg-[#EFE9DA]/70 rounded-2xl border border-[#1E1916]/15 overflow-hidden flex flex-col">
+            <div class="blur-sm select-none pointer-events-none opacity-65 flex-1 flex flex-col">
+              <div class="bg-[#1E4620] text-[#F7F3EA] px-5 py-4 flex items-center justify-between gap-3">
+                <div>
+                  <span class="text-[11px] uppercase tracking-[0.18em] text-[#E8C97B] font-semibold block">
+                    05 • R&amp;D Test Batch
+                  </span>
+                  <h4 class="font-serif text-2xl font-bold leading-tight mt-0.5">
+                    Experimental Flavor #1
+                  </h4>
+                </div>
+                <span class="text-sm font-bold text-[#E8C97B]">TBD</span>
+              </div>
+              <div class="p-5 flex-1 bg-[#F7F3EA]/85">
+                <p class="text-sm text-[#1E1916]/80 leading-relaxed mb-4">
+                  Early kitchen trial batch blending 50/50 butter with a secret concept currently in progress.
+                </p>
+                <div class="flex flex-wrap gap-1.5">
+                  <span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-[#1E4620]/12 text-[#1E4620]">
+                    Testing Batch
+                  </span>
+                  <span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-[#1E4620]/12 text-[#1E4620]">
+                    Secret Concept
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="absolute inset-0 bg-[#1E1916]/45 backdrop-blur-[2px] flex flex-col items-center justify-center p-5 text-center text-[#F7F3EA]">
+              <span class="px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider bg-[#C59B43] text-[#1E1916] mb-2">
+                In Development
+              </span>
+              <p class="font-serif text-xl font-bold">
+                Experimental Flavor #1
+              </p>
+              <p class="text-xs text-[#F7F3EA]/85 mt-1 max-w-xs">
+                Still under development — write your own flavor idea to suggest what comes next.
+              </p>
+              <button
+                type="button"
+                onclick="openFlavorIdeaModal('Experimental Flavor #1')"
+                class="mt-3 px-4 py-2 rounded-xl bg-[#F7F3EA] text-[#1E1916] text-xs font-bold hover:bg-white transition cursor-pointer"
+              >
+                Write Your Flavor Idea
+              </button>
+            </div>
+          </article>
+
+          <!-- Blurred Experimental Card 2 -->
+          <article class="relative bg-[#EFE9DA]/70 rounded-2xl border border-[#1E1916]/15 overflow-hidden flex flex-col">
+            <div class="blur-sm select-none pointer-events-none opacity-65 flex-1 flex flex-col">
+              <div class="bg-[#262523] text-[#F7F3EA] px-5 py-4 flex items-center justify-between gap-3">
+                <div>
+                  <span class="text-[11px] uppercase tracking-[0.18em] text-[#E8C97B] font-semibold block">
+                    06 • R&amp;D Test Batch
+                  </span>
+                  <h4 class="font-serif text-2xl font-bold leading-tight mt-0.5">
+                    Experimental Flavor #2
+                  </h4>
+                </div>
+                <span class="text-sm font-bold text-[#E8C97B]">TBD</span>
+              </div>
+              <div class="p-5 flex-1 bg-[#F7F3EA]/85">
+                <p class="text-sm text-[#1E1916]/80 leading-relaxed mb-4">
+                  Second experimental batch in the works with nothing finalized yet.
+                </p>
+                <div class="flex flex-wrap gap-1.5">
+                  <span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-[#262523]/12 text-[#262523]">
+                    Testing Batch
+                  </span>
+                  <span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-[#262523]/12 text-[#262523]">
+                    Coming Soon
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="absolute inset-0 bg-[#1E1916]/45 backdrop-blur-[2px] flex flex-col items-center justify-center p-5 text-center text-[#F7F3EA]">
+              <span class="px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider bg-[#C59B43] text-[#1E1916] mb-2">
+                In Development
+              </span>
+              <p class="font-serif text-xl font-bold">
+                Experimental Flavor #2
+              </p>
+              <p class="text-xs text-[#F7F3EA]/85 mt-1 max-w-xs">
+                Still under development — tell us what flavor you want us to test.
+              </p>
+              <button
+                type="button"
+                onclick="openFlavorIdeaModal('Experimental Flavor #2')"
+                class="mt-3 px-4 py-2 rounded-xl bg-[#F7F3EA] text-[#1E1916] text-xs font-bold hover:bg-white transition cursor-pointer"
+              >
+                Write Your Flavor Idea
+              </button>
+            </div>
+          </article>
+        </div>
+      </div>
+
+      <!-- Storage & Serving Cheat-Sheet -->
+      <div class="mt-6 rounded-2xl bg-[#EFE9DA] border border-[#1E1916]/15 p-4 sm:p-5 grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs">
+        <div>
+          <span class="font-bold uppercase tracking-wider text-[#1E4620] block mb-1">1. Keep Chilled (0–4°C)</span>
+          <p class="text-[#1E1916]/80 leading-relaxed">
+            Store your tins refrigerated at <strong>0–4°C</strong> so the 50/50 commercial &amp; baladi butter stays fresh.
+          </p>
+        </div>
+        <div>
+          <span class="font-bold uppercase tracking-wider text-[#7A1C1C] block mb-1">2. Rest 10–15 Mins to Spread</span>
+          <p class="text-[#1E1916]/80 leading-relaxed">
+            Take the tin out <strong>10–15 minutes</strong> before serving if you want soft, spreadable butter on toast or bread.
+          </p>
+        </div>
+        <div>
+          <span class="font-bold uppercase tracking-wider text-[#1E1916] block mb-1">3. Melt Straight Into Hot Dishes</span>
+          <p class="text-[#1E1916]/80 leading-relaxed">
+            Drop cold pats straight onto hot steak, pasta, risotto, eggs, or pizza crust for instant flavor.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4-Flavor Quartet Tasting Box Bundle (560 EGP) -->
+    <section
+      id="card-quartet"
+      aria-label="4-Flavor Quartet Tasting Box"
+      class="bg-[#1E1916] text-[#F7F3EA] rounded-2xl border-2 border-[#C59B43] p-6 sm:p-8 mb-9 shadow-md"
+    >
+      <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+        <div class="max-w-2xl">
+          <div class="inline-flex flex-wrap items-center gap-2 px-3 py-1 rounded-full bg-[#C59B43]/20 border border-[#C59B43]/50 text-[#E8C97B] text-xs font-bold uppercase tracking-wider mb-3">
+            <span>Tasting &amp; Gifting Bundle</span>
+            <span>•</span>
+            <span>2-Day Advance Notice</span>
+            <span>•</span>
+            <span class="arabic-text">بوكس التذوق (4 نكهات)</span>
+          </div>
+          <h2 class="font-serif text-3xl sm:text-4xl font-bold text-[#F7F3EA]">
+            4-Flavor Quartet Tasting Box
+          </h2>
+          <p class="mt-2 text-sm sm:text-[15px] text-[#F7F3EA]/80 leading-relaxed">
+            Includes one tin of each flavor: <strong class="text-[#F7F3EA]">Roasted Garlic &amp; Herb</strong>, <strong class="text-[#F7F3EA]">Hot Honey &amp; Chili Crunch</strong>, <strong class="text-[#F7F3EA]">Sundried Tomato, Basil &amp; Parmesan</strong>, and <strong class="text-[#E8C97B]">Black Truffle &amp; Sea Salt</strong> (650 EGP if bought individually).
+          </p>
+          <p id="status-quartet" class="hidden mt-2 text-xs font-bold text-[#F5D692]">
+            Currently Out of Stock
+          </p>
+        </div>
+        <div class="bg-[#262523] border border-[#C59B43]/45 rounded-xl p-5 sm:min-w-[280px] flex flex-col justify-between gap-4">
+          <div>
+            <span class="text-xs uppercase tracking-widest text-[#E8C97B] font-semibold block">
+              Quartet Box Price
+            </span>
+            <div class="mt-1 flex items-baseline gap-2.5">
+              <span class="font-serif text-3xl font-bold text-[#F7F3EA]">560 EGP</span>
+              <span class="text-xs line-through text-[#F7F3EA]/50">650 EGP</span>
+            </div>
+          </div>
+          <div class="flex flex-col gap-2.5">
+            <button
+              id="quartet-toggle-btn"
+              type="button"
+              onclick="toggleQuartet()"
+              class="w-full py-2.5 px-4 rounded-xl text-sm font-bold transition-all bg-[#C59B43] text-[#1E1916] hover:brightness-105 active:scale-[0.99] cursor-pointer"
+            >
+              + Add Quartet Box (560 EGP)
+            </button>
+            <div class="flex items-center justify-between rounded-xl bg-[#1E1916] border border-[#C59B43]/35 px-3 py-1.5">
+              <span class="text-xs font-semibold text-[#F7F3EA]/80">Boxes:</span>
+              <div class="inline-flex items-center gap-2">
+                <button
+                  id="dec-quartet"
+                  type="button"
+                  onclick="changeQuartetQty(-1)"
+                  aria-label="Decrease number of 4-Flavor Quartet Tasting Boxes"
+                  class="w-8 h-8 rounded-lg flex items-center justify-center text-base font-bold bg-[#262523] text-[#F7F3EA] hover:bg-[#33312e] active:scale-95 transition cursor-pointer"
+                >
+                  &minus;
+                </button>
+                <span id="qty-quartet" class="w-7 text-center text-sm font-bold text-[#E8C97B]">
+                  0
+                </span>
+                <button
+                  id="inc-quartet"
+                  type="button"
+                  onclick="changeQuartetQty(1)"
+                  aria-label="Increase number of 4-Flavor Quartet Tasting Boxes"
+                  class="w-8 h-8 rounded-lg flex items-center justify-center text-base font-bold bg-[#C59B43] text-[#1E1916] hover:brightness-105 active:scale-95 transition cursor-pointer"
+                >
+                  +
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Cascading Location Selector + Loyalty Reward Banner + Free Sample + Payment & Screenshot Upload + Live Order Summary -->
+    <section
+      id="whatsapp-order-section"
+      aria-label="Location selector, loyalty rewards, free sample, payment method, screenshot upload, and order builder"
+      class="bg-[#EFE9DA] border border-[#1E1916]/20 rounded-2xl p-6 sm:p-8 mb-8"
+    >
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 mb-6 border-b border-[#1E1916]/12">
+        <div>
+          <span class="text-xs uppercase tracking-[0.2em] text-[#1E4620] font-bold block">
+            Direct WhatsApp Order + Points Sync • +20 10 41870087
+          </span>
+          <h2 class="font-serif text-3xl font-bold text-[#1E1916]">
+            Delivery Location, Loyalty &amp; Order Summary
+          </h2>
+          <p class="text-xs sm:text-sm text-[#7A1C1C] font-semibold mt-0.5">
+            Orders must be placed at least 2 days in advance • يجب الطلب قبل الموعد بيومين على الأقل
+          </p>
+        </div>
+        <div class="flex flex-wrap items-center gap-3">
+          <button
+            type="button"
+            onclick="applyQuickSampleOrder()"
+            class="px-3 py-2 rounded-xl bg-[#F7F3EA] border border-[#C59B43] text-xs font-bold text-[#1E1916] hover:bg-white transition cursor-pointer"
+          >
+            Quick-Fill 500+ EGP Sample Test
+          </button>
+          <div class="text-left sm:text-right">
+            <span class="text-xs uppercase tracking-wider font-semibold text-[#1E1916]/65 block">
+              Total Order (Items + Delivery)
+            </span>
+            <span id="panel-total" class="font-serif text-3xl font-bold text-[#1E4620]">
+              40 EGP
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Active Loyalty Reward Banner (If Redeemed on points.html) -->
+      <div id="active-loyalty-reward-banner" class="hidden mb-6 rounded-xl bg-[#1E1916] text-[#F7F3EA] border-2 border-[#C59B43] p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div>
+          <span class="text-[11px] uppercase tracking-widest font-bold text-[#E8C97B] block">
+            Active Loyalty Reward Applied From My Points
+          </span>
+          <p id="active-loyalty-reward-text" class="text-sm font-bold text-[#F7F3EA] mt-0.5"></p>
+        </div>
+        <button
+          type="button"
+          onclick="clearActiveLoyaltyReward()"
+          class="px-3 py-1.5 rounded-lg bg-[#7A1C1C] text-[#F7F3EA] text-xs font-bold cursor-pointer shrink-0"
+        >
+          Remove Reward
+        </button>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <!-- Left Column: Form Inputs -->
+        <div class="space-y-4">
+          <div>
+            <label for="city-select" class="block text-xs font-bold uppercase tracking-wider text-[#1E1916]/80 mb-1.5">
+              1. Area / Zone <span class="text-[#7A1C1C]">*</span>
             </label>
             <select
-              id="cust-area"
-              onchange="recalculateOrder
+              id="city-select"
+              onchange="handleCityChange()"
+              class="w-full rounded-xl bg-[#F7F3EA] border border-[#1E1916]/20 px-4 py-2.5 text-sm font-semibold text-[#1E1916] focus:outline-none focus:border-[#1E4620]"
+            >
+              <option value="Heliopolis & Nozha">Heliopolis &amp; Nozha (40 EGP)</option>
+              <option value="Nasr City">Nasr City (45 EGP)</option>
+              <option value="Maadi, Zamalek & West/Central Cairo">Maadi, Zamalek &amp; West/Central Cairo (60 EGP)</option>
+              <option value="New Cairo">New Cairo (65 – 85 EGP)</option>
+              <option value="Sheikh Zayed">Sheikh Zayed (85 – 105 EGP)</option>
+            </select>
+          </div>
+
+          <div>
+            <div class="flex items-center justify-between gap-2 mb-1.5">
+              <label for="subarea-select" class="block text-xs font-bold uppercase tracking-wider text-[#1E1916]/80">
+                2. Sub-Area / Compound <span class="text-[#7A1C1C]">*</span>
+              </label>
+              <span id="selected-delivery-badge" class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-[#1E4620] text-[#F7F3EA]">
+                Delivery: 40 EGP
+              </span>
+            </div>
+            <select
+              id="subarea-select"
+              onchange="updateOrderUI()"
+              class="w-full rounded-xl bg-[#F7F3EA] border border-[#1E1916]/20 px-4 py-2.5 text-sm font-medium text-[#1E1916] focus:outline-none focus:border-[#1E4620]"
+            ></select>
+          </div>
+
+          <div>
+            <label for="customer-name" class="block text-xs font-bold uppercase tracking-wider text-[#1E1916]/80 mb-1.5">
+              3. Your Full Name <span class="text-[#7A1C1C]">* (Required)</span>
+            </label>
+            <input
+              id="customer-name"
+              type="text"
+              placeholder="Enter your name..."
+              oninput="updateOrderUI()"
+              class="w-full rounded-xl bg-[#F7F3EA] border border-[#1E1916]/20 px-4 py-2.5 text-sm text-[#1E1916] placeholder:text-[#1E1916]/45 focus:outline-none focus:border-[#1E4620]"
+            />
+          </div>
+
+          <!-- Phone Number Field (Customer ID for Points & Order History) -->
+          <div class="rounded-xl bg-[#F7F3EA] border-2 border-[#C59B43]/75 p-3.5 space-y-1.5">
+            <div class="flex items-center justify-between gap-2">
+              <label for="customer-phone" class="block text-xs font-bold uppercase tracking-wider text-[#1E1916]">
+                4. Mobile Phone Number (Your Loyalty ID) <span class="text-[#7A1C1C]">*</span>
+              </label>
+              <span id="phone-points-pill" class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#1E4620]/15 text-[#1E4620]">
+                0 Active Pts
+              </span>
+            </div>
+            <input
+              id="customer-phone"
+              type="tel"
+              placeholder="e.g. 01012345678"
+              oninput="handlePhoneInputChange()"
+              class="w-full rounded-xl bg-white border border-[#1E1916]/20 px-4 py-2.5 text-sm font-semibold text-[#1E1916] placeholder:text-[#1E1916]/45 focus:outline-none focus:border-[#1E4620]"
+            />
+            <p class="text-[11px] text-[#1E1916]/75">
+              Your phone number links all your orders &amp; points (1 EGP = 1 Point, valid 3 months). <a href="points.html" class="underline font-bold text-[#1E4620]">Open My Points &rarr;</a>
+            </p>
+          </div>
+
+          <div>
+            <label for="address-detail" class="block text-xs font-bold uppercase tracking-wider text-[#1E1916]/80 mb-1.5">
+              5. Full Location / Address &amp; Delivery Day <span class="text-[#7A1C1C]">* (Required)</span>
+            </label>
+            <input
+              id="address-detail"
+              type="text"
+              placeholder="Compound / Street / Building / Floor + Delivery Day (2+ days ahead)..."
+              oninput="updateOrderUI()"
+              class="w-full rounded-xl bg-[#F7F3EA] border border-[#1E1916]/20 px-4 py-2.5 text-sm text-[#1E1916] placeholder:text-[#1E1916]/45 focus:outline-none focus:border-[#1E4620]"
+            />
+          </div>
+
+          <!-- Google Maps Pin Link + Current Location Helper -->
+          <div class="rounded-xl bg-[#F7F3EA] border border-[#C59B43]/55 p-3.5 space-y-2">
+            <div class="flex items-center justify-between gap-2">
+              <label for="maps-link-input" class="block text-xs font-bold uppercase tracking-wider text-[#1E1916]">
+                Google Maps Location Pin (Sent in WhatsApp)
+              </label>
+              <button
+                type="button"
+                onclick="fillCurrentGpsLocation()"
+                class="px-2.5 py-1 rounded-lg bg-[#1E4620] text-[#F7F3EA] text-[11px] font-bold hover:opacity-95 transition cursor-pointer shrink-0"
+              >
+                Use Current GPS Pin
+              </button>
+            </div>
+            <input
+              id="maps-link-input"
+              type="url"
+              placeholder="Paste Google Maps link or tap 'Use Current GPS Pin'..."
+              oninput="handleMapsLinkInput()"
+              class="w-full rounded-xl bg-white border border-[#1E1916]/20 px-3.5 py-2 text-xs text-[#1E1916] placeholder:text-[#1E1916]/45 focus:outline-none focus:border-[#1E4620]"
+            />
+            <div class="flex flex-wrap items-center justify-between gap-2 text-[11px]">
+              <span id="gps-status-text" class="text-[#1E1916]/75 font-medium">
+                Paste a Google Maps pin URL or use your current GPS pin so we have your exact drop-off point.
+              </span>
+              <a
+                id="maps-preview-link"
+                href="#"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="hidden font-bold underline text-[#1E4620]"
+              >
+                Preview Map Pin
+              </a>
+            </div>
+          </div>
+
+          <div>
+            <label for="delivery-date-input" class="block text-xs font-bold uppercase tracking-wider text-[#1E1916]/80 mb-1.5">
+              6. Preferred Delivery Date (2+ Days Ahead)
+            </label>
+            <input
+              id="delivery-date-input"
+              type="date"
+              onchange="updateOrderUI()"
+              class="w-full rounded-xl bg-[#F7F3EA] border border-[#1E1916]/20 px-4 py-2.5 text-sm text-[#1E1916] focus:outline-none focus:border-[#1E4620]"
+            />
+            <p id="lead-time-warning" class="hidden text-[11px] font-bold text-[#7A1C1C] mt-1">
+              Heads up: Selected date is less than 2 days from today. Orders require at least 2 days advance notice.
+            </p>
+          </div>
+
+          <!-- Free Sample Selector (Unlocks When Items Subtotal > 500 EGP) -->
+          <div class="rounded-xl bg-[#F7F3EA] border border-[#1E4620]/30 p-3.5 space-y-2">
+            <div class="flex items-center justify-between gap-2">
+              <span class="text-xs font-bold uppercase tracking-wider text-[#1E4620]">
+                Free Sample Reward (Items &gt; 500 EGP)
+              </span>
+              <span id="sample-status-badge" class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#EFE9DA] text-[#1E1916]/75 border border-[#1E1916]/15">
+                Locked
+              </span>
+            </div>
+            <p id="sample-progress-text" class="text-xs text-[#1E1916]/80 font-medium">
+              Add <strong>501 EGP</strong> in butter items/boxes (items only, excluding delivery) to unlock 1 FREE sample flavor.
+            </p>
+            <div id="free-sample-picker-wrap" class="hidden pt-1">
+              <label for="free-sample-select" class="block text-xs font-bold text-[#1E4620] mb-1">
+                Choose Your FREE Sample Flavor (0 EGP):
+              </label>
+              <select
+                id="free-sample-select"
+                onchange="updateOrderUI()"
+                class="w-full rounded-xl bg-white border border-[#1E4620] px-3.5 py-2 text-xs sm:text-sm font-bold text-[#1E1916]"
+              >
+                <option value="Roasted Garlic & Herb">Roasted Garlic &amp; Herb (FREE Sample)</option>
+                <option value="Hot Honey & Chili Crunch">Hot Honey &amp; Chili Crunch (FREE Sample)</option>
+                <option value="Sundried Tomato, Basil & Parmesan">Sundried Tomato, Basil &amp; Parmesan (FREE Sample)</option>
+                <option value="Black Truffle & Sea Salt">Black Truffle &amp; Sea Salt (FREE Sample)</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Payment Method Selector + Direct InstaPay Link & Screenshot Upload -->
+          <div class="pt-2">
+            <span class="block text-xs font-bold uppercase tracking-wider text-[#1E1916]/80 mb-2">
+              7. Payment Method &amp; Direct InstaPay Link
+            </span>
+
+            <!-- Direct InstaPay Payment Box -->
+            <div id="zebda-instapay-box" class="rounded-2xl bg-[#1E1916] text-[#F7F3EA] border border-[#C59B43]/60 p-4 mb-3 space-y-2.5 text-xs">
+              <div class="flex items-center justify-between gap-2">
+                <span class="uppercase tracking-wider font-bold text-[#E8C97B]">InstaPay Direct Payment</span>
+                <span class="px-2 py-0.5 rounded-full bg-[#C59B43] text-[#1E1916] font-bold text-[10px]">
+                  Manual Confirm
+                </span>
+              </div>
+              <p class="text-[#F7F3EA]/90">
+                IPA Handle: <strong class="text-[#E8C97B]">tommy_shams@instapay</strong> • Mobile: <strong>01208958884</strong>
+              </p>
+              <div class="flex flex-wrap items-center gap-2 pt-0.5">
+                <a
+                  href="https://ipn.eg/S/tommy_shams/instapay/5KpRkP"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="px-3.5 py-2 rounded-xl bg-[#C59B43] text-[#1E1916] font-bold hover:brightness-105 transition"
+                >
+                  Pay via InstaPay Link
+                </a>
+                <button
+                  type="button"
+                  onclick="copyInstaPayValue('tommy_shams@instapay', this)"
+                  class="px-3 py-2 rounded-xl bg-[#262523] border border-[#C59B43]/40 text-[#F7F3EA] font-bold hover:bg-[#33312e] transition cursor-pointer"
+                >
+                  Copy IPA Handle
+                </button>
+                <button
+                  type="button"
+                  onclick="copyInstaPayValue('01208958884', this)"
+                  class="px-3 py-2 rounded-xl bg-[#262523] border border-[#C59B43]/40 text-[#F7F3EA] font-bold hover:bg-[#33312e] transition cursor-pointer"
+                >
+                  Copy Number
+                </button>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 mb-3">
+              <button
+                id="pay-btn-instapay"
+                type="button"
+                onclick="setPaymentMethod('instapay')"
+                class="p-3 rounded-xl text-left border-2 transition cursor-pointer bg-[#1E4620] text-[#F7F3EA] border-[#1E4620]"
+              >
+                <span class="block text-xs font-bold uppercase tracking-wider text-[#E8C97B]">Option A</span>
+                <span class="block text-sm font-bold mt-0.5">100% InstaPay</span>
+                <span class="block text-[11px] opacity-85 mt-0.5">Pay full total now via InstaPay</span>
+              </button>
+              <button
+                id="pay-btn-cod"
+                type="button"
+                onclick="setPaymentMethod('cod')"
+                class="p-3 rounded-xl text-left border-2 transition cursor-pointer bg-[#F7F3EA] text-[#1E1916] border-[#1E1916]/20 hover:border-[#1E1916]/45"
+              >
+                <span class="block text-xs font-bold uppercase tracking-wider text-[#7A1C1C]">Option B</span>
+                <span class="block text-sm font-bold mt-0.5">COD + 50% Deposit</span>
+                <span class="block text-[11px] opacity-80 mt-0.5">50% InstaPay now, 50% on delivery</span>
+              </button>
+            </div>
+
+            <div class="mb-3">
+              <label for="customer-email" class="block text-xs font-bold uppercase tracking-wider text-[#1E1916]/80 mb-1.5">
+                8. Your Email <span class="text-[#7A1C1C]">* (Required for Automatic AI Email Receipt)</span>
+              </label>
+              <input
+                id="customer-email"
+                type="email"
+                placeholder="you@example.com"
+                oninput="updateOrderUI()"
+                class="w-full rounded-xl bg-[#F7F3EA] border border-[#1E1916]/20 px-4 py-2.5 text-sm text-[#1E1916] placeholder:text-[#1E1916]/45 focus:outline-none focus:border-[#1E4620]"
+              />
+            </div>
+
+            <!-- Upload InstaPay Screenshot Directly Into Receipt & Admin Portal -->
+            <div class="mb-3 rounded-xl bg-[#F7F3EA] border border-[#C59B43]/65 p-3.5 space-y-2">
+              <div class="flex items-center justify-between gap-2">
+                <label for="order-screenshot-input" class="block text-xs font-bold uppercase tracking-wider text-[#1E1916] arabic-text">
+                  9. رفع سكرينشوت التحويل (Upload InstaPay Screenshot)
+                </label>
+                <button
+                  type="button"
+                  onclick="clearOrderScreenshot()"
+                  class="text-[11px] font-bold underline text-[#7A1C1C] cursor-pointer"
+                >
+                  Remove
+                </button>
+              </div>
+              <p class="text-[11px] text-[#1E1916]/75">
+                Upload your transfer screenshot here — it will be <strong>embedded directly inside your downloadable receipt</strong> and synced to the Admin Portal for ~5-minute verification (±1 hour transfer window).
+              </p>
+              <input
+                id="order-screenshot-input"
+                type="file"
+                accept="image/*"
+                onchange="handleOrderScreenshotUpload(this)"
+                class="block w-full text-xs text-[#1E1916] file:mr-3 file:py-2 file:px-3.5 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-[#1E4620] file:text-[#F7F3EA] hover:file:opacity-95 cursor-pointer"
+              />
+              <div id="order-screenshot-preview-wrap" class="hidden pt-2 border-t border-[#1E1916]/12 flex items-center gap-3">
+                <img
+                  id="order-screenshot-preview-img"
+                  src=""
+                  alt="Uploaded InstaPay screenshot preview"
+                  class="w-20 h-20 rounded-lg object-cover border border-[#1E1916]/20 bg-white shrink-0"
+                />
+                <div class="text-[11px] space-y-0.5">
+                  <p id="order-screenshot-filename" class="font-bold text-[#1E4620] break-all"></p>
+                  <p class="text-[#1E1916]/75">Embedded inside your receipt &amp; synced with Admin.</p>
+                </div>
+              </div>
+            </div>
+
+            <div id="payment-breakdown-box" class="rounded-xl bg-[#F7F3EA] border border-[#C59B43]/50 p-3.5 text-xs space-y-1.5">
+              <div class="flex items-center justify-between font-bold text-[#1E1916]">
+                <span>InstaPay Transfer Due Now (tommy_shams@instapay / 01208958884):</span>
+                <span id="instapay-due-now" class="text-sm text-[#1E4620]">40 EGP</span>
+              </div>
+              <div class="flex items-center justify-between font-semibold text-[#1E1916]/75">
+                <span>Remaining Balance on Delivery (COD):</span>
+                <span id="cod-remaining-due">0 EGP</span>
+              </div>
+              <p class="text-[11px] text-[#7A1C1C] font-semibold pt-1">
+                Order stays on hold until your transfer screenshot to 01208958884 (tommy_shams@instapay) is verified (~5 mins if within ±1 hr).
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column: Live Order Summary + Confirmation Banner + WhatsApp + Receipt Download -->
+        <div class="bg-[#F7F3EA] rounded-2xl border border-[#1E1916]/15 p-5 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between gap-2 pb-3 mb-4 border-b border-[#1E1916]/12">
+              <h3 class="font-serif text-2xl font-bold text-[#1E1916]">
+                Your Order Summary
+              </h3>
+              <span id="order-ref-tag" class="px-2.5 py-1 rounded-lg bg-[#EFE9DA] border border-[#C59B43]/50 text-[11px] font-bold text-[#1E1916]">
+                Ref: ZBC-...
+              </span>
+            </div>
+
+            <div id="order-items-list" class="space-y-2 text-sm text-[#1E1916]/85 mb-4">
+              <p class="text-xs italic text-[#1E1916]/60">No butter tins or Quartet Boxes selected yet.</p>
+            </div>
+
+            <div id="summary-free-sample-row" class="hidden mb-3 px-3 py-2 rounded-xl bg-[#1E4620]/10 border border-[#1E4620]/30 text-xs font-bold text-[#1E4620]">
+              Free Sample (&gt;500 EGP Items): <span id="summary-free-sample-flavor">Roasted Garlic &amp; Herb</span> — FREE (0 EGP)
+            </div>
+
+            <div class="space-y-1.5 pt-3 border-t border-[#1E1916]/12 text-sm">
+              <div class="flex justify-between">
+                <span class="text-[#1E1916]/75">Items Subtotal</span>
+                <span id="summary-items-total" class="font-semibold">0 EGP</span>
+              </div>
+              <div id="summary-discount-row" class="hidden flex justify-between text-[#1E4620] font-bold">
+                <span id="summary-discount-label">Loyalty Discount</span>
+                <span id="summary-discount-amount">-0 EGP</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-[#1E1916]/75">Delivery (<span id="summary-location-label">Heliopolis &amp; Nozha</span>)</span>
+                <span id="summary-delivery-fee" class="font-semibold">40 EGP</span>
+              </div>
+              <div class="flex justify-between text-base font-bold text-[#1E1916] pt-2 border-t border-[#1E1916]/12">
+                <span>Order Total</span>
+                <span id="summary-grand-total" class="text-[#1E4620]">40 EGP</span>
+              </div>
+              <div class="flex justify-between text-xs font-bold text-[#7A1C1C] pt-1">
+                <span>Transfer Now via InstaPay (01208958884)</span>
+                <span id="summary-instapay-now">40 EGP</span>
+              </div>
+              <div class="flex justify-between text-xs font-bold text-[#1E4620] pt-0.5">
+                <span>Points to Earn (Unlocks Upon Verification)</span>
+                <span id="summary-points-earned">+0 pts</span>
+              </div>
+              <div class="flex justify-between text-xs font-semibold text-[#1E1916]/80 pt-0.5">
+                <span>InstaPay Screenshot</span>
+                <span id="summary-screenshot-status" class="text-[#7A1C1C]">Not uploaded yet</span>
+              </div>
+            </div>
+
+            <!-- Order Confirmation Box (Shown when Place / Confirm Order is clicked in current session) -->
+            <div id="order-confirmation-banner" class="hidden mt-4 rounded-xl bg-[#1E4620] text-[#F7F3EA] border-2 border-[#C59B43] p-4 space-y-2 text-xs">
+              <div class="flex items-center justify-between gap-2">
+                <span class="px-2 py-0.5 rounded bg-[#C59B43] text-[#1E1916] font-bold uppercase tracking-wider text-[10px]">
+                  Order Confirmed &amp; Logged
+                </span>
+                <span id="conf-order-id" class="font-bold text-[#E8C97B]"></span>
+              </div>
+              <p class="font-bold text-sm text-[#F7F3EA]">
+                Thank you! Your order reference is <span id="conf-order-id-inline" class="underline text-[#E8C97B]"></span>.
+              </p>
+              <p class="text-[#F7F3EA]/90 leading-relaxed">
+                An automatic AI email receipt has been prepared for <strong id="conf-email"></strong>. Transfers within <strong>±1 hour</strong> are verified in <strong>~5 minutes</strong> once your screenshot is checked. Save your Order ID above to track your delivery stages anytime!
+              </p>
+              <div class="pt-1 flex flex-wrap gap-2">
+                <button
+                  type="button"
+                  onclick="quickTrackConfirmedOrder()"
+                  class="px-3 py-1.5 rounded-lg bg-[#C59B43] text-[#1E1916] font-bold text-[11px] cursor-pointer"
+                >
+                  Track This Order Above
+                </button>
+                <a
+                  href="points.html"
+                  class="px-3 py-1.5 rounded-lg bg-[#262523] text-[#E8C97B] border border-[#C59B43]/50 font-bold text-[11px]"
+                >
+                  View Points Balance
+                </a>
+              </div>
+            </div>
+
+            <!-- Missing Required Details Notice -->
+            <div
+              id="missing-fields-alert"
+              class="mt-4 rounded-xl bg-[#7A1C1C]/10 border border-[#7A1C1C]/40 p-3 text-xs text-[#7A1C1C] font-semibold"
+            >
+              <span class="font-bold block mb-1">Complete these before placing or sending on WhatsApp:</span>
+              <ul id="missing-fields-list" class="list-disc list-inside space-y-0.5 text-[11px]"></ul>
+            </div>
+          </div>
+
+          <div class="mt-6 space-y-2.5">
+            <button
+              id="confirm-place-order-btn"
+              type="button"
+              onclick="confirmAndPlaceOrder()"
+              class="w-full py-3.5 px-5 rounded-xl bg-[#1E1916]/35 text-[#F7F3EA]/80 font-bold text-sm text-center flex items-center justify-center gap-2 cursor-not-allowed transition shadow"
+            >
+              <span>Complete Details to Confirm Order</span>
+            </button>
+            <a
+              id="whatsapp-order-btn"
+              href="#"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-disabled="true"
+              onclick="return handleWhatsAppOrderClick(event)"
+              class="w-full py-3.5 px-5 rounded-xl bg-[#1E1916]/35 text-[#F7F3EA]/80 font-bold text-sm text-center flex items-center justify-center gap-2 cursor-not-allowed transition shadow"
+            >
+              <span>Complete Details to Unlock WhatsApp</span>
+            </a>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+              <button
+                type="button"
+                onclick="downloadOrderReceiptImage()"
+                class="w-full py-3 px-4 rounded-xl bg-[#C59B43] text-[#1E1916] font-bold text-xs hover:brightness-105 active:scale-[0.99] transition cursor-pointer shadow-sm"
+              >
+                Download Receipt (With Screenshot)
+              </button>
+              <button
+                id="copy-order-text-btn"
+                type="button"
+                onclick="copyOrderSummaryText()"
+                class="w-full py-3 px-4 rounded-xl bg-[#262523] text-[#F7F3EA] font-bold text-xs hover:bg-[#33312e] active:scale-[0.99] transition cursor-pointer shadow-sm"
+              >
+                Copy Order Text
+              </button>
+            </div>
+            <button
+              type="button"
+              onclick="openHelpModal()"
+              class="w-full py-2.5 px-4 rounded-xl bg-[#EFE9DA] border border-[#1E1916]/25 text-[#1E1916] font-bold text-xs hover:bg-[#e5decb] transition cursor-pointer"
+            >
+              Contact / Report an Issue or Feedback
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- AI Assistant Modal -->
+  <div
+    id="ai-bot-modal"
+    class="fixed inset-0 z-50 hidden bg-[#1E1916]/75 backdrop-blur-[1px] items-center justify-center p-4 overflow-y-auto"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="ai-bot-title"
+  >
+    <div class="bg-[#F7F3EA] text-[#1E1916] border-2 border-[#C59B43] rounded-2xl max-w-lg w-full p-5 sm:p-6 shadow-2xl space-y-4 my-auto">
+      <div class="flex items-start justify-between gap-3 border-b border-[#1E1916]/15 pb-3">
+        <div>
+          <span class="text-[11px] uppercase tracking-widest font-bold text-[#1E4620] block">
+            Zebda &amp; Co. Concierge
+          </span>
+          <h3 id="ai-bot-title" class="font-serif text-2xl font-bold">
+            Zebda AI Assistant
+          </h3>
+        </div>
+        <button
+          type="button"
+          onclick="toggleAiBotModal(false)"
+          class="px-2.5 py-1 rounded-lg bg-[#EFE9DA] text-xs font-bold hover:bg-[#e3dccb] cursor-pointer"
+        >
+          Close
+        </button>
+      </div>
+
+      <div id="ai-chat-history" class="h-64 overflow-y-auto rounded-xl bg-[#EFE9DA] border border-[#1E1916]/15 p-3.5 space-y-3 text-xs">
+        <div class="bg-[#1E1916] text-[#F7F3EA] rounded-xl p-3 max-w-[88%]">
+          <span class="font-bold text-[#E8C97B] block mb-0.5">Zebda AI</span>
+          Welcome to Zebda &amp; Co.! Ask me about our compound butter flavors, 2-day advance orders, InstaPay verification, or how our 1 EGP = 1 Point rewards (including the 10,000-point custom flavor!) work.
+        </div>
+      </div>
+
+      <div class="flex flex-wrap gap-1.5 text-[11px]">
+        <button type="button" onclick="askAiPreset('How does the points system work?')" class="px-2.5 py-1 rounded-full bg-[#EFE9DA] border border-[#1E1916]/20 font-semibold hover:border-[#1E4620] cursor-pointer">
+          Points &amp; Rewards?
+        </button>
+        <button type="button" onclick="askAiPreset('How do I create my own custom flavor?')" class="px-2.5 py-1 rounded-full bg-[#EFE9DA] border border-[#1E1916]/20 font-semibold hover:border-[#1E4620] cursor-pointer">
+          10,000-Pt Custom Flavor?
+        </button>
+        <button type="button" onclick="askAiPreset('How long does payment verification take?')" class="px-2.5 py-1 rounded-full bg-[#EFE9DA] border border-[#1E1916]/20 font-semibold hover:border-[#1E4620] cursor-pointer">
+          Payment Verification?
+        </button>
+        <button type="button" onclick="askAiPreset('Which flavor goes best with steak or pasta?')" class="px-2.5 py-1 rounded-full bg-[#EFE9DA] border border-[#1E1916]/20 font-semibold hover:border-[#1E4620] cursor-pointer">
+          Flavor Pairings?
+        </button>
+      </div>
+
+      <div class="flex gap-2">
+        <input
+          id="ai-bot-input"
+          type="text"
+          onkeydown="if(event.key==='Enter') sendAiBotMessage()"
+          placeholder="Ask a question..."
+          class="flex-1 rounded-xl bg-white border border-[#1E1916]/25 px-3.5 py-2.5 text-xs sm:text-sm text-[#1E1916]"
+        />
+        <button
+          type="button"
+          onclick="sendAiBotMessage()"
+          class="px-4 py-2.5 rounded-xl bg-[#1E4620] text-[#F7F3EA] font-bold text-xs cursor-pointer"
+        >
+          Send
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Dedicated Flavor Idea Modal (Separate From Problem / Issue Modal) -->
+  <div
+    id="flavor-idea-modal"
+    class="fixed inset-0 z-50 hidden bg-[#1E1916]/75 backdrop-blur-[1px] items-center justify-center p-4 overflow-y-auto"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="flavor-idea-modal-title"
+  >
+    <div class="bg-[#F7F3EA] text-[#1E1916] border-2 border-[#C59B43] rounded-2xl max-w-md w-full p-6 shadow-2xl space-y-4 my-auto">
+      <div class="flex items-start justify-between gap-3 border-b border-[#1E1916]/15 pb-3">
+        <div>
+          <span class="text-[11px] uppercase tracking-widest font-bold text-[#1E4620] block">
+            Zebda &amp; Co. Flavor Lab
+          </span>
+          <h3 id="flavor-idea-modal-title" class="font-serif text-2xl font-bold">
+            Suggest a Flavor Idea
+          </h3>
+        </div>
+        <button
+          type="button"
+          onclick="closeFlavorIdeaModal()"
+          aria-label="Close flavor idea modal"
+          class="px-2.5 py-1 rounded-lg bg-[#EFE9DA] text-xs font-bold hover:bg-[#e3dccb] cursor-pointer"
+        >
+          Close
+        </button>
+      </div>
+      <p id="flavor-slot-context" class="text-xs text-[#1E1916]/80 font-medium">
+        These two flavors are still in development. Write any flavor combination you would love to taste:
+      </p>
+      <div>
+        <label for="flavor-idea-input" class="block text-xs font-bold uppercase tracking-wider text-[#1E1916]/80 mb-1">
+          Your Chosen Flavor Idea *
+        </label>
+        <input
+          id="flavor-idea-input"
+          type="text"
+          oninput="updateFlavorIdeaSend()"
+          placeholder="Example: Caramelized onion & thyme, or cinnamon honey..."
+          class="w-full rounded-xl bg-white border border-[#1E1916]/25 px-3.5 py-2.5 text-xs sm:text-sm text-[#1E1916]"
+        />
+      </div>
+      <div>
+        <label for="flavor-idea-name" class="block text-xs font-bold uppercase tracking-wider text-[#1E1916]/80 mb-1">
+          Your Name (Optional)
+        </label>
+        <input
+          id="flavor-idea-name"
+          type="text"
+          oninput="updateFlavorIdeaSend()"
+          placeholder="Your name..."
+          class="w-full rounded-xl bg-white border border-[#1E1916]/25 px-3.5 py-2 text-xs sm:text-sm text-[#1E1916]"
+        />
+      </div>
+      <p id="flavor-idea-hint" class="text-[11px] font-bold text-[#7A1C1C]">
+        Type a flavor idea (at least 3 characters) to unlock sending on WhatsApp &amp; saving to Admin.
+      </p>
+      <div class="space-y-2">
+        <a
+          id="send-flavor-idea-btn"
+          href="#"
+          target="_blank"
+          rel="noopener noreferrer"
+          onclick="logFlavorIdeaToAdmin()"
+          class="hidden w-full py-3 px-4 rounded-xl bg-[#1E4620] text-[#F7F3EA] font-bold text-xs text-center hover:opacity-95 transition"
+        >
+          Send Flavor Idea on WhatsApp (+20 10 41870087)
+        </a>
+        <button
+          id="copy-flavor-idea-btn"
+          type="button"
+          onclick="copyFlavorIdeaText()"
+          class="hidden w-full py-2 px-4 rounded-xl bg-[#EFE9DA] text-[#1E1916] border border-[#1E1916]/25 font-bold text-xs hover:bg-[#e3dccb] transition cursor-pointer"
+        >
+          Save Idea &amp; Copy Text
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hidden Canvas Used to Generate Branded Receipt Image (Auto-resizes when screenshot is attached) -->
+  <canvas id="receipt-canvas" width="900" height="1620" class="hidden"></canvas>
+
+  <!-- Above-Keyboard Quick-Close Bar (Appears Automatically When Typing in Any Field) -->
+  <div
+    id="keyboard-helper-bar"
+    class="hidden fixed inset-x-0 bottom-[62px] z-40 px-4 pointer-events-none"
+  >
+    <div class="max-w-5xl mx-auto flex justify-end">
+      <div class="pointer-events-auto inline-flex items-center gap-2 rounded-full bg-[#1E1916] text-[#F7F3EA] border border-[#C59B43] px-3.5 py-1.5 shadow-xl text-xs">
+        <span class="text-[#E8C97B] font-semibold hidden sm:inline">Typing in field</span>
+        <button
+          type="button"
+          onmousedown="event.preventDefault()"
+          onclick="dismissActiveKeyboard()"
+          class="px-3 py-1 rounded-full bg-[#C59B43] text-[#1E1916] font-bold hover:brightness-105 cursor-pointer"
+        >
+          Done / Close Keyboard
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sticky Bottom Summary Bar -->
+  <div class="fixed bottom-0 inset-x-0 z-30 bg-[#1E1916] text-[#F7F3EA] border-t border-[#C59B43]/50 shadow-lg">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between gap-3">
+      <div>
+        <div class="text-xs text-[#E8C97B] font-semibold">
+          <span id="sticky-qty-count">0 items</span> • InstaPay Now: <span id="sticky-instapay">40 EGP</span>
+        </div>
+        <div class="text-sm font-bold">
+          Total: <span id="sticky-total">40 EGP</span>
+        </div>
+      </div>
+      <div class="flex items-center gap-2 shrink-0">
+        <button
+          type="button"
+          onclick="toggleAiBotModal(true)"
+          class="py-2.5 px-3 rounded-xl bg-[#262523] text-[#E8C97B] border border-[#C59B43]/50 font-bold text-xs hover:bg-[#33312e] transition cursor-pointer"
+        >
+          AI Bot
+        </button>
+        <button
+          type="button"
+          onclick="downloadOrderReceiptImage()"
+          class="py-2.5 px-3 rounded-xl bg-[#EFE9DA] text-[#1E1916] font-bold text-xs hover:bg-white transition cursor-pointer"
+        >
+          Receipt
+        </button>
+        <a
+          id="sticky-whatsapp-btn"
+          href="#"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-disabled="true"
+          onclick="return handleWhatsAppOrderClick(event)"
+          class="py-2.5 px-4 sm:px-5 rounded-xl bg-[#C59B43]/40 text-[#F7F3EA]/75 font-bold text-xs sm:text-sm cursor-not-allowed transition"
+        >
+          Order on WhatsApp
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Multi-Section Help, Issue Diagnostic & Escalation Modal -->
+  <div
+    id="help-modal"
+    class="fixed inset-0 z-50 hidden bg-[#1E1916]/75 backdrop-blur-[1px] items-center justify-center p-4 overflow-y-auto"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="help-modal-title"
+  >
+    <div class="bg-[#F7F3EA] text-[#1E1916] border-2 border-[#C59B43] rounded-2xl max-w-xl w-full p-6 shadow-2xl space-y-4 my-auto">
+      <div class="flex items-start justify-between gap-3 border-b border-[#1E1916]/15 pb-3">
+        <div>
+          <span class="text-[11px] uppercase tracking-widest font-bold text-[#7A1C1C] block">
+            Zebda &amp; Co. Problem Diagnostic &amp; Support
+          </span>
+          <h3 id="help-modal-title" class="font-serif text-2xl font-bold">
+            Contact &amp; Issue Finder
+          </h3>
+        </div>
+        <button
+          type="button"
+          onclick="closeHelpModal()"
+          aria-label="Close help window"
+          class="px-2.5 py-1 rounded-lg bg-[#EFE9DA] text-xs font-bold hover:bg-[#e3dccb] cursor-pointer"
+        >
+          Close
+        </button>
+      </div>
+      <!-- Section 1: Main Problem Type -->
+      <div id="help-section-1" class="space-y-3">
+        <p class="text-sm font-bold text-[#1E1916]">
+          Section 1 — What is the main problem or type of issue?
+        </p>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-bold">
+          <button
+            type="button"
+            onclick="selectMainCategory('quality')"
+            class="p-3 rounded-xl bg-[#EFE9DA] border border-[#1E1916]/20 text-left hover:border-[#1E4620] cursor-pointer"
+          >
+            Food &amp; Butter Quality
+            <span class="block text-[11px] font-normal text-[#1E1916]/70 mt-0.5">Taste, warmth, texture, or freshness</span>
+          </button>
+          <button
+            type="button"
+            onclick="selectMainCategory('packaging')"
+            class="p-3 rounded-xl bg-[#EFE9DA] border border-[#1E1916]/20 text-left hover:border-[#1E4620] cursor-pointer"
+          >
+            Packaging &amp; Tin Condition
+            <span class="block text-[11px] font-normal text-[#1E1916]/70 mt-0.5">Damaged tin, seal, or packing quality</span>
+          </button>
+          <button
+            type="button"
+            onclick="selectMainCategory('delivery')"
+            class="p-3 rounded-xl bg-[#EFE9DA] border border-[#1E1916]/20 text-left hover:border-[#1E4620] cursor-pointer"
+          >
+            Delivery &amp; Timing
+            <span class="block text-[11px] font-normal text-[#1E1916]/70 mt-0.5">2-day lead time, late arrival, or zone</span>
+          </button>
+          <button
+            type="button"
+            onclick="selectMainCategory('payment')"
+            class="p-3 rounded-xl bg-[#EFE9DA] border border-[#1E1916]/20 text-left hover:border-[#1E4620] cursor-pointer"
+          >
+            InstaPay, Points &amp; Hold
+            <span class="block text-[11px] font-normal text-[#1E1916]/70 mt-0.5">01208958884, 500+ EGP sample, or points</span>
+          </button>
+          <button
+            type="button"
+            onclick="selectMainCategory('items')"
+            class="p-3 rounded-xl bg-[#EFE9DA] border border-[#1E1916]/20 text-left hover:border-[#1E4620] cursor-pointer"
+          >
+            Flavors &amp; Quartet Box
+            <span class="block text-[11px] font-normal text-[#1E1916]/70 mt-0.5">Wrong flavor, missing tin, or 560 EGP box</span>
+          </button>
+          <button
+            type="button"
+            onclick="selectMainCategory('other')"
+            class="p-3 rounded-xl bg-[#7A1C1C] text-[#F7F3EA] border border-[#7A1C1C] text-left hover:opacity-95 cursor-pointer"
+          >
+            Other Problem (Write Yours)
+            <span class="block text-[11px] font-normal text-[#F5D692] mt-0.5">Anything else — type it &amp; send directly</span>
+          </button>
+        </div>
+      </div>
+      <!-- Section 2 -->
+      <div id="help-section-2" class="hidden space-y-3">
+        <div class="flex items-center justify-between gap-2">
+          <span id="selected-category-badge" class="px-2.5 py-1 rounded-full text-xs font-bold bg-[#1E4620] text-[#F7F3EA]"></span>
+          <button
+            type="button"
+            onclick="resetHelpModal()"
+            class="text-xs underline font-semibold text-[#1E1916]/75 cursor-pointer"
+          >
+            Change main problem
+          </button>
+        </div>
+        <div>
+          <label for="specific-problem-select" class="block text-xs font-bold uppercase tracking-wider text-[#1E1916]/80 mb-1">
+            Section 2 — Pick the exact problem:
+          </label>
+          <select
+            id="specific-problem-select"
+            onchange="handleSpecificProblemChange()"
+            class="w-full rounded-xl bg-[#EFE9DA] border border-[#1E1916]/25 px-3.5 py-2.5 text-xs sm:text-sm font-semibold text-[#1E1916]"
+          ></select>
+        </div>
+        <div id="self-check-tip-box" class="p-3.5 rounded-xl bg-[#EFE9DA] border border-[#1E1916]/15 text-xs sm:text-sm leading-relaxed"></div>
+        <div id="routine-fix-controls" class="flex flex-wrap gap-2">
+          <button
+            type="button"
+            onclick="markHelpSolved()"
+            class="flex-1 py-2.5 px-3 rounded-xl bg-[#1E4620] text-[#F7F3EA] text-xs font-bold cursor-pointer"
+          >
+            Problem Fixed — No Need to Contact
+          </button>
+          <button
+            type="button"
+            onclick="showEscalationBox()"
+            class="flex-1 py-2.5 px-3 rounded-xl bg-[#7A1C1C] text-[#F7F3EA] text-xs font-bold cursor-pointer"
+          >
+            Not Fixed / Send to You Now
+          </button>
+        </div>
+        <div id="escalation-details-box" class="hidden space-y-3 pt-2 border-t border-[#1E1916]/15">
+          <div>
+            <label for="custom-problem-input" class="block text-xs font-bold text-[#7A1C1C] mb-1">
+              Describe the problem clearly so we can fix it &amp; improve:
+            </label>
+            <textarea
+              id="custom-problem-input"
+              rows="3"
+              oninput="updateEscalationLink()"
+              placeholder="Example: The butter tin arrived warm / packaging was dented / another issue..."
+              class="w-full rounded-xl bg-[#EFE9DA] border border-[#1E1916]/25 p-2.5 text-xs text-[#1E1916]"
+            ></textarea>
+          </div>
+          <!-- 3-Way Photo Choice -->
+          <div class="rounded-xl bg-[#EFE9DA] border border-[#1E1916]/20 p-3 space-y-2.5">
+            <div class="flex items-center justify-between gap-2">
+              <span class="text-xs font-bold text-[#1E1916]">
+                Attach Photo (Optional — iPhone &amp; Samsung)
+              </span>
+              <button
+                type="button"
+                onclick="clearAttachedPhoto()"
+                class="text-[11px] font-bold underline text-[#7A1C1C] cursor-pointer"
+              >
+                Clear Photo
+              </button>
+            </div>
+            <input
+              id="photo-input-camera"
+              type="file"
+              accept="image/*"
+              capture="environment"
+              onchange="handlePhotoSelected(this, 'Take Photo Now (Camera)')"
+              class="hidden"
+            />
+            <input
+              id="photo-input-gallery"
+              type="file"
+              accept="image/*"
+              onchange="handlePhotoSelected(this, 'Attach / Choose Photo (Gallery)')"
+              class="hidden"
+            />
+            <input
+              id="photo-input-file"
+              type="file"
+              accept="image/*,.pdf"
+              onchange="handlePhotoSelected(this, 'Browse & Attach File')"
+              class="hidden"
+            />
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs font-bold">
+              <button
+                type="button"
+                onclick="triggerPhotoChoice('photo-input-camera')"
+                class="py-2 px-2.5 rounded-xl bg-[#1E1916] text-[#E8C97B] hover:opacity-95 transition cursor-pointer text-center"
+              >
+                1. Take Photo Now
+              </button>
+              <button
+                type="button"
+                onclick="triggerPhotoChoice('photo-input-gallery')"
+                class="py-2 px-2.5 rounded-xl bg-[#1E4620] text-[#F7F3EA] hover:opacity-95 transition cursor-pointer text-center"
+              >
+                2. Attach Photo
+              </button>
+              <button
+                type="button"
+                onclick="triggerPhotoChoice('photo-input-file')"
+                class="py-2 px-2.5 rounded-xl bg-[#F7F3EA] text-[#1E1916] border border-[#1E1916]/25 hover:bg-white transition cursor-pointer text-center"
+              >
+                3. Browse File
+              </button>
+            </div>
+            <div id="photo-preview-container" class="hidden pt-2 border-t border-[#1E1916]/12 space-y-2">
+              <div class="text-[11px] font-bold text-[#1E4620]" id="photo-selected-label"></div>
+              <img
+                id="photo-preview-img"
+                src=""
+                alt="Selected problem photo preview"
+                class="max-h-40 rounded-lg border border-[#1E1916]/20 object-contain bg-[#F7F3EA]"
+              />
+            </div>
+          </div>
+          <label id="gate-confirm-label" class="flex items-start gap-2 text-xs font-semibold cursor-pointer">
+            <input id="gate-confirm-checkbox" type="checkbox" onchange="updateEscalationLink()" class="mt-0.5" />
+            <span>I confirmed this isn't already solved by the info above and want to send this to Zebda &amp; Co.</span>
+          </label>
+          <p id="escalation-status-hint" class="text-[11px] font-bold text-[#7A1C1C]">
+            Enter at least 10 characters describing the issue and check the confirmation box to unlock instant WhatsApp send.
+          </p>
+          <div class="space-y-2">
+            <a
+              id="instant-send-whatsapp-btn"
+              href="#"
+              target="_blank"
+              rel="noopener noreferrer"
+              onclick="logIssueToAdmin()"
+              class="hidden w-full py-3 px-4 rounded-xl bg-[#1E1916] text-[#E8C97B] border border-[#C59B43] font-bold text-xs text-center hover:brightness-105 transition"
+            >
+              Send This Problem Immediately to +20 10 41870087
+            </a>
+            <button
+              id="copy-issue-text-btn"
+              type="button"
+              onclick="copyIssueSummary()"
+              class="hidden w-full py-2 px-4 rounded-xl bg-[#EFE9DA] text-[#1E1916] border border-[#1E1916]/25 font-bold text-xs hover:bg-[#e3dccb] transition cursor-pointer"
+            >
+              Save Issue &amp; Copy Text
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- Solved State -->
+      <div id="help-solved-state" class="hidden space-y-3 text-center py-2">
+        <p class="text-base font-bold text-[#1E4620]">Awesome — problem resolved without needing support!</p>
+        <p class="text-xs text-[#1E1916]/80">
+          Whenever you're ready, place your order at least 2 days ahead.
+        </p>
+        <button
+          type="button"
+          onclick="closeHelpModal()"
+          class="py-2.5 px-5 rounded-xl bg-[#1E4620] text-[#F7F3EA] text-xs font-bold cursor-pointer"
+        >
+          Back to Menu
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const INSTAPAY_NUMBER_DISPLAY = '01208958884';
+    const INSTAPAY_HANDLE_DISPLAY = 'tommy_shams@instapay';
+    const INSTAPAY_DIRECT_URL = 'https://ipn.eg/S/tommy_shams/instapay/5KpRkP';
+    const WHATSAPP_PHONE_DIGITS = '201041870087';
+    const FREE_SAMPLE_ITEMS_THRESHOLD = 500;
+    const ADMIN_STORE_KEY = 'zebda_and_co_admin_sync_v1';
+    const ACTIVE_REWARD_SESSION_KEY = 'zebda_active_loyalty_reward_v1';
+    const NINETY_DAYS_MS = 90 * 24 * 60 * 60 * 1000;
+
+    function copyInstaPayValue(val, btnEl) {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(val).then(() => {
+          if (btnEl) {
+            const orig = btnEl.textContent;
+            btnEl.textContent = 'Copied!';
+            setTimeout(() => {
+              btnEl.textContent = orig;
+            }, 1500);
+          }
+        });
+      }
+    }
+
+    const BASE_FLAVORS = {
+      garlic: { name: 'Roasted Garlic & Herb', price: 145 },
+      chili: { name: 'Hot Honey & Chili Crunch', price: 155 },
+      tomato: { name: 'Sundried Tomato, Basil & Parmesan', price: 165 },
+      truffle: { name: 'Black Truffle & Sea Salt', price: 185 },
+    };
+    const QUARTET_PRICE = 560;
+
+    const SUBAREAS_BY_CITY = {
+      'Heliopolis & Nozha': [
+        { label: 'Heliopolis / Korba / Roxy / Almaza (40 EGP)', fee: 40 },
+        { label: 'El-Nozha / Sheraton (40 EGP)', fee: 40 },
+      ],
+      'Nasr City': [
+        { label: 'Nasr City — All Districts (45 EGP)', fee: 45 },
+      ],
+      'Maadi, Zamalek & West/Central Cairo': [
+        { label: 'Maadi / Degla / Zahraa El Maadi (60 EGP)', fee: 60 },
+        { label: 'Zamalek / Garden City / Downtown (60 EGP)', fee: 60 },
+        { label: 'Dokki / Mohandessin (60 EGP)', fee: 60 },
+      ],
+      'New Cairo': [
+        { label: 'Fifth Settlement / Tagamoa Compounds (75 EGP)', fee: 75 },
+        { label: 'Rehab / Madinaty (85 EGP)', fee: 85 },
+        { label: 'Shorouk / Mostakbal City (85 EGP)', fee: 85 },
+      ],
+      'Sheikh Zayed': [
+        { label: 'Sheikh Zayed / Central Compounds (90 EGP)', fee: 90 },
+        { label: '6th of October / Outer Compounds (105 EGP)', fee: 105 },
+      ],
+    };
+
+    const PROBLEM_CATEGORIES = {
+      quality: {
+        label: 'Food & Butter Quality',
+        forceEscalation: true,
+        problems: [
+          {
+            title: 'Food / butter came bad, off-smelling, or spoiled',
+            tip: '<strong>Quality Alert:</strong> Keep chilled at 0–4°C and report details below so we can immediately log this batch quality issue and make it right.',
+          },
+          {
+            title: 'Butter arrived warm or melted',
+            tip: '<strong>Cold-Chain Check:</strong> Butters are chilled at 0–4°C before dispatch. Describe how warm it arrived below so we can improve cold-pack protection.',
+          },
+          {
+            title: 'Flavor, salt, spice, or texture wasn’t what I expected',
+            tip: '<strong>Taste Feedback:</strong> Our blends mix 50/50 commercial &amp; baladi butter. Share your exact notes below so we can tune our recipe.',
+          },
+        ],
+      },
+      packaging: {
+        label: 'Packaging & Tin Condition',
+        forceEscalation: true,
+        problems: [
+          {
+            title: 'Packaging was bad, messy, or poorly wrapped',
+            tip: '<strong>Packaging Feedback:</strong> We want every order to arrive clean and well-protected. Tell us what looked wrong with the packaging below.',
+          },
+          {
+            title: 'Tin was dented, opened, or unsealed on arrival',
+            tip: '<strong>Seal / Tin Issue:</strong> Note the flavor tin affected and what happened in the box below so we can inspect our packing workflow.',
+          },
+        ],
+      },
+      delivery: {
+        label: 'Delivery & Timing',
+        forceEscalation: false,
+        problems: [
+          {
+            title: 'I need delivery sooner than 2 days',
+            tip: '<strong>2-Day Advance Notice:</strong> Every batch is whipped and chilled fresh to order, so we require at least <strong>2 days advance notice</strong>.',
+          },
+          {
+            title: 'Delivery is late or address / compound needs update',
+            tip: '<strong>Delivery Timing / Address:</strong> If your delivery window passed or your compound/street needs correction, click <em>Not Fixed / Send to You Now</em> below.',
+          },
+          {
+            title: 'Delivery zone fee question',
+            tip: '<strong>Delivery Zones:</strong> Heliopolis &amp; Nozha (40 EGP), Nasr City (45 EGP), Maadi/Zamalek/West-Central (60 EGP), New Cairo (75–85 EGP), Sheikh Zayed (90–105 EGP).',
+          },
+        ],
+      },
+      payment: {
+        label: 'InstaPay, Points & Hold',
+        forceEscalation: false,
+        problems: [
+          {
+            title: 'How do Points & the 3-month expiration work?',
+            tip: '<strong>1 EGP = 1 Point:</strong> Every verified pound spent earns 1 point (valid for 3 months / 90 days). Redeem 500 pts for Free Delivery, 2,500 pts for 50% Off, 5,000 pts for 70% Off, or 10,000 pts to create your own 250g flavor!',
+          },
+          {
+            title: 'Why is my order on hold or taking time to verify?',
+            tip: '<strong>Hold &amp; Verification Rule:</strong> Transfers within <strong>±1 hour</strong> of order time are verified in <strong>~5 minutes</strong> once your screenshot to <strong>01208958884</strong> (<strong>tommy_shams@instapay</strong>) is checked.',
+          },
+          {
+            title: 'How does the 50% InstaPay deposit + COD work?',
+            tip: '<strong>50% Deposit Option:</strong> Choose <em>COD + 50% Deposit</em> to transfer 50% now via InstaPay (<strong>01208958884</strong> / <strong>tommy_shams@instapay</strong>) and pay the remaining 50% upon delivery.',
+          },
+        ],
+      },
+      items: {
+        label: 'Flavors & Quartet Box',
+        forceEscalation: false,
+        problems: [
+          {
+            title: 'What is inside the 4-Flavor Quartet Box (560 EGP)?',
+            tip: '<strong>Quartet Box (560 EGP):</strong> Includes one tin each of Roasted Garlic &amp; Herb, Hot Honey &amp; Chili Crunch, Sundried Tomato/Basil/Parmesan, and Black Truffle &amp; Sea Salt.',
+          },
+          {
+            title: 'Missing tin or wrong flavor received',
+            tip: '<strong>Item Mismatch:</strong> Click <em>Not Fixed / Send to You Now</em> below and list which flavor tin was missing or incorrect.',
+          },
+        ],
+      },
+      other: {
+        label: 'Other Problem',
+        forceEscalation: true,
+        problems: [
+          {
+            title: 'Other — I will write my own problem',
+            tip: '<strong>Custom Issue:</strong> Type whatever problem you experienced below and send it straight to <strong>+20 10 41870087</strong>.',
+          },
+        ],
+      },
+    };
+
+    function normalizePhone(raw) {
+      let digits = String(raw || '').replace(/\D/g, '');
+      if (digits.startsWith('20') && digits.length === 12) {
+        digits = '0' + digits.slice(2);
+      }
+      return digits;
+    }
+
+    function generateFreshOrderRef() {
+      const d = new Date();
+      const pad = (n) => String(n).padStart(2, '0');
+      const rand = Math.floor(1000 + Math.random() * 9000);
+      return 'ZBC-' + pad(d.getDate()) + pad(d.getMonth() + 1) + '-' + rand;
+    }
+
+    const state = {
+      qtys: { garlic: 0, chili: 0, tomato: 0, truffle: 0 },
+      communityQtys: {},
+      quartetQty: 0,
+      paymentMethod: 'instapay',
+      activeCategoryKey: 'quality',
+      activeFlavorSlot: 'Experimental Flavor #1',
+      latestFlavorIdeaText: '',
+      photoMeta: null,
+      paymentScreenshotDataUrl: '',
+      paymentScreenshotName: '',
+      paymentScreenshotImgObj: null,
+      latestIssueMessage: '',
+      latestOrderMessage: '',
+      orderReady: false,
+      currentOrderData: null,
+      mapsLink: '',
+      orderRef: generateFreshOrderRef(),
+      activeInputEl: null,
+      activeLoyaltyReward: null,
+    };
+
+    function readAdminStore() {
+      try {
+        const raw = localStorage.getItem(ADMIN_STORE_KEY);
+        const parsed = raw ? JSON.parse(raw) : {};
+        return {
+          orders: Array.isArray(parsed.orders) ? parsed.orders : [],
+          flavorIdeas: Array.isArray(parsed.flavorIdeas) ? parsed.flavorIdeas : [],
+          issues: Array.isArray(parsed.issues) ? parsed.issues : [],
+          outOfStock:
+            parsed.outOfStock && typeof parsed.outOfStock === 'object'
+              ? parsed.outOfStock
+              : {},
+          customMenuFlavors: Array.isArray(parsed.customMenuFlavors)
+            ? parsed.customMenuFlavors
+            : [],
+          loyaltyProfiles:
+            parsed.loyaltyProfiles && typeof parsed.loyaltyProfiles === 'object'
+              ? parsed.loyaltyProfiles
+              : {},
+          n8nConfig:
+            parsed.n8nConfig && typeof parsed.n8nConfig === 'object'
+              ? parsed.n8nConfig
+              : {},
+          n8nLastAudit: parsed.n8nLastAudit || null,
+        };
+      } catch (e) {
+        return {
+          orders: [],
+          flavorIdeas: [],
+          issues: [],
+          outOfStock: {},
+          customMenuFlavors: [],
+          loyaltyProfiles: {},
+          n8nConfig: {},
+          n8nLastAudit: null,
+        };
+      }
+    }
+
+    function writeAdminStore(data) {
+      try {
+        localStorage.setItem(ADMIN_STORE_KEY, JSON.stringify(data));
+      } catch (e) {}
+    }
+
+    function getCustomerActivePoints(rawPhone) {
+      const phoneId = normalizePhone(rawPhone);
+      if (phoneId.length < 10) return { activePoints: 0, pendingPoints: 0, expiresAt: null };
+      const store = readAdminStore();
+      const now = Date.now();
+      let activePoints = 0;
+      let pendingPoints = 0;
+      let latestExpiry = null;
+
+      store.orders.forEach((o) => {
+        if (normalizePhone(o.customerPhone) !== phoneId) return;
+        const pts = Number(o.pointsEarned || Math.floor(Number(o.itemsTotal || 0)));
+        const stage = o.deliveryStage || mapLegacyStatusToStage(o.status);
+        const isVerified =
+          o.paymentVerified === true ||
+          stage === 'Out for delivery' ||
+          stage === 'Delivered' ||
+          o.status === 'Verified & Whipping' ||
+          o.status === 'Delivered';
+
+        if (!isVerified) {
+          pendingPoints += pts;
+        } else {
+          const verifiedTs = o.verifiedAtMs || o.createdAtMs || now;
+          const expTs = verifiedTs + NINETY_DAYS_MS;
+          if (expTs > now) {
+            activePoints += pts;
+            if (!latestExpiry || expTs > latestExpiry) latestExpiry = expTs;
+          }
+        }
+      });
+
+      const prof = store.loyaltyProfiles[phoneId] || {};
+      const manualAdj = Number(prof.manualAdjustment || 0);
+      const redeemed = Number(prof.redeemedPoints || 0);
+      activePoints = Math.max(0, activePoints + manualAdj - redeemed);
+      return { activePoints, pendingPoints, expiresAt: latestExpiry };
+    }
+
+    function mapLegacyStatusToStage(status) {
+      if (status === 'Delivered') return 'Delivered';
+      if (status === 'Verified & Whipping' || status === 'Out for delivery') return 'Out for delivery';
+      return 'Not started yet';
+    }
+
+    function loadActiveLoyaltyReward() {
+      try {
+        const raw = sessionStorage.getItem(ACTIVE_REWARD_SESSION_KEY);
+        if (!raw) return;
+        const parsed = JSON.parse(raw);
+        if (parsed && parsed.tierId) {
+          state.activeLoyaltyReward = parsed;
+          if (parsed.phoneId) {
+            const phoneInput = document.getElementById('customer-phone');
+            if (phoneInput && !phoneInput.value) {
+              phoneInput.value = parsed.phoneId;
+            }
+          }
+        }
+      } catch (e) {}
+    }
+
+    function clearActiveLoyaltyReward() {
+      state.activeLoyaltyReward = null;
+      sessionStorage.removeItem(ACTIVE_REWARD_SESSION_KEY);
+      updateOrderUI();
+    }
+
+    function handlePhoneInputChange() {
+      const phoneVal = document.getElementById('customer-phone').value;
+      const { activePoints, pendingPoints } = getCustomerActivePoints(phoneVal);
+      const pill = document.getElementById('phone-points-pill');
+      if (pill) {
+        pill.textContent =
+          activePoints + ' Active Pts' + (pendingPoints > 0 ? ' (+' + pendingPoints + ' pending)' : '');
+      }
+      updateOrderUI();
+    }
+
+    function renderApprovedCommunityFlavors() {
+      const store = readAdminStore();
+      const approved = (store.customMenuFlavors || []).filter((f) => f.published);
+      const wrapper = document.getElementById('community-flavors-wrapper');
+      const grid = document.getElementById('community-flavors-grid');
+      if (!wrapper || !grid) return;
+
+      if (approved.length === 0) {
+        wrapper.classList.add('hidden');
+        return;
+      }
+      wrapper.classList.remove('hidden');
+      grid.innerHTML = approved
+        .map((item) => {
+          const id = item.id;
+          const qty = state.communityQtys[id] || 0;
+          const price = Number(item.price || 175);
+          return (
+            '<article class="heritage-card bg-[#EFE9DA]/70 rounded-2xl border-2 border-[#C59B43] overflow-hidden flex flex-col">' +
+            '<div class="bg-[#1E4620] text-[#F7F3EA] px-5 py-4 flex items-center justify-between gap-3">' +
+            '<div>' +
+            '<span class="text-[11px] uppercase tracking-[0.18em] text-[#E8C97B] font-semibold block">VIP 10,000-Pt Member Creation</span>' +
+            '<h4 class="font-serif text-2xl font-bold leading-tight mt-0.5">' +
+            escapeHtml(item.flavorName) +
+            '</h4>' +
+            '</div>' +
+            '<div class="text-right shrink-0">' +
+            '<span class="text-xs font-bold text-[#E8C97B] block">250g Tin</span>' +
+            '<span class="text-lg font-bold text-[#F7F3EA]">' +
+            price +
+            ' EGP</span>' +
+            '</div>' +
+            '</div>' +
+            '<div class="p-5 flex-1 flex flex-col justify-between bg-[#F7F3EA]/85">' +
+            '<p class="text-sm text-[#1E1916]/80 leading-relaxed mb-4">' +
+            escapeHtml(item.description || 'Custom compound butter co-created by a Z&C VIP member.') +
+            '</p>' +
+            '<div class="pt-4 border-t border-[#1E1916]/12 flex items-center justify-between gap-3">' +
+            '<span class="text-xs font-semibold text-[#1E1916]/75">' +
+            price +
+            ' EGP / tin</span>' +
+            '<div class="inline-flex items-center rounded-xl bg-[#EFE9DA] border border-[#1E1916]/20 p-1">' +
+            '<button type="button" onclick="changeCommunityQty(\'' +
+            escapeHtml(id) +
+            '\', -1)" class="w-9 h-9 rounded-lg flex items-center justify-center text-lg font-bold text-[#1E1916] hover:bg-[#F7F3EA] cursor-pointer">&minus;</button>' +
+            '<span class="w-9 text-center text-sm font-bold text-[#1E1916]">' +
+            qty +
+            '</span>' +
+            '<button type="button" onclick="changeCommunityQty(\'' +
+            escapeHtml(id) +
+            '\', 1)" class="w-9 h-9 rounded-lg flex items-center justify-center text-lg font-bold bg-[#1E4620] text-[#F7F3EA] cursor-pointer">+</button>' +
+            '</div>' +
+            '</div>' +
+            '</div>' +
+            '</article>'
+          );
+        })
+        .join('');
+    }
+
+    function changeCommunityQty(id, delta) {
+      state.communityQtys[id] = Math.max(0, (state.communityQtys[id] || 0) + delta);
+      renderApprovedCommunityFlavors();
+      updateOrderUI();
+    }
+
+    function escapeHtml(str) {
+      return String(str || '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    }
+
+    function isItemOutOfStock(key) {
+      const store = readAdminStore();
+      return Boolean(store.outOfStock && store.outOfStock[key]);
+    }
+
+    function applyOutOfStockStateToMenu() {
+      const store = readAdminStore();
+      const oos = store.outOfStock || {};
+      Object.keys(BASE_FLAVORS).forEach((key) => {
+        const isOos = Boolean(oos[key]);
+        if (isOos && state.qtys[key] > 0) {
+          state.qtys[key] = 0;
+          const qtyEl = document.getElementById('qty-' + key);
+          if (qtyEl) qtyEl.textContent = '0';
+        }
+        const cardEl = document.getElementById('card-' + key);
+        const statusEl = document.getElementById('status-' + key);
+        const incBtn = document.getElementById('inc-' + key);
+        if (cardEl) cardEl.classList.toggle('opacity-60', isOos);
+        if (statusEl) {
+          statusEl.textContent = isOos ? 'OUT OF STOCK' : BASE_FLAVORS[key].price + ' EGP / tin';
+          statusEl.className = isOos
+            ? 'text-xs font-bold text-[#7A1C1C] uppercase tracking-wider'
+            : 'text-xs font-semibold text-[#1E1916]/75';
+        }
+        if (incBtn) {
+          incBtn.disabled = isOos;
+          incBtn.classList.toggle('opacity-40', isOos);
+          incBtn.classList.toggle('cursor-not-allowed', isOos);
+        }
+      });
+
+      const qOos = Boolean(oos.quartet);
+      if (qOos && state.quartetQty > 0) state.quartetQty = 0;
+      const qStatusEl = document.getElementById('status-quartet');
+      const qToggleBtn = document.getElementById('quartet-toggle-btn');
+      const qIncBtn = document.getElementById('inc-quartet');
+      if (qStatusEl) qStatusEl.classList.toggle('hidden', !qOos);
+      if (qIncBtn) {
+        qIncBtn.disabled = qOos;
+        qIncBtn.classList.toggle('opacity-40', qOos);
+        qIncBtn.classList.toggle('cursor-not-allowed', qOos);
+      }
+      syncQuartetUI();
+      if (qToggleBtn && qOos) {
+        qToggleBtn.disabled = true;
+        qToggleBtn.textContent = 'Quartet Box — Out of Stock';
+        qToggleBtn.className =
+          'w-full py-2.5 px-4 rounded-xl text-sm font-bold bg-[#7A1C1C]/50 text-[#F7F3EA]/80 cursor-not-allowed';
+      } else if (qToggleBtn && !qOos) {
+        qToggleBtn.disabled = false;
+      }
+      renderApprovedCommunityFlavors();
+    }
+
+    function handleOrderScreenshotUpload(inputEl) {
+      const file = inputEl && inputEl.files && inputEl.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        if (e.target && e.target.result) {
+          state.paymentScreenshotDataUrl = e.target.result;
+          state.paymentScreenshotName = file.name;
+          const imgObj = new Image();
+          imgObj.onload = function () {
+            state.paymentScreenshotImgObj = imgObj;
+            updateOrderUI();
+          };
+          imgObj.src = e.target.result;
+
+          const wrap = document.getElementById('order-screenshot-preview-wrap');
+          const img = document.getElementById('order-screenshot-preview-img');
+          const nameEl = document.getElementById('order-screenshot-filename');
+          if (img) img.src = state.paymentScreenshotDataUrl;
+          if (nameEl) nameEl.textContent = file.name;
+          if (wrap) wrap.classList.remove('hidden');
+          updateOrderUI();
+        }
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function clearOrderScreenshot() {
+      state.paymentScreenshotDataUrl = '';
+      state.paymentScreenshotName = '';
+      state.paymentScreenshotImgObj = null;
+      const input = document.getElementById('order-screenshot-input');
+      const wrap = document.getElementById('order-screenshot-preview-wrap');
+      const img = document.getElementById('order-screenshot-preview-img');
+      if (input) input.value = '';
+      if (img) img.src = '';
+      if (wrap) wrap.classList.add('hidden');
+      updateOrderUI();
+    }
+
+    function saveOrderRecord(orderData, receiptImageDataUrl) {
+      if (!orderData || !state.orderReady) return;
+      const store = readAdminStore();
+      const existingIdx = store.orders.findIndex((o) => o.orderRef === orderData.orderRef);
+      const existingObj = existingIdx >= 0 ? store.orders[existingIdx] : null;
+      const resolvedScreenshot =
+        state.paymentScreenshotDataUrl || (existingObj ? existingObj.paymentScreenshotDataUrl : '');
+      const resolvedScreenshotName =
+        state.paymentScreenshotName || (existingObj ? existingObj.paymentScreenshotName : '');
+
+      const deliveryStage = existingObj
+        ? existingObj.deliveryStage || mapLegacyStatusToStage(existingObj.status)
+        : 'Not started yet';
+
+      const record = {
+        ...orderData,
+        paymentScreenshotDataUrl: resolvedScreenshot,
+        paymentScreenshotName: resolvedScreenshotName,
+        status: existingObj ? existingObj.status : 'Pending / On Hold',
+        deliveryStage,
+        stageHistory: existingObj && Array.isArray(existingObj.stageHistory)
+          ? existingObj.stageHistory
+          : [{ stage: 'Not started yet', at: new Date().toLocaleString() }],
+        receiptImageDataUrl:
+          receiptImageDataUrl || (existingObj ? existingObj.receiptImageDataUrl : ''),
+        orderText: state.latestOrderMessage,
+        createdAt: existingObj ? existingObj.createdAt : new Date().toLocaleString(),
+        createdAtMs: existingObj ? existingObj.createdAtMs : Date.now(),
+        updatedAt: new Date().toLocaleString(),
+      };
+
+      if (existingIdx >= 0) {
+        store.orders[existingIdx] = record;
+      } else {
+        store.orders.unshift(record);
+      }
+
+      if (orderData.appliedReward && !orderData.appliedRewardDeducted) {
+        const phoneId = normalizePhone(orderData.customerPhone);
+        if (phoneId.length >= 10) {
+          store.loyaltyProfiles = store.loyaltyProfiles || {};
+          const prof = store.loyaltyProfiles[phoneId] || { redeemedPoints: 0, manualAdjustment: 0, history: [] };
+          prof.redeemedPoints = Number(prof.redeemedPoints || 0) + Number(orderData.appliedReward.pointsCost || 0);
+          prof.history = Array.isArray(prof.history) ? prof.history : [];
+          prof.history.unshift({
+            type: 'redeem',
+            points: -Number(orderData.appliedReward.pointsCost || 0),
+            label: orderData.appliedReward.title,
+            orderRef: orderData.orderRef,
+            at: new Date().toLocaleString(),
+          });
+          store.loyaltyProfiles[phoneId] = prof;
+          record.appliedRewardDeducted = true;
+          if (existingIdx >= 0) store.orders[existingIdx] = record;
+          else store.orders[0] = record;
+        }
+        sessionStorage.removeItem(ACTIVE_REWARD_SESSION_KEY);
+      }
+
+      writeAdminStore(store);
+    }
+
+    function confirmAndPlaceOrder() {
+      if (!state.orderReady) {
+        const alertBox = document.getElementById('missing-fields-alert');
+        if (alertBox) alertBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        return;
+      }
+      const receiptDataUrl = renderReceiptCanvas(state.currentOrderData);
+      saveOrderRecord(state.currentOrderData, receiptDataUrl);
+
+      const banner = document.getElementById('order-confirmation-banner');
+      document.getElementById('conf-order-id').textContent = state.orderRef;
+      document.getElementById('conf-order-id-inline').textContent = state.orderRef;
+      document.getElementById('conf-email').textContent = state.currentOrderData.customerEmail;
+      banner.classList.remove('hidden');
+      banner.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    function quickTrackConfirmedOrder() {
+      const input = document.getElementById('lookup-order-id-input');
+      if (input) {
+        input.value = state.orderRef;
+        lookupOrderById();
+        document.getElementById('order-tracking-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+
+    function lookupOrderById() {
+      const rawId = (document.getElementById('lookup-order-id-input')?.value || '').trim().toUpperCase();
+      const box = document.getElementById('lookup-result-box');
+      if (!box) return;
+      if (!rawId) {
+        box.classList.remove('hidden');
+        box.innerHTML =
+          '<p class="text-xs font-bold text-[#7A1C1C]">Please enter an Order Reference ID first (e.g., ZBC-2211-4821).</p>';
+        return;
+      }
+      const store = readAdminStore();
+      const order = store.orders.find((o) => String(o.orderRef || '').toUpperCase() === rawId);
+      box.classList.remove('hidden');
+
+      if (!order) {
+        box.innerHTML =
+          '<div class="rounded-xl bg-[#F7F3EA] border border-[#7A1C1C]/40 p-4 text-xs text-[#7A1C1C] font-bold">' +
+          'No order found matching <strong>' +
+          escapeHtml(rawId) +
+          '</strong>. Double-check your Order ID or search with your phone number on <a href="points.html" class="underline text-[#1E4620]">My Points &amp; Orders</a>.' +
+          '</div>';
+        return;
+      }
+
+      const stage = order.deliveryStage || mapLegacyStatusToStage(order.status);
+      const stageIdx = stage === 'Delivered' ? 2 : stage === 'Out for delivery' ? 1 : 0;
+      const stages = ['Not started yet', 'Out for delivery', 'Delivered'];
+      const updatesHtml = (order.stageHistory || [])
+        .map(
+          (u) =>
+            '<li class="text-[11px] text-[#1E1916]/80"><strong>' +
+            escapeHtml(u.stage) +
+            '</strong> — ' +
+            escapeHtml(u.at) +
+            '</li>'
+        )
+        .join('');
+
+      box.innerHTML =
+        '<div class="rounded-2xl bg-[#F7F3EA] border border-[#1E1916]/15 p-4 sm:p-5 space-y-4">' +
+        '<div class="flex flex-wrap items-center justify-between gap-2">' +
+        '<div>' +
+        '<span class="text-[11px] uppercase tracking-wider font-bold text-[#1E4620] block">Order ' +
+        escapeHtml(order.orderRef) +
+        ' • ' +
+        escapeHtml(order.createdAt || '') +
+        '</span>' +
+        '<h3 class="font-serif text-2xl font-bold text-[#1E1916]">' +
+        escapeHtml(order.customerName || 'Customer') +
+        ' — ' +
+        escapeHtml(order.grandTotal) +
+        ' EGP</h3>' +
+        '</div>' +
+        '<span class="px-3 py-1 rounded-full text-xs font-bold ' +
+        (stageIdx === 2
+          ? 'bg-[#1E4620] text-[#F7F3EA]'
+          : stageIdx === 1
+          ? 'bg-[#C59B43] text-[#1E1916]'
+          : 'bg-[#7A1C1C] text-[#F7F3EA]') +
+        '">' +
+        escapeHtml(stage) +
+        '</span>' +
+        '</div>' +
+        '<div class="space-y-2">' +
+        '<div class="grid grid-cols-3 gap-2">' +
+        stages
+          .map((label, i) => {
+            const active = i <= stageIdx;
+            return (
+              '<div class="space-y-1.5">' +
+              '<div class="h-2.5 rounded-full ' +
+              (active ? 'bg-[#1E4620]' : 'bg-[#1E1916]/15') +
+              '"></div>' +
+              '<p class="text-[11px] sm:text-xs font-bold ' +
+              (active ? 'text-[#1E4620]' : 'text-[#1E1916]/50') +
+              '">' +
+              (i + 1) +
+              '. ' +
+              label +
+              '</p>' +
+              '</div>'
+            );
+          })
+          .join('') +
+        '</div>' +
+        '</div>' +
+        (updatesHtml
+          ? '<div class="pt-2 border-t border-[#1E1916]/10"><span class="text-[11px] font-bold uppercase tracking-wider text-[#1E1916]/70 block mb-1">Stage Updates:</span><ul class="list-disc list-inside space-y-0.5">' +
+            updatesHtml +
+            '</ul></div>'
+          : '') +
+        '</div>';
+    }
+
+    function logFlavorIdeaToAdmin() {
+      const idea = document.getElementById('flavor-idea-input').value.trim();
+      const name = document.getElementById('flavor-idea-name').value.trim();
+      if (idea.length < 3) return;
+      const store = readAdminStore();
+      store.flavorIdeas.unshift({
+        id: 'IDEA-' + Date.now(),
+        slot: state.activeFlavorSlot,
+        idea,
+        customerName: name || 'Anonymous Friend/Customer',
+        createdAt: new Date().toLocaleString(),
+      });
+      writeAdminStore(store);
+    }
+
+    function logIssueToAdmin() {
+      if (!state.latestIssueMessage) return;
+      const cat = PROBLEM_CATEGORIES[state.activeCategoryKey];
+      const selectEl = document.getElementById('specific-problem-select');
+      const idx = Number(selectEl ? selectEl.value : 0);
+      const specificTitle =
+        cat && cat.problems[idx] ? cat.problems[idx].title : 'General Issue';
+      const customText = document.getElementById('custom-problem-input').value.trim();
+      const store = readAdminStore();
+      store.issues.unshift({
+        id: 'ISS-' + Date.now(),
+        orderRef: state.orderRef,
+        category: cat ? cat.label : state.activeCategoryKey,
+        specificProblem: specificTitle,
+        details: customText,
+        photoName: state.photoMeta ? state.photoMeta.name : 'None',
+        createdAt: new Date().toLocaleString(),
+      });
+      writeAdminStore(store);
+    }
+
+    /* AI Assistant Bot */
+    function toggleAiBotModal(open) {
+      const modal = document.getElementById('ai-bot-modal');
+      if (!modal) return;
+      if (open) {
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+      } else {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+      }
+    }
+
+    function askAiPreset(q) {
+      const input = document.getElementById('ai-bot-input');
+      if (input) input.value = q;
+      sendAiBotMessage();
+    }
+
+    function sendAiBotMessage() {
+      const input = document.getElementById('ai-bot-input');
+      const history = document.getElementById('ai-chat-history');
+      if (!input || !history) return;
+      const text = input.value.trim();
+      if (!text) return;
+      input.value = '';
+
+      const userBubble = document.createElement('div');
+      userBubble.className = 'bg-[#C59B43]/25 text-[#1E1916] rounded-xl p-3 ml-auto max-w-[85%] font-medium';
+      userBubble.textContent = text;
+      history.appendChild(userBubble);
+
+      const q = text.toLowerCase();
+      let reply =
+        'Every Zebda & Co. tin is made from a 50/50 blend of commercial unsalted butter and farmer’s baladi butter, chilled at 0–4°C, and prepared with a 2-day advance lead time.';
+      if (q.includes('point') || q.includes('reward') || q.includes('expire') || q.includes('month')) {
+        reply =
+          'Use your mobile phone number as your ID! Every 1 EGP spent earns 1 Point (valid for 3 months / 90 days). Rewards: 500 pts = Free Delivery, 1,200 pts = Free Mini Jar, 2,500 pts = 50% Off, 5,000 pts = 70% Off, and 10,000 pts = Create your own custom 250g butter flavor featured on our menu! Check points.html anytime.';
+      } else if (q.includes('custom') || q.includes('10,000') || q.includes('10000') || q.includes('create')) {
+        reply =
+          'At 10,000 points, you unlock our VIP Co-Creation reward on points.html! You get a FREE 250g tin of your custom butter recipe, and once approved by our kitchen in Admin, your flavor joins the official Zebda & Co. menu.';
+      } else if (q.includes('verify') || q.includes('verification') || q.includes('instapay') || q.includes('hold')) {
+        reply =
+          'Pay via InstaPay link (' + INSTAPAY_DIRECT_URL + '), handle (' + INSTAPAY_HANDLE_DISPLAY + '), or number (' + INSTAPAY_NUMBER_DISPLAY + ') and upload your screenshot right in Step 9. Transfers made within ±1 hour of placing your order are verified in ~5 minutes, unlocking your pending points and moving your order forward!';
+      } else if (q.includes('steak') || q.includes('pasta') || q.includes('pair') || q.includes('flavor')) {
+        reply =
+          'For steak, mushrooms, and risotto, go with Black Truffle & Sea Salt (185 EGP) or Roasted Garlic & Herb (145 EGP). For pasta and chicken, Sundried Tomato, Basil & Parmesan (165 EGP) melts into an instant pan sauce. For eggs, sourdough, and pizza crusts, try Hot Honey & Chili Crunch (155 EGP)!';
+      } else if (q.includes('track') || q.includes('order') || q.includes('delivery')) {
+        reply =
+          'Use the "Track Your Order Status" box at the top of this page with your Order ID (ZBC-...), or enter your phone number on points.html to view all your orders and live 3-stage delivery progress (Not started yet → Out for delivery → Delivered).';
+      }
+
+      const botBubble = document.createElement('div');
+      botBubble.className = 'bg-[#1E1916] text-[#F7F3EA] rounded-xl p-3 max-w-[88%]';
+      botBubble.innerHTML = '<span class="font-bold text-[#E8C97B] block mb-0.5">Zebda AI</span>' + escapeHtml(reply);
+      history.appendChild(botBubble);
+      history.scrollTop = history.scrollHeight;
+    }
+
+    /* Mobile / Desktop Above-Keyboard Helper Bar */
+    function isTextEntryElement(el) {
+      if (!el || !el.tagName) return false;
+      const tag = el.tagName.toUpperCase();
+      if (tag === 'TEXTAREA') return true;
+      if (tag === 'INPUT') {
+        const type = (el.type || 'text').toLowerCase();
+        return ['text', 'email', 'url', 'tel', 'search', 'number', 'password'].includes(type);
+      }
+      return false;
+    }
+    function showKeyboardBar(el) {
+      state.activeInputEl = el;
+      const bar = document.getElementById('keyboard-helper-bar');
+      if (bar) bar.classList.remove('hidden');
+    }
+    function hideKeyboardBar() {
+      const bar = document.getElementById('keyboard-helper-bar');
+      if (bar) bar.classList.add('hidden');
+    }
+    function dismissActiveKeyboard() {
+      if (state.activeInputEl && typeof state.activeInputEl.blur === 'function') {
+        state.activeInputEl.blur();
+      }
+      if (document.activeElement && typeof document.activeElement.blur === 'function') {
+        document.activeElement.blur();
+      }
+      state.activeInputEl = null;
+      hideKeyboardBar();
+    }
+    document.addEventListener('focusin', (e) => {
+      if (isTextEntryElement(e.target)) showKeyboardBar(e.target);
+    });
+    document.addEventListener('focusout', () => {
+      setTimeout(() => {
+        if (!isTextEntryElement(document.activeElement)) hideKeyboardBar();
+      }, 80);
+    });
+
+    function openFlavorIdeaModal(slotLabel) {
+      state.activeFlavorSlot = slotLabel || 'In-Development Flavor';
+      const ctx = document.getElementById('flavor-slot-context');
+      const input = document.getElementById('flavor-idea-input');
+      const modal = document.getElementById('flavor-idea-modal');
+      if (ctx) {
+        ctx.textContent =
+          'Suggestion for ' +
+          state.activeFlavorSlot +
+          ' (still in development): write any flavor you want us to test.';
+      }
+      if (input) input.value = '';
+      updateFlavorIdeaSend();
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      if (input) input.focus();
+    }
+
+    function closeFlavorIdeaModal() {
+      const modal = document.getElementById('flavor-idea-modal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+      hideKeyboardBar();
+    }
+
+    function updateFlavorIdeaSend() {
+      const idea = document.getElementById('flavor-idea-input').value.trim();
+      const name = document.getElementById('flavor-idea-name').value.trim();
+      const sendBtn = document.getElementById('send-flavor-idea-btn');
+      const copyBtn = document.getElementById('copy-flavor-idea-btn');
+      const hint = document.getElementById('flavor-idea-hint');
+      if (idea.length >= 3) {
+        const msg = [
+          'Zebda & Co. (زبدة وشركاه) — New Flavor Idea',
+          '--------------------------------------------',
+          'Slot: ' + state.activeFlavorSlot + ' (In Development)',
+          'Suggested Flavor: ' + idea,
+          name ? 'From: ' + name : '',
+        ]
+          .filter(Boolean)
+          .join('\n');
+        state.latestFlavorIdeaText = msg;
+        sendBtn.href = 'https://wa.me/' + WHATSAPP_PHONE_DIGITS + '?text=' + encodeURIComponent(msg);
+        sendBtn.classList.remove('hidden');
+        copyBtn.classList.remove('hidden');
+        hint.classList.add('hidden');
+      } else {
+        state.latestFlavorIdeaText = '';
+        sendBtn.classList.add('hidden');
+        copyBtn.classList.add('hidden');
+        hint.classList.remove('hidden');
+      }
+    }
+
+    function copyFlavorIdeaText() {
+      logFlavorIdeaToAdmin();
+      if (!state.latestFlavorIdeaText) return;
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(state.latestFlavorIdeaText).then(() => {
+          const btn = document.getElementById('copy-flavor-idea-btn');
+          if (btn) btn.textContent = 'Saved to Admin & Copied!';
+        });
+      }
+    }
+
+    function applyQuickSampleOrder() {
+      const oos = readAdminStore().outOfStock || {};
+      state.qtys = {
+        garlic: oos.garlic ? 0 : 1,
+        chili: oos.chili ? 0 : 1,
+        tomato: 0,
+        truffle: oos.truffle ? 0 : 1,
+      };
+      state.quartetQty = 0;
+      Object.keys(state.qtys).forEach((k) => {
+        const el = document.getElementById('qty-' + k);
+        if (el) el.textContent = state.qtys[k];
+      });
+      syncQuartetUI();
+      updateOrderUI();
+    }
+
+    function handleMapsLinkInput() {
+      const input = document.getElementById('maps-link-input');
+      const preview = document.getElementById('maps-preview-link');
+      const status = document.getElementById('gps-status-text');
+      const raw = input ? input.value.trim() : '';
+      state.mapsLink = raw;
+      if (raw && /^https?:\/\//i.test(raw)) {
+        preview.href = raw;
+        preview.classList.remove('hidden');
+        status.textContent = 'Google Maps pin ready to include in your WhatsApp order.';
+      } else {
+        preview.href = '#';
+        preview.classList.add('hidden');
+        status.textContent =
+          'Paste a Google Maps pin URL or use your current GPS pin so we have your exact drop-off point.';
+      }
+      updateOrderUI();
+    }
+
+    function fillCurrentGpsLocation() {
+      const status = document.getElementById('gps-status-text');
+      const input = document.getElementById('maps-link-input');
+      if (!navigator.geolocation) {
+        status.textContent = 'Geolocation is not supported in this browser—paste a Google Maps link manually.';
+        return;
+      }
+      status.textContent = 'Getting your current GPS coordinates...';
+      navigator.geolocation.getCurrentPosition(
+        (pos) => {
+          const lat = pos.coords.latitude.toFixed(6);
+          const lng = pos.coords.longitude.toFixed(6);
+          const url = 'https://www.google.com/maps?q=' + lat + ',' + lng;
+          input.value = url;
+          handleMapsLinkInput();
+          status.textContent = 'Captured GPS pin (' + lat + ', ' + lng + ') — will be sent on WhatsApp.';
+        },
+        () => {
+          status.textContent = 'Could not read GPS automatically—paste a Google Maps link or share location in WhatsApp.';
+        },
+        { enableHighAccuracy: true, timeout: 10000 }
+      );
+    }
+
+    function changeQty(key, delta) {
+      if (delta > 0 && isItemOutOfStock(key)) return;
+      state.qtys[key] = Math.max(0, (state.qtys[key] || 0) + delta);
+      const el = document.getElementById('qty-' + key);
+      if (el) el.textContent = state.qtys[key];
+      updateOrderUI();
+    }
+
+    function changeQuartetQty(delta) {
+      if (delta > 0 && isItemOutOfStock('quartet')) return;
+      state.quartetQty = Math.max(0, state.quartetQty + delta);
+      syncQuartetUI();
+      updateOrderUI();
+    }
+
+    function toggleQuartet() {
+      if (isItemOutOfStock('quartet')) return;
+      state.quartetQty = state.quartetQty > 0 ? 0 : 1;
+      syncQuartetUI();
+      updateOrderUI();
+    }
+
+    function syncQuartetUI() {
+      const qtyEl = document.getElementById('qty-quartet');
+      const btnEl = document.getElementById('quartet-toggle-btn');
+      if (qtyEl) qtyEl.textContent = state.quartetQty;
+      if (btnEl && !isItemOutOfStock('quartet')) {
+        if (state.quartetQty > 0) {
+          btnEl.textContent = 'Added (' + state.quartetQty + ' Box) — Tap to Clear';
+        } else {
+          btnEl.textContent = '+ Add Quartet Box (560 EGP)';
+        }
+        btnEl.className =
+          'w-full py-2.5 px-4 rounded-xl text-sm font-bold transition-all bg-[#C59B43] text-[#1E1916] hover:brightness-105 active:scale-[0.99] cursor-pointer';
+      }
+    }
+
+    function setPaymentMethod(method) {
+      state.paymentMethod = method;
+      const instaBtn = document.getElementById('pay-btn-instapay');
+      const codBtn = document.getElementById('pay-btn-cod');
+      if (method === 'instapay') {
+        instaBtn.className =
+          'p-3 rounded-xl text-left border-2 transition cursor-pointer bg-[#1E4620] text-[#F7F3EA] border-[#1E4620]';
+        codBtn.className =
+          'p-3 rounded-xl text-left border-2 transition cursor-pointer bg-[#F7F3EA] text-[#1E1916] border-[#1E1916]/20 hover:border-[#1E1916]/45';
+      } else {
+        codBtn.className =
+          'p-3 rounded-xl text-left border-2 transition cursor-pointer bg-[#7A1C1C] text-[#F7F3EA] border-[#7A1C1C]';
+        instaBtn.className =
+          'p-3 rounded-xl text-left border-2 transition cursor-pointer bg-[#F7F3EA] text-[#1E1916] border-[#1E1916]/20 hover:border-[#1E1916]/45';
+      }
+      updateOrderUI();
+    }
+
+    function handleCityChange() {
+      const city = document.getElementById('city-select').value;
+      const subSelect = document.getElementById('subarea-select');
+      const options = SUBAREAS_BY_CITY[city] || [{ label: city + ' (50 EGP)', fee: 50 }];
+      subSelect.innerHTML = '';
+      options.forEach((opt) => {
+        const optionEl = document.createElement('option');
+        optionEl.value = opt.fee;
+        optionEl.textContent = opt.label;
+        optionEl.dataset.label = opt.label;
+        subSelect.appendChild(optionEl);
+      });
+      updateOrderUI();
+    }
+
+    function isValidEmail(email) {
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    }
+
+    function checkDeliveryDateLeadTime(dateStr) {
+      const warnEl = document.getElementById('lead-time-warning');
+      if (!warnEl) return;
+      if (!dateStr) {
+        warnEl.classList.add('hidden');
+        return;
+      }
+      const chosen = new Date(dateStr + 'T00:00:00');
+      const now = new Date();
+      const todayMidnight = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+      const diffDays = (chosen - todayMidnight) / (1000 * 60 * 60 * 24);
+      if (diffDays < 2) warnEl.classList.remove('hidden');
+      else warnEl.classList.add('hidden');
+    }
+
+    function updateOrderUI() {
+      const city = document.getElementById('city-select').value;
+      const subSelect = document.getElementById('subarea-select');
+      const selectedOption = subSelect.options[subSelect.selectedIndex];
+      const baseDeliveryFee = selectedOption ? Number(selectedOption.value) : 40;
+      const subareaLabel = selectedOption ? selectedOption.dataset.label : city;
+      const customerName = document.getElementById('customer-name').value.trim();
+      const customerPhoneRaw = document.getElementById('customer-phone').value.trim();
+      const customerPhoneNorm = normalizePhone(customerPhoneRaw);
+      const addressDetail = document.getElementById('address-detail').value.trim();
+      const mapsLink = document.getElementById('maps-link-input').value.trim();
+      const deliveryDate = document.getElementById('delivery-date-input').value;
+      const customerEmail = document.getElementById('customer-email').value.trim();
+      checkDeliveryDateLeadTime(deliveryDate);
+
+      let itemsTotal = 0;
+      let totalCount = 0;
+      const lines = [];
+      const receiptItems = [];
+
+      Object.keys(BASE_FLAVORS).forEach((key) => {
+        const qty = state.qtys[key] || 0;
+        if (qty > 0) {
+          const lineTotal = qty * BASE_FLAVORS[key].price;
+          itemsTotal += lineTotal;
+          totalCount += qty;
+          lines.push('• ' + BASE_FLAVORS[key].name + ' × ' + qty + ' = ' + lineTotal + ' EGP');
+          receiptItems.push({ label: BASE_FLAVORS[key].name + ' × ' + qty, amount: lineTotal + ' EGP' });
+        }
+      });
+
+      const store = readAdminStore();
+      (store.customMenuFlavors || []).forEach((cf) => {
+        if (!cf.published) return;
+        const qty = state.communityQtys[cf.id] || 0;
+        if (qty > 0) {
+          const price = Number(cf.price || 175);
+          const lineTotal = qty * price;
+          itemsTotal += lineTotal;
+          totalCount += qty;
+          lines.push('• [VIP] ' + cf.flavorName + ' × ' + qty + ' = ' + lineTotal + ' EGP');
+          receiptItems.push({ label: '[VIP] ' + cf.flavorName + ' × ' + qty, amount: lineTotal + ' EGP' });
+        }
+      });
+
+      if (state.quartetQty > 0) {
+        const qTotal = state.quartetQty * QUARTET_PRICE;
+        itemsTotal += qTotal;
+        totalCount += state.quartetQty;
+        lines.push('• 4-Flavor Quartet Box × ' + state.quartetQty + ' = ' + qTotal + ' EGP');
+        receiptItems.push({ label: '4-Flavor Quartet Box × ' + state.quartetQty, amount: qTotal + ' EGP' });
+      }
+
+      // Apply Active Loyalty Reward if present
+      let deliveryFee = baseDeliveryFee;
+      let loyaltyDiscountAmount = 0;
+      let loyaltyRewardSummary = '';
+      const rewardBanner = document.getElementById('active-loyalty-reward-banner');
+      const rewardBannerText = document.getElementById('active-loyalty-reward-text');
+      const discountRow = document.getElementById('summary-discount-row');
+
+      if (state.activeLoyaltyReward) {
+        rewardBanner.classList.remove('hidden');
+        rewardBannerText.textContent =
+          state.activeLoyaltyReward.title + ' (-' + state.activeLoyaltyReward.pointsCost + ' pts)';
+        const rType = state.activeLoyaltyReward.type;
+        if (rType === 'free_delivery') {
+          deliveryFee = 0;
+          loyaltyRewardSummary = 'Loyalty Reward: Free Delivery (-' + state.activeLoyaltyReward.pointsCost + ' pts)';
+          discountRow.classList.remove('hidden');
+          document.getElementById('summary-discount-label').textContent = 'Loyalty: Free Delivery';
+          document.getElementById('summary-discount-amount').textContent = '-' + baseDeliveryFee + ' EGP';
+        } else if (rType === 'pct_50') {
+          loyaltyDiscountAmount = Math.round(itemsTotal * 0.5);
+          loyaltyRewardSummary = 'Loyalty Reward: 50% Off Items (-' + state.activeLoyaltyReward.pointsCost + ' pts)';
+          discountRow.classList.remove('hidden');
+          document.getElementById('summary-discount-label').textContent = 'Loyalty: 50% Off';
+          document.getElementById('summary-discount-amount').textContent = '-' + loyaltyDiscountAmount + ' EGP';
+        } else if (rType === 'pct_70') {
+          loyaltyDiscountAmount = Math.round(itemsTotal * 0.7);
+          loyaltyRewardSummary = 'Loyalty Reward: 70% Off Items (-' + state.activeLoyaltyReward.pointsCost + ' pts)';
+          discountRow.classList.remove('hidden');
+          document.getElementById('summary-discount-label').textContent = 'Loyalty: 70% Off';
+          document.getElementById('summary-discount-amount').textContent = '-' + loyaltyDiscountAmount + ' EGP';
+        } else if (rType === 'free_mini' || rType === 'custom_250g') {
+          loyaltyRewardSummary =
+            'Loyalty Reward: ' + state.activeLoyaltyReward.title + ' — FREE (0 EGP)';
+          lines.push('• ' + loyaltyRewardSummary);
+          receiptItems.push({ label: state.activeLoyaltyReward.title, amount: 'FREE (0 EGP)' });
+          discountRow.classList.add('hidden');
+        }
+      } else {
+        rewardBanner.classList.add('hidden');
+        discountRow.classList.add('hidden');
+      }
+
+      const freeSampleUnlocked = itemsTotal > FREE_SAMPLE_ITEMS_THRESHOLD;
+      const sampleBadge = document.getElementById('sample-status-badge');
+      const sampleProgressText = document.getElementById('sample-progress-text');
+      const samplePickerWrap = document.getElementById('free-sample-picker-wrap');
+      const sampleSelect = document.getElementById('free-sample-select');
+      const summarySampleRow = document.getElementById('summary-free-sample-row');
+      const summarySampleFlavor = document.getElementById('summary-free-sample-flavor');
+      let selectedFreeSample = '';
+
+      if (freeSampleUnlocked) {
+        selectedFreeSample = sampleSelect.value;
+        sampleBadge.textContent = 'Unlocked (FREE)';
+        sampleBadge.className =
+          'px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#1E4620] text-[#F7F3EA]';
+        sampleProgressText.innerHTML =
+          'Your items subtotal is <strong>' +
+          itemsTotal +
+          ' EGP</strong> (over 500 EGP). Pick 1 FREE flavor sample below:';
+        samplePickerWrap.classList.remove('hidden');
+        summarySampleRow.classList.remove('hidden');
+        summarySampleFlavor.textContent = selectedFreeSample;
+      } else {
+        const neededOver500 = FREE_SAMPLE_ITEMS_THRESHOLD + 1 - itemsTotal;
+        sampleBadge.textContent = 'Locked';
+        sampleBadge.className =
+          'px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#EFE9DA] text-[#1E1916]/75 border border-[#1E1916]/15';
+        sampleProgressText.innerHTML =
+          'Items subtotal is <strong>' +
+          itemsTotal +
+          ' EGP</strong>. Add <strong>' +
+          neededOver500 +
+          ' EGP</strong> more in items (excluding delivery) to unlock a FREE sample.';
+        samplePickerWrap.classList.add('hidden');
+        summarySampleRow.classList.add('hidden');
+      }
+
+      const discountedItemsTotal = Math.max(0, itemsTotal - loyaltyDiscountAmount);
+      const grandTotal = discountedItemsTotal + deliveryFee;
+      const pointsEarned = Math.floor(discountedItemsTotal);
+      const instaPayDueNow =
+        state.paymentMethod === 'cod' ? Math.ceil(grandTotal * 0.5) : grandTotal;
+      const codRemaining =
+        state.paymentMethod === 'cod' ? Math.max(0, grandTotal - instaPayDueNow) : 0;
+
+      state.currentOrderData = {
+        orderRef: state.orderRef,
+        city,
+        subareaLabel,
+        customerName,
+        customerPhone: customerPhoneNorm || customerPhoneRaw,
+        addressDetail,
+        mapsLink,
+        deliveryDate,
+        customerEmail,
+        receiptItems,
+        freeSampleUnlocked,
+        selectedFreeSample,
+        itemsTotal,
+        loyaltyDiscountAmount,
+        appliedReward: state.activeLoyaltyReward,
+        deliveryFee,
+        grandTotal,
+        pointsEarned,
+        instaPayDueNow,
+        codRemaining,
+        paymentMethod: state.paymentMethod,
+      };
+
+      document.getElementById('order-ref-tag').textContent = 'Ref: ' + state.orderRef;
+      const itemsListEl = document.getElementById('order-items-list');
+      if (lines.length === 0) {
+        itemsListEl.innerHTML =
+          '<p class="text-xs italic text-[#1E1916]/60">No butter tins or Quartet Boxes selected yet.</p>';
+      } else {
+        itemsListEl.innerHTML = lines
+          .map((l) => '<div class="font-medium text-[#1E1916]">' + escapeHtml(l) + '</div>')
+          .join('');
+      }
+
+      document.getElementById('selected-delivery-badge').textContent = 'Delivery: ' + deliveryFee + ' EGP';
+      document.getElementById('panel-total').textContent = grandTotal + ' EGP';
+      document.getElementById('summary-items-total').textContent = itemsTotal + ' EGP';
+      document.getElementById('summary-location-label').textContent = city;
+      document.getElementById('summary-delivery-fee').textContent = deliveryFee + ' EGP';
+      document.getElementById('summary-grand-total').textContent = grandTotal + ' EGP';
+      document.getElementById('instapay-due-now').textContent = instaPayDueNow + ' EGP';
+      document.getElementById('cod-remaining-due').textContent = codRemaining + ' EGP';
+      document.getElementById('summary-instapay-now').textContent = instaPayDueNow + ' EGP';
+      document.getElementById('summary-points-earned').textContent = '+' + pointsEarned + ' pts';
+      document.getElementById('sticky-qty-count').textContent = totalCount + (totalCount === 1 ? ' item' : ' items');
+      document.getElementById('sticky-instapay').textContent = instaPayDueNow + ' EGP';
+      document.getElementById('sticky-total').textContent = grandTotal + ' EGP';
+
+      const ssStatusEl = document.getElementById('summary-screenshot-status');
+      if (ssStatusEl) {
+        if (state.paymentScreenshotDataUrl) {
+          ssStatusEl.textContent = 'Embedded (' + (state.paymentScreenshotName || 'Screenshot') + ')';
+          ssStatusEl.className = 'text-[#1E4620] font-bold';
+        } else {
+          ssStatusEl.textContent = 'Not uploaded yet';
+          ssStatusEl.className = 'text-[#7A1C1C] font-bold';
+        }
+      }
+
+      const paymentText =
+        state.paymentMethod === 'cod'
+          ? 'COD (50% InstaPay Deposit Now: ' + instaPayDueNow + ' EGP | Remaining on Delivery: ' + codRemaining + ' EGP)'
+          : '100% InstaPay Now: ' + instaPayDueNow + ' EGP';
+
+      state.latestOrderMessage = [
+        'Zebda & Co. (زبدة وشركاه) — New Order [' + state.orderRef + ']',
+        '--------------------------------------------------',
+        lines.length ? lines.join('\n') : '• No items selected yet',
+        freeSampleUnlocked
+          ? '• FREE Sample (>500 EGP Items): ' + selectedFreeSample + ' — FREE (0 EGP)'
+          : '',
+        loyaltyRewardSummary ? '• ' + loyaltyRewardSummary : '',
+        'Items Subtotal: ' + itemsTotal + ' EGP',
+        'Delivery (' + subareaLabel + '): ' + deliveryFee + ' EGP',
+        'Total Order: ' + grandTotal + ' EGP',
+        'Loyalty Points Earned: +' + pointsEarned + ' pts (1 EGP = 1 Point)',
+        'Payment: ' + paymentText,
+        'InstaPay Handle: ' + INSTAPAY_HANDLE_DISPLAY,
+        'InstaPay Number: ' + INSTAPAY_NUMBER_DISPLAY,
+        'InstaPay Link: ' + INSTAPAY_DIRECT_URL,
+        state.paymentScreenshotDataUrl
+          ? 'InstaPay Screenshot: Embedded in Receipt (' + (state.paymentScreenshotName || 'image') + ')'
+          : 'InstaPay Screenshot: Not uploaded yet',
+        customerName ? 'Customer Name: ' + customerName : '',
+        customerPhoneNorm ? 'Phone (Loyalty ID): ' + customerPhoneNorm : '',
+        customerEmail ? 'Customer Email: ' + customerEmail : '',
+        addressDetail ? 'Location & Delivery Day: ' + addressDetail : '',
+        mapsLink ? 'Google Maps Pin: ' + mapsLink : '',
+        deliveryDate ? 'Preferred Date: ' + deliveryDate : '',
+      ]
+        .filter(Boolean)
+        .join('\n');
+
+      const missing = [];
+      if (totalCount === 0 && !state.activeLoyaltyReward) {
+        missing.push('Select at least 1 butter tin or Quartet Box');
+      }
+      if (!customerName) missing.push('Enter your full name');
+      if (customerPhoneNorm.length < 10) missing.push('Enter a valid 11-digit Egyptian mobile number (e.g. 010...)');
+      if (!addressDetail) missing.push('Enter your full address / location & delivery day');
+      if (!customerEmail || !isValidEmail(customerEmail)) missing.push('Enter a valid email address');
+      state.orderReady = missing.length === 0;
+
+      const alertBox = document.getElementById('missing-fields-alert');
+      const alertList = document.getElementById('missing-fields-list');
+      const confirmBtn = document.getElementById('confirm-place-order-btn');
+      const waBtn = document.getElementById('whatsapp-order-btn');
+      const stickyWaBtn = document.getElementById('sticky-whatsapp-btn');
+
+      if (!state.orderReady) {
+        alertBox.classList.remove('hidden');
+        alertList.innerHTML = missing.map((m) => '<li>' + m + '</li>').join('');
+        confirmBtn.className =
+          'w-full py-3.5 px-5 rounded-xl bg-[#1E1916]/35 text-[#F7F3EA]/80 font-bold text-sm text-center flex items-center justify-center gap-2 cursor-not-allowed transition shadow';
+        confirmBtn.innerHTML = '<span>Complete Details to Confirm Order</span>';
+        waBtn.href = '#';
+        waBtn.setAttribute('aria-disabled', 'true');
+        waBtn.className =
+          'w-full py-3.5 px-5 rounded-xl bg-[#1E1916]/35 text-[#F7F3EA]/80 font-bold text-sm text-center flex items-center justify-center gap-2 cursor-not-allowed transition shadow';
+        waBtn.innerHTML = '<span>Fill All Required Details to Send on WhatsApp</span>';
+        stickyWaBtn.href = '#';
+        stickyWaBtn.setAttribute('aria-disabled', 'true');
+        stickyWaBtn.className =
+          'py-2.5 px-4 sm:px-5 rounded-xl bg-[#C59B43]/40 text-[#F7F3EA]/75 font-bold text-xs sm:text-sm cursor-not-allowed transition';
+      } else {
+        alertBox.classList.add('hidden');
+        confirmBtn.className =
+          'w-full py-3.5 px-5 rounded-xl bg-[#1E1916] text-[#E8C97B] border border-[#C59B43] font-bold text-sm text-center flex items-center justify-center gap-2 hover:brightness-105 transition shadow cursor-pointer';
+        confirmBtn.innerHTML = '<span>Confirm Order &amp; Generate Order ID</span>';
+
+        const waUrl =
+          'https://wa.me/' + WHATSAPP_PHONE_DIGITS + '?text=' + encodeURIComponent(state.latestOrderMessage);
+        waBtn.href = waUrl;
+        waBtn.setAttribute('aria-disabled', 'false');
+        waBtn.className =
+          'w-full py-3.5 px-5 rounded-xl bg-[#1E4620] text-[#F7F3EA] font-bold text-sm text-center flex items-center justify-center gap-2 hover:opacity-95 transition shadow cursor-pointer';
+        waBtn.innerHTML = '<span>Send Order on WhatsApp (+20 10 41870087)</span>';
+        stickyWaBtn.href = waUrl;
+        stickyWaBtn.setAttribute('aria-disabled', 'false');
+        stickyWaBtn.className =
+          'py-2.5 px-4 sm:px-5 rounded-xl bg-[#C59B43] text-[#1E1916] font-bold text-xs sm:text-sm hover:brightness-105 transition cursor-pointer';
+      }
+    }
+
+    function copyOrderSummaryText() {
+      if (state.orderReady) {
+        const receiptDataUrl = renderReceiptCanvas(state.currentOrderData);
+        saveOrderRecord(state.currentOrderData, receiptDataUrl);
+      }
+      if (!state.latestOrderMessage) return;
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(state.latestOrderMessage).then(() => {
+          const btn = document.getElementById('copy-order-text-btn');
+          if (btn) {
+            const orig = btn.textContent;
+            btn.textContent = 'Copied Order Text!';
+            setTimeout(() => {
+              btn.textContent = orig;
+            }, 1800);
+          }
+        });
+      }
+    }
+
+    function handleWhatsAppOrderClick(event) {
+      if (!state.orderReady) {
+        event.preventDefault();
+        const alertBox = document.getElementById('missing-fields-alert');
+        if (alertBox) alertBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        return false;
+      }
+      confirmAndPlaceOrder();
+      return true;
+    }
+
+    function renderReceiptCanvas(data) {
+      const canvas = document.getElementById('receipt-canvas');
+      const ctx = canvas.getContext('2d');
+      const hasImg = Boolean(state.paymentScreenshotImgObj && state.paymentScreenshotDataUrl);
+      const W = 900;
+      const H = hasImg ? 1640 : 1240;
+      canvas.width = W;
+      canvas.height = H;
+
+      ctx.fillStyle = '#F7F3EA';
+      ctx.fillRect(0, 0, W, H);
+      ctx.strokeStyle = '#C59B43';
+      ctx.lineWidth = 6;
+      ctx.strokeRect(24, 24, W - 48, H - 48);
+
+      // Header
+      ctx.fillStyle = '#1E1916';
+      ctx.fillRect(36, 36, W - 72, 175);
+      ctx.fillStyle = '#C59B43';
+      ctx.fillRect(36, 205, W - 72, 6);
+      ctx.fillStyle = '#E8C97B';
+      ctx.font = 'bold 16px "Plus Jakarta Sans", sans-serif';
+      ctx.fillText('ORDER RECEIPT • REF: ' + data.orderRef + ' • 0–4°C', 68, 78);
+      ctx.fillStyle = '#F7F3EA';
+      ctx.font = 'bold 46px "Cormorant Garamond", Georgia, serif';
+      ctx.fillText('ZEBDA & CO.', 68, 134);
+      ctx.fillStyle = '#E8C97B';
+      ctx.font = 'bold 28px "Cairo", sans-serif';
+      ctx.fillText('زبدة وشركاه', 360, 134);
+      ctx.fillStyle = '#F7F3EA';
+      ctx.font = '600 16px "Plus Jakarta Sans", sans-serif';
+      ctx.fillText('InstaPay: ' + INSTAPAY_HANDLE_DISPLAY + ' (' + INSTAPAY_NUMBER_DISPLAY + ')  •  2-Day Notice', 68, 176);
+
+      // Customer Details Box
+      ctx.fillStyle = '#EFE9DA';
+      ctx.fillRect(54, 232, W - 108, 245);
+      ctx.strokeStyle = 'rgba(30, 25, 22, 0.2)';
+      ctx.lineWidth = 2;
+      ctx.strokeRect(54, 232, W - 108, 245);
+      ctx.fillStyle = '#1E4620';
+      ctx.font = 'bold 18px "Plus Jakarta Sans", sans-serif';
+      ctx.fillText('CUSTOMER & DELIVERY DETAILS', 78, 266);
+      ctx.fillStyle = '#1E1916';
+      ctx.font = '600 19px "Plus Jakarta Sans", sans-serif';
+      ctx.fillText('Name: ' + (data.customerName || 'Not entered yet'), 78, 298);
+      ctx.fillText('Phone (Loyalty ID): ' + (data.customerPhone || 'Not entered yet'), 78, 328);
+      ctx.fillText('Email: ' + (data.customerEmail || 'Not entered yet'), 78, 358);
+      ctx.fillText('Zone: ' + data.city, 78, 388);
+      ctx.fillText('Location: ' + (data.addressDetail || 'Not entered yet'), 78, 418);
+      ctx.fillText(
+        'Map Pin: ' + (data.mapsLink ? 'Included in order' : 'Not pinned'),
+        78,
+        448
+      );
+
+      // Order Items Box
+      ctx.fillStyle = '#EFE9DA';
+      ctx.fillRect(54, 496, W - 108, 395);
+      ctx.strokeRect(54, 496, W - 108, 395);
+      ctx.fillStyle = '#7A1C1C';
+      ctx.font = 'bold 18px "Plus Jakarta Sans", sans-serif';
+      ctx.fillText('ORDER ITEMS & LOYALTY SUMMARY', 78, 530);
+
+      let y = 566;
+      ctx.fillStyle = '#1E1916';
+      ctx.font = '600 20px "Plus Jakarta Sans", sans-serif';
+      if (data.receiptItems.length === 0) {
+        ctx.fillStyle = '#555555';
+        ctx.fillText('No items selected yet', 78, y);
+        y += 32;
+      } else {
+        data.receiptItems.slice(0, 5).forEach((item) => {
+          ctx.fillStyle = '#1E1916';
+          ctx.fillText(item.label, 78, y);
+          ctx.textAlign = 'right';
+          ctx.fillText(item.amount, W - 78, y);
+          ctx.textAlign = 'left';
+          y += 30;
+        });
+      }
+      if (data.freeSampleUnlocked) {
+        ctx.fillStyle = '#1E4620';
+        ctx.font = 'bold 18px "Plus Jakarta Sans", sans-serif';
+        ctx.fillText('FREE Sample (>500 EGP): ' + data.selectedFreeSample, 78, y);
+        ctx.textAlign = 'right';
+        ctx.fillText('FREE (0 EGP)', W - 78, y);
+        ctx.textAlign = 'left';
+      }
+
+      ctx.strokeStyle = 'rgba(30, 25, 22, 0.25)';
+      ctx.beginPath();
+      ctx.moveTo(78, 735);
+      ctx.lineTo(W - 78, 735);
+      ctx.stroke();
+
+      ctx.fillStyle = '#1E1916';
+      ctx.font = '600 18px "Plus Jakarta Sans", sans-serif';
+      ctx.fillText('Items Subtotal', 78, 764);
+      ctx.textAlign = 'right';
+      ctx.fillText(data.itemsTotal + ' EGP', W - 78, 764);
+      ctx.textAlign = 'left';
+
+      if (data.loyaltyDiscountAmount > 0) {
+        ctx.fillStyle = '#1E4620';
+        ctx.fillText('Loyalty Reward Discount', 78, 792);
+        ctx.textAlign = 'right';
+        ctx.fillText('-' + data.loyaltyDiscountAmount + ' EGP', W - 78, 792);
+        ctx.textAlign = 'left';
+      }
+
+      ctx.fillStyle = '#1E1916';
+      ctx.fillText('Delivery (' + data.city + ')', 78, 820);
+      ctx.textAlign = 'right';
+      ctx.fillText(data.deliveryFee + ' EGP', W - 78, 820);
+      ctx.textAlign = 'left';
+
+      ctx.fillStyle = '#1E4620';
+      ctx.font = 'bold 24px "Plus Jakarta Sans", sans-serif';
+      ctx.fillText('TOTAL ORDER (+' + (data.pointsEarned || 0) + ' PTS)', 78, 864);
+      ctx.textAlign = 'right';
+      ctx.fillText(data.grandTotal + ' EGP', W - 78, 864);
+      ctx.textAlign = 'left';
+
+      // Payment Box
+      ctx.fillStyle = '#1E4620';
+      ctx.fillRect(54, 912, W - 108, 178);
+      ctx.fillStyle = '#E8C97B';
+      ctx.font = 'bold 20px "Plus Jakarta Sans", sans-serif';
+      ctx.fillText(
+        data.paymentMethod === 'cod' ? 'PAYMENT: COD + 50% INSTAPAY DEPOSIT' : 'PAYMENT: 100% INSTAPAY',
+        78,
+        952
+      );
+      ctx.fillStyle = '#F7F3EA';
+      ctx.font = 'bold 24px "Plus Jakarta Sans", sans-serif';
+      ctx.fillText('InstaPay Due Now: ' + data.instaPayDueNow + ' EGP', 78, 990);
+      ctx.font = '600 18px "Plus Jakarta Sans", sans-serif';
+      ctx.fillText(
+        'COD Rem: ' + data.codRemaining + ' EGP  |  ' + INSTAPAY_HANDLE_DISPLAY + ' (' + INSTAPAY_NUMBER_DISPLAY + ')',
+        78,
+        1026
+      );
+      ctx.fillStyle = '#F5D692';
+      ctx.font = 'bold 16px "Plus Jakarta Sans", sans-serif';
+      ctx.fillText(
+        hasImg
+          ? 'SCREENSHOT EMBEDDED BELOW  •  ~5 MIN VERIFICATION (±1 HR WINDOW)'
+          : 'STATUS: ON HOLD UNTIL TRANSFER SCREENSHOT IS VERIFIED',
+        78,
+        1064
+      );
+
+      let footerY = 1135;
+
+      // Embedded Customer Transfer Screenshot Section
+      if (hasImg && state.paymentScreenshotImgObj) {
+        const boxY = 1112;
+        const boxH = 400;
+        ctx.fillStyle = '#EFE9DA';
+        ctx.fillRect(54, boxY, W - 108, boxH);
+        ctx.strokeStyle = '#C59B43';
+        ctx.lineWidth = 3;
+        ctx.strokeRect(54, boxY, W - 108, boxH);
+
+        ctx.fillStyle = '#1E1916';
+        ctx.font = 'bold 17px "Plus Jakarta Sans", sans-serif';
+        ctx.fillText('ATTACHED INSTAPAY TRANSFER SCREENSHOT', 78, boxY + 34);
+
+        const img = state.paymentScreenshotImgObj;
+        const maxW = W - 160;
+        const maxH = 330;
+        const scale = Math.min(maxW / img.width, maxH / img.height, 1);
+        const drawW = img.width * scale;
+        const drawH = img.height * scale;
+        const drawX = (W - drawW) / 2;
+        const drawY = boxY + 50 + (maxH - drawH) / 2;
+        ctx.drawImage(img, drawX, drawY, drawW, drawH);
+
+        footerY = boxY + boxH + 42;
+      }
+
+      ctx.fillStyle = '#1E1916';
+      ctx.font = '600 16px "Plus Jakarta Sans", sans-serif';
+      ctx.fillText(
+        'Thank you for supporting Zebda & Co. (زبدة وشركاه) • Keep chilled at 0–4°C',
+        68,
+        footerY
+      );
+      ctx.fillStyle = '#7A1C1C';
+      ctx.font = 'bold 15px "Plus Jakarta Sans", sans-serif';
+      ctx.fillText(
+        'Track your order ID or view your points anytime at Zebda & Co.',
+        68,
+        footerY + 30
+      );
+
+      return canvas.toDataURL('image/png');
+    }
+
+    function downloadOrderReceiptImage() {
+      const data = state.currentOrderData;
+      if (!data) return;
+      const dataUrl = renderReceiptCanvas(data);
+      if (state.orderReady) {
+        saveOrderRecord(data, dataUrl);
+      }
+      const link = document.createElement('a');
+      link.download = 'zebda-and-co-receipt-' + data.orderRef + '.png';
+      link.href = dataUrl;
+      link.click();
+    }
+
+    /* Help Modal Functions */
+    function openHelpModal() {
+      resetHelpModal();
+      const modal = document.getElementById('help-modal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+    function closeHelpModal() {
+      const modal = document.getElementById('help-modal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+      hideKeyboardBar();
+    }
+    function clearAttachedPhoto() {
+      state.photoMeta = null;
+      ['photo-input-camera', 'photo-input-gallery', 'photo-input-file'].forEach((id) => {
+        const el = document.getElementById(id);
+        if (el) el.value = '';
+      });
+      const container = document.getElementById('photo-preview-container');
+      const img = document.getElementById('photo-preview-img');
+      if (container) container.classList.add('hidden');
+      if (img) img.src = '';
+      updateEscalationLink();
+    }
+    function triggerPhotoChoice(inputId) {
+      const input = document.getElementById(inputId);
+      if (input) input.click();
+    }
+    function handlePhotoSelected(inputEl, methodLabel) {
+      const file = inputEl && inputEl.files && inputEl.files[0];
+      if (!file) return;
+      state.photoMeta = { name: file.name, method: methodLabel };
+      const container = document.getElementById('photo-preview-container');
+      const labelEl = document.getElementById('photo-selected-label');
+      const imgEl = document.getElementById('photo-preview-img');
+      if (labelEl) labelEl.textContent = methodLabel + ' — ' + file.name;
+      if (file.type && file.type.startsWith('image/')) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          if (imgEl && e.target && e.target.result) {
+            imgEl.src = e.target.result;
+            imgEl.classList.remove('hidden');
+          }
+        };
+        reader.readAsDataURL(file);
+      } else if (imgEl) {
+        imgEl.classList.add('hidden');
+      }
+      if (container) container.classList.remove('hidden');
+      updateEscalationLink();
+    }
+    function resetHelpModal() {
+      document.getElementById('help-section-1').classList.remove('hidden');
+      document.getElementById('help-section-2').classList.add('hidden');
+      document.getElementById('help-solved-state').classList.add('hidden');
+      document.getElementById('escalation-details-box').classList.add('hidden');
+      document.getElementById('custom-problem-input').value = '';
+      document.getElementById('gate-confirm-checkbox').checked = false;
+      clearAttachedPhoto();
+      updateEscalationLink();
+    }
+    function selectMainCategory(categoryKey) {
+      state.activeCategoryKey = categoryKey;
+      const cat = PROBLEM_CATEGORIES[categoryKey];
+      if (!cat) return;
+      document.getElementById('help-section-1').classList.add('hidden');
+      document.getElementById('help-section-2').classList.remove('hidden');
+      document.getElementById('selected-category-badge').textContent = 'Main Type: ' + cat.label;
+      const selectEl = document.getElementById('specific-problem-select');
+      selectEl.innerHTML = '';
+      cat.problems.forEach((p, idx) => {
+        const opt = document.createElement('option');
+        opt.value = idx;
+        opt.textContent = p.title;
+        selectEl.appendChild(opt);
+      });
+      document.getElementById('custom-problem-input').value = '';
+      document.getElementById('gate-confirm-checkbox').checked = false;
+      clearAttachedPhoto();
+      if (cat.forceEscalation) {
+        document.getElementById('routine-fix-controls').classList.add('hidden');
+        document.getElementById('escalation-details-box').classList.remove('hidden');
+      } else {
+        document.getElementById('routine-fix-controls').classList.remove('hidden');
+        document.getElementById('escalation-details-box').classList.add('hidden');
+      }
+      handleSpecificProblemChange();
+    }
+    function handleSpecificProblemChange() {
+      const cat = PROBLEM_CATEGORIES[state.activeCategoryKey];
+      const selectEl = document.getElementById('specific-problem-select');
+      const idx = Number(selectEl.value || 0);
+      const item = cat && cat.problems[idx] ? cat.problems[idx] : null;
+      if (item) document.getElementById('self-check-tip-box').innerHTML = item.tip;
+      updateEscalationLink();
+    }
+    function showEscalationBox() {
+      document.getElementById('escalation-details-box').classList.remove('hidden');
+      document.getElementById('custom-problem-input').focus();
+      updateEscalationLink();
+    }
+    function markHelpSolved() {
+      document.getElementById('help-section-2').classList.add('hidden');
+      document.getElementById('help-solved-state').classList.remove('hidden');
+    }
+    function updateEscalationLink() {
+      const cat = PROBLEM_CATEGORIES[state.activeCategoryKey];
+      const selectEl = document.getElementById('specific-problem-select');
+      const idx = Number(selectEl.value || 0);
+      const specificTitle =
+        cat && cat.problems[idx] ? cat.problems[idx].title : 'General Issue';
+      const customText = document.getElementById('custom-problem-input').value.trim();
+      const checked = document.getElementById('gate-confirm-checkbox').checked;
+      const btn = document.getElementById('instant-send-whatsapp-btn');
+      const copyBtn = document.getElementById('copy-issue-text-btn');
+      const hint = document.getElementById('escalation-status-hint');
+      const ready = checked && customText.length >= 10;
+      if (ready) {
+        const customerEmail = document.getElementById('customer-email').value.trim();
+        const customerName = document.getElementById('customer-name').value.trim();
+        const photoLine = state.photoMeta
+          ? 'Photo Selected: ' + state.photoMeta.name + ' (' + state.photoMeta.method + ' — attach in chat)'
+          : 'Photo Selected: None';
+        const msg = [
+          'Zebda & Co. (زبدة وشركاه) — Problem / Feedback Alert [' + state.orderRef + ']',
+          '----------------------------------------------------------------',
+          'Main Type: ' + (cat ? cat.label : state.activeCategoryKey),
+          'Specific Problem: ' + specificTitle,
+          'Details / Other Problem: ' + customText,
+          photoLine,
+          customerEmail ? 'Customer Email: ' + customerEmail : '',
+          customerName ? 'Customer Name: ' + customerName : '',
+        ]
+          .filter(Boolean)
+          .join('\n');
+        state.latestIssueMessage = msg;
+        btn.href = 'https://wa.me/' + WHATSAPP_PHONE_DIGITS + '?text=' + encodeURIComponent(msg);
+        btn.classList.remove('hidden');
+        copyBtn.classList.remove('hidden');
+        hint.classList.add('hidden');
+      } else {
+        state.latestIssueMessage = '';
+        btn.classList.add('hidden');
+        copyBtn.classList.add('hidden');
+        hint.classList.remove('hidden');
+      }
+    }
+    function copyIssueSummary() {
+      logIssueToAdmin();
+      if (!state.latestIssueMessage) return;
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(state.latestIssueMessage).then(() => {
+          const btn = document.getElementById('copy-issue-text-btn');
+          if (btn) btn.textContent = 'Saved to Admin & Copied!';
+        });
+      }
+    }
+
+    window.addEventListener('storage', (e) => {
+      if (e.key === ADMIN_STORE_KEY) {
+        applyOutOfStockStateToMenu();
+        handlePhoneInputChange();
+        updateOrderUI();
+      }
+    });
+
+    // Fresh session initialization on every page load/reopen
+    loadActiveLoyaltyReward();
+    handleCityChange();
+    applyOutOfStockStateToMenu();
+    handlePhoneInputChange();
+    updateOrderUI();
+  </script>
+</body>
+</html>
