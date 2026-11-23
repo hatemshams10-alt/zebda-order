@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ZEBDA &amp; CO. (زبدة وشركاه) — Concierge Chat, InstaShop &amp; Receipts</title>
+  <title>ZEBDA &amp; CO. (زبدة وشركاه) — WhatsApp Concierge Chat</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -56,7 +56,7 @@
       <div class="flex items-center gap-2.5">
         <span class="font-serif text-2xl font-bold text-[#F7F3EA]">ZEBDA &amp; CO.</span>
         <span class="px-2.5 py-0.5 rounded-full bg-[#C59B43] text-[#1E1916] text-[11px] font-bold uppercase">
-          Concierge &amp; InstaShop
+          WhatsApp Concierge
         </span>
       </div>
 
@@ -76,87 +76,28 @@
           Order Menu
         </a>
         <a
-          href="points.html"
-          class="px-3 py-1.5 rounded-xl bg-[#262523] border border-[#C59B43]/40 text-[#E8C97B] text-xs font-bold hover:bg-[#33312e] transition"
-        >
-          My Points
-        </a>
-        <a
           href="https://wa.me/201041870087"
           target="_blank"
           rel="noopener noreferrer"
-          class="px-3 py-1.5 rounded-xl bg-[#262523] border border-[#C59B43]/40 text-[#F7F3EA] text-xs font-bold hover:bg-[#33312e] transition"
+          class="px-3.5 py-1.5 rounded-xl bg-[#262523] border border-[#C59B43]/40 text-[#F7F3EA] text-xs font-bold hover:bg-[#33312e] transition"
         >
-          WhatsApp
+          WhatsApp (+20 10 41870087)
         </a>
       </nav>
     </div>
   </header>
 
   <main class="flex-1 max-w-6xl w-full mx-auto px-4 sm:px-6 py-6 grid grid-cols-1 lg:grid-cols-12 gap-6">
-    <!-- Left Column: Live Lookup, Email Receipt Sender & Structured Admin Ticket -->
+    <!-- Left Column: WhatsApp Note & Quick Actions -->
     <aside class="lg:col-span-4 space-y-5">
-      <!-- Live Order / Phone Lookup + Email Receipt Dispatch -->
-      <div class="bg-[#EFE9DA] border-2 border-[#C59B43] rounded-2xl p-5 space-y-4 shadow-sm">
-        <div>
-          <span class="text-[11px] uppercase tracking-[0.18em] text-[#7A1C1C] font-bold block">
-            Live Status &amp; Email Receipt
-          </span>
-          <h2 id="ui-lookup-title" class="font-serif text-2xl font-bold text-[#1E1916]">
-            Track Order or Phone ID
-          </h2>
-          <p class="text-xs text-[#1E1916]/75 mt-1">
-            Look up an Order Ref (<code>ZBD-...</code>) or mobile number to view 3-stage delivery, reorder, or email your receipt.
-          </p>
-        </div>
-
-        <div class="space-y-2.5">
-          <input
-            id="lookup-query-input"
-            type="text"
-            onkeydown="if(event.key==='Enter') runOrderOrPhoneLookup()"
-            placeholder="Order Ref or 010xxxxxxxx"
-            class="w-full rounded-xl bg-[#F7F3EA] border border-[#1E1916]/25 px-3.5 py-2.5 text-xs sm:text-sm font-semibold text-[#1E1916] focus:outline-none focus:border-[#1E4620]"
-          />
-          <button
-            type="button"
-            onclick="runOrderOrPhoneLookup()"
-            class="w-full py-2.5 px-4 rounded-xl bg-[#1E4620] text-[#F7F3EA] font-bold text-xs hover:opacity-95 transition cursor-pointer"
-          >
-            Check Live Status
-          </button>
-        </div>
-
-        <div id="lookup-result-card" class="hidden rounded-xl bg-[#F7F3EA] border border-[#1E1916]/15 p-3.5 text-xs space-y-3"></div>
-
-        <!-- Email Receipt Sender Box -->
-        <div class="pt-3 border-t border-[#1E1916]/15 space-y-2">
-          <label for="receipt-email-input" class="block text-[11px] uppercase tracking-wider font-bold text-[#1E4620]">
-            Send Receipt to Customer Email
-          </label>
-          <input
-            id="receipt-email-input"
-            type="email"
-            placeholder="customer@example.com"
-            class="w-full rounded-xl bg-[#F7F3EA] border border-[#1E1916]/25 px-3 py-2 text-xs text-[#1E1916]"
-          />
-          <button
-            type="button"
-            onclick="sendReceiptViaEmail()"
-            class="w-full py-2 px-3 rounded-xl bg-[#C59B43] text-[#1E1916] font-bold text-xs hover:brightness-105 transition cursor-pointer"
-          >
-            Email Receipt (Mailto + Log)
-          </button>
-          <p id="receipt-email-status" class="text-[11px] font-bold text-[#1E4620] min-h-[1rem]"></p>
-        </div>
-      </div>
-
-      <!-- Structured Ticket & Escalation to Admin -->
-      <div class="bg-[#1E1916] text-[#F7F3EA] border border-[#C59B43]/50 rounded-2xl p-5 space-y-3">
+      <div class="bg-[#1E1916] text-[#F7F3EA] border-2 border-[#C59B43] rounded-2xl p-5 space-y-3 shadow-sm">
         <span class="text-[11px] uppercase tracking-widest text-[#E8C97B] font-bold block arabic-text">
-          تذكرة دعم للإدارة • Structured Admin Ticket
+          تواصل مباشر على واتساب • WhatsApp Direct
         </span>
-        <h3 class="font-serif text-xl font-bold">Send Note or Issue to Admin</h3>
+        <h2 class="font-serif text-2xl font-bold">Send Note to WhatsApp</h2>
+        <p class="text-xs text-[#F7F3EA]/80 leading-relaxed">
+          No browser storage is used. Compose your note or question below and open WhatsApp directly with <strong>+20 10 41870087</strong>.
+        </p>
 
         <div class="space-y-2 text-xs">
           <select
@@ -164,9 +105,8 @@
             class="w-full rounded-xl bg-[#262523] border border-[#C59B43]/40 px-3 py-2 text-[#F7F3EA] font-semibold"
           >
             <option value="General Inquiry">General Inquiry</option>
-            <option value="Order & Delivery">Order &amp; 3-Stage Delivery</option>
-            <option value="Payment & Screenshot">Payment / InstaPay Screenshot</option>
-            <option value="Loyalty & 10k Flavor">Loyalty Points / 10,000-Pt Flavor</option>
+            <option value="Order & 2-Day Lead Time">Order &amp; 2-Day Lead Time</option>
+            <option value="InstaPay & Screenshot">InstaPay Transfer / Screenshot</option>
             <option value="Allergy / Ingredient">Allergy or Ingredient Question</option>
             <option value="Issue / Complaint">Reported Issue</option>
           </select>
@@ -174,50 +114,48 @@
           <input
             id="ticket-phone-input"
             type="tel"
-            placeholder="Your Mobile Phone ID (optional)"
+            placeholder="Your Mobile Phone (optional)"
             class="w-full rounded-xl bg-[#262523] border border-[#C59B43]/40 px-3 py-2 text-[#F7F3EA] placeholder:text-[#F7F3EA]/45"
           />
 
-          <input
-            id="ticket-gift-note"
-            type="text"
-            placeholder="Optional gift / occasion note..."
+          <textarea
+            id="ticket-note-input"
+            rows="3"
+            placeholder="Write your message or question for WhatsApp..."
             class="w-full rounded-xl bg-[#262523] border border-[#C59B43]/40 px-3 py-2 text-[#F7F3EA] placeholder:text-[#F7F3EA]/45"
-          />
+          ></textarea>
         </div>
 
         <button
           type="button"
-          onclick="logStructuredTicketToAdmin()"
+          onclick="openWhatsAppTicket()"
           class="w-full py-2.5 px-3.5 rounded-xl bg-[#C59B43] text-[#1E1916] font-bold text-xs hover:brightness-105 transition cursor-pointer"
         >
-          Log Ticket to Admin Portal
+          Send Note on WhatsApp (+20 10 41870087)
         </button>
 
-        <a
-          id="wa-handoff-link"
-          href="https://wa.me/201041870087"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="block text-center py-2 px-3.5 rounded-xl bg-[#262523] border border-[#C59B43]/40 text-[#E8C97B] font-bold text-xs hover:bg-[#33312e] transition"
+        <button
+          type="button"
+          onclick="copyTicketMessage()"
+          class="w-full py-2 px-3.5 rounded-xl bg-[#262523] border border-[#C59B43]/40 text-[#E8C97B] font-bold text-xs hover:bg-[#33312e] transition cursor-pointer"
         >
-          Continue on WhatsApp
-        </a>
-        <p id="admin-ticket-status" class="text-[11px] font-bold text-[#E8C97B] min-h-[1rem]"></p>
+          Copy WhatsApp Note
+        </button>
+        <p id="ticket-feedback" class="text-[11px] font-bold text-[#E8C97B] min-h-[1rem]"></p>
       </div>
     </aside>
 
-    <!-- Right Column: Main Concierge Chat + InstaShop Quick-Order Drawer -->
+    <!-- Right Column: Main Concierge Chat + WhatsApp Quick-Order Bag -->
     <section class="lg:col-span-8 space-y-5">
       <!-- Chat Window -->
-      <div class="bg-[#EFE9DA] border-2 border-[#C59B43] rounded-2xl flex flex-col overflow-hidden shadow-sm min-h-[500px]">
+      <div class="bg-[#EFE9DA] border-2 border-[#C59B43] rounded-2xl flex flex-col overflow-hidden shadow-sm min-h-[480px]">
         <div class="bg-[#1E1916] text-[#F7F3EA] px-5 py-4 flex flex-wrap items-center justify-between gap-3 border-b border-[#C59B43]/40">
           <div>
             <h1 id="ui-chat-header" class="font-serif text-2xl sm:text-3xl font-bold leading-none">
               Zebda Concierge Chat
             </h1>
             <p class="text-[11px] text-[#E8C97B] mt-1">
-              Live Orders • Points &amp; 3-Month Expiration • Flavor Pairings • Allergy Check • Email Receipts
+              Flavors &amp; Prices • Pairings • Allergy &amp; Ingredients • 2-Day Lead Time • WhatsApp Order Builder
             </p>
           </div>
           <div class="flex items-center gap-2">
@@ -249,19 +187,16 @@
           <button type="button" onclick="sendQuickPrompt('Do your butters contain garlic, chili, or dairy/allergy notes?')" class="px-2.5 py-1 rounded-full bg-[#EFE9DA] border border-[#1E1916]/20 text-[11px] font-bold hover:border-[#1E4620] cursor-pointer">
             Allergy &amp; Ingredients
           </button>
-          <button type="button" onclick="sendQuickPrompt('How do loyalty points, 3-month expiry, and the 10,000-pt flavor work?')" class="px-2.5 py-1 rounded-full bg-[#EFE9DA] border border-[#1E1916]/20 text-[11px] font-bold hover:border-[#1E4620] cursor-pointer">
-            Points &amp; 10k Flavor
-          </button>
           <button type="button" onclick="sendQuickPrompt('How do free tasting samples and chilled delivery work?')" class="px-2.5 py-1 rounded-full bg-[#EFE9DA] border border-[#1E1916]/20 text-[11px] font-bold hover:border-[#1E4620] cursor-pointer">
             Samples &amp; Delivery
           </button>
-          <button type="button" onclick="sendQuickPrompt('منيو واسعار ونقاطي')" class="px-2.5 py-1 rounded-full bg-[#EFE9DA] border border-[#1E1916]/20 text-[11px] font-bold arabic-text hover:border-[#1E4620] cursor-pointer">
-            منيو / نقاطي
+          <button type="button" onclick="sendQuickPrompt('منيو واسعار وطلب واتساب')" class="px-2.5 py-1 rounded-full bg-[#EFE9DA] border border-[#1E1916]/20 text-[11px] font-bold arabic-text hover:border-[#1E4620] cursor-pointer">
+            منيو / واتساب
           </button>
         </div>
 
         <!-- Messages Stream -->
-        <div id="chat-messages" class="flex-1 p-4 sm:p-5 space-y-3.5 overflow-y-auto max-h-[380px]"></div>
+        <div id="chat-messages" class="flex-1 p-4 sm:p-5 space-y-3.5 overflow-y-auto max-h-[360px]"></div>
 
         <!-- Typing Indicator -->
         <div id="typing-indicator" class="hidden px-5 pb-2 flex items-center gap-2 text-xs text-[#1E1916]/75">
@@ -271,44 +206,16 @@
           <span class="font-semibold">Zebda Concierge is typing...</span>
         </div>
 
-        <!-- Photo Preview Strip (if attached) -->
-        <div id="chat-attachment-preview" class="hidden px-4 sm:px-5 py-2 bg-[#EFE9DA] border-t border-[#1E1916]/12 flex items-center justify-between gap-3 text-xs">
-          <div class="flex items-center gap-2.5 min-w-0">
-            <img id="chat-attachment-thumb" src="" alt="Attached preview" class="w-10 h-10 rounded-lg object-cover border border-[#1E1916]/20" />
-            <span id="chat-attachment-name" class="font-semibold text-[#1E1916] truncate"></span>
-          </div>
-          <button
-            type="button"
-            onclick="clearChatAttachment()"
-            class="px-2.5 py-1 rounded-lg bg-[#7A1C1C] text-[#F7F3EA] text-[11px] font-bold cursor-pointer shrink-0"
-          >
-            Remove
-          </button>
-        </div>
-
         <!-- Composer -->
         <form
           onsubmit="event.preventDefault(); handleChatSubmit();"
           class="p-3.5 sm:p-4 bg-[#F7F3EA] border-t border-[#1E1916]/15 flex items-center gap-2"
         >
-          <label
-            title="Attach screenshot or photo"
-            class="px-3 py-2.5 rounded-xl bg-[#EFE9DA] border border-[#1E1916]/25 text-xs font-bold text-[#1E1916] hover:border-[#1E4620] cursor-pointer shrink-0"
-          >
-            Photo
-            <input
-              id="chat-photo-input"
-              type="file"
-              accept="image/*"
-              onchange="handleChatPhotoSelect(event)"
-              class="hidden"
-            />
-          </label>
           <input
             id="chat-input"
             type="text"
             autocomplete="off"
-            placeholder="Ask a question, paste Order Ref (ZBD-...), phone, or what you're cooking..."
+            placeholder="Ask about flavors, pairings, ingredients, or what you're cooking..."
             class="flex-1 rounded-xl bg-white border border-[#1E1916]/25 px-4 py-2.5 text-xs sm:text-sm text-[#1E1916] focus:outline-none focus:border-[#1E4620]"
           />
           <button
@@ -320,45 +227,45 @@
         </form>
       </div>
 
-      <!-- InstaShop Quick-Order Drawer Inside Chat -->
+      <!-- WhatsApp Quick-Order Drawer Inside Chat -->
       <section class="bg-[#EFE9DA] border-2 border-[#C59B43] rounded-2xl p-5 sm:p-6 space-y-4 shadow-sm">
         <div class="flex flex-wrap items-center justify-between gap-2 border-b border-[#1E1916]/15 pb-3">
           <div>
             <span class="text-[11px] uppercase tracking-[0.2em] text-[#1E4620] font-bold block arabic-text">
-              إنستا شوب سريع • InstaShop Quick-Order in Chat
+              طلب سريع على واتساب • WhatsApp Quick-Order in Chat
             </span>
             <h2 class="font-serif text-2xl sm:text-3xl font-bold text-[#1E1916]">
               Quick-Add Tins &amp; Quartet Box
             </h2>
           </div>
-          <span id="instashop-points-preview" class="px-3 py-1 rounded-full bg-[#1E1916] text-[#E8C97B] text-xs font-bold">
-            Est. Points: +0 pts
+          <span class="px-3 py-1 rounded-full bg-[#1E1916] text-[#E8C97B] text-xs font-bold">
+            2-Day Notice • 0–4°C
           </span>
         </div>
 
         <div id="instashop-items-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3"></div>
 
-        <!-- Live InstaShop Summary Bar -->
+        <!-- Live Quick-Order Summary Bar -->
         <div class="rounded-2xl bg-[#1E1916] text-[#F7F3EA] p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div class="space-y-0.5 text-xs">
             <span class="text-[#E8C97B] font-bold uppercase tracking-wider block">
-              InstaShop Chat Bag (<span id="instashop-total-qty">0</span> items)
+              WhatsApp Chat Bag (<span id="instashop-total-qty">0</span> items)
             </span>
             <p class="font-serif text-2xl font-bold">
               Subtotal: <span id="instashop-subtotal">0</span> EGP
             </p>
-            <p class="text-[#F7F3EA]/75 text-[11px]">
-              Keep compound butter chilled (2–4°C) • Free sample perk applies on qualifying orders
+            <p id="instashop-sample-note" class="text-[#F7F3EA]/75 text-[11px]">
+              Keep compound butter chilled (0–4°C) • Orders over 500 EGP unlock 1 FREE sample
             </p>
           </div>
 
           <div class="flex flex-wrap items-center gap-2">
             <button
               type="button"
-              onclick="postInstaShopBagToChat()"
+              onclick="postQuickBagToChat()"
               class="px-4 py-2.5 rounded-xl bg-[#C59B43] text-[#1E1916] font-bold text-xs hover:brightness-105 transition cursor-pointer"
             >
-              Send Bag to Chat &amp; Email Draft
+              Show Bag in Chat
             </button>
             <a
               id="instashop-wa-btn"
@@ -376,23 +283,22 @@
   </main>
 
   <script>
-    const ADMIN_STORE_KEY = 'zebda_and_co_admin_sync_v1';
     const WHATSAPP_PHONE_DIGITS = '201041870087';
+    const INSTAPAY_HANDLE = 'tommy_shams@instapay';
+    const INSTAPAY_NUMBER = '01208958884';
+    const INSTAPAY_URL = 'https://ipn.eg/S/tommy_shams/instapay/5KpRkP';
 
-    const BASE_MENU_ITEMS = [
-      { key: 'garlic', name: 'Roasted Garlic & Herb', ar: 'ثوم محمص وأعشاب', price: 145, tags: ['garlic', 'steak', 'bread'] },
-      { key: 'chili', name: 'Hot Honey & Chili Crunch', ar: 'عسل حار وفلفل مقرمش', price: 155, tags: ['chili', 'spicy', 'chicken'] },
-      { key: 'tomato', name: 'Sundried Tomato, Basil & Parmesan', ar: 'طماطم وريحان وبارميزان', price: 165, tags: ['tomato', 'pasta', 'eggs'] },
-      { key: 'truffle', name: 'Black Truffle & Sea Salt', ar: 'كمأة سوداء وملح بحري', price: 185, tags: ['truffle', 'steak', 'eggs'] },
-      { key: 'quartet', name: '4-Flavor Quartet Box', ar: 'بوكس التذوق (4 نكهات)', price: 560, tags: ['gift', 'all'] },
+    const CATALOG_ITEMS = [
+      { key: 'garlic', name: 'Roasted Garlic & Herb', ar: 'ثوم محمص وأعشاب', price: 145 },
+      { key: 'chili', name: 'Hot Honey & Chili Crunch', ar: 'عسل حار وفلفل مقرمش', price: 155 },
+      { key: 'tomato', name: 'Sundried Tomato, Basil & Parmesan', ar: 'طماطم وريحان وبارميزان', price: 165 },
+      { key: 'truffle', name: 'Black Truffle & Sea Salt', ar: 'كمأة سوداء وملح بحري', price: 185 },
+      { key: 'quartet', name: '4-Flavor Quartet Box', ar: 'بوكس التذوق (4 نكهات)', price: 560 },
     ];
 
     let currentLang = 'en';
-    let lastLookedUpOrder = null;
-    let lastLookedUpPhone = '';
-    let attachedPhotoDataUrl = '';
-    let attachedPhotoName = '';
-    const instaShopBag = {};
+    const quickBag = {};
+    const transcript = [];
 
     function escapeHtml(str) {
       return String(str || '')
@@ -400,64 +306,6 @@
         .replace(/</g, '&lt;')
         .replace(/>/g, '&gt;')
         .replace(/"/g, '&quot;');
-    }
-
-    function normalizePhone(raw) {
-      let digits = String(raw || '').replace(/\D/g, '');
-      if (digits.startsWith('20') && digits.length === 12) {
-        digits = '0' + digits.slice(2);
-      }
-      return digits;
-    }
-
-    function readStore() {
-      try {
-        const raw = localStorage.getItem(ADMIN_STORE_KEY);
-        const parsed = raw ? JSON.parse(raw) : {};
-        return {
-          orders: Array.isArray(parsed.orders) ? parsed.orders : [],
-          flavorIdeas: Array.isArray(parsed.flavorIdeas) ? parsed.flavorIdeas : [],
-          issues: Array.isArray(parsed.issues) ? parsed.issues : [],
-          outOfStock: parsed.outOfStock && typeof parsed.outOfStock === 'object' ? parsed.outOfStock : {},
-          customMenuFlavors: Array.isArray(parsed.customMenuFlavors) ? parsed.customMenuFlavors : [],
-          loyaltyProfiles: parsed.loyaltyProfiles && typeof parsed.loyaltyProfiles === 'object' ? parsed.loyaltyProfiles : {},
-        };
-      } catch (e) {
-        return {
-          orders: [],
-          flavorIdeas: [],
-          issues: [],
-          outOfStock: {},
-          customMenuFlavors: [],
-          loyaltyProfiles: {},
-        };
-      }
-    }
-
-    function writeStore(data) {
-      try {
-        localStorage.setItem(ADMIN_STORE_KEY, JSON.stringify(data));
-      } catch (e) {}
-    }
-
-    function mapLegacyStatusToStage(status) {
-      if (status === 'Delivered') return 'Delivered';
-      if (status === 'Verified & Whipping' || status === 'Out for delivery') return 'Out for delivery';
-      return 'Not started yet';
-    }
-
-    function getCatalogItems() {
-      const store = readStore();
-      const publishedVip = (store.customMenuFlavors || [])
-        .filter((f) => f.published)
-        .map((f) => ({
-          key: 'vip_' + f.id,
-          name: f.flavorName + ' (VIP 250g)',
-          ar: f.flavorName,
-          price: Number(f.price || 175),
-          tags: ['vip'],
-        }));
-      return [...BASE_MENU_ITEMS, ...publishedVip];
     }
 
     function toggleLanguage() {
@@ -469,15 +317,14 @@
       document.getElementById('ui-chat-header').textContent = isAr
         ? 'مساعد زبدة وشركاه المباشر'
         : 'Zebda Concierge Chat';
-      document.getElementById('ui-lookup-title').textContent = isAr
-        ? 'تتبع الطلب أو رقم الموبايل'
-        : 'Track Order or Phone ID';
-      renderInstaShopGrid();
+      renderQuickShopGrid();
     }
 
     function appendMessage(sender, text) {
       const box = document.getElementById('chat-messages');
       if (!box) return;
+      transcript.push((sender === 'user' ? 'You: ' : 'Zebda Concierge: ') + text);
+
       const isUser = sender === 'user';
       const wrapper = document.createElement('div');
       wrapper.className = isUser ? 'flex justify-end' : 'flex justify-start';
@@ -498,17 +345,6 @@
       wrapper.appendChild(bubble);
       box.appendChild(wrapper);
       box.scrollTop = box.scrollHeight;
-
-      if (isUser) {
-        const waLink = document.getElementById('wa-handoff-link');
-        if (waLink) {
-          waLink.href =
-            'https://wa.me/' +
-            WHATSAPP_PHONE_DIGITS +
-            '?text=' +
-            encodeURIComponent('Zebda & Co. Chat:\n' + text);
-        }
-      }
     }
 
     function replyWithTyping(replyText) {
@@ -517,224 +353,58 @@
       setTimeout(() => {
         if (typingEl) typingEl.classList.add('hidden');
         appendMessage('bot', replyText);
-      }, 360);
+      }, 320);
     }
 
     function generateAssistantReply(userText) {
-      const store = readStore();
-      const raw = userText.trim();
-      const lower = raw.toLowerCase();
+      const lower = userText.trim().toLowerCase();
 
-      // 1. Order Reference lookup
-      const refMatch = raw.match(/ZBD-[A-Z0-9-]+/i);
-      if (refMatch) {
-        const ref = refMatch[0].toUpperCase();
-        const found = store.orders.find((o) => String(o.orderRef || '').toUpperCase() === ref);
-        if (found) {
-          lastLookedUpOrder = found;
-          if (found.customerPhone) lastLookedUpPhone = normalizePhone(found.customerPhone);
-          const stage = found.deliveryStage || mapLegacyStatusToStage(found.status);
-          return (
-            'Order ' +
-            found.orderRef +
-            ' (' +
-            (found.customerName || 'Customer') +
-            '):\n' +
-            '• Stage: ' +
-            stage +
-            ' (1. Not started yet → 2. Out for delivery → 3. Delivered)\n' +
-            '• Payment: ' +
-            (found.paymentVerified ? 'Verified (Points Active)' : 'Pending Verification') +
-            ' • Total: ' +
-            found.grandTotal +
-            ' EGP\n' +
-            '• Points: +' +
-            Number(found.pointsEarned || 0) +
-            ' pts • Chilled delivery care included'
-          );
-        }
-        return 'Order ' + ref + ' was not found in this browser yet. You can also check via WhatsApp (+201041870087).';
+      if (lower.includes('price') || lower.includes('menu') || lower.includes('flavor') || lower.includes('منيو') || lower.includes('اسعار')) {
+        return [
+          'Zebda & Co. Menu (50/50 Commercial & Baladi Butter • 0–4°C • 2-Day Notice):',
+          '• Roasted Garlic & Herb (ثوم محمص وأعشاب) — 145 EGP',
+          '• Hot Honey & Chili Crunch (عسل حار وفلفل مقرمش) — 155 EGP',
+          '• Sundried Tomato, Basil & Parmesan (طماطم وريحان وبارميزان) — 165 EGP',
+          '• Black Truffle & Sea Salt (كمأة سوداء وملح بحري) — 185 EGP',
+          '• 4-Flavor Quartet Box (بوكس التذوق) — 560 EGP',
+          'All orders are placed directly via WhatsApp (+20 10 41870087).',
+        ].join('\n');
       }
 
-      // 2. Phone ID lookup & reward milestone calculation
-      const digits = normalizePhone(raw);
-      if (digits.length >= 10 && !lower.includes('price') && !lower.includes('flavor')) {
-        lastLookedUpPhone = digits;
-        const matches = store.orders.filter((o) => normalizePhone(o.customerPhone) === digits);
-        if (matches.length > 0) {
-          lastLookedUpOrder = matches[0];
-          const totalPts = matches.reduce((sum, o) => sum + Number(o.pointsEarned || 0), 0);
-          const milestones = [500, 1200, 2500, 5000, 10000];
-          const nextM = milestones.find((m) => totalPts < m);
-          const nextLine = nextM
-            ? 'Next reward milestone at ' + nextM + ' pts (' + (nextM - totalPts) + ' pts away).'
-            : 'You reached 10,000+ pts—VIP Custom 250g Flavor unlocked!';
-          return (
-            'Found ' +
-            matches.length +
-            ' order(s) for ' +
-            digits +
-            '.\n• Latest Order: ' +
-            matches[0].orderRef +
-            ' ("' +
-            (matches[0].deliveryStage || mapLegacyStatusToStage(matches[0].status)) +
-            '")\n• Points Logged Across Orders: ' +
-            totalPts +
-            ' pts (3-month rolling window)\n• ' +
-            nextLine
-          );
-        }
+      if (lower.includes('pair') || lower.includes('steak') || lower.includes('pasta') || lower.includes('egg') || lower.includes('sourdough')) {
+        return [
+          'Quick Pairing Guide:',
+          '• Black Truffle & Sea Salt (185 EGP): Steak, mushrooms, risotto, fries & warm toast.',
+          '• Roasted Garlic & Herb (145 EGP): Grilled meats, garlic bread, vegetables & pasta.',
+          '• Sundried Tomato, Basil & Parmesan (165 EGP): Pasta, chicken & focaccia.',
+          '• Hot Honey & Chili Crunch (155 EGP): Eggs, crispy chicken, sourdough & pizza crust.',
+        ].join('\n');
       }
 
-      // 3. Follow-up using remembered order
-      if (
-        lastLookedUpOrder &&
-        (lower.includes('verified') || lower.includes('status') || lower.includes('stage') || lower.includes('when'))
-      ) {
-        const stage = lastLookedUpOrder.deliveryStage || mapLegacyStatusToStage(lastLookedUpOrder.status);
+      if (lower.includes('allergy') || lower.includes('ingredient') || lower.includes('dairy') || lower.includes('garlic') || lower.includes('chili')) {
         return (
-          'For your last checked order ' +
-          lastLookedUpOrder.orderRef +
-          ': Delivery stage is "' +
-          stage +
-          '" and payment is ' +
-          (lastLookedUpOrder.paymentVerified ? 'Verified.' : 'awaiting verification.')
+          'All Zebda & Co. butters use a 50/50 blend of commercial unsalted butter and farmer’s baladi butter (dairy), plus flavor-specific ingredients like garlic, herbs, honey, chili crunch, sundried tomato, basil, Parmesan, or truffle oil. Message us on WhatsApp (+20 10 41870087) for specific ingredient questions.'
         );
       }
 
-      // 4. Pairing / recipe matcher
-      if (
-        lower.includes('steak') ||
-        lower.includes('sourdough') ||
-        lower.includes('egg') ||
-        lower.includes('pasta') ||
-        lower.includes('pair') ||
-        lower.includes('cook') ||
-        lower.includes('recipe')
-      ) {
+      if (lower.includes('sample') || lower.includes('deliver') || lower.includes('instapay') || lower.includes('whatsapp') || lower.includes('واتساب')) {
         return (
-          'Flavor Pairing Guide:\n' +
-          '• Steak, Roast & Eggs: Black Truffle & Sea Salt (185 EGP) or Roasted Garlic & Herb (145 EGP) melted right on top.\n' +
-          '• Sourdough & Toast: Roasted Garlic & Herb (145 EGP) or Hot Honey & Chili Crunch (155 EGP).\n' +
-          '• Pasta & Savory Bakes: Sundried Tomato, Basil & Parmesan (165 EGP).'
+          `Orders require at least 2 days advance notice and are sent directly to WhatsApp (+20 10 41870087). Orders over 500 EGP in butter items unlock 1 FREE sample. InstaPay is ${INSTAPAY_HANDLE} / ${INSTAPAY_NUMBER} (${INSTAPAY_URL}).`
         );
       }
 
-      // 5. Allergy & ingredient info
-      if (
-        lower.includes('allerg') ||
-        lower.includes('ingredient') ||
-        lower.includes('dairy') ||
-        lower.includes('garlic') ||
-        lower.includes('chili') ||
-        lower.includes('spicy')
-      ) {
-        return (
-          'Ingredients & Allergy Notes:\n' +
-          '• All compound butters are dairy-based and best kept refrigerated (2–4°C).\n' +
-          '• Specific flavors contain garlic/herbs, chili/honey heat, tomato/basil/parmesan, or black truffle & sea salt.\n' +
-          '• Have a strict allergy? Use "Log Ticket to Admin" on the left so our kitchen team can confirm batch details.'
-        );
-      }
-
-      // 6. Menu, prices & out-of-stock alternatives
-      if (
-        lower.includes('flavor') ||
-        lower.includes('price') ||
-        lower.includes('menu') ||
-        lower.includes('منيو') ||
-        lower.includes('اسعار') ||
-        lower.includes('أسعار')
-      ) {
-        const oosMap = store.outOfStock || {};
-        const lines = BASE_MENU_ITEMS.map((item) => {
-          const isOos = Boolean(oosMap[item.key]);
-          return (
-            '• ' +
-            item.name +
-            ' (' +
-            item.ar +
-            ') — ' +
-            item.price +
-            ' EGP' +
-            (isOos ? ' [Out of Stock — try Quartet or another flavor]' : '')
-          );
-        });
-        return 'Zebda & Co. Menu:\n' + lines.join('\n');
-      }
-
-      // 7. Points, 3-month expiration & 10,000-pt custom flavor
-      if (
-        lower.includes('point') ||
-        lower.includes('reward') ||
-        lower.includes('10,000') ||
-        lower.includes('10000') ||
-        lower.includes('vip') ||
-        lower.includes('expire') ||
-        lower.includes('month') ||
-        lower.includes('نقاط')
-      ) {
-        return (
-          'Loyalty Program (1 EGP = 1 Point • 3-Month Rolling Validity):\n' +
-          '• 500 pts: Free Delivery\n' +
-          '• 1,200 pts: Free Mini Tasting Jar\n' +
-          '• 2,500 pts: 50% Off Order\n' +
-          '• 5,000 pts: 70% Off Order\n' +
-          '• 10,000 pts: Create your own 250g custom butter flavor & feature it on the menu!'
-        );
-      }
-
-      // 8. Free samples & chilled delivery
-      if (
-        lower.includes('sample') ||
-        lower.includes('free') ||
-        lower.includes('deliver') ||
-        lower.includes('توصيل') ||
-        lower.includes('اوردر')
-      ) {
-        return (
-          'Delivery & Samples:\n' +
-          '• Qualifying orders unlock a complimentary tasting sample right during checkout.\n' +
-          '• Orders move through 3 stages: Not started yet → Out for delivery → Delivered.\n' +
-          '• Store compound butter in the fridge and bring to room temp for 10–15 mins before spreading.'
-        );
-      }
-
-      return currentLang === 'ar'
-        ? 'أهلاً بك في زبدة وشركاه! يمكنك كتابة رقم الطلب أو رقم الموبايل لمعرفة الحالة، أو إضافة أصناف من إنستا شوب بالأسفل، أو إرسال ملاحظة للإدارة.'
-        : 'Welcome to Zebda & Co.! Paste an Order Ref or phone number to track status, add items in the InstaShop drawer below, ask about pairings/allergies/points, or send a note to the Admin Portal.';
+      return (
+        'You can browse our compound butter flavors, add tins to the WhatsApp Quick-Order bag below, or send your question straight to WhatsApp (+20 10 41870087). Ask me about flavors, prices, pairings, or ingredients!'
+      );
     }
 
     function handleChatSubmit() {
       const input = document.getElementById('chat-input');
-      if (!input) return;
-      const text = input.value.trim();
-      if (!text && !attachedPhotoDataUrl) return;
-
-      const composedUserText = attachedPhotoName
-        ? (text || 'Attached screenshot/photo') + ' [Photo: ' + attachedPhotoName + ']'
-        : text;
-
+      const text = input?.value.trim();
+      if (!text) return;
       input.value = '';
-      appendMessage('user', composedUserText);
-
-      if (attachedPhotoDataUrl) {
-        const store = readStore();
-        store.issues = Array.isArray(store.issues) ? store.issues : [];
-        store.issues.unshift({
-          id: 'CHAT-IMG-' + Date.now(),
-          category: 'Payment & Screenshot',
-          specificProblem: 'Chat Photo / Screenshot Upload',
-          details: text || 'Customer shared photo in Concierge Chat.',
-          orderRef: lastLookedUpOrder ? lastLookedUpOrder.orderRef : 'N/A',
-          photoName: attachedPhotoName,
-          createdAt: new Date().toLocaleString(),
-        });
-        writeStore(store);
-        clearChatAttachment();
-      }
-
-      replyWithTyping(generateAssistantReply(text || 'photo'));
+      appendMessage('user', text);
+      replyWithTyping(generateAssistantReply(text));
     }
 
     function sendQuickPrompt(promptText) {
@@ -742,425 +412,143 @@
       replyWithTyping(generateAssistantReply(promptText));
     }
 
-    function handleChatPhotoSelect(event) {
-      const file = event.target?.files?.[0];
-      if (!file) return;
-      attachedPhotoName = file.name;
-      const reader = new FileReader();
-      reader.onload = () => {
-        attachedPhotoDataUrl = String(reader.result || '');
-        document.getElementById('chat-attachment-thumb').src = attachedPhotoDataUrl;
-        document.getElementById('chat-attachment-name').textContent = attachedPhotoName;
-        document.getElementById('chat-attachment-preview').classList.remove('hidden');
-      };
-      reader.readAsDataURL(file);
-    }
-
-    function clearChatAttachment() {
-      attachedPhotoDataUrl = '';
-      attachedPhotoName = '';
-      const fileInput = document.getElementById('chat-photo-input');
-      if (fileInput) fileInput.value = '';
-      const prev = document.getElementById('chat-attachment-preview');
-      if (prev) prev.classList.add('hidden');
-    }
-
-    function runOrderOrPhoneLookup() {
-      const raw = (document.getElementById('lookup-query-input')?.value || '').trim();
-      const card = document.getElementById('lookup-result-card');
-      if (!raw || !card) return;
-
-      const store = readStore();
-      const upper = raw.toUpperCase();
-      const digits = normalizePhone(raw);
-
-      let order = store.orders.find((o) => String(o.orderRef || '').toUpperCase() === upper);
-      if (!order && digits.length >= 10) {
-        order = store.orders.find((o) => normalizePhone(o.customerPhone) === digits);
-      }
-
-      card.classList.remove('hidden');
-      if (!order) {
-        lastLookedUpOrder = null;
-        card.innerHTML =
-          '<p class="font-bold text-[#7A1C1C]">No order found for "' +
-          escapeHtml(raw) +
-          '".</p>';
-        return;
-      }
-
-      lastLookedUpOrder = order;
-      if (order.customerPhone) lastLookedUpPhone = normalizePhone(order.customerPhone);
-      if (order.customerEmail) {
-        const emailInp = document.getElementById('receipt-email-input');
-        if (emailInp && !emailInp.value) emailInp.value = order.customerEmail;
-      }
-
-      const stage = order.deliveryStage || mapLegacyStatusToStage(order.status);
-      const stageIdx = stage === 'Delivered' ? 2 : stage === 'Out for delivery' ? 1 : 0;
-
-      card.innerHTML =
-        '<div class="flex items-center justify-between gap-2">' +
-        '<span class="font-bold text-[#1E4620]">' +
-        escapeHtml(order.orderRef) +
-        '</span>' +
-        '<span class="px-2 py-0.5 rounded-full bg-[#C59B43]/30 text-[#1E1916] text-[10px] font-bold">' +
-        escapeHtml(stage) +
-        '</span>' +
-        '</div>' +
-        '<div class="grid grid-cols-3 gap-1">' +
-        [0, 1, 2]
-          .map(
-            (i) =>
-              '<div class="h-2 rounded-full ' +
-              (i <= stageIdx ? 'bg-[#1E4620]' : 'bg-[#1E1916]/15') +
-              '"></div>'
-          )
-          .join('') +
-        '</div>' +
-        '<p class="font-bold text-[#1E1916]">' +
-        escapeHtml(order.customerName || 'Customer') +
-        ' • ' +
-        escapeHtml(order.grandTotal) +
-        ' EGP</p>' +
-        '<div class="flex flex-wrap gap-1.5 pt-1">' +
-        '<button type="button" onclick="reorderFromLookup()" class="px-2.5 py-1 rounded-lg bg-[#1E4620] text-[#F7F3EA] text-[11px] font-bold cursor-pointer">One-Tap Reorder</button>' +
-        '<button type="button" onclick="sendReceiptViaEmail()" class="px-2.5 py-1 rounded-lg bg-[#C59B43] text-[#1E1916] text-[11px] font-bold cursor-pointer">Email Receipt</button>' +
-        '</div>';
-
-      appendMessage('user', 'Check status for ' + raw);
-      replyWithTyping(generateAssistantReply(raw));
-    }
-
-    function reorderFromLookup() {
-      if (!lastLookedUpOrder) return;
-      const itemsSummary = (lastLookedUpOrder.receiptItems || [])
-        .map((it) => it.label + ' (' + it.amount + ')')
-        .join(', ');
-      const reorderText =
-        'Reorder Request based on ' +
-        lastLookedUpOrder.orderRef +
-        ': ' +
-        (itemsSummary || lastLookedUpOrder.grandTotal + ' EGP');
-      appendMessage('user', reorderText);
-
-      const store = readStore();
-      store.issues = Array.isArray(store.issues) ? store.issues : [];
-      store.issues.unshift({
-        id: 'REORDER-' + Date.now(),
-        category: 'Order & Delivery',
-        specificProblem: 'One-Tap Reorder Request',
-        details: reorderText,
-        orderRef: lastLookedUpOrder.orderRef,
-        photoName: 'None',
-        createdAt: new Date().toLocaleString(),
-      });
-      writeStore(store);
-
-      const waLink = document.getElementById('wa-handoff-link');
-      if (waLink) {
-        waLink.href =
-          'https://wa.me/' + WHATSAPP_PHONE_DIGITS + '?text=' + encodeURIComponent(reorderText);
-      }
-
-      replyWithTyping(
-        'Reorder logged for ' +
-          lastLookedUpOrder.orderRef +
-          '! Your request is now visible in the Admin Portal and ready to send via WhatsApp.'
-      );
-    }
-
-    function buildReceiptEmailBody() {
-      if (lastLookedUpOrder) {
-        const itemsLines = (lastLookedUpOrder.receiptItems || [])
-          .map((it) => ' - ' + it.label + ': ' + it.amount)
-          .join('\n');
-        return [
-          'ZEBDA & CO. (زبدة وشركاه) — OFFICIAL ORDER RECEIPT',
-          'Order Reference: ' + lastLookedUpOrder.orderRef,
-          'Date: ' + (lastLookedUpOrder.createdAt || new Date().toLocaleString()),
-          'Customer: ' + (lastLookedUpOrder.customerName || 'Valued Guest'),
-          'Phone ID: ' + (lastLookedUpOrder.customerPhone || 'N/A'),
-          'Delivery: ' + (lastLookedUpOrder.subareaLabel || lastLookedUpOrder.city || '') + ' — ' + (lastLookedUpOrder.addressDetail || ''),
-          'Stage: ' + (lastLookedUpOrder.deliveryStage || mapLegacyStatusToStage(lastLookedUpOrder.status)),
-          'Items:',
-          itemsLines || ' - Compound Butter Order',
-          'Grand Total: ' + lastLookedUpOrder.grandTotal + ' EGP',
-          'InstaPay Paid/Due Now: ' + lastLookedUpOrder.instaPayDueNow + ' EGP | COD: ' + lastLookedUpOrder.codRemaining + ' EGP',
-          'Loyalty Points Earned: +' + Number(lastLookedUpOrder.pointsEarned || 0) + ' pts (1 EGP = 1 pt, 3-month validity)',
-          'Thank you for choosing Zebda & Co.!',
-        ].join('\n');
-      }
-
-      const catalog = getCatalogItems();
-      const bagLines = Object.entries(instaShopBag)
-        .filter(([, q]) => q > 0)
-        .map(([k, q]) => {
-          const item = catalog.find((c) => c.key === k);
-          return item ? ' - ' + item.name + ' × ' + q + ' (' + item.price * q + ' EGP)' : '';
-        })
-        .filter(Boolean);
-
-      return [
-        'ZEBDA & CO. (زبدة وشركاه) — INSTASHOP QUOTE / RECEIPT DRAFT',
-        'Date: ' + new Date().toLocaleString(),
-        bagLines.length > 0 ? 'Selected Items:\n' + bagLines.join('\n') : 'No items selected yet.',
-        'Estimated Points (1 EGP = 1 pt): +' + getInstaShopSubtotal() + ' pts',
-      ].join('\n');
-    }
-
-    function sendReceiptViaEmail() {
-      const emailInput = document.getElementById('receipt-email-input');
-      const statusEl = document.getElementById('receipt-email-status');
-      const toEmail = (emailInput?.value || '').trim();
-      if (!toEmail || !toEmail.includes('@')) {
-        if (statusEl) statusEl.textContent = 'Please enter a valid customer email address.';
-        return;
-      }
-
-      const subject = lastLookedUpOrder
-        ? 'Zebda & Co. Receipt — ' + lastLookedUpOrder.orderRef
-        : 'Zebda & Co. Order / Quote Receipt';
-      const body = buildReceiptEmailBody();
-
-      // Log receipt email dispatch in shared store for admin visibility
-      const store = readStore();
-      store.issues = Array.isArray(store.issues) ? store.issues : [];
-      store.issues.unshift({
-        id: 'EMAIL-RCPT-' + Date.now(),
-        category: 'Order & Delivery',
-        specificProblem: 'Customer Email Receipt Sent (' + toEmail + ')',
-        details: body,
-        orderRef: lastLookedUpOrder ? lastLookedUpOrder.orderRef : 'INSTASHOP-DRAFT',
-        photoName: 'None',
-        createdAt: new Date().toLocaleString(),
-      });
-      writeStore(store);
-
-      if (statusEl) {
-        statusEl.textContent = 'Receipt prepared & logged for ' + toEmail + '!';
-      }
-
-      const mailtoUrl =
-        'mailto:' +
-        encodeURIComponent(toEmail) +
-        '?subject=' +
-        encodeURIComponent(subject) +
-        '&body=' +
-        encodeURIComponent(body);
-      window.location.href = mailtoUrl;
-    }
-
-    function logStructuredTicketToAdmin() {
-      const box = document.getElementById('chat-messages');
-      const cat = document.getElementById('ticket-category-select')?.value || 'General Inquiry';
-      const phone = normalizePhone(document.getElementById('ticket-phone-input')?.value || lastLookedUpPhone);
-      const giftNote = (document.getElementById('ticket-gift-note')?.value || '').trim();
-      const statusEl = document.getElementById('admin-ticket-status');
-
-      const userBubbles = box ? Array.from(box.querySelectorAll('.justify-end > div')) : [];
-      const lastMsg =
-        userBubbles.length > 0
-          ? userBubbles[userBubbles.length - 1].textContent.trim()
-          : 'Customer submitted a ticket from Concierge Chat.';
-
-      const details = [
-        lastMsg,
-        phone ? 'Phone ID: ' + phone : '',
-        giftNote ? 'Gift/Occasion Note: ' + giftNote : '',
-      ]
-        .filter(Boolean)
-        .join(' | ');
-
-      const store = readStore();
-      store.issues = Array.isArray(store.issues) ? store.issues : [];
-      store.issues.unshift({
-        id: 'TKT-' + Date.now(),
-        category: cat,
-        specificProblem: 'Concierge Chat Ticket',
-        details,
-        orderRef: lastLookedUpOrder ? lastLookedUpOrder.orderRef : 'N/A',
-        photoName: attachedPhotoName || 'None',
-        createdAt: new Date().toLocaleString(),
-      });
-      writeStore(store);
-
-      if (statusEl) {
-        statusEl.textContent = 'Logged to Admin Portal (' + new Date().toLocaleTimeString() + ')';
-      }
-      replyWithTyping(
-        'Your ticket under "' + cat + '" has been saved to the Admin Portal so our team can follow up.'
-      );
-    }
-
     function copyChatTranscript() {
-      const box = document.getElementById('chat-messages');
-      if (!box) return;
-      const lines = Array.from(box.children).map((row) => {
-        const isUser = row.classList.contains('justify-end');
-        const txt = row.innerText.replace(/^ZEBDA CONCIERGE\s*/i, '').trim();
-        return (isUser ? 'Customer: ' : 'Zebda Concierge: ') + txt;
-      });
-      navigator.clipboard?.writeText(lines.join('\n\n'));
-      appendMessage('bot', 'Chat transcript copied to your clipboard!');
-    }
-
-    /* InstaShop Quick-Order Inside Chat */
-    function renderInstaShopGrid() {
-      const store = readStore();
-      const oosMap = store.outOfStock || {};
-      const catalog = getCatalogItems();
-      const grid = document.getElementById('instashop-items-grid');
-      if (!grid) return;
-
-      grid.innerHTML = catalog
-        .map((item) => {
-          const qty = instaShopBag[item.key] || 0;
-          const isOos = Boolean(oosMap[item.key]);
-          return (
-            '<div class="rounded-xl bg-[#F7F3EA] border ' +
-            (isOos ? 'border-[#7A1C1C]/50 opacity-75' : 'border-[#1E1916]/15') +
-            ' p-3.5 flex flex-col justify-between gap-2.5">' +
-            '<div>' +
-            '<span class="arabic-text text-[11px] font-bold text-[#7A1C1C] block">' +
-            escapeHtml(item.ar) +
-            '</span>' +
-            '<h3 class="font-serif text-lg font-bold text-[#1E1916] leading-snug">' +
-            escapeHtml(item.name) +
-            '</h3>' +
-            '<span class="text-xs font-bold text-[#1E4620]">' +
-            item.price +
-            ' EGP</span>' +
-            '</div>' +
-            (isOos
-              ? '<span class="text-[11px] font-bold text-[#7A1C1C]">Out of Stock</span>'
-              : '<div class="flex items-center justify-between gap-2 pt-1">' +
-                '<button type="button" onclick="adjustInstaShopQty(\'' +
-                escapeHtml(item.key) +
-                '\', -1)" class="w-8 h-8 rounded-lg bg-[#EFE9DA] border border-[#1E1916]/25 font-bold text-sm cursor-pointer">−</button>' +
-                '<span class="font-bold text-sm">' +
-                qty +
-                '</span>' +
-                '<button type="button" onclick="adjustInstaShopQty(\'' +
-                escapeHtml(item.key) +
-                '\', 1)" class="w-8 h-8 rounded-lg bg-[#1E4620] text-[#F7F3EA] font-bold text-sm cursor-pointer">+</button>' +
-                '</div>') +
-            '</div>'
-          );
-        })
-        .join('');
-
-      updateInstaShopSummary();
-    }
-
-    function adjustInstaShopQty(key, delta) {
-      const next = Math.max(0, (instaShopBag[key] || 0) + delta);
-      instaShopBag[key] = next;
-      renderInstaShopGrid();
-    }
-
-    function getInstaShopSubtotal() {
-      const catalog = getCatalogItems();
-      return Object.entries(instaShopBag).reduce((sum, [k, q]) => {
-        const found = catalog.find((c) => c.key === k);
-        return sum + (found ? found.price * q : 0);
-      }, 0);
-    }
-
-    function updateInstaShopSummary() {
-      const totalQty = Object.values(instaShopBag).reduce((a, b) => a + b, 0);
-      const subtotal = getInstaShopSubtotal();
-      document.getElementById('instashop-total-qty').textContent = totalQty;
-      document.getElementById('instashop-subtotal').textContent = subtotal;
-      document.getElementById('instashop-points-preview').textContent = 'Est. Points: +' + subtotal + ' pts';
-
-      const catalog = getCatalogItems();
-      const summaryLines = Object.entries(instaShopBag)
-        .filter(([, q]) => q > 0)
-        .map(([k, q]) => {
-          const item = catalog.find((c) => c.key === k);
-          return item ? item.name + ' × ' + q + ' (' + item.price * q + ' EGP)' : '';
-        })
-        .filter(Boolean);
-
-      const giftNote = (document.getElementById('ticket-gift-note')?.value || '').trim();
-      const waText =
-        'Zebda & Co. InstaShop Order:\n' +
-        (summaryLines.length > 0 ? summaryLines.join('\n') : 'Browse & Order') +
-        '\nSubtotal: ' +
-        subtotal +
-        ' EGP (+' +
-        subtotal +
-        ' pts)' +
-        (giftNote ? '\nGift/Note: ' + giftNote : '');
-
-      const waBtn = document.getElementById('instashop-wa-btn');
-      if (waBtn) {
-        waBtn.href = 'https://wa.me/' + WHATSAPP_PHONE_DIGITS + '?text=' + encodeURIComponent(waText);
-      }
-    }
-
-    function postInstaShopBagToChat() {
-      const subtotal = getInstaShopSubtotal();
-      const totalQty = Object.values(instaShopBag).reduce((a, b) => a + b, 0);
-      if (totalQty === 0) {
-        replyWithTyping('Add at least 1 item in the InstaShop quick-order grid first!');
-        return;
-      }
-      const catalog = getCatalogItems();
-      const lines = Object.entries(instaShopBag)
-        .filter(([, q]) => q > 0)
-        .map(([k, q]) => {
-          const item = catalog.find((c) => c.key === k);
-          return '• ' + item.name + ' × ' + q + ' = ' + item.price * q + ' EGP';
-        });
-
-      appendMessage('user', 'InstaShop Bag (' + totalQty + ' items, ' + subtotal + ' EGP)');
-      replyWithTyping(
-        'Your InstaShop bag summary:\n' +
-          lines.join('\n') +
-          '\nSubtotal: ' +
-          subtotal +
-          ' EGP (+' +
-          subtotal +
-          ' loyalty pts).\nEnter your email on the left to send this receipt/quote draft or click "Order via WhatsApp"!'
-      );
+      if (!transcript.length || !navigator.clipboard?.writeText) return;
+      navigator.clipboard.writeText(transcript.join('\n\n'));
     }
 
     function resetChatThread() {
+      transcript.length = 0;
       const box = document.getElementById('chat-messages');
-      if (!box) return;
-      box.innerHTML = '';
+      if (box) box.innerHTML = '';
       appendMessage(
         'bot',
-        'Marhaban! Welcome to Zebda & Co. Ask about flavors, food pairings, ingredients/allergies, loyalty points (1 EGP = 1 pt, 3-month window), check an order/phone ID, build an InstaShop bag below, or send your receipt by email.'
+        'Welcome to Zebda & Co. (زبدة وشركاه)! Ask about flavors, pairings, or ingredients, or build a quick order below to send directly to WhatsApp (+20 10 41870087).'
       );
     }
 
-    window.addEventListener('storage', (e) => {
-      if (e.key === ADMIN_STORE_KEY) {
-        renderInstaShopGrid();
-        if (lastLookedUpOrder) {
-          const updated = readStore().orders.find((o) => o.orderRef === lastLookedUpOrder.orderRef);
-          if (updated) {
-            lastLookedUpOrder = updated;
-            appendMessage(
-              'bot',
-              'Live Update: Order ' +
-                updated.orderRef +
-                ' is now "' +
-                (updated.deliveryStage || mapLegacyStatusToStage(updated.status)) +
-                '" (Payment Verified: ' +
-                (updated.paymentVerified ? 'Yes' : 'No') +
-                ').'
-            );
-          }
-        }
-      }
-    });
+    function buildWhatsAppTicketText() {
+      const cat = document.getElementById('ticket-category-select').value;
+      const phone = document.getElementById('ticket-phone-input').value.trim();
+      const note = document.getElementById('ticket-note-input').value.trim();
+      return [
+        'Zebda & Co. (زبدة وشركاه) — WhatsApp Note',
+        '---------------------------------------------',
+        `Topic: ${cat}`,
+        phone ? `Phone: ${phone}` : '',
+        `Message: ${note || 'Hello, I would like assistance with Zebda & Co.'}`,
+      ]
+        .filter(Boolean)
+        .join('\n');
+    }
 
+    function openWhatsAppTicket() {
+      const msg = buildWhatsAppTicketText();
+      const url = 'https://wa.me/' + WHATSAPP_PHONE_DIGITS + '?text=' + encodeURIComponent(msg);
+      window.open(url, '_blank', 'noopener,noreferrer');
+      document.getElementById('ticket-feedback').textContent = 'Opened WhatsApp with your message.';
+    }
+
+    function copyTicketMessage() {
+      const msg = buildWhatsAppTicketText();
+      if (navigator.clipboard?.writeText) {
+        navigator.clipboard.writeText(msg).then(() => {
+          document.getElementById('ticket-feedback').textContent = 'Copied WhatsApp note to clipboard.';
+        });
+      }
+    }
+
+    function renderQuickShopGrid() {
+      const grid = document.getElementById('instashop-items-grid');
+      if (!grid) return;
+      grid.innerHTML = CATALOG_ITEMS.map((item) => {
+        const qty = quickBag[item.key] || 0;
+        const displayName = currentLang === 'ar' ? item.ar : item.name;
+        return `
+          <div class="rounded-xl bg-[#F7F3EA] border border-[#1E1916]/15 p-3.5 flex flex-col justify-between gap-3">
+            <div>
+              <p class="font-bold text-sm text-[#1E1916] ${currentLang === 'ar' ? 'arabic-text' : ''}">${escapeHtml(displayName)}</p>
+              <p class="text-xs font-bold text-[#1E4620] mt-0.5">${item.price} EGP</p>
+            </div>
+            <div class="flex items-center justify-between gap-2">
+              <button type="button" onclick="changeQuickBagQty('${item.key}', -1)" class="w-8 h-8 rounded-lg bg-[#EFE9DA] border border-[#1E1916]/20 font-bold text-sm cursor-pointer">&minus;</button>
+              <span class="text-xs font-bold text-[#1E1916]">${qty}</span>
+              <button type="button" onclick="changeQuickBagQty('${item.key}', 1)" class="w-8 h-8 rounded-lg bg-[#1E4620] text-[#F7F3EA] font-bold text-sm cursor-pointer">+</button>
+            </div>
+          </div>`;
+      }).join('');
+    }
+
+    function changeQuickBagQty(key, delta) {
+      quickBag[key] = Math.max(0, (quickBag[key] || 0) + delta);
+      renderQuickShopGrid();
+      updateQuickBagUI();
+    }
+
+    function getQuickBagLines() {
+      let subtotal = 0;
+      let totalQty = 0;
+      const lines = [];
+      CATALOG_ITEMS.forEach((item) => {
+        const q = quickBag[item.key] || 0;
+        if (q > 0) {
+          const lineTotal = q * item.price;
+          subtotal += lineTotal;
+          totalQty += q;
+          lines.push(`• ${item.name} × ${q} = ${lineTotal} EGP`);
+        }
+      });
+      return { subtotal, totalQty, lines };
+    }
+
+    function updateQuickBagUI() {
+      const { subtotal, totalQty, lines } = getQuickBagLines();
+      document.getElementById('instashop-total-qty').textContent = totalQty;
+      document.getElementById('instashop-subtotal').textContent = subtotal;
+      const sampleNote = document.getElementById('instashop-sample-note');
+      if (sampleNote) {
+        sampleNote.textContent =
+          subtotal > 500
+            ? 'Free sample unlocked (>500 EGP items)! Mention your preferred sample flavor on WhatsApp.'
+            : 'Keep compound butter chilled (0–4°C) • Orders over 500 EGP unlock 1 FREE sample';
+      }
+
+      const msg = [
+        'Zebda & Co. (زبدة وشركاه) — Quick WhatsApp Order',
+        '--------------------------------------------------',
+        lines.length ? lines.join('\n') : '• No items selected yet',
+        `Items Subtotal: ${subtotal} EGP`,
+        subtotal > 500 ? 'Perk: FREE Sample Unlocked (>500 EGP items)' : '',
+        `InstaPay: ${INSTAPAY_HANDLE} / ${INSTAPAY_NUMBER}`,
+        '2-Day Advance Notice • Keep chilled at 0–4°C',
+      ]
+        .filter(Boolean)
+        .join('\n');
+
+      const waBtn = document.getElementById('instashop-wa-btn');
+      if (waBtn) {
+        waBtn.href = 'https://wa.me/' + WHATSAPP_PHONE_DIGITS + '?text=' + encodeURIComponent(msg);
+      }
+    }
+
+    function postQuickBagToChat() {
+      const { subtotal, totalQty, lines } = getQuickBagLines();
+      if (totalQty === 0) {
+        appendMessage('bot', 'Your WhatsApp bag is empty. Tap + on any flavor or the Quartet Box first.');
+        return;
+      }
+      appendMessage(
+        'user',
+        `My WhatsApp Bag (${totalQty} items — ${subtotal} EGP):\n${lines.join('\n')}`
+      );
+      replyWithTyping(
+        'Your items are ready! Click "Order via WhatsApp" below to send them straight to +20 10 41870087, or go to the Order Menu to add your delivery zone and address.'
+      );
+    }
+
+    renderQuickShopGrid();
+    updateQuickBagUI();
     resetChatThread();
-    renderInstaShopGrid();
   </script>
 </body>
 </html>
