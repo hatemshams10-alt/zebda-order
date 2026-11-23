@@ -1,1747 +1,842 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ZEBDA & CO. (زبدة وشركاه) - WhatsApp Order Menu</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Cairo:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=Playfair+Display:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
-    rel="stylesheet"
-  />
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: {
-            serif: ['"Cormorant Garamond"', '"Playfair Display"', 'Georgia', 'serif'],
-            display: ['"Playfair Display"', '"Cormorant Garamond"', 'Georgia', 'serif'],
-            sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
-            arabic: ['Cairo', 'sans-serif'],
-          },
-          colors: {
-            linen: '#F7F3EA',
-            linenCard: '#EFE9DA',
-            espresso: '#1E1916',
-            brass: '#C59B43',
-            sage: '#1E4620',
-            terracotta: '#7A1C1C',
-            charcoal: '#262523',
-          },
-        },
-      },
-    };
-  </script>
+  <title>ZEBDA &amp; CO. | زبدة وشركاه — Order, Feedback &amp; Flavor Ideas</title>
   <style>
+    :root {
+      --bg: #faf5eb;
+      --surface: #ffffff;
+      --surface-soft: #f4ece0;
+      --ink: #241b14;
+      --muted: #6b5b4e;
+      --accent: #9c6222;
+      --accent-dark: #784814;
+      --accent-soft: #f8ebd8;
+      --border: #e5d7c3;
+      --star-active: #e59819;
+      --star-idle: #d7c7b2;
+      --success: #1f6e43;
+      --radius: 16px;
+      --shadow: 0 10px 30px rgba(36, 27, 20, 0.06);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
     body {
-      background-color: #F7F3EA;
-      color: #1E1916;
-      font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.55;
     }
-    .arabic-text {
-      font-family: 'Cairo', sans-serif;
+
+    .container {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 28px 18px 64px;
     }
-    .heritage-card {
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+    header.hero {
+      background: linear-gradient(135deg, #2d1f14 0%, #5c3918 100%);
+      color: #fff8ee;
+      border-radius: 22px;
+      padding: 28px 24px;
+      box-shadow: var(--shadow);
+      margin-bottom: 24px;
     }
-    @media (hover: hover) {
-      .heritage-card:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 12px 26px -10px rgba(30, 25, 22, 0.14);
-      }
+
+    .brand-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-title {
+      margin: 0;
+      font-size: 1.8rem;
+      letter-spacing: 0.4px;
+    }
+
+    .badge {
+      background: rgba(255, 248, 238, 0.14);
+      border: 1px solid rgba(255, 248, 238, 0.25);
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 0.85rem;
+    }
+
+    .hero p {
+      margin: 10px 0 0;
+      color: #f3e5d0;
+      max-width: 760px;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 20px;
+      margin-bottom: 22px;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      box-shadow: var(--shadow);
+    }
+
+    .card h2 {
+      margin: 0 0 6px;
+      font-size: 1.25rem;
+    }
+
+    .card .sub {
+      margin: 0 0 16px;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .item-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 0;
+      border-bottom: 1px solid #f0e6d8;
+    }
+
+    .item-row:last-child {
+      border-bottom: none;
+    }
+
+    .item-name {
+      font-weight: 600;
+    }
+
+    .item-price {
+      color: var(--accent-dark);
+      font-weight: 600;
+      font-size: 0.92rem;
+    }
+
+    .qty-controls {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .qty-btn {
+      width: 30px;
+      height: 30px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--surface-soft);
+      color: var(--ink);
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .qty-btn:hover {
+      background: var(--accent-soft);
+    }
+
+    .qty-val {
+      min-width: 20px;
+      text-align: center;
+      font-weight: 700;
+    }
+
+    label {
+      display: block;
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin: 12px 0 6px;
+    }
+
+    input[type="text"],
+    input[type="tel"],
+    input[type="date"],
+    select,
+    textarea {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: #fffdfb;
+      color: var(--ink);
+      font-size: 0.95rem;
+      font-family: inherit;
+    }
+
+    textarea {
+      min-height: 88px;
+      resize: vertical;
+    }
+
+    .radio-group {
+      display: grid;
+      gap: 8px;
+      margin-top: 6px;
+    }
+
+    .radio-pill {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 12px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: var(--surface-soft);
+      cursor: pointer;
+      font-size: 0.92rem;
+    }
+
+    .summary-box {
+      background: var(--surface-soft);
+      border-radius: 12px;
+      padding: 14px;
+      margin-top: 16px;
+      font-size: 0.94rem;
+    }
+
+    .summary-line {
+      display: flex;
+      justify-content: space-between;
+      margin: 6px 0;
+    }
+
+    .summary-total {
+      display: flex;
+      justify-content: space-between;
+      font-weight: 700;
+      font-size: 1.05rem;
+      padding-top: 8px;
+      border-top: 1px dashed var(--border);
+      margin-top: 8px;
+    }
+
+    .perk-banner {
+      margin-top: 12px;
+      padding: 10px 12px;
+      border-radius: 10px;
+      background: var(--accent-soft);
+      border: 1px solid #e6c697;
+      font-size: 0.9rem;
+    }
+
+    .btn-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .btn {
+      border: none;
+      border-radius: 10px;
+      padding: 11px 16px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #ffffff;
+    }
+
+    .btn-primary:hover {
+      background: var(--accent-dark);
+    }
+
+    .btn-secondary {
+      background: var(--surface-soft);
+      color: var(--ink);
+      border: 1px solid var(--border);
+    }
+
+    .btn-whatsapp {
+      background: #1b8a4b;
+      color: #ffffff;
+    }
+
+    .btn-whatsapp:hover {
+      background: #156e3b;
+    }
+
+    pre.msg-preview {
+      background: #1f1914;
+      color: #fff8ee;
+      padding: 16px;
+      border-radius: 12px;
+      white-space: pre-wrap;
+      word-break: break-word;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.86rem;
+      margin: 12px 0 0;
+      max-height: 380px;
+      overflow-y: auto;
+    }
+
+    .stars {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 4px;
+    }
+
+    .star-btn {
+      font-size: 1.7rem;
+      line-height: 1;
+      background: none;
+      border: none;
+      padding: 2px;
+      cursor: pointer;
+      color: var(--star-idle);
+      transition: transform 0.12s ease, color 0.12s ease;
+    }
+
+    .star-btn.active {
+      color: var(--star-active);
+    }
+
+    .star-btn:hover {
+      transform: scale(1.12);
+    }
+
+    .rating-label {
+      margin-left: 8px;
+      font-size: 0.9rem;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .copied-toast {
+      color: var(--success);
+      font-size: 0.88rem;
+      font-weight: 600;
+      margin-top: 8px;
+      min-height: 20px;
     }
   </style>
 </head>
-<body class="min-h-screen pb-32 antialiased selection:bg-[#C59B43]/30 selection:text-[#1E1916]">
-  <div class="w-full bg-[#1E1916] text-[#F7F3EA] border-b border-[#C59B43]/50">
-    <div class="max-w-5xl mx-auto px-4 sm:px-6 py-2.5 flex flex-wrap items-center justify-between gap-2 text-xs sm:text-sm">
-      <div class="flex items-center gap-2 font-medium text-[#E8C97B]">
-        <span class="inline-block w-2 h-2 rounded-full bg-[#C59B43]"></span>
-        <span>50/50 Commercial &amp; Baladi Butter &bull; Chilled 0-4 C</span>
+<body>
+  <div class="container">
+    <header class="hero">
+      <div class="brand-row">
+        <h1 class="brand-title">🧈 ZEBDA &amp; CO. | زبدة وشركاه 🧈</h1>
+        <span class="badge">❄️ Chilled 0–4°C • Min. 2 Days Notice</span>
       </div>
-      <div class="flex flex-wrap items-center gap-2.5 font-semibold text-[#F7F3EA]">
-        <span class="hidden md:inline">2-Day Advance Order</span>
-        <span class="hidden md:inline text-[#C59B43]">&bull;</span>
-        <span class="arabic-text hidden sm:inline">الطلب قبل الموعد بيومين</span>
-        <a
-          href="chat.html"
-          class="px-3 py-1 rounded-full bg-[#262523] border border-[#C59B43]/50 text-[#E8C97B] text-xs font-bold hover:bg-[#33312e] transition"
-        >
-          Concierge Chat
-        </a>
-        <a
-          href="https://wa.me/201041870087"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="px-3 py-1 rounded-full bg-[#C59B43] text-[#1E1916] text-xs font-bold hover:brightness-105 transition"
-        >
-          WhatsApp (+20 10 41870087)
-        </a>
-      </div>
-    </div>
-  </div>
-
-  <main class="max-w-5xl mx-auto px-4 sm:px-6 pt-7 sm:pt-10">
-    <header class="bg-[#EFE9DA] border border-[#1E1916]/15 rounded-2xl p-6 sm:p-8 mb-8">
-      <div class="flex flex-col md:flex-row items-center justify-between gap-6">
-        <div class="text-center md:text-left">
-          <p class="text-xs uppercase tracking-[0.22em] text-[#7A1C1C] font-bold mb-1.5">
-            Hero Batch &bull; Small-Batch Compound Butters
-          </p>
-          <div class="flex flex-wrap items-baseline justify-center md:justify-start gap-x-3.5 gap-y-1">
-            <h1 class="font-serif text-4xl sm:text-5xl font-bold tracking-tight text-[#1E1916]">
-              ZEBDA &amp; CO.
-            </h1>
-            <span class="arabic-text text-2xl sm:text-3xl font-bold text-[#1E4620]">
-              زبدة وشركاه
-            </span>
-          </div>
-          <p class="mt-2.5 text-sm text-[#1E1916]/80 max-w-xl">
-            Crafted from a balanced 50/50 blend of commercial unsalted butter and farmer&rsquo;s baladi butter, freshly whipped and chilled at 0-4 C for friends, family &amp; early customers.
-          </p>
-        </div>
-
-        <div class="shrink-0">
-          <svg
-            width="124"
-            height="124"
-            viewBox="0 0 140 140"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            role="img"
-            aria-label="Zebda and Co. Modern Heritage Seal"
-          >
-            <circle cx="70" cy="70" r="65" fill="#1E1916" stroke="#C59B43" stroke-width="2" />
-            <circle cx="70" cy="70" r="58" stroke="#C59B43" stroke-width="1" stroke-dasharray="3 3" />
-            <circle cx="70" cy="70" r="44" fill="#1E4620" stroke="#C59B43" stroke-width="1.5" />
-            <defs>
-              <path id="sealTopArc" d="M 22,70 A 48,48 0 1,1 118,70" />
-              <path id="sealBotArc" d="M 116,74 A 46,46 0 0,1 24,74" />
-            </defs>
-            <text fill="#E8C97B" font-size="8.2" font-weight="700" letter-spacing="2.2">
-              <textPath href="#sealTopArc" startOffset="50%" text-anchor="middle">
-                ZEBDA &amp; CO. &bull; EGYPT
-              </textPath>
-            </text>
-            <text fill="#F7F3EA" font-size="7.8" font-weight="600" letter-spacing="1.8">
-              <textPath href="#sealBotArc" startOffset="50%" text-anchor="middle">
-                50/50 BALADI &bull; 0-4 C
-              </textPath>
-            </text>
-            <text
-              x="70"
-              y="67"
-              text-anchor="middle"
-              fill="#F7F3EA"
-              font-family="Cormorant Garamond, Georgia, serif"
-              font-size="24"
-              font-weight="700"
-            >
-              Z&amp;C
-            </text>
-            <line x1="48" y1="74" x2="92" y2="74" stroke="#C59B43" stroke-width="1" />
-            <text
-              x="70"
-              y="85"
-              text-anchor="middle"
-              fill="#E8C97B"
-              font-size="7.5"
-              letter-spacing="1.4"
-              font-weight="700"
-            >
-              2-DAY LEAD
-            </text>
-          </svg>
-        </div>
-      </div>
-
-      <div class="mt-5 rounded-xl bg-[#7A1C1C] text-[#F7F3EA] px-4 py-3 flex flex-col sm:flex-row sm:items-center justify-between gap-2 border border-[#C59B43]/70">
-        <div class="flex items-center gap-2.5 text-xs sm:text-sm font-bold">
-          <span class="px-2 py-0.5 rounded bg-[#C59B43] text-[#1E1916] uppercase tracking-wider text-[11px] shrink-0">
-            2-Day Notice
-          </span>
-          <span>All orders must be placed at least 2 days in advance so every tin is freshly whipped and chilled.</span>
-        </div>
-        <span class="arabic-text text-xs sm:text-sm font-bold text-[#F5D692] shrink-0">
-          يجب تأكيد الطلب قبل الموعد بيومين على الأقل
-        </span>
-      </div>
-
-      <div class="mt-3 rounded-xl bg-[#1E4620] text-[#F7F3EA] px-4 py-3 flex flex-col sm:flex-row sm:items-center justify-between gap-2 border border-[#C59B43]/60">
-        <div class="text-xs sm:text-sm font-bold">
-          <span class="text-[#E8C97B]">Free Sample Perk:</span> Get 1 <strong class="text-[#E8C97B]">FREE</strong> flavor sample on orders over <span class="text-[#E8C97B]">500 EGP</span> (items subtotal) &bull; Sent directly via WhatsApp!
-        </div>
-        <a
-          href="#whatsapp-order-section"
-          class="px-3 py-1 rounded-lg bg-[#C59B43] text-[#1E1916] text-xs font-bold shrink-0 hover:brightness-105 transition text-center"
-        >
-          Order on WhatsApp &rarr;
-        </a>
-      </div>
-
-      <div class="mt-5 pt-5 border-t border-[#1E1916]/12 bg-[#F7F3EA] rounded-xl p-5 sm:p-6 border border-[#C59B43]/35">
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-2">
-          <h2 class="font-serif text-2xl font-bold text-[#1E4620]">
-            Made for friends, family &amp; early supporters
-          </h2>
-          <span class="arabic-text text-sm font-bold text-[#7A1C1C]">
-            أهلاً بكم في زبدة وشركاه — من مطبخنا إلى مائدتكم
-          </span>
-        </div>
-        <p class="text-sm sm:text-[15px] text-[#1E1916]/85 leading-relaxed">
-          Thank you for tasting and sharing <strong class="text-[#1E1916]">Zebda &amp; Co.</strong>. Each batch blends <strong class="text-[#1E1916]">commercial unsalted butter with farmer&rsquo;s baladi butter</strong> and is stored at <strong class="text-[#1E1916]">0-4 C</strong>. Please place orders <strong class="text-[#7A1C1C]">at least 2 days ahead</strong>, pay via InstaPay (<strong class="text-[#1E1916]">tommy_shams@instapay</strong> / <strong class="text-[#1E1916]">01208958884</strong>), or choose COD with a <strong class="text-[#1E1916]">50% InstaPay deposit</strong>, and attach your transfer screenshot inside WhatsApp.
-        </p>
-        <div class="mt-4 pt-3.5 border-t border-[#1E1916]/10 flex flex-wrap items-center justify-between gap-3">
-          <span class="text-xs text-[#1E1916]/75 font-medium">
-            Have an issue, question, or feedback about an order?
-          </span>
-          <div class="flex flex-wrap items-center gap-2">
-            <button
-              type="button"
-              onclick="toggleModal('ai-bot-modal', true)"
-              class="py-2 px-3.5 rounded-xl bg-[#1E1916] text-[#E8C97B] border border-[#C59B43] font-bold text-xs hover:opacity-95 transition cursor-pointer shadow-sm"
-            >
-              Ask Zebda AI Assistant
-            </button>
-            <button
-              type="button"
-              onclick="openHelpModal()"
-              class="py-2 px-4 rounded-xl bg-[#7A1C1C] text-[#F7F3EA] font-bold text-xs hover:opacity-95 transition cursor-pointer shadow-sm"
-            >
-              Report a Problem / Feedback
-            </button>
-          </div>
-        </div>
-      </div>
+      <p>
+        Freshly whipped compound butters crafted in small batches. Build your order below,
+        share your star rating &amp; feedback, or pitch a new butter flavor idea!
+      </p>
     </header>
 
-    <section aria-label="Compound butter flavors" class="mb-7">
-      <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-2 mb-5">
-        <div>
-          <span class="text-xs uppercase tracking-[0.2em] text-[#1E4620] font-bold block">
-            Place Orders At Least 2 Days In Advance &bull; Freshly Whipped
-          </span>
-          <h2 class="font-serif text-3xl sm:text-4xl font-bold text-[#1E1916]">
-            Signature Compound Butter Flavors
-          </h2>
-        </div>
-        <p class="text-xs sm:text-sm text-[#1E1916]/75">
-          Use <strong class="text-[#1E1916]">+ / &minus;</strong> on any tin to build your WhatsApp order.
-        </p>
-      </div>
+    <!-- CUSTOMER ORDER SECTION -->
+    <section id="order-section" class="grid-2">
+      <div class="card">
+        <h2>🛒 1. Choose Your Butter Flavors</h2>
+        <p class="sub">Orders over 500 EGP (items subtotal) unlock a free sample tin!</p>
+        <div id="catalog-list"></div>
 
-      <div id="signature-flavors-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
-
-      <div class="mt-6 rounded-2xl bg-[#EFE9DA] border border-[#1E1916]/15 p-4 sm:p-5 grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs">
-        <div>
-          <span class="font-bold uppercase tracking-wider text-[#1E4620] block mb-1">1. Keep Chilled (0-4 C)</span>
-          <p class="text-[#1E1916]/80 leading-relaxed">
-            Store your tins refrigerated at <strong>0-4 C</strong> so the 50/50 commercial &amp; baladi butter stays fresh.
-          </p>
-        </div>
-        <div>
-          <span class="font-bold uppercase tracking-wider text-[#7A1C1C] block mb-1">2. Rest 10-15 Mins to Spread</span>
-          <p class="text-[#1E1916]/80 leading-relaxed">
-            Take the tin out <strong>10-15 minutes</strong> before serving if you want soft, spreadable butter on toast or bread.
-          </p>
-        </div>
-        <div>
-          <span class="font-bold uppercase tracking-wider text-[#1E1916] block mb-1">3. Melt Straight Into Hot Dishes</span>
-          <p class="text-[#1E1916]/80 leading-relaxed">
-            Drop cold pats straight onto hot steak, pasta, risotto, eggs, or pizza crust for instant flavor.
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <section
-      id="card-quartet"
-      aria-label="4-Flavor Quartet Tasting Box"
-      class="bg-[#1E1916] text-[#F7F3EA] rounded-2xl border-2 border-[#C59B43] p-6 sm:p-8 mb-9 shadow-md"
-    >
-      <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
-        <div class="max-w-2xl">
-          <div class="inline-flex flex-wrap items-center gap-2 px-3 py-1 rounded-full bg-[#C59B43]/20 border border-[#C59B43]/50 text-[#E8C97B] text-xs font-bold uppercase tracking-wider mb-3">
-            <span>Tasting &amp; Gifting Bundle</span>
-            <span>&bull;</span>
-            <span>2-Day Advance Notice</span>
-            <span>&bull;</span>
-            <span class="arabic-text">بوكس التذوق (4 نكهات)</span>
-          </div>
-          <h2 class="font-serif text-3xl sm:text-4xl font-bold text-[#F7F3EA]">
-            4-Flavor Quartet Tasting Box
-          </h2>
-          <p class="mt-2 text-sm sm:text-[15px] text-[#F7F3EA]/80 leading-relaxed">
-            Includes one tin of each flavor: <strong class="text-[#F7F3EA]">Roasted Garlic &amp; Herb</strong>, <strong class="text-[#F7F3EA]">Hot Honey &amp; Chili Crunch</strong>, <strong class="text-[#F7F3EA]">Sundried Tomato, Basil &amp; Parmesan</strong>, and <strong class="text-[#E8C97B]">Black Truffle &amp; Sea Salt</strong> (650 EGP if bought individually).
-          </p>
-        </div>
-        <div class="bg-[#262523] border border-[#C59B43]/45 rounded-xl p-5 sm:min-w-[280px] flex flex-col justify-between gap-4">
-          <div>
-            <span class="text-xs uppercase tracking-widest text-[#E8C97B] font-semibold block">
-              Quartet Box Price
-            </span>
-            <div class="mt-1 flex items-baseline gap-2.5">
-              <span class="font-serif text-3xl font-bold text-[#F7F3EA]">560 EGP</span>
-              <span class="text-xs line-through text-[#F7F3EA]/50">650 EGP</span>
-            </div>
-          </div>
-          <div class="flex flex-col gap-2.5">
-            <button
-              id="quartet-toggle-btn"
-              type="button"
-              onclick="toggleQuartet()"
-              class="w-full py-2.5 px-4 rounded-xl text-sm font-bold transition-all bg-[#C59B43] text-[#1E1916] hover:brightness-105 active:scale-[0.99] cursor-pointer"
-            >
-              + Add Quartet Box (560 EGP)
-            </button>
-            <div class="flex items-center justify-between rounded-xl bg-[#1E1916] border border-[#C59B43]/35 px-3 py-1.5">
-              <span class="text-xs font-semibold text-[#F7F3EA]/80">Boxes:</span>
-              <div class="inline-flex items-center gap-2">
-                <button
-                  id="dec-quartet"
-                  type="button"
-                  onclick="changeQuartetQty(-1)"
-                  aria-label="Decrease number of 4-Flavor Quartet Tasting Boxes"
-                  class="w-8 h-8 rounded-lg flex items-center justify-center text-base font-bold bg-[#262523] text-[#F7F3EA] hover:bg-[#33312e] active:scale-95 transition cursor-pointer"
-                >
-                  &minus;
-                </button>
-                <span id="qty-quartet" class="w-7 text-center text-sm font-bold text-[#E8C97B]">
-                  0
-                </span>
-                <button
-                  id="inc-quartet"
-                  type="button"
-                  onclick="changeQuartetQty(1)"
-                  aria-label="Increase number of 4-Flavor Quartet Tasting Boxes"
-                  class="w-8 h-8 rounded-lg flex items-center justify-center text-base font-bold bg-[#C59B43] text-[#1E1916] hover:brightness-105 active:scale-95 transition cursor-pointer"
-                >
-                  +
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section
-      id="whatsapp-order-section"
-      aria-label="Location selector, free sample, payment method, and WhatsApp order builder"
-      class="bg-[#EFE9DA] border border-[#1E1916]/20 rounded-2xl p-6 sm:p-8 mb-8"
-    >
-      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 mb-6 border-b border-[#1E1916]/12">
-        <div>
-          <span class="text-xs uppercase tracking-[0.2em] text-[#1E4620] font-bold block">
-            Direct WhatsApp Order &bull; +20 10 41870087
-          </span>
-          <h2 class="font-serif text-3xl font-bold text-[#1E1916]">
-            Delivery Location &amp; WhatsApp Order Summary
-          </h2>
-          <p class="text-xs sm:text-sm text-[#7A1C1C] font-semibold mt-0.5">
-            Orders must be placed at least 2 days in advance &bull; يجب الطلب قبل الموعد بيومين على الأقل
-          </p>
-        </div>
-        <div class="flex flex-wrap items-center gap-3">
-          <button
-            type="button"
-            onclick="applyQuickSampleOrder()"
-            class="px-3 py-2 rounded-xl bg-[#F7F3EA] border border-[#C59B43] text-xs font-bold text-[#1E1916] hover:bg-white transition cursor-pointer"
-          >
-            Quick-Fill 500+ EGP Sample Test
-          </button>
-          <div class="text-left sm:text-right">
-            <span class="text-xs uppercase tracking-wider font-semibold text-[#1E1916]/65 block">
-              Total Order (Items + Delivery)
-            </span>
-            <span id="panel-total" class="font-serif text-3xl font-bold text-[#1E4620]">
-              40 EGP
-            </span>
-          </div>
-        </div>
-      </div>
-
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <div class="space-y-4">
-          <div>
-            <label for="city-select" class="block text-xs font-bold uppercase tracking-wider text-[#1E1916]/80 mb-1.5">
-              1. Area / Zone <span class="text-[#7A1C1C]">*</span>
-            </label>
-            <select
-              id="city-select"
-              onchange="handleCityChange()"
-              class="w-full rounded-xl bg-[#F7F3EA] border border-[#1E1916]/20 px-4 py-2.5 text-sm font-semibold text-[#1E1916] focus:outline-none focus:border-[#1E4620]"
-            >
-              <option value="Heliopolis & Nozha">Heliopolis &amp; Nozha (40 EGP)</option>
-              <option value="Nasr City">Nasr City (45 EGP)</option>
-              <option value="Maadi, Zamalek & West/Central Cairo">Maadi, Zamalek &amp; West/Central Cairo (60 EGP)</option>
-              <option value="New Cairo">New Cairo (65 &ndash; 85 EGP)</option>
-              <option value="Sheikh Zayed">Sheikh Zayed (85 &ndash; 105 EGP)</option>
-            </select>
-          </div>
-
-          <div>
-            <div class="flex items-center justify-between gap-2 mb-1.5">
-              <label for="subarea-select" class="block text-xs font-bold uppercase tracking-wider text-[#1E1916]/80">
-                2. Sub-Area / Compound <span class="text-[#7A1C1C]">*</span>
-              </label>
-              <span id="selected-delivery-badge" class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-[#1E4620] text-[#F7F3EA]">
-                Delivery: 40 EGP
-              </span>
-            </div>
-            <select
-              id="subarea-select"
-              onchange="updateOrderUI()"
-              class="w-full rounded-xl bg-[#F7F3EA] border border-[#1E1916]/20 px-4 py-2.5 text-sm font-medium text-[#1E1916] focus:outline-none focus:border-[#1E4620]"
-            ></select>
-          </div>
-
-          <div>
-            <label for="customer-name" class="block text-xs font-bold uppercase tracking-wider text-[#1E1916]/80 mb-1.5">
-              3. Your Full Name <span class="text-[#7A1C1C]">* (Required)</span>
-            </label>
-            <input
-              id="customer-name"
-              type="text"
-              placeholder="Enter your name..."
-              oninput="updateOrderUI()"
-              class="w-full rounded-xl bg-[#F7F3EA] border border-[#1E1916]/20 px-4 py-2.5 text-sm text-[#1E1916] placeholder:text-[#1E1916]/45 focus:outline-none focus:border-[#1E4620]"
-            />
-          </div>
-
-          <div>
-            <label for="customer-phone" class="block text-xs font-bold uppercase tracking-wider text-[#1E1916]/80 mb-1.5">
-              4. Mobile Phone Number <span class="text-[#7A1C1C]">* (Required)</span>
-            </label>
-            <input
-              id="customer-phone"
-              type="tel"
-              placeholder="e.g. 01012345678"
-              oninput="updateOrderUI()"
-              class="w-full rounded-xl bg-[#F7F3EA] border border-[#1E1916]/20 px-4 py-2.5 text-sm font-semibold text-[#1E1916] placeholder:text-[#1E1916]/45 focus:outline-none focus:border-[#1E4620]"
-            />
-          </div>
-
-          <div>
-            <label for="address-detail" class="block text-xs font-bold uppercase tracking-wider text-[#1E1916]/80 mb-1.5">
-              5. Full Location / Address &amp; Delivery Day <span class="text-[#7A1C1C]">* (Required)</span>
-            </label>
-            <input
-              id="address-detail"
-              type="text"
-              placeholder="Compound / Street / Building / Floor + Delivery Day (2+ days ahead)..."
-              oninput="updateOrderUI()"
-              class="w-full rounded-xl bg-[#F7F3EA] border border-[#1E1916]/20 px-4 py-2.5 text-sm text-[#1E1916] placeholder:text-[#1E1916]/45 focus:outline-none focus:border-[#1E4620]"
-            />
-          </div>
-
-          <div class="rounded-xl bg-[#F7F3EA] border border-[#C59B43]/55 p-3.5 space-y-2">
-            <div class="flex items-center justify-between gap-2">
-              <label for="maps-link-input" class="block text-xs font-bold uppercase tracking-wider text-[#1E1916]">
-                Google Maps Location Pin (Sent in WhatsApp)
-              </label>
-              <button
-                type="button"
-                onclick="fillCurrentGpsLocation()"
-                class="px-2.5 py-1 rounded-lg bg-[#1E4620] text-[#F7F3EA] text-[11px] font-bold hover:opacity-95 transition cursor-pointer shrink-0"
-              >
-                Use Current GPS Pin
-              </button>
-            </div>
-            <input
-              id="maps-link-input"
-              type="url"
-              placeholder="Paste Google Maps link or tap 'Use Current GPS Pin'..."
-              oninput="handleMapsLinkInput()"
-              class="w-full rounded-xl bg-white border border-[#1E1916]/20 px-3.5 py-2 text-xs text-[#1E1916] placeholder:text-[#1E1916]/45 focus:outline-none focus:border-[#1E4620]"
-            />
-            <div class="flex flex-wrap items-center justify-between gap-2 text-[11px]">
-              <span id="gps-status-text" class="text-[#1E1916]/75 font-medium">
-                Paste a Google Maps pin URL or use your current GPS pin so we have your exact drop-off point.
-              </span>
-              <a
-                id="maps-preview-link"
-                href="#"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="hidden font-bold underline text-[#1E4620]"
-              >
-                Preview Map Pin
-              </a>
-            </div>
-          </div>
-
-          <div>
-            <label for="delivery-date-input" class="block text-xs font-bold uppercase tracking-wider text-[#1E1916]/80 mb-1.5">
-              6. Preferred Delivery Date (2+ Days Ahead)
-            </label>
-            <input
-              id="delivery-date-input"
-              type="date"
-              onchange="updateOrderUI()"
-              class="w-full rounded-xl bg-[#F7F3EA] border border-[#1E1916]/20 px-4 py-2.5 text-sm text-[#1E1916] focus:outline-none focus:border-[#1E4620]"
-            />
-            <p id="lead-time-warning" class="hidden text-[11px] font-bold text-[#7A1C1C] mt-1">
-              Heads up: Selected date is less than 2 days from today. Orders require at least 2 days advance notice.
-            </p>
-          </div>
-
-          <div class="rounded-xl bg-[#F7F3EA] border border-[#1E4620]/30 p-3.5 space-y-2">
-            <div class="flex items-center justify-between gap-2">
-              <span class="text-xs font-bold uppercase tracking-wider text-[#1E4620]">
-                Free Sample Reward (Items &gt; 500 EGP)
-              </span>
-              <span id="sample-status-badge" class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#EFE9DA] text-[#1E1916]/75 border border-[#1E1916]/15">
-                Locked
-              </span>
-            </div>
-            <p id="sample-progress-text" class="text-xs text-[#1E1916]/80 font-medium">
-              Add <strong>501 EGP</strong> in butter items/boxes (items only, excluding delivery) to unlock 1 FREE sample flavor.
-            </p>
-            <div id="free-sample-picker-wrap" class="hidden pt-1">
-              <label for="free-sample-select" class="block text-xs font-bold text-[#1E4620] mb-1">
-                Choose Your FREE Sample Flavor (0 EGP):
-              </label>
-              <select
-                id="free-sample-select"
-                onchange="updateOrderUI()"
-                class="w-full rounded-xl bg-white border border-[#1E4620] px-3.5 py-2 text-xs sm:text-sm font-bold text-[#1E1916]"
-              >
-                <option value="Roasted Garlic & Herb">Roasted Garlic &amp; Herb (FREE Sample)</option>
-                <option value="Hot Honey & Chili Crunch">Hot Honey &amp; Chili Crunch (FREE Sample)</option>
-                <option value="Sundried Tomato, Basil & Parmesan">Sundried Tomato, Basil &amp; Parmesan (FREE Sample)</option>
-                <option value="Black Truffle & Sea Salt">Black Truffle &amp; Sea Salt (FREE Sample)</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="pt-2">
-            <span class="block text-xs font-bold uppercase tracking-wider text-[#1E1916]/80 mb-2">
-              7. Payment Method &amp; Direct InstaPay Link
-            </span>
-
-            <div class="rounded-2xl bg-[#1E1916] text-[#F7F3EA] border border-[#C59B43]/60 p-4 mb-3 space-y-2.5 text-xs">
-              <div class="flex items-center justify-between gap-2">
-                <span class="uppercase tracking-wider font-bold text-[#E8C97B]">InstaPay Direct Payment</span>
-                <span class="px-2 py-0.5 rounded-full bg-[#C59B43] text-[#1E1916] font-bold text-[10px]">
-                  Send Screenshot in WhatsApp
-                </span>
-              </div>
-              <p class="text-[#F7F3EA]/90">
-                IPA Handle: <strong class="text-[#E8C97B]">tommy_shams@instapay</strong> &bull; Mobile: <strong>01208958884</strong>
-              </p>
-              <div class="flex flex-wrap items-center gap-2 pt-0.5">
-                <a
-                  href="https://ipn.eg/S/tommy_shams/instapay/5KpRkP"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="px-3.5 py-2 rounded-xl bg-[#C59B43] text-[#1E1916] font-bold hover:brightness-105 transition"
-                >
-                  Pay via InstaPay Link
-                </a>
-                <button
-                  type="button"
-                  onclick="copyTextWithFeedback('tommy_shams@instapay', this)"
-                  class="px-3 py-2 rounded-xl bg-[#262523] border border-[#C59B43]/40 text-[#F7F3EA] font-bold hover:bg-[#33312e] transition cursor-pointer"
-                >
-                  Copy IPA Handle
-                </button>
-                <button
-                  type="button"
-                  onclick="copyTextWithFeedback('01208958884', this)"
-                  class="px-3 py-2 rounded-xl bg-[#262523] border border-[#C59B43]/40 text-[#F7F3EA] font-bold hover:bg-[#33312e] transition cursor-pointer"
-                >
-                  Copy Number
-                </button>
-              </div>
-            </div>
-
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 mb-3">
-              <button
-                id="pay-btn-instapay"
-                type="button"
-                onclick="setPaymentMethod('instapay')"
-                class="p-3 rounded-xl text-left border-2 transition cursor-pointer bg-[#1E4620] text-[#F7F3EA] border-[#1E4620]"
-              >
-                <span class="block text-xs font-bold uppercase tracking-wider text-[#E8C97B]">Option A</span>
-                <span class="block text-sm font-bold mt-0.5">100% InstaPay</span>
-                <span class="block text-[11px] opacity-85 mt-0.5">Pay full total now via InstaPay</span>
-              </button>
-              <button
-                id="pay-btn-cod"
-                type="button"
-                onclick="setPaymentMethod('cod')"
-                class="p-3 rounded-xl text-left border-2 transition cursor-pointer bg-[#F7F3EA] text-[#1E1916] border-[#1E1916]/20 hover:border-[#1E1916]/45"
-              >
-                <span class="block text-xs font-bold uppercase tracking-wider text-[#7A1C1C]">Option B</span>
-                <span class="block text-sm font-bold mt-0.5">COD + 50% Deposit</span>
-                <span class="block text-[11px] opacity-80 mt-0.5">50% InstaPay now, 50% on delivery</span>
-              </button>
-            </div>
-
-            <div class="rounded-xl bg-[#F7F3EA] border border-[#C59B43]/50 p-3.5 text-xs space-y-1.5">
-              <div class="flex items-center justify-between font-bold text-[#1E1916]">
-                <span>InstaPay Transfer Due Now (tommy_shams@instapay / 01208958884):</span>
-                <span id="instapay-due-now" class="text-sm text-[#1E4620]">40 EGP</span>
-              </div>
-              <div class="flex items-center justify-between font-semibold text-[#1E1916]/75">
-                <span>Remaining Balance on Delivery (COD):</span>
-                <span id="cod-remaining-due">0 EGP</span>
-              </div>
-              <p class="text-[11px] text-[#7A1C1C] font-semibold pt-1">
-                Attach your transfer screenshot to 01208958884 (tommy_shams@instapay) directly inside WhatsApp after opening the order chat.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <div class="bg-[#F7F3EA] rounded-2xl border border-[#1E1916]/15 p-5 flex flex-col justify-between">
-          <div>
-            <div class="flex items-center justify-between gap-2 pb-3 mb-4 border-b border-[#1E1916]/12">
-              <h3 class="font-serif text-2xl font-bold text-[#1E1916]">
-                Your Order Summary
-              </h3>
-              <span class="px-2.5 py-1 rounded-lg bg-[#EFE9DA] border border-[#C59B43]/50 text-[11px] font-bold text-[#1E1916]">
-                WhatsApp Direct
-              </span>
-            </div>
-
-            <div id="order-items-list" class="space-y-2 text-sm text-[#1E1916]/85 mb-4">
-              <p class="text-xs italic text-[#1E1916]/60">No butter tins or Quartet Boxes selected yet.</p>
-            </div>
-
-            <div id="summary-free-sample-row" class="hidden mb-3 px-3 py-2 rounded-xl bg-[#1E4620]/10 border border-[#1E4620]/30 text-xs font-bold text-[#1E4620]">
-              Free Sample (&gt;500 EGP Items): <span id="summary-free-sample-flavor">Roasted Garlic &amp; Herb</span> &mdash; FREE (0 EGP)
-            </div>
-
-            <div class="space-y-1.5 pt-3 border-t border-[#1E1916]/12 text-sm">
-              <div class="flex justify-between">
-                <span class="text-[#1E1916]/75">Items Subtotal</span>
-                <span id="summary-items-total" class="font-semibold">0 EGP</span>
-              </div>
-              <div class="flex justify-between">
-                <span class="text-[#1E1916]/75">Delivery (<span id="summary-location-label">Heliopolis &amp; Nozha</span>)</span>
-                <span id="summary-delivery-fee" class="font-semibold">40 EGP</span>
-              </div>
-              <div class="flex justify-between text-base font-bold text-[#1E1916] pt-2 border-t border-[#1E1916]/12">
-                <span>Order Total</span>
-                <span id="summary-grand-total" class="text-[#1E4620]">40 EGP</span>
-              </div>
-              <div class="flex justify-between text-xs font-bold text-[#7A1C1C] pt-1">
-                <span>Transfer Now via InstaPay (01208958884)</span>
-                <span id="summary-instapay-now">40 EGP</span>
-              </div>
-            </div>
-
-            <div class="mt-4 rounded-xl bg-[#EFE9DA]/90 border border-[#C59B43]/55 p-3">
-              <div class="flex items-center justify-between gap-2 mb-1.5">
-                <span class="text-[11px] font-bold uppercase tracking-wider text-[#1E1916]">
-                  WhatsApp Message Preview
-                </span>
-                <span class="text-[10px] font-semibold text-[#1E4620]">
-                  Clean &amp; Organized
-                </span>
-              </div>
-              <pre
-                id="whatsapp-message-preview"
-                class="text-[11px] leading-relaxed whitespace-pre-wrap font-sans text-[#1E1916]/90 bg-[#F7F3EA] rounded-lg p-2.5 border border-[#1E1916]/10 max-h-56 overflow-y-auto"
-              ></pre>
-            </div>
-
-            <div
-              id="missing-fields-alert"
-              class="mt-4 rounded-xl bg-[#7A1C1C]/10 border border-[#7A1C1C]/40 p-3 text-xs text-[#7A1C1C] font-semibold"
-            >
-              <span class="font-bold block mb-1">Complete these before sending on WhatsApp:</span>
-              <ul id="missing-fields-list" class="list-disc list-inside space-y-0.5 text-[11px]"></ul>
-            </div>
-          </div>
-
-          <div class="mt-6 space-y-2.5">
-            <a
-              id="whatsapp-order-btn"
-              href="#"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-disabled="true"
-              onclick="return handleWhatsAppOrderClick(event)"
-              class="w-full py-3.5 px-5 rounded-xl bg-[#1E1916]/35 text-[#F7F3EA]/80 font-bold text-sm text-center flex items-center justify-center gap-2 cursor-not-allowed transition shadow"
-            >
-              <span>Fill All Required Details to Send on WhatsApp</span>
-            </a>
-            <button
-              id="copy-order-text-btn"
-              type="button"
-              onclick="copyOrderSummaryText()"
-              class="w-full py-3 px-4 rounded-xl bg-[#262523] text-[#F7F3EA] font-bold text-xs hover:bg-[#33312e] active:scale-[0.99] transition cursor-pointer shadow-sm"
-            >
-              Copy WhatsApp Order Text
-            </button>
-            <button
-              type="button"
-              onclick="openHelpModal()"
-              class="w-full py-2.5 px-4 rounded-xl bg-[#EFE9DA] border border-[#1E1916]/25 text-[#1E1916] font-bold text-xs hover:bg-[#e5decb] transition cursor-pointer"
-            >
-              Contact / Report an Issue or Feedback
-            </button>
-          </div>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <div
-    id="ai-bot-modal"
-    class="fixed inset-0 z-50 hidden bg-[#1E1916]/75 backdrop-blur-[1px] items-center justify-center p-4 overflow-y-auto"
-    role="dialog"
-    aria-modal="true"
-    aria-labelledby="ai-bot-title"
-  >
-    <div class="bg-[#F7F3EA] text-[#1E1916] border-2 border-[#C59B43] rounded-2xl max-w-lg w-full p-5 sm:p-6 shadow-2xl space-y-4 my-auto">
-      <div class="flex items-start justify-between gap-3 border-b border-[#1E1916]/15 pb-3">
-        <div>
-          <span class="text-[11px] uppercase tracking-widest font-bold text-[#1E4620] block">
-            Zebda &amp; Co. Concierge
-          </span>
-          <h3 id="ai-bot-title" class="font-serif text-2xl font-bold">
-            Zebda AI Assistant
-          </h3>
-        </div>
-        <button
-          type="button"
-          onclick="toggleModal('ai-bot-modal', false)"
-          class="px-2.5 py-1 rounded-lg bg-[#EFE9DA] text-xs font-bold hover:bg-[#e3dccb] cursor-pointer"
-        >
-          Close
-        </button>
-      </div>
-
-      <div id="ai-chat-history" class="h-64 overflow-y-auto rounded-xl bg-[#EFE9DA] border border-[#1E1916]/15 p-3.5 space-y-3 text-xs">
-        <div class="bg-[#1E1916] text-[#F7F3EA] rounded-xl p-3 max-w-[88%]">
-          <span class="font-bold text-[#E8C97B] block mb-0.5">Zebda AI</span>
-          Welcome to Zebda &amp; Co.! Ask me about our compound butter flavors, 2-day advance orders, InstaPay payments, free samples over 500 EGP, or flavor pairings.
-        </div>
-      </div>
-
-      <div class="flex flex-wrap gap-1.5 text-[11px]">
-        <button type="button" onclick="askAiPreset('How does the 500+ EGP free sample work?')" class="px-2.5 py-1 rounded-full bg-[#EFE9DA] border border-[#1E1916]/20 font-semibold hover:border-[#1E4620] cursor-pointer">
-          Free Sample?
-        </button>
-        <button type="button" onclick="askAiPreset('How do InstaPay and COD deposit work?')" class="px-2.5 py-1 rounded-full bg-[#EFE9DA] border border-[#1E1916]/20 font-semibold hover:border-[#1E4620] cursor-pointer">
-          InstaPay &amp; COD?
-        </button>
-        <button type="button" onclick="askAiPreset('Which flavor goes best with steak or pasta?')" class="px-2.5 py-1 rounded-full bg-[#EFE9DA] border border-[#1E1916]/20 font-semibold hover:border-[#1E4620] cursor-pointer">
-          Flavor Pairings?
-        </button>
-      </div>
-
-      <div class="flex gap-2">
-        <input
-          id="ai-bot-input"
-          type="text"
-          onkeydown="if (event.key === 'Enter') sendAiBotMessage()"
-          placeholder="Ask a question..."
-          class="flex-1 rounded-xl bg-white border border-[#1E1916]/25 px-3.5 py-2.5 text-xs sm:text-sm text-[#1E1916]"
-        />
-        <button
-          type="button"
-          onclick="sendAiBotMessage()"
-          class="px-4 py-2.5 rounded-xl bg-[#1E4620] text-[#F7F3EA] font-bold text-xs cursor-pointer"
-        >
-          Send
-        </button>
-      </div>
-    </div>
-  </div>
-
-  <div
-    id="help-modal"
-    class="fixed inset-0 z-50 hidden bg-[#1E1916]/75 backdrop-blur-[1px] items-center justify-center p-4 overflow-y-auto"
-    role="dialog"
-    aria-modal="true"
-    aria-labelledby="help-modal-title"
-  >
-    <div class="bg-[#F7F3EA] text-[#1E1916] border-2 border-[#C59B43] rounded-2xl max-w-xl w-full p-6 shadow-2xl space-y-4 my-auto">
-      <div class="flex items-start justify-between gap-3 border-b border-[#1E1916]/15 pb-3">
-        <div>
-          <span class="text-[11px] uppercase tracking-widest font-bold text-[#7A1C1C] block">
-            Zebda &amp; Co. Problem Diagnostic &amp; Support
-          </span>
-          <h3 id="help-modal-title" class="font-serif text-2xl font-bold">
-            Contact &amp; Issue Finder
-          </h3>
-        </div>
-        <button
-          type="button"
-          onclick="closeHelpModal()"
-          aria-label="Close help window"
-          class="px-2.5 py-1 rounded-lg bg-[#EFE9DA] text-xs font-bold hover:bg-[#e3dccb] cursor-pointer"
-        >
-          Close
-        </button>
-      </div>
-
-      <div id="help-section-1" class="space-y-3">
-        <p class="text-sm font-bold text-[#1E1916]">
-          Section 1 &mdash; What is the main problem or type of issue?
-        </p>
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-bold">
-          <button type="button" onclick="selectMainCategory('quality')" class="p-3 rounded-xl bg-[#EFE9DA] border border-[#1E1916]/20 text-left hover:border-[#1E4620] cursor-pointer">
-            Food &amp; Butter Quality
-            <span class="block text-[11px] font-normal text-[#1E1916]/70 mt-0.5">Taste, warmth, texture, or freshness</span>
-          </button>
-          <button type="button" onclick="selectMainCategory('packaging')" class="p-3 rounded-xl bg-[#EFE9DA] border border-[#1E1916]/20 text-left hover:border-[#1E4620] cursor-pointer">
-            Packaging &amp; Tin Condition
-            <span class="block text-[11px] font-normal text-[#1E1916]/70 mt-0.5">Damaged tin, seal, or packing quality</span>
-          </button>
-          <button type="button" onclick="selectMainCategory('delivery')" class="p-3 rounded-xl bg-[#EFE9DA] border border-[#1E1916]/20 text-left hover:border-[#1E4620] cursor-pointer">
-            Delivery &amp; Timing
-            <span class="block text-[11px] font-normal text-[#1E1916]/70 mt-0.5">2-day lead time, late arrival, or zone</span>
-          </button>
-          <button type="button" onclick="selectMainCategory('payment')" class="p-3 rounded-xl bg-[#EFE9DA] border border-[#1E1916]/20 text-left hover:border-[#1E4620] cursor-pointer">
-            InstaPay &amp; Deposit
-            <span class="block text-[11px] font-normal text-[#1E1916]/70 mt-0.5">01208958884, 50% COD deposit, or sample</span>
-          </button>
-          <button type="button" onclick="selectMainCategory('items')" class="p-3 rounded-xl bg-[#EFE9DA] border border-[#1E1916]/20 text-left hover:border-[#1E4620] cursor-pointer">
-            Flavors &amp; Quartet Box
-            <span class="block text-[11px] font-normal text-[#1E1916]/70 mt-0.5">Wrong flavor, missing tin, or 560 EGP box</span>
-          </button>
-          <button type="button" onclick="selectMainCategory('other')" class="p-3 rounded-xl bg-[#7A1C1C] text-[#F7F3EA] border border-[#7A1C1C] text-left hover:opacity-95 cursor-pointer">
-            Other Problem (Write Yours)
-            <span class="block text-[11px] font-normal text-[#F5D692] mt-0.5">Anything else &mdash; type it &amp; send on WhatsApp</span>
-          </button>
-        </div>
-      </div>
-
-      <div id="help-section-2" class="hidden space-y-3">
-        <div class="flex items-center justify-between gap-2">
-          <span id="selected-category-badge" class="px-2.5 py-1 rounded-full text-xs font-bold bg-[#1E4620] text-[#F7F3EA]"></span>
-          <button type="button" onclick="resetHelpModal()" class="text-xs underline font-semibold text-[#1E1916]/75 cursor-pointer">
-            Change main problem
-          </button>
-        </div>
-        <div>
-          <label for="specific-problem-select" class="block text-xs font-bold uppercase tracking-wider text-[#1E1916]/80 mb-1">
-            Section 2 &mdash; Pick the exact problem:
+        <div id="free-sample-box" class="perk-banner" style="display: none;">
+          <label for="free-sample-select" style="margin-top: 0;">
+            🎁 FREE Sample Unlocked! Choose your complimentary sample:
           </label>
-          <select
-            id="specific-problem-select"
-            onchange="handleSpecificProblemChange()"
-            class="w-full rounded-xl bg-[#EFE9DA] border border-[#1E1916]/25 px-3.5 py-2.5 text-xs sm:text-sm font-semibold text-[#1E1916]"
-          ></select>
+          <select id="free-sample-select">
+            <option value="Roasted Garlic & Herb">Roasted Garlic &amp; Herb</option>
+            <option value="Hot Honey & Chili Crunch">Hot Honey &amp; Chili Crunch</option>
+            <option value="Black Truffle & Sea Salt">Black Truffle &amp; Sea Salt</option>
+          </select>
         </div>
-        <div id="self-check-tip-box" class="p-3.5 rounded-xl bg-[#EFE9DA] border border-[#1E1916]/15 text-xs sm:text-sm leading-relaxed"></div>
-        <div id="routine-fix-controls" class="flex flex-wrap gap-2">
-          <button type="button" onclick="markHelpSolved()" class="flex-1 py-2.5 px-3 rounded-xl bg-[#1E4620] text-[#F7F3EA] text-xs font-bold cursor-pointer">
-            Problem Fixed &mdash; No Need to Contact
-          </button>
-          <button type="button" onclick="showEscalationBox()" class="flex-1 py-2.5 px-3 rounded-xl bg-[#7A1C1C] text-[#F7F3EA] text-xs font-bold cursor-pointer">
-            Not Fixed / Send on WhatsApp Now
-          </button>
-        </div>
+      </div>
 
-        <div id="escalation-details-box" class="hidden space-y-3 pt-2 border-t border-[#1E1916]/15">
-          <div>
-            <label for="custom-problem-input" class="block text-xs font-bold text-[#7A1C1C] mb-1">
-              Describe the problem clearly so we can fix it &amp; improve:
-            </label>
-            <textarea
-              id="custom-problem-input"
-              rows="3"
-              oninput="updateEscalationLink()"
-              placeholder="Example: The butter tin arrived warm / packaging was dented / another issue..."
-              class="w-full rounded-xl bg-[#EFE9DA] border border-[#1E1916]/25 p-2.5 text-xs text-[#1E1916]"
-            ></textarea>
-          </div>
+      <div class="card">
+        <h2>📍 2. Delivery &amp; Payment</h2>
+        <p class="sub">Complete your details to generate your WhatsApp order message.</p>
 
-          <label class="flex items-start gap-2 text-xs font-semibold cursor-pointer">
-            <input id="gate-confirm-checkbox" type="checkbox" onchange="updateEscalationLink()" class="mt-0.5" />
-            <span>I confirmed this isn&rsquo;t already solved by the info above and want to send this on WhatsApp.</span>
+        <label for="customer-name">Full Name</label>
+        <input id="customer-name" type="text" placeholder="e.g., Hatem Shams" />
+
+        <label for="customer-phone">Phone / WhatsApp Number</label>
+        <input id="customer-phone" type="tel" placeholder="e.g., 01012345678" />
+
+        <label for="delivery-zone">Delivery Area</label>
+        <select id="delivery-zone">
+          <option value="40" data-label="Heliopolis / Korba / Roxy / Almaza (40 EGP)">
+            Heliopolis / Korba / Roxy / Almaza (40 EGP)
+          </option>
+          <option value="55" data-label="Nasr City / Sheraton / Ard El Golf (55 EGP)">
+            Nasr City / Sheraton / Ard El Golf (55 EGP)
+          </option>
+          <option value="75" data-label="New Cairo / Maadi / Sheikh Zayed (75 EGP)">
+            New Cairo / Maadi / Sheikh Zayed (75 EGP)
+          </option>
+        </select>
+
+        <label for="address-detail">Street, Building, Floor &amp; Day Notes</label>
+        <input id="address-detail" type="text" placeholder="e.g., Heliopolis, Building 12, Floor 3 — Delivery in 3 days" />
+
+        <label for="delivery-date">Preferred Delivery Date (at least 2 days ahead)</label>
+        <input id="delivery-date" type="date" />
+
+        <label for="maps-link">Google Maps Pin Link (Optional)</label>
+        <input id="maps-link" type="text" placeholder="https://www.google.com/maps?q=..." />
+
+        <label>Payment Option</label>
+        <div class="radio-group">
+          <label class="radio-pill">
+            <input type="radio" name="payment-method" value="full" checked />
+            100% InstaPay Now
           </label>
-          <p id="escalation-status-hint" class="text-[11px] font-bold text-[#7A1C1C]">
-            Enter at least 10 characters describing the issue and check the confirmation box to unlock instant WhatsApp send.
-          </p>
-          <div class="space-y-2">
-            <a
-              id="instant-send-whatsapp-btn"
-              href="#"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="hidden w-full py-3 px-4 rounded-xl bg-[#1E1916] text-[#E8C97B] border border-[#C59B43] font-bold text-xs text-center hover:brightness-105 transition"
-            >
-              Send This Problem Immediately to +20 10 41870087
-            </a>
-            <button
-              id="copy-issue-text-btn"
-              type="button"
-              onclick="copyIssueSummary()"
-              class="hidden w-full py-2 px-4 rounded-xl bg-[#EFE9DA] text-[#1E1916] border border-[#1E1916]/25 font-bold text-xs hover:bg-[#e3dccb] transition cursor-pointer"
-            >
-              Copy Issue Text
-            </button>
+          <label class="radio-pill">
+            <input type="radio" name="payment-method" value="cod" />
+            COD with 50% InstaPay Deposit (Remaining 50% on delivery)
+          </label>
+        </div>
+
+        <div class="summary-box">
+          <div class="summary-line">
+            <span>Items Subtotal</span>
+            <strong id="ui-subtotal">0 EGP</strong>
+          </div>
+          <div class="summary-line">
+            <span>Delivery Fee</span>
+            <strong id="ui-delivery">40 EGP</strong>
+          </div>
+          <div class="summary-total">
+            <span>Total Order</span>
+            <span id="ui-total">40 EGP</span>
+          </div>
+          <div class="summary-line" style="margin-top: 8px; color: var(--accent-dark);">
+            <span>Due via InstaPay Now</span>
+            <strong id="ui-instapay-now">40 EGP</strong>
           </div>
         </div>
-      </div>
 
-      <div id="help-solved-state" class="hidden space-y-3 text-center py-2">
-        <p class="text-base font-bold text-[#1E4620]">Awesome &mdash; problem resolved without needing support!</p>
-        <p class="text-xs text-[#1E1916]/80">Whenever you&rsquo;re ready, place your order at least 2 days ahead on WhatsApp.</p>
-        <button type="button" onclick="closeHelpModal()" class="py-2.5 px-5 rounded-xl bg-[#1E4620] text-[#F7F3EA] text-xs font-bold cursor-pointer">
-          Back to Menu
-        </button>
-      </div>
-    </div>
-  </div>
-
-  <div id="keyboard-helper-bar" class="hidden fixed inset-x-0 bottom-[62px] z-40 px-4 pointer-events-none">
-    <div class="max-w-5xl mx-auto flex justify-end">
-      <div class="pointer-events-auto inline-flex items-center gap-2 rounded-full bg-[#1E1916] text-[#F7F3EA] border border-[#C59B43] px-3.5 py-1.5 shadow-xl text-xs">
-        <span class="text-[#E8C97B] font-semibold hidden sm:inline">Typing in field</span>
-        <button
-          type="button"
-          onmousedown="event.preventDefault()"
-          onclick="dismissActiveKeyboard()"
-          class="px-3 py-1 rounded-full bg-[#C59B43] text-[#1E1916] font-bold hover:brightness-105 cursor-pointer"
-        >
-          Done / Close Keyboard
-        </button>
-      </div>
-    </div>
-  </div>
-
-  <div class="fixed bottom-0 inset-x-0 z-30 bg-[#1E1916] text-[#F7F3EA] border-t border-[#C59B43]/50 shadow-lg">
-    <div class="max-w-5xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between gap-3">
-      <div>
-        <div class="text-xs text-[#E8C97B] font-semibold">
-          <span id="sticky-qty-count">0 items</span> &bull; InstaPay Now: <span id="sticky-instapay">40 EGP</span>
+        <div class="btn-row">
+          <button id="copy-order-btn" class="btn btn-primary" type="button">📋 Copy Order Message</button>
+          <a id="wa-order-link" class="btn btn-whatsapp" target="_blank" rel="noopener">💬 Send Order on WhatsApp</a>
         </div>
-        <div class="text-sm font-bold">
-          Total: <span id="sticky-total">40 EGP</span>
+        <div id="order-toast" class="copied-toast"></div>
+
+        <pre id="order-preview" class="msg-preview"></pre>
+      </div>
+    </section>
+
+    <!-- AFTER CUSTOMER ORDERS: STAR RATING FEEDBACK (LEFT) + FLAVOR SUGGESTION (RIGHT) -->
+    <section id="post-order-section" class="grid-2">
+      <!-- STAR RATING & FEEDBACK -->
+      <div class="card">
+        <h2>⭐ Feedback &amp; Star Rating</h2>
+        <p class="sub">Tried your butter? Rate your experience or report an issue.</p>
+
+        <label>Your Star Rating</label>
+        <div class="stars" role="radiogroup" aria-label="Star rating from 1 to 5">
+          <button type="button" class="star-btn" data-star="1" aria-label="1 star">★</button>
+          <button type="button" class="star-btn" data-star="2" aria-label="2 stars">★</button>
+          <button type="button" class="star-btn" data-star="3" aria-label="3 stars">★</button>
+          <button type="button" class="star-btn" data-star="4" aria-label="4 stars">★</button>
+          <button type="button" class="star-btn" data-star="5" aria-label="5 stars">★</button>
+          <span id="rating-text" class="rating-label">Not selected</span>
         </div>
+
+        <label for="feedback-kind">Message Type</label>
+        <select id="feedback-kind">
+          <option value="Feedback">Feedback</option>
+          <option value="Problem Report">Problem Report</option>
+        </select>
+
+        <label for="feedback-order-info">Order # or Batch Date (Optional)</label>
+        <input id="feedback-order-info" type="text" placeholder="e.g., Order #104 or Nov 20 batch" />
+
+        <label for="feedback-details">Feedback or Issue Details</label>
+        <textarea id="feedback-details" placeholder="Tell us what you loved or what went wrong..."></textarea>
+
+        <label for="feedback-name">Your Name (Optional)</label>
+        <input id="feedback-name" type="text" placeholder="e.g., Hatem Shams" />
+
+        <label for="feedback-phone">Your Phone (Optional)</label>
+        <input id="feedback-phone" type="tel" placeholder="e.g., 01012345678" />
+
+        <div class="btn-row">
+          <button id="copy-feedback-btn" class="btn btn-primary" type="button">📋 Copy Feedback Message</button>
+          <a id="wa-feedback-link" class="btn btn-whatsapp" target="_blank" rel="noopener">💬 Send on WhatsApp</a>
+        </div>
+        <div id="feedback-toast" class="copied-toast"></div>
+
+        <pre id="feedback-preview" class="msg-preview"></pre>
       </div>
-      <div class="flex items-center gap-2 shrink-0">
-        <button
-          type="button"
-          onclick="toggleModal('ai-bot-modal', true)"
-          class="py-2.5 px-3 rounded-xl bg-[#262523] text-[#E8C97B] border border-[#C59B43]/50 font-bold text-xs hover:bg-[#33312e] transition cursor-pointer"
-        >
-          AI Bot
-        </button>
-        <a
-          id="sticky-whatsapp-btn"
-          href="#"
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-disabled="true"
-          onclick="return handleWhatsAppOrderClick(event)"
-          class="py-2.5 px-4 sm:px-5 rounded-xl bg-[#C59B43]/40 text-[#F7F3EA]/75 font-bold text-xs sm:text-sm cursor-not-allowed transition"
-        >
-          Order on WhatsApp
-        </a>
+
+      <!-- FLAVOR SUGGESTION ("TELL ME A TYPE") NEXT TO FEEDBACK -->
+      <div class="card">
+        <h2>💡 Suggest a Flavor ("Tell Me a Type")</h2>
+        <p class="sub">Want a custom or seasonal butter flavor? Pitch your idea here.</p>
+
+        <label for="flavor-name">Suggested Flavor / Type</label>
+        <input id="flavor-name" type="text" placeholder="e.g., Cinnamon Maple, Spicy Garlic Herb, Caramelized Onion" />
+
+        <label for="flavor-pairings">Best Pairings / Use (Optional)</label>
+        <input id="flavor-pairings" type="text" placeholder="e.g., Toast, steak, pasta, baking" />
+
+        <label for="flavor-vibe">Spice / Sweetness Profile (Optional)</label>
+        <select id="flavor-vibe">
+          <option value="">Select a profile...</option>
+          <option value="Mild & Creamy">Mild &amp; Creamy</option>
+          <option value="Savory & Herbal">Savory &amp; Herbal</option>
+          <option value="Spicy / Chili Kick">Spicy / Chili Kick</option>
+          <option value="Sweet & Dessert-Style">Sweet &amp; Dessert-Style</option>
+          <option value="Bold / Gourmet">Bold / Gourmet</option>
+        </select>
+
+        <label for="flavor-name-by">Your Name (Optional)</label>
+        <input id="flavor-name-by" type="text" placeholder="e.g., Hatem Shams" />
+
+        <label for="flavor-phone-by">Your Phone (Optional)</label>
+        <input id="flavor-phone-by" type="tel" placeholder="e.g., 01012345678" />
+
+        <div class="btn-row">
+          <button id="copy-flavor-btn" class="btn btn-primary" type="button">📋 Copy Flavor Idea</button>
+          <a id="wa-flavor-link" class="btn btn-whatsapp" target="_blank" rel="noopener">💬 Send on WhatsApp</a>
+        </div>
+        <div id="flavor-toast" class="copied-toast"></div>
+
+        <pre id="flavor-preview" class="msg-preview"></pre>
       </div>
-    </div>
+    </section>
   </div>
 
   <script>
-    const INSTAPAY_NUMBER = '01208958884';
     const INSTAPAY_HANDLE = 'tommy_shams@instapay';
+    const INSTAPAY_NUMBER = '01208958884';
     const INSTAPAY_URL = 'https://ipn.eg/S/tommy_shams/instapay/5KpRkP';
-    const WHATSAPP_DIGITS = '201041870087';
-    const FREE_SAMPLE_THRESHOLD = 500;
-    const QUARTET_PRICE = 560;
+    const WHATSAPP_NUMBER = '201208958884'; // Replace with your target WhatsApp number if different
 
-    const SIGNATURE_FLAVORS = [
-      {
-        key: 'garlic',
-        code: '01 &bull; Savory & Herb-Forward',
-        name: 'Roasted Garlic & Herb',
-        ar: 'ثوم محمص وأعشاب',
-        price: 145,
-        headerClass: 'bg-[#1E4620] text-[#F7F3EA]',
-        accentClass: 'text-[#E8C97B]',
-        btnClass: 'bg-[#1E4620] text-[#F7F3EA]',
-        chipClass: 'bg-[#1E4620]/12 text-[#1E4620]',
-        cardClass: 'border-[#1E1916]/15',
-        description:
-          'Sweet, mellow roasted garlic folded with fragrant herbs and sea salt into 50/50 commercial & baladi butter for comforting, everyday warmth.',
-        notes: ['Roasted Garlic & Herbs', 'Steak & Grilled Meats', 'Garlic Bread & Pasta'],
-      },
-      {
-        key: 'chili',
-        code: '02 &bull; Sweet Heat & Crunch',
-        name: 'Hot Honey & Chili Crunch',
-        ar: 'عسل حار وفلفل مقرمش',
-        price: 155,
-        headerClass: 'bg-[#7A1C1C] text-[#F7F3EA]',
-        accentClass: 'text-[#F5D692]',
-        btnClass: 'bg-[#7A1C1C] text-[#F7F3EA]',
-        chipClass: 'bg-[#7A1C1C]/12 text-[#7A1C1C]',
-        cardClass: 'border-[#1E1916]/15',
-        description:
-          'Smooth floral honey meets crisp chili crunch and warm spice—sweet, lively, and textured for breakfast tables and bold savory bites.',
-        notes: ['Sweet Honey & Chili Crunch', 'Eggs & Crispy Chicken', 'Sourdough & Pizza Crust'],
-      },
-      {
-        key: 'tomato',
-        code: '03 &bull; Rich Mediterranean Umami',
-        name: 'Sundried Tomato, Basil & Parmesan',
-        ar: 'طماطم وريحان وبارميزان',
-        price: 165,
-        headerClass: 'bg-[#262523] text-[#F7F3EA]',
-        accentClass: 'text-[#E8C97B]',
-        btnClass: 'bg-[#262523] text-[#F7F3EA]',
-        chipClass: 'bg-[#262523]/12 text-[#262523]',
-        cardClass: 'border-[#1E1916]/15',
-        description:
-          'Tangy sundried tomatoes, sweet basil, and aged Parmesan blended into rich hybrid butter—melts into a quick, savory pan sauce in seconds.',
-        notes: ['Sundried Tomato & Parmesan', 'Fresh Basil & Pasta', 'Grilled Chicken & Focaccia'],
-      },
-      {
-        key: 'truffle',
-        code: '04 &bull; Reserve Edition',
-        name: 'Black Truffle & Sea Salt',
-        ar: 'كمأة سوداء وملح بحري',
-        price: 185,
-        headerClass: 'bg-[#1E1916] text-[#F7F3EA] border-b border-[#C59B43]/45',
-        accentClass: 'text-[#E8C97B]',
-        btnClass: 'bg-[#C59B43] text-[#1E1916]',
-        chipClass: 'bg-[#C59B43]/20 text-[#1E1916]',
-        cardClass: 'border-2 border-[#C59B43]',
-        description:
-          'Aromatic truffle olive oil, dark roasted specks, and finishing sea salt over velvety butter—made to finish steaks, risotto, and warm toast.',
-        notes: ['Truffle Aroma & Sea Salt', 'Steak & Mushrooms', 'Risotto, Fries & Toast'],
-      },
+    const CATALOG = [
+      { id: 'garlic-herb', name: 'Roasted Garlic & Herb', price: 145 },
+      { id: 'hot-honey', name: 'Hot Honey & Chili Crunch', price: 155 },
+      { id: 'black-truffle', name: 'Black Truffle & Sea Salt', price: 185 },
     ];
 
-    const SUBAREAS_BY_CITY = {
-      'Heliopolis & Nozha': [
-        { label: 'Heliopolis / Korba / Roxy / Almaza (40 EGP)', fee: 40 },
-        { label: 'El-Nozha / Sheraton (40 EGP)', fee: 40 },
-      ],
-      'Nasr City': [
-        { label: 'Nasr City - All Districts (45 EGP)', fee: 45 },
-      ],
-      'Maadi, Zamalek & West/Central Cairo': [
-        { label: 'Maadi / Degla / Zahraa El Maadi (60 EGP)', fee: 60 },
-        { label: 'Zamalek / Garden City / Downtown (60 EGP)', fee: 60 },
-        { label: 'Dokki / Mohandessin (60 EGP)', fee: 60 },
-      ],
-      'New Cairo': [
-        { label: 'Fifth Settlement / Tagamoa Compounds (75 EGP)', fee: 75 },
-        { label: 'Rehab / Madinaty (85 EGP)', fee: 85 },
-        { label: 'Shorouk / Mostakbal City (85 EGP)', fee: 85 },
-      ],
-      'Sheikh Zayed': [
-        { label: 'Sheikh Zayed / Central Compounds (90 EGP)', fee: 90 },
-        { label: '6th of October / Outer Compounds (105 EGP)', fee: 105 },
-      ],
-    };
-
-    const PROBLEM_CATEGORIES = {
-      quality: {
-        label: 'Food & Butter Quality',
-        forceEscalation: true,
-        problems: [
-          { title: 'Food / butter came bad, off-smelling, or spoiled', tip: '<strong>Quality Alert:</strong> Keep chilled at 0-4 C and describe what happened below so we can send it right to WhatsApp.' },
-          { title: 'Butter arrived warm or melted', tip: '<strong>Cold-Chain Check:</strong> Butters are chilled at 0-4 C before dispatch. Describe how warm it arrived below.' },
-          { title: 'Flavor, salt, spice, or texture wasn&rsquo;t what I expected', tip: '<strong>Taste Feedback:</strong> Our blends mix 50/50 commercial &amp; baladi butter. Share your exact notes below.' },
-        ],
-      },
-      packaging: {
-        label: 'Packaging & Tin Condition',
-        forceEscalation: true,
-        problems: [
-          { title: 'Packaging was bad, messy, or poorly wrapped', tip: '<strong>Packaging Feedback:</strong> Tell us what looked wrong with the packaging below and attach a photo in WhatsApp.' },
-          { title: 'Tin was dented, opened, or unsealed on arrival', tip: '<strong>Seal / Tin Issue:</strong> Note the flavor tin affected and what happened in the box below.' },
-        ],
-      },
-      delivery: {
-        label: 'Delivery & Timing',
-        forceEscalation: false,
-        problems: [
-          { title: 'I need delivery sooner than 2 days', tip: '<strong>2-Day Advance Notice:</strong> Every batch is whipped and chilled fresh to order, so we require at least <strong>2 days advance notice</strong>.' },
-          { title: 'Delivery is late or address / compound needs update', tip: '<strong>Delivery Timing / Address:</strong> Click <em>Not Fixed / Send on WhatsApp Now</em> below to message us directly.' },
-          { title: 'Delivery zone fee question', tip: '<strong>Delivery Zones:</strong> Heliopolis &amp; Nozha (40 EGP), Nasr City (45 EGP), Maadi/Zamalek/West-Central (60 EGP), New Cairo (75-85 EGP), Sheikh Zayed (90-105 EGP).' },
-        ],
-      },
-      payment: {
-        label: 'InstaPay & Deposit',
-        forceEscalation: false,
-        problems: [
-          { title: 'How does the 500+ EGP free sample work?', tip: '<strong>Free Sample Perk:</strong> Any order with over <strong>500 EGP</strong> in butter items/boxes unlocks 1 FREE flavor sample selected in the order form.' },
-          { title: 'How do I send my InstaPay transfer screenshot?', tip: '<strong>InstaPay Screenshot:</strong> Transfer to <strong>01208958884</strong> (<strong>tommy_shams@instapay</strong>) and attach your screenshot directly inside the WhatsApp order chat.' },
-          { title: 'How does the 50% InstaPay deposit + COD work?', tip: '<strong>50% Deposit Option:</strong> Choose <em>COD + 50% Deposit</em> to transfer 50% now via InstaPay (<strong>01208958884</strong> / <strong>tommy_shams@instapay</strong>) and pay the remaining 50% on delivery.' },
-        ],
-      },
-      items: {
-        label: 'Flavors & Quartet Box',
-        forceEscalation: false,
-        problems: [
-          { title: 'What is inside the 4-Flavor Quartet Box (560 EGP)?', tip: '<strong>Quartet Box (560 EGP):</strong> Includes one tin each of Roasted Garlic &amp; Herb, Hot Honey &amp; Chili Crunch, Sundried Tomato/Basil/Parmesan, and Black Truffle &amp; Sea Salt.' },
-          { title: 'Missing tin or wrong flavor received', tip: '<strong>Item Mismatch:</strong> Click <em>Not Fixed / Send on WhatsApp Now</em> below and list which flavor tin was missing or incorrect.' },
-        ],
-      },
-      other: {
-        label: 'Other Problem',
-        forceEscalation: true,
-        problems: [
-          { title: 'Other - I will write my own problem', tip: '<strong>Custom Issue:</strong> Type whatever problem you experienced below and send it straight to <strong>+20 10 41870087</strong> on WhatsApp.' },
-        ],
-      },
-    };
-
-    function escapeHtml(str) {
-      return String(str || '')
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;');
-    }
-
-    function normalizePhone(raw) {
-      let digits = String(raw || '').replace(/\D/g, '');
-      if (digits.startsWith('20') && digits.length === 12) {
-        digits = '0' + digits.slice(2);
-      }
-      return digits;
-    }
-
     const state = {
-      qtys: { garlic: 0, chili: 0, tomato: 0, truffle: 0 },
-      quartetQty: 0,
-      paymentMethod: 'instapay',
-      activeCategoryKey: 'quality',
-      latestIssueMessage: '',
+      quantities: {
+        'garlic-herb': 1,
+        'hot-honey': 1,
+        'black-truffle': 1,
+      },
+      paymentMethod: 'full',
+      rating: 0,
       latestOrderMessage: '',
-      orderReady: false,
-      mapsLink: '',
-      activeInputEl: null,
+      latestFeedbackMessage: '',
+      latestFlavorMessage: '',
     };
 
-    function renderStaticMenuCards() {
-      const sigGrid = document.getElementById('signature-flavors-grid');
-      if (sigGrid) {
-        sigGrid.innerHTML = SIGNATURE_FLAVORS.map(
-          (f) => `
-          <article id="card-${f.key}" class="heritage-card bg-[#EFE9DA]/70 rounded-2xl border ${f.cardClass} overflow-hidden flex flex-col">
-            <div class="${f.headerClass} px-5 py-4 flex items-center justify-between gap-3">
-              <div>
-                <span class="text-[11px] uppercase tracking-[0.18em] ${f.accentClass} font-semibold block">${f.code}</span>
-                <h3 class="font-serif text-2xl sm:text-3xl font-bold leading-tight mt-0.5">${escapeHtml(f.name)}</h3>
-              </div>
-              <div class="text-right shrink-0">
-                <span class="arabic-text text-sm font-bold ${f.accentClass} block">${escapeHtml(f.ar)}</span>
-                <span class="text-lg font-bold text-[#F7F3EA]">${f.price} EGP</span>
-              </div>
-            </div>
-            <div class="p-5 flex-1 flex flex-col justify-between bg-[#F7F3EA]/85">
-              <div>
-                <p class="text-sm text-[#1E1916]/80 leading-relaxed mb-4">${escapeHtml(f.description)}</p>
-                <div class="mb-5">
-                  <span class="block text-[11px] uppercase tracking-wider font-bold text-[#1E1916]/60 mb-2">Tasting Notes &amp; Pairings</span>
-                  <div class="flex flex-wrap gap-1.5">
-                    ${f.notes.map((n) => `<span class="px-2.5 py-1 rounded-full text-xs font-semibold ${f.chipClass}">${escapeHtml(n)}</span>`).join('')}
-                  </div>
-                </div>
-              </div>
-              <div class="pt-4 border-t border-[#1E1916]/12 flex items-center justify-between gap-3">
-                <span id="status-${f.key}" class="text-xs font-semibold text-[#1E1916]/75">${f.price} EGP / tin</span>
-                <div class="inline-flex items-center rounded-xl bg-[#EFE9DA] border border-[#1E1916]/20 p-1">
-                  <button id="dec-${f.key}" type="button" onclick="changeQty('${f.key}', -1)" aria-label="Decrease quantity of ${escapeHtml(f.name)}" class="w-9 h-9 rounded-lg flex items-center justify-center text-lg font-bold text-[#1E1916] hover:bg-[#F7F3EA] active:scale-95 transition cursor-pointer">&minus;</button>
-                  <span id="qty-${f.key}" class="w-9 text-center text-sm font-bold text-[#1E1916]">0</span>
-                  <button id="inc-${f.key}" type="button" onclick="changeQty('${f.key}', 1)" aria-label="Increase quantity of ${escapeHtml(f.name)}" class="w-9 h-9 rounded-lg flex items-center justify-center text-lg font-bold ${f.btnClass} hover:opacity-95 active:scale-95 transition cursor-pointer">+</button>
-                </div>
-              </div>
-            </div>
-          </article>`
-        ).join('');
-      }
+    function formatStars(rating) {
+      if (!rating) return 'Not rated';
+      return '★'.repeat(rating) + '☆'.repeat(5 - rating) + ' (' + rating + '/5)';
     }
 
-    function copyTextWithFeedback(val, btnEl) {
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(val).then(() => {
-          if (!btnEl) return;
-          const orig = btnEl.textContent;
-          btnEl.textContent = 'Copied!';
-          setTimeout(() => {
-            btnEl.textContent = orig;
-          }, 1500);
+    function renderCatalog() {
+      const container = document.getElementById('catalog-list');
+      container.innerHTML = '';
+
+      CATALOG.forEach((item) => {
+        const qty = state.quantities[item.id] || 0;
+        const row = document.createElement('div');
+        row.className = 'item-row';
+        row.innerHTML = `
+          <div>
+            <div class="item-name">${item.name}</div>
+            <div class="item-price">${item.price} EGP</div>
+          </div>
+          <div class="qty-controls">
+            <button type="button" class="qty-btn" data-action="dec" data-id="${item.id}">-</button>
+            <span class="qty-val" id="qty-${item.id}">${qty}</span>
+            <button type="button" class="qty-btn" data-action="inc" data-id="${item.id}">+</button>
+          </div>
+        `;
+        container.appendChild(row);
+      });
+
+      container.querySelectorAll('.qty-btn').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const id = btn.dataset.id;
+          const action = btn.dataset.action;
+          const current = state.quantities[id] || 0;
+          state.quantities[id] = action === 'inc' ? current + 1 : Math.max(0, current - 1);
+          document.getElementById('qty-' + id).textContent = state.quantities[id];
+          updateOrderUI();
         });
-      }
-    }
-
-    function toggleModal(modalId, open) {
-      const modal = document.getElementById(modalId);
-      if (!modal) return;
-      modal.classList.toggle('hidden', !open);
-      modal.classList.toggle('flex', open);
-      if (!open) hideKeyboardBar();
-    }
-
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') {
-        toggleModal('ai-bot-modal', false);
-        closeHelpModal();
-      }
-    });
-
-    function askAiPreset(q) {
-      document.getElementById('ai-bot-input').value = q;
-      sendAiBotMessage();
-    }
-
-    function sendAiBotMessage() {
-      const input = document.getElementById('ai-bot-input');
-      const history = document.getElementById('ai-chat-history');
-      const text = input?.value.trim();
-      if (!text || !history) return;
-      input.value = '';
-
-      const userBubble = document.createElement('div');
-      userBubble.className = 'bg-[#C59B43]/25 text-[#1E1916] rounded-xl p-3 ml-auto max-w-[85%] font-medium';
-      userBubble.textContent = text;
-      history.appendChild(userBubble);
-
-      const q = text.toLowerCase();
-      let reply =
-        'Every Zebda & Co. tin is made from a 50/50 blend of commercial unsalted butter and farmer baladi butter, chilled at 0-4 C, and prepared with a 2-day advance lead time. Ordering is sent directly to WhatsApp (+20 10 41870087).';
-      if (q.includes('sample') || q.includes('500')) {
-        reply =
-          'Orders with over 500 EGP in butter items/boxes (excluding delivery) unlock 1 FREE sample flavor—choose your sample right in the order form and it will be included in your WhatsApp order message.';
-      } else if (q.includes('instapay') || q.includes('cod') || q.includes('deposit')) {
-        reply = 'Pay via InstaPay link (' + INSTAPAY_URL + '), handle (' + INSTAPAY_HANDLE + '), or number (' + INSTAPAY_NUMBER + '). You can pay 100% now or choose COD with a 50% InstaPay deposit now and 50% on delivery, then attach your transfer screenshot on WhatsApp.';
-      } else if (q.includes('steak') || q.includes('pasta') || q.includes('pair') || q.includes('flavor')) {
-        reply =
-          'For steak, mushrooms, and risotto, go with Black Truffle & Sea Salt (185 EGP) or Roasted Garlic & Herb (145 EGP). For pasta and chicken, Sundried Tomato, Basil & Parmesan (165 EGP) melts into an instant pan sauce. For eggs, sourdough, and pizza crusts, try Hot Honey & Chili Crunch (155 EGP)!';
-      }
-
-      const botBubble = document.createElement('div');
-      botBubble.className = 'bg-[#1E1916] text-[#F7F3EA] rounded-xl p-3 max-w-[88%]';
-      botBubble.innerHTML = '<span class="font-bold text-[#E8C97B] block mb-0.5">Zebda AI</span>' + escapeHtml(reply);
-      history.appendChild(botBubble);
-      history.scrollTop = history.scrollHeight;
-    }
-
-    function isTextEntryElement(el) {
-      if (!el?.tagName) return false;
-      const tag = el.tagName.toUpperCase();
-      if (tag === 'TEXTAREA') return true;
-      if (tag === 'INPUT') {
-        return ['text', 'email', 'url', 'tel', 'search', 'number', 'password'].includes((el.type || 'text').toLowerCase());
-      }
-      return false;
-    }
-    function hideKeyboardBar() {
-      document.getElementById('keyboard-helper-bar')?.classList.add('hidden');
-    }
-    function dismissActiveKeyboard() {
-      state.activeInputEl?.blur?.();
-      document.activeElement?.blur?.();
-      state.activeInputEl = null;
-      hideKeyboardBar();
-    }
-    document.addEventListener('focusin', (e) => {
-      if (isTextEntryElement(e.target)) {
-        state.activeInputEl = e.target;
-        document.getElementById('keyboard-helper-bar')?.classList.remove('hidden');
-      }
-    });
-    document.addEventListener('focusout', () => {
-      setTimeout(() => {
-        if (!isTextEntryElement(document.activeElement)) hideKeyboardBar();
-      }, 80);
-    });
-
-    function applyQuickSampleOrder() {
-      state.qtys = {
-        garlic: 1,
-        chili: 1,
-        tomato: 0,
-        truffle: 1,
-      };
-      state.quartetQty = 0;
-      Object.keys(state.qtys).forEach((k) => {
-        const el = document.getElementById('qty-' + k);
-        if (el) el.textContent = state.qtys[k];
       });
-      syncQuartetUI();
-      updateOrderUI();
-    }
-
-    function handleMapsLinkInput() {
-      const raw = document.getElementById('maps-link-input').value.trim();
-      const preview = document.getElementById('maps-preview-link');
-      const status = document.getElementById('gps-status-text');
-      state.mapsLink = raw;
-      if (raw && /^https?:\/\//i.test(raw)) {
-        preview.href = raw;
-        preview.classList.remove('hidden');
-        status.textContent = 'Google Maps pin ready to include in your WhatsApp order.';
-      } else {
-        preview.href = '#';
-        preview.classList.add('hidden');
-        status.textContent = 'Paste a Google Maps pin URL or use your current GPS pin so we have your exact drop-off point.';
-      }
-      updateOrderUI();
-    }
-
-    function fillCurrentGpsLocation() {
-      const status = document.getElementById('gps-status-text');
-      const input = document.getElementById('maps-link-input');
-      if (!navigator.geolocation) {
-        status.textContent = 'Geolocation is not supported in this browser—paste a Google Maps link manually.';
-        return;
-      }
-      status.textContent = 'Getting your current GPS coordinates...';
-      navigator.geolocation.getCurrentPosition(
-        (pos) => {
-          const lat = pos.coords.latitude.toFixed(6);
-          const lng = pos.coords.longitude.toFixed(6);
-          input.value = 'https://www.google.com/maps?q=' + lat + ',' + lng;
-          handleMapsLinkInput();
-          status.textContent = 'Captured GPS pin (' + lat + ', ' + lng + ') - will be sent on WhatsApp.';
-        },
-        () => {
-          status.textContent = 'Could not read GPS automatically—paste a Google Maps link or share location in WhatsApp.';
-        },
-        { enableHighAccuracy: true, timeout: 10000 }
-      );
-    }
-
-    function changeQty(key, delta) {
-      state.qtys[key] = Math.max(0, (state.qtys[key] || 0) + delta);
-      const el = document.getElementById('qty-' + key);
-      if (el) el.textContent = state.qtys[key];
-      updateOrderUI();
-    }
-
-    function changeQuartetQty(delta) {
-      state.quartetQty = Math.max(0, state.quartetQty + delta);
-      syncQuartetUI();
-      updateOrderUI();
-    }
-
-    function toggleQuartet() {
-      state.quartetQty = state.quartetQty > 0 ? 0 : 1;
-      syncQuartetUI();
-      updateOrderUI();
-    }
-
-    function syncQuartetUI() {
-      const qtyEl = document.getElementById('qty-quartet');
-      const btnEl = document.getElementById('quartet-toggle-btn');
-      if (qtyEl) qtyEl.textContent = state.quartetQty;
-      if (btnEl) {
-        btnEl.textContent = state.quartetQty > 0 ? 'Added (' + state.quartetQty + ' Box) - Tap to Clear' : '+ Add Quartet Box (560 EGP)';
-      }
-    }
-
-    function setPaymentMethod(method) {
-      state.paymentMethod = method;
-      const instaBtn = document.getElementById('pay-btn-instapay');
-      const codBtn = document.getElementById('pay-btn-cod');
-      const activeInsta = method === 'instapay';
-      instaBtn.className = activeInsta
-        ? 'p-3 rounded-xl text-left border-2 transition cursor-pointer bg-[#1E4620] text-[#F7F3EA] border-[#1E4620]'
-        : 'p-3 rounded-xl text-left border-2 transition cursor-pointer bg-[#F7F3EA] text-[#1E1916] border-[#1E1916]/20 hover:border-[#1E1916]/45';
-      codBtn.className = !activeInsta
-        ? 'p-3 rounded-xl text-left border-2 transition cursor-pointer bg-[#7A1C1C] text-[#F7F3EA] border-[#7A1C1C]'
-        : 'p-3 rounded-xl text-left border-2 transition cursor-pointer bg-[#F7F3EA] text-[#1E1916] border-[#1E1916]/20 hover:border-[#1E1916]/45';
-      updateOrderUI();
-    }
-
-    function handleCityChange() {
-      const city = document.getElementById('city-select').value;
-      const subSelect = document.getElementById('subarea-select');
-      const options = SUBAREAS_BY_CITY[city] || [{ label: city + ' (50 EGP)', fee: 50 }];
-      subSelect.innerHTML = '';
-      options.forEach((opt) => {
-        const optionEl = document.createElement('option');
-        optionEl.value = opt.fee;
-        optionEl.textContent = opt.label;
-        optionEl.dataset.label = opt.label;
-        subSelect.appendChild(optionEl);
-      });
-      updateOrderUI();
-    }
-
-    function checkDeliveryDateLeadTime(dateStr) {
-      const warnEl = document.getElementById('lead-time-warning');
-      if (!warnEl) return;
-      if (!dateStr) {
-        warnEl.classList.add('hidden');
-        return;
-      }
-      const chosen = new Date(dateStr + 'T00:00:00');
-      const now = new Date();
-      const todayMidnight = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-      const diffDays = (chosen - todayMidnight) / 86400000;
-      warnEl.classList.toggle('hidden', diffDays >= 2);
-    }
-
-    function buildOrganizedWhatsAppOrderMessage({
-      itemsLines,
-      selectedFreeSample,
-      freeSampleUnlocked,
-      itemsTotal,
-      city,
-      subareaLabel,
-      deliveryFee,
-      grandTotal,
-      instaPayDueNow,
-      codRemaining,
-      customerName,
-      customerPhoneNorm,
-      addressDetail,
-      mapsLink,
-      deliveryDate,
-    }) {
-      const isCod = state.paymentMethod === 'cod';
-      const formattedItems = itemsLines.length
-        ? itemsLines.map((l) => '• ' + l).join('
-')
-        : '• No items selected yet';
-
-      const customerBlock = [
-        '👤 *Customer Details*',
-        '• Name: ' + (customerName || 'Not provided yet'),
-        '• Phone: ' + (customerPhoneNorm || 'Not provided yet'),
-      ].join('
-');
-
-      const deliveryBlock = [
-        '🚚 *Delivery & Schedule*',
-        '• Zone: ' + city,
-        '• Sub-Area: ' + subareaLabel,
-        '• Address: ' + (addressDetail || 'Not provided yet'),
-        deliveryDate ? '• Preferred Date: ' + deliveryDate + ' (2-day notice)' : '• Lead Time: At least 2 days advance notice',
-        mapsLink ? '• Map Pin: ' + mapsLink : '',
-      ]
-        .filter(Boolean)
-        .join('
-');
-
-      const itemsBlock = [
-        '🧈 *Selected Order*',
-        formattedItems,
-        freeSampleUnlocked ? '🎁 FREE Sample (>500 EGP): ' + selectedFreeSample + ' (0 EGP)' : '',
-      ]
-        .filter(Boolean)
-        .join('
-');
-
-      const totalsBlock = [
-        '🧾 *Order Total*',
-        '• Items Subtotal: ' + itemsTotal + ' EGP',
-        '• Delivery Fee: ' + deliveryFee + ' EGP',
-        '• *Grand Total: ' + grandTotal + ' EGP*',
-      ].join('
-');
-
-      const paymentBlock = isCod
-        ? [
-            '💳 *Payment (COD + 50% Deposit)*',
-            '• InstaPay Deposit Now (50%): *' + instaPayDueNow + ' EGP*',
-            '• Remaining on Delivery: *' + codRemaining + ' EGP*',
-            '• Handle: ' + INSTAPAY_HANDLE,
-            '• Mobile: ' + INSTAPAY_NUMBER,
-            '• Link: ' + INSTAPAY_URL,
-            '• Next Step: Please attach your InstaPay screenshot here.',
-          ].join('
-')
-        : [
-            '💳 *Payment (100% InstaPay)*',
-            '• Transfer Due Now: *' + instaPayDueNow + ' EGP*',
-            '• Handle: ' + INSTAPAY_HANDLE,
-            '• Mobile: ' + INSTAPAY_NUMBER,
-            '• Link: ' + INSTAPAY_URL,
-            '• Next Step: Please attach your InstaPay screenshot here.',
-          ].join('
-');
-
-      return [
-        '✨ *ZEBDA & CO. | زبدة وشركاه*',
-        'New Order Request (2-Day Advance Notice)',
-        '━━━━━━━━━━━━━━━━━━━━',
-        customerBlock,
-        '',
-        deliveryBlock,
-        '',
-        itemsBlock,
-        '',
-        totalsBlock,
-        '',
-        paymentBlock,
-      ].join('
-');
     }
 
     function updateOrderUI() {
-      const city = document.getElementById('city-select').value;
-      const subSelect = document.getElementById('subarea-select');
-      const selectedOption = subSelect.options[subSelect.selectedIndex];
-      const deliveryFee = selectedOption ? Number(selectedOption.value) : 40;
-      const subareaLabel = selectedOption ? selectedOption.dataset.label : city;
-      const customerName = document.getElementById('customer-name').value.trim();
-      const customerPhoneRaw = document.getElementById('customer-phone').value.trim();
-      const customerPhoneNorm = normalizePhone(customerPhoneRaw);
-      const addressDetail = document.getElementById('address-detail').value.trim();
-      const mapsLink = document.getElementById('maps-link-input').value.trim();
-      const deliveryDate = document.getElementById('delivery-date-input').value;
-      checkDeliveryDateLeadTime(deliveryDate);
-
       let itemsTotal = 0;
-      let totalCount = 0;
-      const itemSummaryLines = [];
-      const messageItemLines = [];
+      const lines = [];
 
-      SIGNATURE_FLAVORS.forEach((f) => {
-        const qty = state.qtys[f.key] || 0;
+      CATALOG.forEach((item) => {
+        const qty = state.quantities[item.id] || 0;
         if (qty > 0) {
-          const lineTotal = qty * f.price;
+          const lineTotal = qty * item.price;
           itemsTotal += lineTotal;
-          totalCount += qty;
-          itemSummaryLines.push('- ' + f.name + ' x ' + qty + ' = ' + lineTotal + ' EGP');
-          messageItemLines.push(f.name + ' (' + f.ar + ') ×' + qty + ' — ' + lineTotal + ' EGP');
+          lines.push('• ' + item.name + ' x ' + qty + ' — ' + lineTotal + ' EGP');
         }
       });
 
-      if (state.quartetQty > 0) {
-        const qTotal = state.quartetQty * QUARTET_PRICE;
-        itemsTotal += qTotal;
-        totalCount += state.quartetQty;
-        itemSummaryLines.push('- 4-Flavor Quartet Box x ' + state.quartetQty + ' = ' + qTotal + ' EGP');
-        messageItemLines.push('4-Flavor Quartet Box ×' + state.quartetQty + ' — ' + qTotal + ' EGP');
-      }
+      const freeSampleUnlocked = itemsTotal > 500;
+      document.getElementById('free-sample-box').style.display = freeSampleUnlocked ? 'block' : 'none';
+      const selectedFreeSample = document.getElementById('free-sample-select').value;
 
-      const freeSampleUnlocked = itemsTotal > FREE_SAMPLE_THRESHOLD;
-      const sampleBadge = document.getElementById('sample-status-badge');
-      const sampleProgressText = document.getElementById('sample-progress-text');
-      const samplePickerWrap = document.getElementById('free-sample-picker-wrap');
-      const sampleSelect = document.getElementById('free-sample-select');
-      const summarySampleRow = document.getElementById('summary-free-sample-row');
-      let selectedFreeSample = '';
-
-      if (freeSampleUnlocked) {
-        selectedFreeSample = sampleSelect.value;
-        sampleBadge.textContent = 'Unlocked (FREE)';
-        sampleBadge.className = 'px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#1E4620] text-[#F7F3EA]';
-        sampleProgressText.innerHTML = 'Your items subtotal is <strong>' + itemsTotal + ' EGP</strong> (over 500 EGP). Pick 1 FREE flavor sample below:';
-        samplePickerWrap.classList.remove('hidden');
-        summarySampleRow.classList.remove('hidden');
-        document.getElementById('summary-free-sample-flavor').textContent = selectedFreeSample;
-      } else {
-        const neededOver500 = FREE_SAMPLE_THRESHOLD + 1 - itemsTotal;
-        sampleBadge.textContent = 'Locked';
-        sampleBadge.className = 'px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#EFE9DA] text-[#1E1916]/75 border border-[#1E1916]/15';
-        sampleProgressText.innerHTML = 'Items subtotal is <strong>' + itemsTotal + ' EGP</strong>. Add <strong>' + neededOver500 + ' EGP</strong> more in items (excluding delivery) to unlock a FREE sample.';
-        samplePickerWrap.classList.add('hidden');
-        summarySampleRow.classList.add('hidden');
-      }
-
+      const zoneSelect = document.getElementById('delivery-zone');
+      const deliveryFee = Number(zoneSelect.value || 0);
+      const subareaLabel = zoneSelect.options[zoneSelect.selectedIndex].dataset.label;
       const grandTotal = itemsTotal + deliveryFee;
-      const instaPayDueNow = state.paymentMethod === 'cod' ? Math.ceil(grandTotal * 0.5) : grandTotal;
-      const codRemaining = state.paymentMethod === 'cod' ? Math.max(0, grandTotal - instaPayDueNow) : 0;
 
-      const itemsListEl = document.getElementById('order-items-list');
-      itemsListEl.innerHTML = itemSummaryLines.length
-        ? itemSummaryLines.map((l) => '<div class="font-medium text-[#1E1916]">' + escapeHtml(l) + '</div>').join('')
-        : '<p class="text-xs italic text-[#1E1916]/60">No butter tins or Quartet Boxes selected yet.</p>';
+      const instaPayDueNow =
+        state.paymentMethod === 'cod' ? Math.ceil(grandTotal * 0.5) : grandTotal;
+      const codRemaining = Math.max(0, grandTotal - instaPayDueNow);
 
-      document.getElementById('selected-delivery-badge').textContent = 'Delivery: ' + deliveryFee + ' EGP';
-      document.getElementById('panel-total').textContent = grandTotal + ' EGP';
-      document.getElementById('summary-items-total').textContent = itemsTotal + ' EGP';
-      document.getElementById('summary-location-label').textContent = city;
-      document.getElementById('summary-delivery-fee').textContent = deliveryFee + ' EGP';
-      document.getElementById('summary-grand-total').textContent = grandTotal + ' EGP';
-      document.getElementById('instapay-due-now').textContent = instaPayDueNow + ' EGP';
-      document.getElementById('cod-remaining-due').textContent = codRemaining + ' EGP';
-      document.getElementById('summary-instapay-now').textContent = instaPayDueNow + ' EGP';
-      document.getElementById('sticky-qty-count').textContent = totalCount + ' ' + (totalCount === 1 ? 'item' : 'items');
-      document.getElementById('sticky-instapay').textContent = instaPayDueNow + ' EGP';
-      document.getElementById('sticky-total').textContent = grandTotal + ' EGP';
+      document.getElementById('ui-subtotal').textContent = itemsTotal + ' EGP';
+      document.getElementById('ui-delivery').textContent = deliveryFee + ' EGP';
+      document.getElementById('ui-total').textContent = grandTotal + ' EGP';
+      document.getElementById('ui-instapay-now').textContent = instaPayDueNow + ' EGP';
 
-      state.latestOrderMessage = buildOrganizedWhatsAppOrderMessage({
-        itemsLines: messageItemLines,
-        selectedFreeSample,
-        freeSampleUnlocked,
-        itemsTotal,
-        city,
-        subareaLabel,
-        deliveryFee,
-        grandTotal,
-        instaPayDueNow,
-        codRemaining,
-        customerName,
-        customerPhoneNorm,
-        addressDetail,
-        mapsLink,
-        deliveryDate,
+      const customerName = document.getElementById('customer-name').value.trim();
+      const customerPhoneNorm = document.getElementById('customer-phone').value.trim();
+      const addressDetail = document.getElementById('address-detail').value.trim();
+      const deliveryDate = document.getElementById('delivery-date').value.trim();
+      const mapsLink = document.getElementById('maps-link').value.trim();
+
+      const paymentText =
+        state.paymentMethod === 'cod'
+          ? 'COD with 50% InstaPay Deposit (Pay Now: ' +
+            instaPayDueNow +
+            ' EGP | On Delivery: ' +
+            codRemaining +
+            ' EGP)'
+          : '100% InstaPay Now (' + instaPayDueNow + ' EGP)';
+
+      state.latestOrderMessage = [
+        '🧈 ZEBDA & CO. | زبدة وشركاه 🧈',
+        '✨ New Order Request ✨',
+        '',
+        '🛒 ITEMS ORDERED',
+        lines.length ? lines.join('\n') : '• No items selected yet',
+        freeSampleUnlocked
+          ? '🎁 FREE Sample (>500 EGP Items): ' + selectedFreeSample + ' — 0 EGP'
+          : '',
+        '',
+        '🧾 ORDER SUMMARY',
+        '• Items Subtotal: ' + itemsTotal + ' EGP',
+        '• Delivery (' + subareaLabel + '): ' + deliveryFee + ' EGP',
+        '• Total Order: ' + grandTotal + ' EGP',
+        '',
+        '💳 PAYMENT DETAILS',
+        '• Method: ' + paymentText,
+        '• InstaPay Handle: ' + INSTAPAY_HANDLE,
+        '• InstaPay Mobile: ' + INSTAPAY_NUMBER,
+        '• Quick Link: ' + INSTAPAY_URL,
+        '📸 Please attach your transfer screenshot here in WhatsApp.',
+        '',
+        '📍 DELIVERY & CUSTOMER INFO',
+        customerName ? '• Name: ' + customerName : '',
+        customerPhoneNorm ? '• Phone: ' + customerPhoneNorm : '',
+        addressDetail ? '• Address & Day: ' + addressDetail : '',
+        deliveryDate ? '• Preferred Date: ' + deliveryDate : '',
+        mapsLink ? '• Map Pin: ' + mapsLink : '',
+        '',
+        '❄️ Note: Freshly whipped & chilled (0–4°C) with at least 2 days advance notice.',
+      ]
+        .filter((line, idx, arr) => {
+          if (line !== '') return true;
+          return idx > 0 && idx < arr.length - 1 && arr[idx - 1] !== '';
+        })
+        .join('\n');
+
+      document.getElementById('order-preview').textContent = state.latestOrderMessage;
+      document.getElementById('wa-order-link').href =
+        'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(state.latestOrderMessage);
+    }
+
+    function renderStars() {
+      const labels = {
+        1: '1/5 — Needs Improvement',
+        2: '2/5 — Fair',
+        3: '3/5 — Good',
+        4: '4/5 — Great',
+        5: '5/5 — Loved It!',
+      };
+
+      document.querySelectorAll('.star-btn').forEach((btn) => {
+        const val = Number(btn.dataset.star);
+        btn.classList.toggle('active', val <= state.rating);
       });
 
-      const previewEl = document.getElementById('whatsapp-message-preview');
-      if (previewEl) {
-        previewEl.textContent = state.latestOrderMessage;
-      }
-
-      const missing = [];
-      if (totalCount === 0) missing.push('Select at least 1 butter tin or Quartet Box');
-      if (!customerName) missing.push('Enter your full name');
-      if (customerPhoneNorm.length < 10) missing.push('Enter a valid 11-digit Egyptian mobile number (e.g. 010...)');
-      if (!addressDetail) missing.push('Enter your full address / location & delivery day');
-      state.orderReady = missing.length === 0;
-
-      const alertBox = document.getElementById('missing-fields-alert');
-      const alertList = document.getElementById('missing-fields-list');
-      const waBtn = document.getElementById('whatsapp-order-btn');
-      const stickyWaBtn = document.getElementById('sticky-whatsapp-btn');
-
-      if (!state.orderReady) {
-        alertBox.classList.remove('hidden');
-        alertList.innerHTML = missing.map((m) => '<li>' + m + '</li>').join('');
-        waBtn.href = '#';
-        waBtn.setAttribute('aria-disabled', 'true');
-        waBtn.className = 'w-full py-3.5 px-5 rounded-xl bg-[#1E1916]/35 text-[#F7F3EA]/80 font-bold text-sm text-center flex items-center justify-center gap-2 cursor-not-allowed transition shadow';
-        waBtn.innerHTML = '<span>Fill All Required Details to Send on WhatsApp</span>';
-        stickyWaBtn.href = '#';
-        stickyWaBtn.setAttribute('aria-disabled', 'true');
-        stickyWaBtn.className = 'py-2.5 px-4 sm:px-5 rounded-xl bg-[#C59B43]/40 text-[#F7F3EA]/75 font-bold text-xs sm:text-sm cursor-not-allowed transition';
-      } else {
-        alertBox.classList.add('hidden');
-        const waUrl = 'https://wa.me/' + WHATSAPP_DIGITS + '?text=' + encodeURIComponent(state.latestOrderMessage);
-        waBtn.href = waUrl;
-        waBtn.setAttribute('aria-disabled', 'false');
-        waBtn.className = 'w-full py-3.5 px-5 rounded-xl bg-[#1E4620] text-[#F7F3EA] font-bold text-sm text-center flex items-center justify-center gap-2 hover:opacity-95 transition shadow cursor-pointer';
-        waBtn.innerHTML = '<span>Send Order on WhatsApp (+20 10 41870087)</span>';
-        stickyWaBtn.href = waUrl;
-        stickyWaBtn.setAttribute('aria-disabled', 'false');
-        stickyWaBtn.className = 'py-2.5 px-4 sm:px-5 rounded-xl bg-[#C59B43] text-[#1E1916] font-bold text-xs sm:text-sm hover:brightness-105 transition cursor-pointer';
-      }
+      document.getElementById('rating-text').textContent =
+        state.rating > 0 ? labels[state.rating] : 'Not selected';
     }
 
-    function copyOrderSummaryText() {
-      if (!state.latestOrderMessage) return;
-      copyTextWithFeedback(state.latestOrderMessage, document.getElementById('copy-order-text-btn'));
-      const btn = document.getElementById('copy-order-text-btn');
-      if (btn) {
-        const orig = btn.textContent;
-        btn.textContent = 'Copied Order Text!';
-        setTimeout(() => { btn.textContent = orig; }, 1800);
-      }
+    function updateFeedbackUI() {
+      const kind = document.getElementById('feedback-kind').value;
+      const orderInfo = document.getElementById('feedback-order-info').value.trim();
+      const details = document.getElementById('feedback-details').value.trim();
+      const name = document.getElementById('feedback-name').value.trim();
+      const phone = document.getElementById('feedback-phone').value.trim();
+
+      state.latestFeedbackMessage = [
+        '🧈 ZEBDA & CO. | زبدة وشركاه 🧈',
+        '💬 Feedback & Support Message 💬',
+        '',
+        '📋 Type: ' + kind,
+        state.rating > 0 ? '⭐ Star Rating: ' + formatStars(state.rating) : '',
+        orderInfo ? '📦 Order / Batch Info: ' + orderInfo : '',
+        '',
+        '📝 Details:',
+        details || '[Write your feedback or describe the issue here]',
+        '',
+        name || phone ? '👤 Customer Info' : '',
+        name ? '• Name: ' + name : '',
+        phone ? '• Phone: ' + phone : '',
+        '',
+        '🙏 Thank you for helping us keep every tin fresh and top quality!',
+      ]
+        .filter((line, idx, arr) => {
+          if (line !== '') return true;
+          return idx > 0 && idx < arr.length - 1 && arr[idx - 1] !== '';
+        })
+        .join('\n');
+
+      document.getElementById('feedback-preview').textContent = state.latestFeedbackMessage;
+      document.getElementById('wa-feedback-link').href =
+        'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(state.latestFeedbackMessage);
     }
 
-    function handleWhatsAppOrderClick(event) {
-      if (!state.orderReady) {
-        event.preventDefault();
-        document.getElementById('missing-fields-alert')?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-        return false;
-      }
-      return true;
+    function updateFlavorUI() {
+      const flavorName = document.getElementById('flavor-name').value.trim();
+      const pairings = document.getElementById('flavor-pairings').value.trim();
+      const vibe = document.getElementById('flavor-vibe').value.trim();
+      const name = document.getElementById('flavor-name-by').value.trim();
+      const phone = document.getElementById('flavor-phone-by').value.trim();
+
+      state.latestFlavorMessage = [
+        '🧈 ZEBDA & CO. | زبدة وشركاه 🧈',
+        '💡 New Flavor Idea 💡',
+        '',
+        '😋 Suggested Flavor / Type: ' + (flavorName || '[e.g., Cinnamon Maple, Spicy Garlic Herb]'),
+        pairings ? '🍞 Best Pairings / Use: ' + pairings : '',
+        vibe ? '🔥 Spice / Sweetness Profile: ' + vibe : '',
+        '',
+        name || phone ? '👤 Suggested By' : '',
+        name ? '• Name: ' + name : '',
+        phone ? '• Phone: ' + phone : '',
+        '',
+        '✨ Great flavors start with great ideas—thanks for sharing yours!',
+      ]
+        .filter((line, idx, arr) => {
+          if (line !== '') return true;
+          return idx > 0 && idx < arr.length - 1 && arr[idx - 1] !== '';
+        })
+        .join('\n');
+
+      document.getElementById('flavor-preview').textContent = state.latestFlavorMessage;
+      document.getElementById('wa-flavor-link').href =
+        'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(state.latestFlavorMessage);
     }
 
-    function openHelpModal() {
-      resetHelpModal();
-      toggleModal('help-modal', true);
+    function copyText(text, toastElId) {
+      const toast = document.getElementById(toastElId);
+      navigator.clipboard.writeText(text).then(
+        () => {
+          toast.textContent = '✅ Copied to clipboard!';
+          setTimeout(() => { toast.textContent = ''; }, 2500);
+        },
+        () => {
+          toast.textContent = 'Select and copy the message box above.';
+        }
+      );
     }
-    function closeHelpModal() {
-      toggleModal('help-modal', false);
-    }
-    function resetHelpModal() {
-      document.getElementById('help-section-1').classList.remove('hidden');
-      document.getElementById('help-section-2').classList.add('hidden');
-      document.getElementById('help-solved-state').classList.add('hidden');
-      document.getElementById('escalation-details-box').classList.add('hidden');
-      document.getElementById('custom-problem-input').value = '';
-      document.getElementById('gate-confirm-checkbox').checked = false;
-      updateEscalationLink();
-    }
-    function selectMainCategory(categoryKey) {
-      state.activeCategoryKey = categoryKey;
-      const cat = PROBLEM_CATEGORIES[categoryKey];
-      if (!cat) return;
-      document.getElementById('help-section-1').classList.add('hidden');
-      document.getElementById('help-section-2').classList.remove('hidden');
-      document.getElementById('selected-category-badge').textContent = 'Main Type: ' + cat.label;
-      const selectEl = document.getElementById('specific-problem-select');
-      selectEl.innerHTML = '';
-      cat.problems.forEach((p, idx) => {
-        const opt = document.createElement('option');
-        opt.value = idx;
-        opt.textContent = p.title;
-        selectEl.appendChild(opt);
+
+    document.querySelectorAll('.star-btn').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const clicked = Number(btn.dataset.star);
+        state.rating = state.rating === clicked ? 0 : clicked;
+        renderStars();
+        updateFeedbackUI();
       });
-      document.getElementById('custom-problem-input').value = '';
-      document.getElementById('gate-confirm-checkbox').checked = false;
-      document.getElementById('routine-fix-controls').classList.toggle('hidden', cat.forceEscalation);
-      document.getElementById('escalation-details-box').classList.toggle('hidden', !cat.forceEscalation);
-      handleSpecificProblemChange();
-    }
-    function handleSpecificProblemChange() {
-      const cat = PROBLEM_CATEGORIES[state.activeCategoryKey];
-      const idx = Number(document.getElementById('specific-problem-select').value || 0);
-      const item = cat?.problems[idx];
-      if (item) document.getElementById('self-check-tip-box').innerHTML = item.tip;
-      updateEscalationLink();
-    }
-    function showEscalationBox() {
-      document.getElementById('escalation-details-box').classList.remove('hidden');
-      document.getElementById('custom-problem-input').focus();
-      updateEscalationLink();
-    }
-    function markHelpSolved() {
-      document.getElementById('help-section-2').classList.add('hidden');
-      document.getElementById('help-solved-state').classList.remove('hidden');
-    }
-    function updateEscalationLink() {
-      const cat = PROBLEM_CATEGORIES[state.activeCategoryKey];
-      const idx = Number(document.getElementById('specific-problem-select')?.value || 0);
-      const specificTitle = cat?.problems[idx]?.title || 'General Issue';
-      const customText = document.getElementById('custom-problem-input').value.trim();
-      const checked = document.getElementById('gate-confirm-checkbox').checked;
-      const btn = document.getElementById('instant-send-whatsapp-btn');
-      const copyBtn = document.getElementById('copy-issue-text-btn');
-      const hint = document.getElementById('escalation-status-hint');
+    });
 
-      if (checked && customText.length >= 10) {
-        const customerName = document.getElementById('customer-name').value.trim();
-        const msg = [
-          '✨ *ZEBDA & CO. | زبدة وشركاه*',
-          'Problem / Feedback Alert',
-          '━━━━━━━━━━━━━━━━━━━━',
-          '📌 *Issue Summary*',
-          '• Category: ' + (cat ? cat.label : state.activeCategoryKey),
-          '• Specific Issue: ' + specificTitle,
-          customerName ? '• Customer: ' + customerName : '',
-          '',
-          '📝 *Details*',
-          customText,
-        ]
-          .filter(Boolean)
-          .join('
-');
-        state.latestIssueMessage = msg;
-        btn.href = 'https://wa.me/' + WHATSAPP_DIGITS + '?text=' + encodeURIComponent(msg);
-        btn.classList.remove('hidden');
-        copyBtn.classList.remove('hidden');
-        hint.classList.add('hidden');
-      } else {
-        state.latestIssueMessage = '';
-        btn.classList.add('hidden');
-        copyBtn.classList.add('hidden');
-        hint.classList.remove('hidden');
-      }
-    }
-    function copyIssueSummary() {
-      if (!state.latestIssueMessage) return;
-      copyTextWithFeedback(state.latestIssueMessage, document.getElementById('copy-issue-text-btn'));
-    }
+    document.querySelectorAll('input[name="payment-method"]').forEach((radio) => {
+      radio.addEventListener('change', (e) => {
+        state.paymentMethod = e.target.value;
+        updateOrderUI();
+      });
+    });
 
-    renderStaticMenuCards();
-    handleCityChange();
+    [
+      'customer-name',
+      'customer-phone',
+      'delivery-zone',
+      'address-detail',
+      'delivery-date',
+      'maps-link',
+      'free-sample-select',
+    ].forEach((id) => {
+      document.getElementById(id).addEventListener('input', updateOrderUI);
+      document.getElementById(id).addEventListener('change', updateOrderUI);
+    });
+
+    [
+      'feedback-kind',
+      'feedback-order-info',
+      'feedback-details',
+      'feedback-name',
+      'feedback-phone',
+    ].forEach((id) => {
+      document.getElementById(id).addEventListener('input', updateFeedbackUI);
+      document.getElementById(id).addEventListener('change', updateFeedbackUI);
+    });
+
+    [
+      'flavor-name',
+      'flavor-pairings',
+      'flavor-vibe',
+      'flavor-name-by',
+      'flavor-phone-by',
+    ].forEach((id) => {
+      document.getElementById(id).addEventListener('input', updateFlavorUI);
+      document.getElementById(id).addEventListener('change', updateFlavorUI);
+    });
+
+    document.getElementById('copy-order-btn').addEventListener('click', () => {
+      copyText(state.latestOrderMessage, 'order-toast');
+    });
+
+    document.getElementById('copy-feedback-btn').addEventListener('click', () => {
+      copyText(state.latestFeedbackMessage, 'feedback-toast');
+    });
+
+    document.getElementById('copy-flavor-btn').addEventListener('click', () => {
+      copyText(state.latestFlavorMessage, 'flavor-toast');
+    });
+
+    renderCatalog();
+    renderStars();
     updateOrderUI();
+    updateFeedbackUI();
+    updateFlavorUI();
   </script>
 </body>
 </html>
